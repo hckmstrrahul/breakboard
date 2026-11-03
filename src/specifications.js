@@ -22,5 +22,8 @@ export function mergedSpecifications(board,part){
   const row=[label,[value,displayUnit].filter(Boolean).join(' ')];
   if(!rows.some(existing=>existing[0]===row[0]&&existing[1]===row[1]))rows.push(row);
  }
+ const dimensions=board.dimensions.replace(/MM\b/,'mm').replace(/ CARRIER$/,'');
+ const normalize=value=>String(value).toLowerCase().replace(/\s/g,'');
+ if(!rows.some(([,value])=>normalize(value)===normalize(dimensions)))rows.push(['Board dimensions',dimensions]);
  return rows;
 }

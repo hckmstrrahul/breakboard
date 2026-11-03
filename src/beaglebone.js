@@ -21,7 +21,9 @@ export const BEAGLE_PARTS=[
  part('display','TDA19988 HDMI transmitter','DIGITAL DISPLAY','The HDMI transmitter converts the processor’s display interface into the signal delivered by the underside micro-HDMI port.',[20.5,2,-12.4],[6,24,-3],[['Device','TDA19988'],['Output','Micro-HDMI'],['Audio','HDMI audio']]),
  part('underside','Underside connectors','USB DEVICE · MICRO-HDMI · MICROSD','Mini-USB device, micro-HDMI and microSD connectors sit beneath the PCB. This group separates downward to expose their metal shells and contacts.',[32,-2,-8],[0,-9,0],[['USB device','Mini-B'],['Display','Micro-HDMI'],['Storage','microSD']]),
  part('buttons','Power, reset & boot buttons','THREE MOMENTARY SWITCHES','Power and reset switches sit near the left edge. The boot-selection switch is near the microSD end of the board.',[-33,2,-19],[0,12,-5],[['S1','Reset'],['S2','Boot select'],['S3','Power']]),
- part('smd','SMD components','CLOCKS · FILTERS · PASSIVES','Small passives, clocks, indicators and supporting packages form one selectable group. Their visible placement is reconstructed from official photographs; individual passive values are not inferred.',[-3,2,12],[0,9,0],[['Location','Both sides'],['Grouping','One assembly'],['Layout','Photo reconstruction']]),
+ part('uart','Serial debug header','J1 · UART0 CONSOLE','The six-pin serial header gives access to the boot console through a 3.3 V serial adapter. It is separate from the P8 and P9 cape headers.',[6.3,4.5,20.2],[0,12,5],[['Header','J1 · 6 positions'],['Interface','UART0 · 3.3 V']]),
+ part('leds','Power & user LEDs','POWER · USR0–USR3','Four user LEDs indicate software-controlled activity and a separate LED indicates power. Playback uses illustrative activity rather than live operating-system status.',[-40,1.5,-17.15],[-5,10,-2],[['User indicators','4 · USR0–USR3'],['Power indicator','1']]),
+ part('smd','SMD components','CLOCKS · FILTERS · PASSIVES','Small passives, clocks and supporting packages form one selectable group. Their visible placement is reconstructed from official photographs; individual passive values are not inferred.',[-3,2,12],[0,9,0],[['Location','Both sides'],['Grouping','One assembly'],['Layout','Photo reconstruction']]),
  part('board','BeagleBone Black PCB','REVISION C MAINBOARD','The black PCB uses the dimensioned official outline: 3.400 × 2.150 inches, including the unequal corner radii and four mounting holes. The cape header footprint has 92 plated through-holes.',[0,.8,11],[0,0,0],[['Outline','86.36 × 54.61 mm'],['PCB layers','6'],['Thickness','1.5748 mm']])
 ];
 BEAGLE_PARTS.forEach((p,i)=>{p.n=String(i+1).padStart(2,'0');p.detail=!['cpu','memory','emmc','headers','board'].includes(p.id);});
@@ -81,9 +83,9 @@ export function buildBeagleBone(){
  for(const[x,z,n,pitch,rows]of fields)for(let row=0;row<rows;row++)for(let i=0;i<n;i++)passive(smd,{x:x+i*pitch,z:z+row*1.8,width:1,depth:.5,color:(i+row)%4?'#1e2220':'#b8a68a'});
  for(const[x,z]of[[-14.7,12],[-12.3,12],[-19,18.7],[-15,18.7],[-10,18.7],[13.5,13.6],[12.5,17.3]])passive(smd,{x,z,width:2.1,depth:1.3});
  for(const[x,z,w,d]of[[-18,2.2,5,3],[8,12.5,4,7],[-3,-14.8,3.2,2.5]]){box(smd,w,.8,d,[x,1.3,z],M.silver,.3);box(smd,w-.5,.03,d-.5,[x,1.72,z],M.black,.2);}
- pinHeader(smd,{x:6.3,z:20.2,count:6,axis:'x',height:2.5,pinLength:6.2});
- for(let i=0;i<4;i++){box(smd,1.6,.6,.9,[-40,1.15,-20+i*1.9],indicatorMaterial('#6da8ed','activity',i*.9),.12);}
- box(smd,1.6,.6,.9,[-39.5,1.15,11.5],indicatorMaterial('#6da8ed'),.12);
+ pinHeader(groups.uart,{x:6.3,z:20.2,count:6,axis:'x',height:2.5,pinLength:6.2});
+ for(let i=0;i<4;i++){box(groups.leds,1.6,.6,.9,[-40,1.15,-20+i*1.9],indicatorMaterial('#6da8ed','activity',i*.9),.12);}
+ box(groups.leds,1.6,.6,.9,[-39.5,1.15,11.5],indicatorMaterial('#6da8ed'),.12);
  const can=mesh(new T.CylinderGeometry(3,3,4.9,32),M.black,smd,[22,3.3,17.2]);
  mesh(new T.CylinderGeometry(2.82,2.82,.12,32),M.silver,smd,[22,5.81,17.2]);silk(smd,'100',22,17.2,4,2,{y:5.9,color:'#303431'});
  const underside=bottomGroup(smd);

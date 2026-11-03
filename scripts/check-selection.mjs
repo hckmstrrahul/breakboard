@@ -51,7 +51,7 @@ const piAnchors=JSON.parse(gunzipSync(fs.readFileSync('public/models/pi5.json.gz
 for(const board of Object.values(BOARDS))for(const width of [320,800,1260])for(const pose of [0,1])for(const viewName of ['3d','front','top']){
  const items=board.parts.map(part=>{
   const text=part.tag||part.short,w=Math.min(230,width/2-20,text.length*6+20);
-  return{id:part.id,w,h:16+15*Math.ceil(text.length*6/(w-20)),part};
+  return{id:part.id,w,h:16+15*Math.ceil(text.length*6/(w-20)),part,minLeader:board.id==='uno'?24:8};
  });
  const view={w:width,h:Math.max(width===320?360:600,calloutHeight(items,{w:width}))};
  const half=Math.max(board.half,(board.minHalfWidth||board.half*.82)/(view.w/view.h));
@@ -72,13 +72,14 @@ for(const board of Object.values(BOARDS))for(const width of [320,800,1260])for(c
   assert(p.x>=8&&p.y>=8&&p.x+item.w<=view.w-8&&p.y+item.h<=view.h-8,context+' tags stay inside the viewport');
   assert(p.endX>=p.x&&p.endX<=p.x+item.w&&p.endY>=p.y&&p.endY<=p.y+item.h,context+' leader ends at its tag');
   for(const other of boxes)assert(box.x+box.w<=other.x||other.x+other.w<=box.x||box.y+box.h<=other.y||other.y+other.h<=box.y,context+' tags never overlap');
-  if(width>=800)assert(Math.hypot(p.endX-item.point.x,p.endY-item.point.y)<220,context+' avoids long hanging leaders');
+  if(width>=800)assert(Math.hypot(p.endX-item.point.x,p.endY-item.point.y)<(board.id==='uno'?360:220),context+' avoids long hanging leaders');
   boxes.push(box);
  }
 }
 for(const part of BOARDS.uno.parts.filter(part=>part.id.startsWith('u-'))){
- assert.equal(part.tag,part.specs.find(([key])=>key==='Reference')[1],'Compact tags use real board references');
- assert(part.short.startsWith(part.tag+' · '),'Selected tag keeps its full component description');
+ const ref=part.specs.find(([key])=>key==='Reference')[1];
+ assert(part.tag.startsWith(ref+' · ')&&part.tag.length>ref.length+5,'Uno overview labels name the component type as well as its reference');
+ assert(part.short.startsWith(ref+' · '),'Selected tag keeps its full component description');
 }
 assert.equal(placeCallouts([],size).size,0);
 const uncrowded=[{id:'left',point:{x:300,y:200},w:120,h:31},{id:'right',point:{x:500,y:300},w:120,h:31}];

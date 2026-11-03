@@ -7,16 +7,17 @@ import {readJetsonData} from '../src/jetson.js';
 
 const cpu=BOARDS.uno.parts.find(p=>p.id==='cpu');
 assert.deepEqual(mergedSpecifications(BOARDS.uno,cpu),[
- ['Clock','16 MHz'],['Flash / SRAM','32 KB / 2 KB'],['Package','DIP-28'],['Digital I/O','14 pins'],['Analog inputs','6 pins']
+ ['Clock','16 MHz'],['Flash / SRAM','32 KB / 2 KB'],['Package','DIP-28'],['Digital I/O','14 pins'],['Analog inputs','6 pins'],['Board dimensions','68.58 × 53.34 mm']
 ]);
 const module=BOARDS.jetson.parts.find(p=>p.id==='module');
-assert.deepEqual(mergedSpecifications(BOARDS.jetson,module).slice(3),[['GPIO header','40 pins'],['USB Type-A','4 ports']]);
+assert.deepEqual(mergedSpecifications(BOARDS.jetson,module).slice(3),[['GPIO header','40 pins'],['USB Type-A','4 ports'],['Board dimensions','100 × 79 mm']]);
 const bridge=BOARDS.uno.parts.find(p=>p.id==='bridge');
-assert.deepEqual(mergedSpecifications(BOARDS.esp32,null),[['CPU clock','240 MHz'],['Radio band','2.4 GHz'],['SPI flash','4 MB'],['Header contacts','38 pins']],'Deselected inspector shows board facts without stale component information');
+assert.deepEqual(mergedSpecifications(BOARDS.esp32,null),[['CPU clock','240 MHz'],['Radio band','2.4 GHz'],['SPI flash','4 MB'],['Header contacts','38 pins'],['Board dimensions','27.94 × 48.26 mm']],'Deselected inspector shows board facts without stale component information');
 assert(mergedSpecifications(BOARDS.uno,bridge).some(([label])=>label==='Board CPU clock'),'Distinct processor clocks retain their scope');
 for(const board of BOARD_LIST)for(const part of board.parts){
  const rows=mergedSpecifications(board,part);
  assert.deepEqual(rows.slice(0,part.specs.length),part.specs,'Detailed component information is retained');
+ assert.equal(rows.filter(([,value])=>value.toLowerCase().replace(/\s/g,'')===board.dimensions.toLowerCase().replace(/ carrier$/,'').replace(/\s/g,'')).length,1,'Board dimensions appear exactly once');
  assert.equal(new Set(rows.map(row=>JSON.stringify(row))).size,rows.length,'No duplicate specification rows');
 }
 

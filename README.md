@@ -42,7 +42,7 @@ Open [127.0.0.1:5174](http://127.0.0.1:5174). No account, API key or backend is 
 | Light / Dark / System | Change appearance; the preference persists. |
 | Save image | Download a 2400 px PNG of the model in its current view and theme. |
 
-Overview tags are packed around their component anchors. Dense boards use concise tags, including the Uno’s printed reference codes; selecting a component restores its full label and explanation.
+Overview tags are packed around their component anchors. Uno overview tags include both printed references and readable component types, with more room for their leaders. Other boards label key subsystems while grouping routine passives; selecting a component shows its full explanation.
 
 X-ray, playback and camera choice persist across board tabs. Pi's **Cooler** switch toggles its cooling assembly. Shortcuts: **E** separation, **L** labels, **P** playback, **R** reset, **H** interface. **Esc** stops playback and exits X-ray, isolation and hidden-interface mode. Arrow keys orbit a focused canvas.
 
@@ -79,8 +79,14 @@ These informed the implementation; the shipped viewer is custom Three.js code.
 | [Teardown skill · Jakub Krehel](https://github.com/jakubkrehel/skills/blob/main/skills/teardown/SKILL.md) | Evidence-led reconstruction, coherent assembly views and precise part-to-annotation correspondence. |
 | [Anatomy skill · wheresryan22](https://github.com/wheresryan22/anatomy) | Detailed solids, tonal hierarchy and fine contours. Its illustration principles were adapted to our WebGL renderer. |
 | [Untitled UI MCP](https://www.untitledui.com/react/integrations/mcp) | Component and icon references for tabs, buttons, inputs and sliders. Adapted to semantic HTML/CSS; [integration notes](reference/untitled-ui/README.md). |
-| [Elvar's Teardown](https://github.com/elvarofficial/teardown) | Original inspiration for an interactive machine you can take apart. |
+| [Teardown skill · Elvar](https://github.com/elvarofficial/teardown/blob/main/SKILL.md) | Original simulator reference: shared model/state, studio rendering, cameras, subsystem interaction and portable HTML. We read its skill and examples; breakboard uses its own runtime. |
 | [Crisp technical docs](docs/skills/crisp-technical-docs/SKILL.md) | Reusable documentation skill added for this README: verify against source, show real captures and keep explanations concise. |
+
+The two Teardown skills have different goals. **Elvar’s** starts with an interactive machine that runs: its state drives poses, controls and readouts, with optional tours and film export. **Jakub’s** starts with a technical illustration: evidence, geometry, coherent views, hidden-line handling and annotations that point to the correct features. **Anatomy** supplies the detailed tonal drawing treatment. We adapted these ideas to one Three.js model; we do not ship their complete viewers, claim circuit simulation, or use their tour/video features.
+
+### Sharing metadata
+
+The browser title and Open Graph title are **breakboard**. The description is: “Explore nine development boards in 3D. Take them apart, inspect each component, and switch between realistic and anatomy views.” Open Graph and Twitter image tags reference the public light-mode Pi teardown capture. A canonical production URL has not been configured; add `og:url` when a hosting address is chosen. GitHub manages the repository page’s own sharing preview separately.
 
 ### Code map
 

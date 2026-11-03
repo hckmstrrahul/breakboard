@@ -17,7 +17,9 @@ export const ORANGEPI_PARTS=[
  part('network','Ethernet PHY','YT8531C','The YT8531C physical-layer transceiver connects the RK3588S Ethernet interface to the Gigabit RJ45 connector.',[['Controller','YT8531C'],['Speed','10 / 100 / 1000 Mb/s']], [25,2,0],[5,22,0],true),
  part('ribbon','Camera & display connectors','MIPI INTERFACES','Three camera connectors and two display connectors are distributed across both sides of the PCB. Their latch and contact bodies are reconstructed from the manufacturer’s top and underside images.',[['Camera connectors','3'],['Display connectors','2'],['Interface','MIPI']], [20,3,26],[0,12,7],true),
  part('m2','M.2 expansion socket','UNDERSIDE KEY-M','The underside M.2 Key-M socket exposes PCIe 2.0 ×1 for NVMe storage or the supported wireless adapter. No SSD or wireless module is fitted in this base-board model.',[['Bus','PCIe 2.0 ×1'],['Key','M'],['Location','Underside']], [21,-3,14],[0,-9,0],true),
- part('controls','Buttons & auxiliary connections','RECOVERY, MASKROM & POWER','Power, recovery and MaskROM controls support normal use and firmware recovery. The group also includes the debug UART, fan header, microphone and status LEDs.',[['Buttons','3'],['Debug','3-pin UART'],['Fan','5 V connector']], [-36,2,18],[-6,13,5],true),
+ part('controls','Buttons & auxiliary connections','RECOVERY, MASKROM & POWER','Power, recovery and MaskROM controls support normal use and firmware recovery. The group also includes the microphone and status LEDs; debug and fan connections are labeled separately.',[['Buttons','3'],['Indicators','2 status LEDs']], [-36,2,18],[-6,13,5],true),
+ part('uart','Debug UART header','THREE-PIN SERIAL CONSOLE','The three-pin debug header exposes the board serial console for boot diagnostics and development. It is separate from the 26-pin expansion header.',[['Contacts','3'],['Function','Serial console']], [1.8,4,-29],[0,12,-5],true),
+ part('fanheader','Fan connector','5 V COOLING CONNECTION','The two-contact fan socket provides a power connection for an optional cooling fan. No fan is fitted to this base-board model.',[['Contacts','2'],['Supply','5 V']], [34.2,4,17.3],[7,12,3],true),
  part('smd','SMD components','SUPPORT CIRCUITRY','Small surface-mount parts on both sides move together as one group. The visible clusters are reconstructed from photographs; the model does not claim an exact passive count, routing or electrical values.',[['Location','Top and underside'],['Layout','Photo reconstruction'],['Grouping','One assembly']], [-17,2,17],[0,8,0],true)
 ];
 ORANGEPI_PARTS.forEach((p,i)=>p.n=String(i+1).padStart(2,'0'));
@@ -66,8 +68,8 @@ export function buildOrangePi5(){
  const underRibbon=new T.Group();underRibbon.rotation.x=Math.PI;groups.ribbon.add(underRibbon);ribbon(underRibbon,22,-28,30,20);mezzanine(underRibbon,39,-28);
  const under=new T.Group();under.rotation.x=Math.PI;groups.m2.add(under);box(under,21,2.4,5.4,[21,2.05,-16],M.black,.08);box(under,19.5,.4,1,[21,1.0,-18.9],M.black,.03);for(let i=0;i<36;i++)box(under,.22,.15,1.4,[21+(i-17.5)*.5,1,-19.3],M.gold,.01);silk(under,'M.2 M-KEY',21,-21,17,2,{y:.82});
  button(groups.controls,-29.5,-11);button(groups.controls,-34.5,18.5);const powerButton=button(groups.controls,-48,16,Math.PI/2);
- pinHeader(groups.controls,{x:1.8,z:-29,rows:1,count:3,axis:'x',pinLength:5.5});
- box(groups.controls,4.8,4.4,5.7,[34.2,3,17.3],material('#e6e0cf',0,.6),.14);box(groups.controls,3.6,2.6,4.2,[34.2,4,17.3],M.black,.05);for(const s of [-1,1])box(groups.controls,.45,3.1,.45,[34.2+s,3.2,17.3],M.silver,.02);
+ pinHeader(groups.uart,{x:1.8,z:-29,rows:1,count:3,axis:'x',pinLength:5.5});
+ box(groups.fanheader,4.8,4.4,5.7,[34.2,3,17.3],material('#e6e0cf',0,.6),.14);box(groups.fanheader,3.6,2.6,4.2,[34.2,4,17.3],M.black,.05);for(const s of [-1,1])box(groups.fanheader,.45,3.1,.45,[34.2+s,3.2,17.3],M.silver,.02);
  mesh(new T.CylinderGeometry(2.1,2.1,1.5,24),M.black,groups.controls,[-47,1.55,22]);mesh(new T.CylinderGeometry(.28,.28,.04,12),material('#4a4d49'),groups.controls,[-47,2.32,22]);
  for(const[x,c]of [[10.5,'#b42c24'],[13.2,'#57904d']])box(groups.controls,1.1,.65,1.6,[x,1.15,-26.8],indicatorMaterial(c,x===10.5?'power':'activity'),.08);
  // Visible packages sampled from the manufacturer top photograph; no invented copper routing.

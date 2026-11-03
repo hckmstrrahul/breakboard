@@ -17,7 +17,7 @@ app.innerHTML=`<div class="shell">
 <a class="skip-link" href="#board-title">Skip to board</a>
 <header class="topbar"><div class="brand"><span class="brandmark" aria-hidden="true"><span class="brand-symbol"></span></span>breakboard</div><div class="board-segments segmented" id="board-segments" role="radiogroup" aria-label="Board">${BOARD_LIST.map(b=>`<button type="button" role="radio" aria-checked="false" tabindex="-1" data-board="${b.id}">${esc(b.tab)}</button>`).join('')}</div><div class="header-actions"><div class="theme-segments segmented" id="theme-segments" role="radiogroup" aria-label="Appearance">${[['light','sun','Light'],['dark','moon','Dark'],['system','system','System']].map(([value,icon,label])=>`<button role="radio" data-theme-mode="${value}" aria-label="${label}" title="${label}" aria-checked="false" tabindex="-1">${svg(icon)}</button>`).join('')}</div><button class="export" id="export" aria-label="Save image" title="Save image">${svg('download')}<span>Save image</span></button></div></header>
 <main id="board-panel" aria-labelledby="board-title">
-<div class="sidebar"><section class="intro"><h1 id="board-title" tabindex="-1">ESP32</h1><p class="model-name" id="model-name"></p><p class="dimensions" id="board-dimensions"></p></section>
+<div class="sidebar"><section class="intro"><h1 id="board-title" tabindex="-1">ESP32</h1><p class="model-name" id="model-name"></p></section>
 <details class="parts" id="component-browser" open><summary>Components <span id="parts-count"></span></summary><div class="parts-content"><label class="sr-only" for="parts-search">Find a component</label><div class="search-field">${svg('search')}<input id="parts-search" type="search" placeholder="Find a component…" autocomplete="off"/></div><nav class="parts-list" id="parts-list" aria-label="Components"></nav><div class="empty-search" id="empty-search" hidden><p>No matching components.</p><button id="clear-search">Clear search</button></div></div></details>
 </div>
 <section class="workspace" aria-label="3D viewer"><div class="assembly-controls" aria-label="Assembly controls"><div class="assembly-options"><div class="assembly-tabs segmented" role="group" aria-label="Assembly view"><button id="assembled" aria-pressed="false">Assembled</button><button id="exploded" aria-pressed="true">Exploded</button></div><div class="inspect-actions"><button id="isolate" aria-pressed="false">${svg('isolate')}<span>Isolate</span></button><button id="xray" aria-pressed="false" title="Anatomy drawing of the modeled structure">${svg('xray')}X-ray</button></div></div><div class="spacing"><div class="spacing-meta"><label for="explode">Separation</label><output for="explode" id="explode-value">78%</output></div><input id="explode" type="range" min="0" max="100" value="78"/></div></div><div class="viewport" id="viewport"><div class="labels" id="labels"></div><div class="loading" id="loading" role="status"><span id="loading-text">Loading model…</span><button id="retry-load" hidden>Retry</button></div><div class="operation-note" id="operation-note" hidden>Illustrative signal flow</div></div>
@@ -88,10 +88,10 @@ async function switchBoard(id){
   Object.assign(state,{explode,targetExplode:explode,selected:state.xray?null:PARTS[0].id,isolate:false,labels:true,guides:true,rotate:false,cooler:true});
   stage.setCooler(true);stage.select(state.selected,false,state.xray,state.explode,null);stage.view(state.view,true);
   $('cooler-toggle').hidden=!def.parts.some(p=>p.accessory);$('parts-search').value='';
-  $('board-title').textContent=def.tab;$('model-name').textContent=def.model;$('board-dimensions').textContent=def.dimensions.toLowerCase();$('parts-count').textContent=PARTS.length;
+  $('board-title').textContent=def.tab;$('model-name').textContent=def.model;$('parts-count').textContent=PARTS.length;
   $('parts-list').innerHTML=PARTS.map(p=>`<button class="part" data-part="${p.id}" aria-pressed="${p.id===state.selected}"><span>${esc(p.name)}</span>${svg('arrow','arrow')}</button>`).join('');
   renderLabels();filterParts();$('labels').hidden=false;
-  document.title=`${def.tab} — breakboard`;history.replaceState(null,'',`#${id}`);ready=true;enableModelControls(true);detail(state.selected);sync();stage.render(state,0);$('loading').classList.add('done');
+  document.title='breakboard';history.replaceState(null,'',`#${id}`);ready=true;enableModelControls(true);detail(state.selected);sync();stage.render(state,0);$('loading').classList.add('done');
  }catch(error){if(token!==switchId)return;console.error(error);$('loading-text').textContent=`Could not load ${def.tab}. Retry or choose another board.`;$('retry-load').hidden=false;}
 }
 function setBoardSegment(id){
@@ -129,7 +129,7 @@ function frame(now){
   const id=label.dataset.label,p=stage.project(id),leader=label.previousElementSibling;
   const hide=!state.labels||!p.visible||(state.isolate&&id!==state.selected)||(!overview&&!p.picked&&!state.isolate&&state.explode<.18&&((current.hidden||[]).includes(id)||(state.cooler&&(current.hiddenWithAccessories||[]).includes(id))));
   label.hidden=hide;leader.style.display=hide?'none':'';if(hide)continue;
-  shown.push({id,point:p,label,leader,w:label.offsetWidth,h:label.offsetHeight});
+  shown.push({id,point:p,label,leader,w:label.offsetWidth,h:label.offsetHeight,minLeader:current.id==='uno'?24:8});
  }
  const labelSpace=overview&&state.labels?calloutHeight(shown,size):0;
  if($('board-panel').style.getPropertyValue('--label-space')!==`${labelSpace}px`)$('board-panel').style.setProperty('--label-space',`${labelSpace}px`);

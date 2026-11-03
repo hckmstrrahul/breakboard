@@ -43,7 +43,7 @@ export function placeCallouts(items,view){
   const {point:p,w,h}=item;let best={...placeCallout(p,item,view),w,h},bestScore=Infinity;
   const consider=(cx,cy)=>{
    const x=clamp(cx,pad,view.w-pad-w),y=clamp(cy,pad,view.h-pad-h),endX=clamp(p.x,x,x+w),endY=clamp(p.y,y,y+h);
-   const distance=(endX-p.x)**2+(endY-p.y)**2;if(distance<8**2)return;
+   const distance=(endX-p.x)**2+(endY-p.y)**2;if(distance<(item.minLeader||8)**2)return;
    let score=distance+.01*((x+w/2-p.x)**2+(y+h/2-p.y)**2);
    for(const other of placed){
     const ox=Math.min(x+w+gap,other.x+other.w)-Math.max(x-gap,other.x),oy=Math.min(y+h+gap,other.y+other.h)-Math.max(y-gap,other.y);

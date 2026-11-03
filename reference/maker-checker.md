@@ -138,3 +138,22 @@ Validation: production/standalone build and nine-board checks pass. Targeted lay
 The two-column packing still pushed crowded tags far below the board. Overview labels now search nearby space around each projected component anchor, with collision avoidance and short leaders. Required viewer height follows label area instead of the length of two stacked columns. Labels render above leader lines. Uno's small packages use their printed reference codes in the overview; selected labels and accessible names retain full component names. Pi's overview tags are abbreviated without changing its component inventory or selected explanations.
 
 Regression checks project real anchors for all nine boards in assembled and exploded states, across 3D, Top and Front views at 320, 800 and 1260 px widths. They verify complete tag coverage, viewport bounds, no label overlaps, unchanged anchor positions and desktop leaders shorter than 220 px. Native Chrome review confirms compact whole-board anatomy labels on Uno, Pi and Orange Pi Front, plus full Uno component names after selection. The app, package, documentation and standalone output are named **breakboard**; the previous appearance storage key is read only to migrate existing preferences.
+
+
+## Follow-up: readable Uno names and selective subsystem labels
+
+Uno overview labels now retain component types alongside their board references, such as `C4 · CAPACITOR`, `RN2 · RESISTOR NETWORK` and `U1 · 5 V REGULATOR`. Their leaders have at least 24 px clearance and can extend farther into nearby space. Other boards keep their compact packing. All 47 Uno labels remain present.
+
+All nine inventories were reviewed. ESP32, Pi and Jetson already expose their main functional assemblies; routine small packages remain grouped. Nine additional callouts now identify existing modeled geometry:
+
+| Board | New selectable groups | Evidence |
+| --- | --- | --- |
+| Pico 2 W | User LED; SWD debug pads | Official datasheet §§3.8–3.9 and component-location drawing. Pads stay on the PCB. |
+| Arduino Nano | F1 USB resettable fuse; D1 USB power diode | NanoV3.3 EAGLE references, values and underside footprints. |
+| STM32 Nucleo | Communication, user and power LEDs | ST UM1724 §6.4. |
+| Orange Pi 5 | Debug UART header; 5 V fan connector | Manufacturer’s annotated top photograph (V1.3.2), retained locally; original Pi 5 manual. |
+| BeagleBone Black | Serial debug header; power/user LEDs | Official connector documentation and component-side photograph. |
+
+Before/after checks matched the sorted assembled world-space vertex hashes (rounded to 0.0001 mm) and triangle counts on all five changed boards. No geometry was added or removed. Existing full-pose, isolation, anatomy and playback checks pass, including unchanged indicator counts. Label layout checks cover all nine boards in three cameras, two assembly states and three viewport widths. Native Chrome accessibility inspection confirms all 47 Uno labels have readable component names and no intersecting boxes; icon bounds confirm 6 px gaps, previously 2 px. The browser title is exactly `breakboard`. Pixel screenshot review could not be repeated because the browser capture connection failed and the desktop fallback lacks screen-recording permission.
+
+Board dimensions move from the introduction into the specification list. Existing equivalent outline/envelope rows suppress the new row, and all board/component combinations are checked for exactly one size. The first specification divider is removed. Sharing metadata now supplies an explicit title, description and existing public Pi image; actual social crawler previews remain dependent on deployment and crawler caching.

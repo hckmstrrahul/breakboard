@@ -20,7 +20,9 @@ export const PICO_PARTS=[
  part('bootsel','BOOTSEL button','BOOT MODE SELECTION','Holding BOOTSEL while connecting USB starts the ROM bootloader. It is a boot selection switch, not a dedicated reset button.',at(305,592,1.7),[-5,11,-2],[['Action','Enter USB bootloader'],['Reference','SW1']]),
  part('power','Power conversion circuit','BUCK-BOOST SUPPLY','The switching regulator and surrounding power components generate the 3.3 V rail from USB or an external VSYS supply. Their arrangement follows the official component drawing.',at(403,568,1.3),[5,13,-3],[['VSYS input','1.8–5.5 V'],['Output','3.3 V'],['Role','Buck-boost regulation']]),
  part('crystal','System crystal','CLOCK REFERENCE','The metal-capped crystal supplies the RP2350 reference clock. Its footprint follows the official drawing; the package height is reconstructed.',at(289,882,1.2),[-4,12,3],[['Frequency','12 MHz'],['Reference','X1']]),
- part('smd','SMD components','PASSIVES & RF SUPPORT','The small capacitors, resistors, LED and radio support packages are combined into one group. Their locations follow the official component diagram; package heights are representative.',[0,1.1,0],[0,8,0],[['Placement','Official component diagram'],['Location','Top side']]),
+ part('led','User LED','WIRELESS GPIO INDICATOR','The onboard user LED is controlled through CYW43439 WL_GPIO0. It can display application status; the activity shown in Play is illustrative.',at(269,475,1.09),[-4,10,-2],[['Control','CYW43439 WL_GPIO0'],['Role','User indicator']]),
+ part('debug','SWD debug pads','THREE-PAD DEBUG INTERFACE','The three plated pads expose the RP2350 serial-wire debug interface for programming and debugging. They stay attached to the PCB when the board is separated.',[3.04,.515,5.7],[0,0,0],[['Contacts','3'],['Signals','SWCLK / GND / SWDIO'],['Mount','PCB pads']]),
+ part('smd','SMD components','PASSIVES & RF SUPPORT','The small capacitors, resistors and radio support packages are combined into one group. Their locations follow the official component diagram; package heights are representative.',[0,1.1,0],[0,8,0],[['Placement','Official component diagram'],['Location','Top side']]),
  part('board','Pico 2 W PCB','CASTELLATED MODULE','The 1 mm PCB carries 40 through-hole and castellated contacts, three SWD pads and four mounting holes. The antenna region is part of the PCB and stays with it.',[7,.5,17],[0,0,0],[['Outline','21 × 51 mm'],['Contacts','40 · 2.54 mm pitch'],['Mounting holes','4 × Ø2.1 mm']])
 ].map((p,i)=>({...p,n:String(i+1).padStart(2,'0')}));
 const pinZ=Array.from({length:20},(_,i)=>-24.13+i*2.54);
@@ -79,7 +81,7 @@ export function buildPico(){
  for(const bottom of [false,true]){const a=boardArtwork(shape,bottom);mesh(a.geo,a.mat,groups.board,[0,bottom?-.52:.52,0]);}
  for(const z of pinZ)for(const side of [-1,1])pad(groups.board,side,z);
  for(const[x,z]of mounting)for(const y of [-.515,.515])goldRing(groups.board,x,z,1.05,1.45,y);
- for(const[x,z]of debug)for(const y of [-.515,.515])goldRing(groups.board,x,z,.5,.9,y);
+ for(const[x,z]of debug)for(const y of [-.515,.515])goldRing(groups.debug,x,z,.5,.9,y);
  const cpuAt=at(362,772),cpu=ic(groups.cpu,{x:cpuAt[0],z:cpuAt[2],width:7,depth:7,height:.85,base:.5,label:'RP2350A'});
  for(let i=0;i<15;i++)for(const side of [-1,1]){const p=(i-7)*.4;box(cpu,.2,.18,.5,[p,.61,side*3.48],M.silver,.012);box(cpu,.5,.18,.2,[side*3.48,.61,p],M.silver,.012);}
  const chipAt=(id,px,py,w,d,label,h=.8)=>{const[x,,z]=at(px,py);return ic(groups[id],{x,z,width:w,depth:d,height:h,base:.5,label});};
@@ -99,7 +101,7 @@ export function buildPico(){
  const[cX,,cZ]=at(289,882);box(groups.crystal,3.2,.8,2.5,[cX,1.05,cZ],M.silver,.3);textDecal(groups.crystal,'12.0',2.6,1.6,[cX,1.46,cZ],{size:75,color:'#6b6d67'});
  for(const[ref,px,py,w,d]of small){const[x,,z]=at(px,py);passive(groups.smd,{x,z,width:w,depth:d,base:.5,color:ref.startsWith('R')?'#222726':'#b5a17d'});}
  chipAt('smd',468,755,1.6,.9,'',.6); // Q1, from the component-location plot.
- const ledAt=at(269,475);box(groups.smd,1.6,.5,.8,[ledAt[0],.8,ledAt[2]],material('#d8d3a7'),.04);box(groups.smd,.75,.08,.55,[ledAt[0],1.09,ledAt[2]],indicatorMaterial('#739c42','activity'),.02);
+ const ledAt=at(269,475);box(groups.led,1.6,.5,.8,[ledAt[0],.8,ledAt[2]],material('#d8d3a7'),.04);box(groups.led,.75,.08,.55,[ledAt[0],1.09,ledAt[2]],indicatorMaterial('#739c42','activity'),.02);
  const rfX=at(429,996);box(groups.smd,1.6,.6,1.2,[rfX[0],.85,rfX[2]],M.silver,.12);
  const filterAt=at(307,1076);box(groups.smd,2,.65,1.4,[filterAt[0],.88,filterAt[2]],material('#c9c8b8'),.07);
  root.userData={board:'pico2w',dimensions:[W,TH,D],headerPins:40,headerPitch:2.54,headerRowSpacing:17.78,mountingHoles:mounting.map(([x,z])=>[x,z,2.1]),debugPads:debug,source:'Pico 2 W datasheet mechanical drawing and Appendix B'};
