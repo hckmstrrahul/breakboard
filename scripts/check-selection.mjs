@@ -76,11 +76,14 @@ for(const board of Object.values(BOARDS))for(const width of [320,800,1260])for(c
   boxes.push(box);
  }
 }
+let compactUnoTags=0;
 for(const part of BOARDS.uno.parts.filter(part=>part.id.startsWith('u-'))){
  const ref=part.specs.find(([key])=>key==='Reference')[1];
- assert(part.tag.startsWith(ref+' · ')&&part.tag.length>ref.length+5,'Uno overview labels name the component type as well as its reference');
+ if(part.tag===ref)compactUnoTags++;
+ else assert(part.tag.startsWith(ref+' · ')&&part.tag.length>ref.length+5,'Descriptive Uno overview tags retain their component type');
  assert(part.short.startsWith(ref+' · '),'Selected tag keeps its full component description');
 }
+assert.equal(compactUnoTags,Math.round(BOARDS.uno.parts.length*.3),'Only about 30% of Uno overview tags use reference codes alone');
 assert.equal(placeCallouts([],size).size,0);
 const uncrowded=[{id:'left',point:{x:300,y:200},w:120,h:31},{id:'right',point:{x:500,y:300},w:120,h:31}];
 for(const item of uncrowded){const p=placeCallouts(uncrowded,size).get(item.id),distance=Math.hypot(p.endX-item.point.x,p.endY-item.point.y);assert(distance>=8&&distance<=24,'Uncrowded tags keep their short connector and leave the anchor visible');}

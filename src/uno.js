@@ -35,9 +35,11 @@ function smallType(e){
  if(e.name==='T1')return['Power MOSFET','Switching transistor in the board power-selection circuit.'];
  return['Filter component','A discrete component at its official EAGLE footprint.'];
 }
+// Keep about 30% of the overview tags compact; selected labels stay descriptive.
+const compactOverviewRefs=new Set(['F1','U1','T1','C1','C3','C4','C7','C9','C11','R1','R2','RN2','D2','Z2']);
 for(const [i,e]of smallElements.entries()){
  const [type,description]=smallType(e),anchor=xy(e.x,e.y,2);
- UNO_PARTS.push({id:'u-'+e.name,n:'',name:`${e.name} · ${type}`,short:e.name+' · '+type.toUpperCase(),tag:e.name+' · '+type.replace('Ceramic capacitor','Capacitor').replace('Electrolytic capacitor','Bulk capacitor').replace('USB resettable fuse','USB fuse').toUpperCase(),kind:'DISCRETE COMPONENT · '+e.package,description:description+' Position and rotation follow the original EAGLE layout; body height is reconstructed.',specs:[['Reference',e.name],['Value',e.value||'Not specified'],['Package',e.package]],anchor,offset:[anchor[0]*.14,10+(i%5)*3,anchor[2]*.12],detail:true,category:'Small components'});
+ UNO_PARTS.push({id:'u-'+e.name,n:'',name:`${e.name} · ${type}`,short:e.name+' · '+type.toUpperCase(),tag:compactOverviewRefs.has(e.name)?e.name:e.name+' · '+type.replace('Ceramic capacitor','Capacitor').replace('Electrolytic capacitor','Bulk capacitor').replace('USB resettable fuse','USB fuse').toUpperCase(),kind:'DISCRETE COMPONENT · '+e.package,description:description+' Position and rotation follow the original EAGLE layout; body height is reconstructed.',specs:[['Reference',e.name],['Value',e.value||'Not specified'],['Package',e.package]],anchor,offset:[anchor[0]*.14,10+(i%5)*3,anchor[2]*.12],detail:true,category:'Small components'});
 }
 UNO_PARTS.push({id:'socket',n:'',name:'28-pin IC socket',short:'DIP-28 SOCKET',kind:'REMOVABLE MICROCONTROLLER SOCKET',description:'The socket lifts separately from the ATmega328P. Its contacts retain the 7.62 mm row spacing and 2.54 mm pin pitch of the original footprint.',specs:[['Contacts','28'],['Row spacing','7.62 mm'],['Pitch','2.54 mm']],anchor:[12.065,3.8,10.287],offset:[0,13,0],detail:true,category:'Board components'});
 UNO_PARTS.forEach((p,i)=>p.n=String(i+1).padStart(2,'0'));
