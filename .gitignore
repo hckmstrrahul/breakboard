@@ -1,0 +1,29 @@
+node_modules/
+dist/
+.DS_Store
+__MACOSX/
+._*
+.cad-env/
+reference/**/native-meshes.json
+# Downloaded research inputs and generated CAD intermediates stay local.
+# Runtime geometry, provenance records and source inventories are committed.
+reference/**/*.step
+reference/**/*.stp
+reference/**/*.zip
+reference/**/*.pdf
+reference/**/*.html
+reference/**/*.png
+reference/**/*.jpg
+reference/**/*.webp
+reference/**/*.svg
+reference/**/*-page*.json
+reference/**/page-data.json
+reference/**/downloads.json
+reference/**/manual.txt
+reference/**/datasheet.txt
+reference/**/carrier-spec.txt
+reference/**/um1724.txt
+.env
+.env.*
+!.env.example
+*.log

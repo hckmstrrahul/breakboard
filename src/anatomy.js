@@ -1,0 +1,86 @@
+import * as T from 'three';
+
+// Keep the original artwork and UVs, but print its coverage in the drawing's ink.
+// Most decals have transparent backgrounds. The ESP32 PCB textures also contain
+// solder-mask color, which must be removed instead of covering the anatomy fill.
+function artworkMaterial(source,ghost){
+ const background=source.map.userData.anatomyBackground,copper=source.map.userData.anatomyCopperColor;
+ const material=new T.MeshBasicMaterial({map:source.map,color:'#384753',transparent:true,opacity:ghost?.16:.95,depthWrite:false,depthTest:true,side:source.side,toneMapped:false,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});
+ material.onBeforeCompile=shader=>{
+  if(background){shader.uniforms.anatomyBackground={value:new T.Color(background)};shader.fragmentShader='uniform vec3 anatomyBackground;\n'+shader.fragmentShader;}
+  if(copper){shader.uniforms.anatomyCopper={value:new T.Color(copper)};shader.fragmentShader='uniform vec3 anatomyCopper;\n'+shader.fragmentShader;}
+  shader.fragmentShader=shader.fragmentShader.replace('#include <map_fragment>',`
+   #ifdef USE_MAP
+    vec4 artwork = texture2D(map, vMapUv);
+    float coverage = artwork.a;
+    ${background?'vec3 difference = abs(artwork.rgb - anatomyBackground); coverage *= smoothstep(0.006, 0.065, max(difference.r, max(difference.g, difference.b)));':''}
+    ${copper?'coverage *= smoothstep(0.005, 0.06, length(artwork.rgb - anatomyCopper));':''}
+    diffuseColor.a *= coverage;
+   #endif
+  `);
+ };
+ material.customProgramCacheKey=()=>`anatomy-artwork-${background?'background':'alpha'}-${copper?'silkscreen':'all'}-v2`;
+ return material;
+}
+
+// Anatomy drawing: the actual model surfaces, four shaded tones and fine crease
+// contours. Reusing geometry and world matrices keeps every view registered to
+// CAD, including isolated parts, separation and the moving fan. No hidden PCB
+// layers or silicon internals are invented. Depth testing resolves intersections.
+export function createAnatomy(model){
+ const context=new T.Scene(),subject=new T.Scene(),entries=[],markings=[],edgeCache=new Map();
+ const ramp=new T.DataTexture(new Uint8Array([85,135,190,255]),4,1,T.RedFormat);
+ ramp.minFilter=ramp.magFilter=T.NearestFilter;ramp.needsUpdate=true;
+ const fill=new T.MeshToonMaterial({color:'#dbc2ab',gradientMap:ramp,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});
+ const shell=new T.MeshToonMaterial({color:'#8b959e',gradientMap:ramp,transparent:true,opacity:.12,depthWrite:true,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});
+ const ink=new T.LineBasicMaterial({color:'#52616f',transparent:true,opacity:.92,depthWrite:false,toneMapped:false});
+ const faint=new T.LineBasicMaterial({color:'#74818b',transparent:true,opacity:.2,depthWrite:false,toneMapped:false});
+ for(const scene of[context,subject]){
+  scene.add(new T.AmbientLight('#ffffff',1.7));
+  const light=new T.DirectionalLight('#ffffff',2.2);light.position.set(-45,95,45);scene.add(light);
+ }
+ for(const[id,group]of Object.entries(model.groups))group.traverse(source=>{
+  if(!source.isMesh||source.isBatchedMesh)return;
+  const original=source.userData.originalMaterial||source.material;
+  if(original.map){
+   const solid=artworkMaterial(original,false),ghost=artworkMaterial(original,true),body=new T.Mesh(source.geometry,ghost);
+   body.matrixAutoUpdate=false;body.renderOrder=2;context.add(body);
+   markings.push({id,group,source,body,solid,ghost});return;
+  }
+  const geometry=source.geometry;
+  // RoundedBoxGeometry's bevels turn by less than 28 degrees: the former
+  // threshold removed every edge of the RF shield and all rounded packages.
+  if(!edgeCache.has(geometry))edgeCache.set(geometry,new T.EdgesGeometry(geometry,20));
+  const body=new T.Mesh(geometry,shell),lines=new T.LineSegments(edgeCache.get(geometry),faint);
+  body.matrixAutoUpdate=lines.matrixAutoUpdate=false;lines.renderOrder=1;
+  // Surface ownership is preserved; selection changes only the rendering pass.
+  context.add(body,lines);entries.push({id,group,source,body,lines});
+ });
+ const drawings=[...entries,...markings];
+ let selected;
+ function update(id){
+  id??=null;
+  model.root.updateMatrixWorld(true);
+  for(const entry of drawings){
+   const{group,source,body,lines}=entry,isSubject=id===null||entry.id===id;
+   if(selected!==id){const scene=isSubject?subject:context;scene.add(body);if(lines){scene.add(lines);body.material=isSubject?fill:shell;lines.material=isSubject?ink:faint;}else body.material=isSubject?entry.solid:entry.ghost;}
+   let visible=group.visible;for(let node=source;node&&node!==group;node=node.parent)visible&&=node.visible;
+   body.visible=visible;body.matrix.copy(source.matrixWorld);if(lines){lines.visible=visible;lines.matrix.copy(source.matrixWorld);}
+  }
+  selected=id;
+ }
+ function setTheme(dark){
+  fill.color.set(dark?'#b8c2cb':'#d6d9d6');ink.color.set(dark?'#52616f':'#617078');
+  shell.color.set(dark?'#738494':'#78868a');faint.color.set(dark?'#9baab6':'#6c797d');
+  shell.opacity=dark?.13:.1;faint.opacity=dark?.23:.2;
+  for(const mark of markings){mark.solid.color.set(dark?'#384753':'#44515a');mark.ghost.color.copy(faint.color);mark.ghost.opacity=dark?.2:.14;}
+ }
+ function render(renderer,camera){
+  const autoClear=renderer.autoClear;renderer.autoClear=false;
+  renderer.render(context,camera);
+  // X-ray reveals the selected assembly through its housing. Each pass still
+  // resolves its own actual surfaces, rather than drawing back edges everywhere.
+  renderer.clearDepth();renderer.render(subject,camera);renderer.autoClear=autoClear;
+ }
+ return{entries,markings,context,subject,update,setTheme,render};
+}
