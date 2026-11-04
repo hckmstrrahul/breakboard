@@ -27,7 +27,7 @@ try{
   for(const control of def.controls||[]){
    const input=page.locator(`#device-input-${control.id}`);
    await input.fill(String(control.max));await input.dispatchEvent('input');
-   assert.equal(await input.inputValue(),String(control.max));
+   assert(Math.abs(Number(await input.inputValue())-control.max)<1e-9,def.id+' maximum input value');
    assert((await input.getAttribute('aria-valuetext'))?.length,def.id+' input accessible value');
   }
   await page.locator('#assembled').click();
@@ -40,7 +40,7 @@ try{
   await page.locator('#parts-list [data-part]').first().click();
   assert.equal(await page.locator('#parts-list [aria-pressed="true"]').count(),1);
   await page.locator('#reset').click();
-  for(const control of def.controls||[])assert.equal(await page.locator(`#device-input-${control.id}`).inputValue(),String(control.value),def.id+' reset defaults');
+  for(const control of def.controls||[])assert(Math.abs(Number(await page.locator(`#device-input-${control.id}`).inputValue())-control.value)<1e-9,def.id+' reset defaults');
   console.log(`PASS · offline ${def.tab}: inventory, operation, selection, anatomy and reset`);
  }
  for(const theme of ['light','dark']){

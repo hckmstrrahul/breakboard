@@ -26,4 +26,18 @@ for(const[item,key]of [[geometry,'geometry'],[texture,'texture'],[shared,'shared
 disposeModel({root},[{root:retained}]);
 assert.deepEqual(counts,{geometry:0,texture:0,shared:0,exclusive:1,own:1},'Eviction preserves resources used by another model');
 disposeModel({root:retained});assert.equal(counts.geometry,1);assert.equal(counts.texture,1);assert.equal(counts.shared,1);
-console.log('PASS · bounded model reuse, failed-load retry, late completion and shared-resource disposal');
+
+// Deforming models own their contour geometry before anatomy is first opened.
+// A retained model may share it; a built anatomy also references the same object.
+for(const createAnatomy of [false,true]){
+ const surface=new T.BoxGeometry(),edges=new T.EdgesGeometry(surface),material=new T.MeshBasicMaterial();
+ surface.userData.anatomyEdges=edges;
+ const first=new T.Group(),second=new T.Group();
+ first.add(new T.Mesh(surface,material));second.add(new T.Mesh(surface,material));
+ let releases=0;edges.addEventListener('dispose',()=>releases++);
+ const model={root:first};
+ if(createAnatomy){const context=new T.Group();context.add(new T.LineSegments(edges,new T.LineBasicMaterial()));model.anatomy={context};}
+ disposeModel(model,[{root:second}]);assert.equal(releases,0,'Shared deforming contours survive eviction');
+ disposeModel({root:second});assert.equal(releases,1,'Owned contours are released exactly once with or without anatomy');
+}
+console.log('PASS · bounded model reuse, failed-load retry, late completion and shared/owned-resource disposal');

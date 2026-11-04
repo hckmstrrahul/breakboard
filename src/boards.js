@@ -1,3 +1,8 @@
+import {MAX30102_BOARD} from './max30102.js';
+import {LOADCELL_BOARD} from './loadcell.js';
+import {GNSS_BOARD} from './gnss.js';
+import {IMX500_BOARD} from './imx500.js';
+import {EVENTCAMERA_BOARD} from './eventcamera.js';
 import {RELAY_BOARD} from './relay.js';
 import {BLDC_BOARD} from './bldc.js';
 import {HAPTIC_BOARD} from './haptic.js';
@@ -60,4 +65,5 @@ BOARDS[SPS30_BOARD.id]=SPS30_BOARD;
 Object.assign(BOARDS,Object.fromEntries([RELAY_BOARD,BLDC_BOARD,HAPTIC_BOARD,AS5600_BOARD,QUARTZ_BOARD].map(device=>[device.id,device])));
 Object.assign(BOARDS,Object.fromEntries([MEMSMIC_BOARD,ARMATURE_BOARD,PLANAR_BOARD,BME688_BOARD,SCD41_BOARD].map(device=>[device.id,device])));
 Object.assign(BOARDS,Object.fromEntries([IMU_BOARD,TOF_BOARD,RADAR_BOARD,PIR_BOARD,ULTRASONIC_BOARD].map(device=>[device.id,device])));
+Object.assign(BOARDS,Object.fromEntries([MAX30102_BOARD,LOADCELL_BOARD,GNSS_BOARD,IMX500_BOARD,EVENTCAMERA_BOARD].map(device=>[device.id,device])));
 export const BOARD_LIST=Object.values(BOARDS);

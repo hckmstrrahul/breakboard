@@ -81,6 +81,16 @@ import pir_light from './pir-light.webp';
 import pir_dark from './pir-dark.webp';
 import ultrasonic_light from './ultrasonic-light.webp';
 import ultrasonic_dark from './ultrasonic-dark.webp';
+import max30102_light from './max30102-light.webp';
+import max30102_dark from './max30102-dark.webp';
+import loadcell_light from './loadcell-light.webp';
+import loadcell_dark from './loadcell-dark.webp';
+import gnss_light from './gnss-light.webp';
+import gnss_dark from './gnss-dark.webp';
+import imx500_light from './imx500-light.webp';
+import imx500_dark from './imx500-dark.webp';
+import eventcamera_light from './eventcamera-light.webp';
+import eventcamera_dark from './eventcamera-dark.webp';
 export default {
  esp32:{light:esp32_light,dark:esp32_dark},
  pi5:{light:pi5_light,dark:pi5_dark},
@@ -122,5 +132,10 @@ export default {
  tof:{light:tof_light,dark:tof_dark},
  radar:{light:radar_light,dark:radar_dark},
  pir:{light:pir_light,dark:pir_dark},
- ultrasonic:{light:ultrasonic_light,dark:ultrasonic_dark}
+ ultrasonic:{light:ultrasonic_light,dark:ultrasonic_dark},
+ max30102:{light:max30102_light,dark:max30102_dark},
+ loadcell:{light:loadcell_light,dark:loadcell_dark},
+ gnss:{light:gnss_light,dark:gnss_dark},
+ imx500:{light:imx500_light,dark:imx500_dark},
+ eventcamera:{light:eventcamera_light,dark:eventcamera_dark}
 };

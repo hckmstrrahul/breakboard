@@ -1,6 +1,6 @@
 # Forty-device expansion plan
 
-Status: implementation in progress. Batches 1–3 are integrated and independently reviewed: fifteen additions, **41 devices total**. Batch 4 is being built; the remaining 25 additions and the final 66-device review are pending. [Batch 1 verification](verification/expansion-batch1.md) · [Batch 2 verification](verification/expansion-batch2.md) · [Batch 3 verification](verification/expansion-batch3.md).
+Status: implementation in progress. Batches 1–4 are integrated and independently reviewed: twenty additions, **46 devices total**. Batch 5 is being built; the remaining 20 additions and the final 66-device review are pending. [Batch 1 verification](verification/expansion-batch1.md) · [Batch 2 verification](verification/expansion-batch2.md) · [Batch 3 verification](verification/expansion-batch3.md) · [Batch 4 verification](verification/expansion-batch4.md).
 
 Scope: add all 40 agreed devices to the existing 26-device collection, for 66 total. Each addition includes geometry, component selection, assembled/exploded views, X-ray, useful interaction, documentation, previews and offline support. The entries below are research targets, not claims that their exact hardware revision or hidden construction has already been verified. No device is silently dropped or substituted.
 

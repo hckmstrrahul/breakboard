@@ -9,7 +9,7 @@ const context=new Proxy({}, {get:(_,key)=>key==='measureText'?()=>({width:0}):()
 globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>context})};
 globalThis.__BREAKBOARD_ASSETS=Object.fromEntries(fs.readdirSync('public/models').filter(f=>f.endsWith('.json.gz')).map(f=>[f.replace('.json.gz',''),fs.readFileSync('public/models/'+f).toString('base64')]));
 const {BOARD_LIST}=await import('../src/boards.js');
-const expectedLights={esp32:1,pi5:0,uno:4,jetson:0,pico2w:1,nano:4,orangepi5:2,beaglebone:5,nucleo:3,portenta:2,hackrf:6,neopixel:64,hqcamera:0,dlp:0,nixie:10,stepper:8,grobot:6,pmt:0,spectrometer:0,epyc:0,lidar:0,vfd:64,corememory:0,lepton:0,intel4004:0,sps30:0,relay:0,bldc:0,haptic:0,as5600:0,quartz:0,memsmic:0,armature:0,planar:0,bme688:0,scd41:0,imu:0,tof:0,radar:0,pir:0,ultrasonic:0};
+const expectedLights={esp32:1,pi5:0,uno:4,jetson:0,pico2w:1,nano:4,orangepi5:2,beaglebone:5,nucleo:3,portenta:2,hackrf:6,neopixel:64,hqcamera:0,dlp:0,nixie:10,stepper:8,grobot:6,pmt:0,spectrometer:0,epyc:0,lidar:0,vfd:64,corememory:0,lepton:0,intel4004:0,sps30:0,relay:0,bldc:0,haptic:0,as5600:0,quartz:0,memsmic:0,armature:0,planar:0,bme688:0,scd41:0,imu:0,tof:0,radar:0,pir:0,ultrasonic:0,max30102:0,loadcell:0,gnss:0,imx500:0,eventcamera:0};
 const powered={playing:true,explode:0,reduced:false,isolate:false};
 for(const def of BOARD_LIST){
  const model=await def.build();model.setPose(0);model.setSelection(def.parts[0].id,false,false);model.root.updateMatrixWorld(true);
@@ -41,7 +41,7 @@ for(const def of BOARD_LIST){
  operation.reset();assert.equal(operation.state.angle,0);for(const mat of operation.indicators)assert.equal(mat.emissiveIntensity,0);
 
  const anatomy=createAnatomy(model);assert(anatomy.entries.length>0);
- const originalArtwork=[];model.root.traverse(source=>{if(source.isMesh&&!source.isBatchedMesh&&(source.userData.originalMaterial||source.material).map)originalArtwork.push(source);});
+ const originalArtwork=[];model.root.traverse(source=>{for(let node=source;node;node=node.parent)if(node.userData.explanatoryEffect)return;if(source.isMesh&&!source.isBatchedMesh&&(source.userData.originalMaterial||source.material).map)originalArtwork.push(source);});
  assert(originalArtwork.length>0,def.id+' has original surface artwork');
  assert.equal(anatomy.markings.length,originalArtwork.length,def.id+' preserves every existing logo, label and graphic');
  for(const mark of anatomy.markings){

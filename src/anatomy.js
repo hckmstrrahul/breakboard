@@ -72,7 +72,9 @@ export function createAnatomy(model){
   const geometry=source.geometry;
   // RoundedBoxGeometry's bevels turn by less than 28 degrees: the former
   // threshold removed every edge of the RF shield and all rounded packages.
-  if(!edgeCache.has(geometry)){edgeCache.set(geometry,new T.EdgesGeometry(geometry,20));edgeVersions.set(geometry,geometry.attributes.position.version);}
+  // A deforming model may supply crease topology once and deform those same
+  // endpoints with its surface. This avoids re-extracting CAD edges per frame.
+  if(!edgeCache.has(geometry)){edgeCache.set(geometry,geometry.userData.anatomyEdges||new T.EdgesGeometry(geometry,20));edgeVersions.set(geometry,geometry.attributes.position.version);}
   const body=new T.Mesh(geometry,shell),lines=new T.LineSegments(edgeCache.get(geometry),faint);
   body.matrixAutoUpdate=lines.matrixAutoUpdate=false;lines.renderOrder=1;
   // Surface ownership is preserved; selection changes only the rendering pass.
@@ -85,7 +87,7 @@ export function createAnatomy(model){
   model.root.updateMatrixWorld(true);
   // Flexures and membranes can change vertex positions as well as transforms.
   // Refresh shared contours once per changed geometry; rigid parts keep theirs.
-  for(const [geometry,edges]of edgeCache){const version=geometry.attributes.position.version;if(edgeVersions.get(geometry)!==version){edgeCache.set(geometry,new T.EdgesGeometry(geometry,20));edgeVersions.set(geometry,version);edges.dispose();}}
+  for(const [geometry,edges]of edgeCache){if(geometry.userData.anatomyEdges===edges)continue;const version=geometry.attributes.position.version;if(edgeVersions.get(geometry)!==version){edgeCache.set(geometry,new T.EdgesGeometry(geometry,20));edgeVersions.set(geometry,version);edges.dispose();}}
   for(const entry of drawings){
    const{group,source,body,lines}=entry,isSubject=id===null||entry.id===id;
    if(selected!==id){const scene=isSubject?subject:context;scene.add(body);if(lines){scene.add(lines);body.material=isSubject?(source.userData.anatomyTransparent?glass:fill):shell;lines.material=isSubject?ink:faint;}else body.material=isSubject?entry.solid:entry.ghost;}

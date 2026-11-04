@@ -51,8 +51,10 @@ Raw results: `checker-final/frame-profile.json`. These are local CPU submission 
 
 ## Integration and offline packaging
 
-The integration owner ran the full `npm run check`, including the independent batch-3 script, after the final geometry corrections. `npm run build` produced a standalone file of **22,914,220 bytes** (22.91 MB) for **41 devices**. SHA-256: `3eff774a47629ad183384c532c6f98a2a228bfae45de9442024e3c2e56564020`.
+The integration owner ran the full `npm run check`, including the independent batch-3 script, after the final geometry corrections. `npm run build` produced a standalone file of **22,914,334 bytes** (22.91 MB) for **41 devices**. SHA-256: `baf0d0a49a057ee0c321bbc6251ae1461cbbda2194542db14821d32db8313453`.
 
 The final HTML was opened directly with network requests blocked in Chrome 156.0.8078.80, Firefox 157.0 and WebKit 27.2. All 41 inventories, operation inputs, selection, anatomy and reset passed; both sets of assembled previews decoded and 2400 px PNG export worked. No HTTP requests or browser exceptions occurred. The ten new assembled WebPs and ten native gallery PNGs were regenerated after the final fixes; every new gallery image was opened and inspected.
 
 The shared 8 × 8 depth readout includes a theme-aware color scale and a complete row/column table for assistive technology. The hidden table is clipped by a wrapper so its intrinsic width does not expand the mobile page.
+
+Production commit `3f54245` includes a final accuracy clarification that the radar mounting kit is omitted. The resulting 114-byte text-only build change was rebuilt and rechecked offline in Chrome; the deployed HTML matches that verified artifact byte for byte.

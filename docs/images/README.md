@@ -1,6 +1,6 @@
 # README captures
 
-The original 52 PNGs were captured from the running application on 4 November 2026 using **Save image**. The first three expansion batches add thirty captures on 5 November using the same renderer/export path through `scripts/render-device-proofs.mjs --gallery`. These are original renderer exports, not generated mockups or photographs. All 82 PNGs are 2400 × 2217 px, use Light appearance (`#efeee9`), and retain the app's native framing and colors.
+The original 52 PNGs were captured from the running application on 4 November 2026 using **Save image**. The first four expansion batches add forty captures on 5 November using the same renderer/export path through `scripts/render-device-proofs.mjs --gallery`. These are original renderer exports, not generated mockups or photographs. All 92 PNGs are 2400 × 2217 px, use Light appearance (`#efeee9`), and retain the app's native framing and colors.
 
 | Pair | Device | Separation | Camera | Accessories |
 | --- | --- | --- | --- | --- |
@@ -40,16 +40,20 @@ The original 52 PNGs were captured from the running application on 4 November 20
 | `planar-*-light.png` | Audeze LCD-2 Classic | 100% | Default 3D | Representative internal construction |
 | `bme688-*-light.png` | Bosch BME688 | 100% | Default 3D | Representative sensing structures |
 | `scd41-*-light.png` | Sensirion SCD41-D-R2 | 100% | Default 3D | Representative photoacoustic interior |
-
 | `imu-*-light.png` | TDK ICM-42688-P | 100% | Default 3D | Representative hidden construction |
 | `tof-*-light.png` | ST VL53L8CXV9GC/1 | 100% | Default 3D | Representative hidden construction |
 | `radar-*-light.png` | TI IWR6843ISK / PROC073D / 001_IWR | 100% | Default 3D | Rev D fitted assembly |
 | `pir-*-light.png` | Panasonic EKMB1101111 / Rev 7.1 | 100% | Default 3D | Representative hidden construction |
 | `ultrasonic-*-light.png` | Devantech SRF04 / Pro-Wave 400ST160 + 400SR160 | 100% | Default 3D | Representative hidden construction |
+| `max30102-*-light.png` | Analog Devices MAX30102EFD+ | 100% | Default 3D | Documented 14-contact optical package; representative hidden assembly |
+| `loadcell-*-light.png` | HBK PW6C / 1-PW6CMR/20KG-1 | 100% | Default 3D | Manufacturer spring-body CAD; representative gauge bridge |
+| `gnss-*-light.png` | u-blox ZED-F9P-04B-01 / HPG1.32 | 100% | Default 3D | Documented package and contact pattern; representative hidden circuitry |
+| `imx500-*-light.png` | Sony IMX500 / bare-chip configuration | 100% | Default 3D | Documented active area and stacked architecture; representative die dimensions |
+| `eventcamera-*-light.png` | Sony / Prophesee IMX636-AAMR-C | 100% | Default 3D | Documented envelope, pad count and active area; representative cutaway |
 
 For each pair, reset the device, choose Light, leave component labels off and set the separation above. Leave playback, auto rotation and isolation off. Save the material view, enable X-ray to clear selection and show the complete anatomy view, then save again without changing the camera. The viewer's width-to-height ratio was 2400:2217; export height follows that ratio.
 
-The PNG exporter includes the model and scene background, not the surrounding HTML controls or callouts. Normal-mode assembly guides and shadows are retained; anatomy uses its own contour treatment. All 82 saved images were opened and visually checked. Model provenance and reuse terms remain those documented in the [project README](../../README.md#attribution).
+The PNG exporter includes the model and scene background, not the surrounding HTML controls or callouts. Normal-mode assembly guides and shadows are retained; anatomy uses its own contour treatment. All 92 saved images were opened and visually checked. Model provenance and reuse terms remain those documented in the [project README](../../README.md#attribution).
 
 The added devices use their documented source revision. The DLP package and enlarged mechanism retain permanent scale labels in both treatments. Glass in the Nixie tube and camera filter preserves translucency with anatomy contours. Tall devices use their fully exploded framing for both exports.
 
