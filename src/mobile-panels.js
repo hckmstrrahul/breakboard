@@ -1,12 +1,13 @@
+import {deviceFamilies} from './device-menu.js';
 // Move the existing controls at the breakpoint so desktop and mobile share state,
 // keyboard handlers and IDs. Comment markers restore their original positions.
 export function createMobilePanels(boards,onBoardChange){
  const media=matchMedia('(max-width: 800px), (max-width: 1000px) and (max-height: 500px)');
  const header=document.querySelector('.topbar'),workspace=document.querySelector('.workspace');
  const picker=document.createElement('label');picker.className='mobile-board-picker';
- const name=document.createElement('span');name.className='sr-only';name.textContent='Board';
+ const name=document.createElement('span');name.className='sr-only';name.textContent='Device';
  const select=document.createElement('select');select.id='mobile-board';
- for(const board of boards)select.add(new Option(board.tab,board.id));
+ for(const family of deviceFamilies(boards)){const group=document.createElement('optgroup');group.label=family.name;for(const board of family.devices)group.append(new Option(board.tab,board.id));select.append(group);}
  select.addEventListener('change',()=>onBoardChange(select.value));picker.append(name,select);header.append(picker);
  const panel=(id,title)=>{
   const element=document.createElement('details');element.id=id;element.className='mobile-panel';

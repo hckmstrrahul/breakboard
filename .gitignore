@@ -31,3 +31,8 @@ reference/**/um1724.txt
 # Local deployment account and project metadata.
 .vercel/
 .vercel
+
+# Public source PCB downloads can be refetched from the evidence records.
+reference/**/*.brd
+reference/**/*.kicad_pcb
+reference/hackrf/project.json

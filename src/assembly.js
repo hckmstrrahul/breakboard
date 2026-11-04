@@ -5,7 +5,7 @@ export function makeAssembly(parts){const root=new T.Group();const groups=Object
 export function finishAssembly(root,groups,parts,{merge=true,skipGroups=new Set()}={}){
  root.updateMatrixWorld(true);
  for(const [id,g] of Object.entries(groups)){
-  if(merge&&!skipGroups.has(id)){const buckets=new Map(),remove=[];g.traverse(o=>{if(!o.isMesh||o.userData.pcb||isMovingPart(o)||o.material.map||Array.isArray(o.material))return;const geo=o.geometry.index?o.geometry.toNonIndexed():o.geometry.clone();geo.applyMatrix4(o.matrixWorld);const list=buckets.get(o.material)||[];list.push(geo);buckets.set(o.material,list);remove.push(o)});remove.forEach(o=>{o.removeFromParent();o.geometry.dispose()});for(const[m,geos]of buckets){const geo=mergeGeometries(geos);if(!geo)throw Error('Cannot merge '+id);const o=new T.Mesh(geo,m);o.castShadow=true;o.receiveShadow=true;g.add(o);geos.forEach(x=>x.dispose())}}
+  if(merge&&!skipGroups.has(id)){const buckets=new Map(),remove=[];g.traverse(o=>{if(!o.isMesh||o.userData.pcb||o.userData.anatomyTransparent||isMovingPart(o)||o.material.map||Array.isArray(o.material))return;const geo=o.geometry.index?o.geometry.toNonIndexed():o.geometry.clone();geo.applyMatrix4(o.matrixWorld);const list=buckets.get(o.material)||[];list.push(geo);buckets.set(o.material,list);remove.push(o)});remove.forEach(o=>{o.removeFromParent();o.geometry.dispose()});for(const[m,geos]of buckets){const geo=mergeGeometries(geos);if(!geo)throw Error('Cannot merge '+id);const o=new T.Mesh(geo,m);o.castShadow=true;o.receiveShadow=true;g.add(o);geos.forEach(x=>x.dispose())}}
   g.traverse(o=>{if(o.isMesh){o.userData.partId=id;o.castShadow=true;o.receiveShadow=true;}});
  }
  let accessories=true;const byId=new Map(parts.map(p=>[p.id,p]));

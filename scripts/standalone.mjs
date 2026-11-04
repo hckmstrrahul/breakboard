@@ -25,7 +25,7 @@ if(fs.existsSync('README.md')){
  const block=/<!-- offline-stats:start -->[\s\S]*?<!-- offline-stats:end -->/;
  if(!block.test(readme))throw new Error('README is missing its offline-stats markers');
  const count=BOARD_LIST.length;
- const summary=`**${count} interactive ${count===1?'board':'boards'} in one ${(bytes/1e6).toFixed(2)} MB HTML file** (${(bytes/1024**2).toFixed(2)} MiB).`;
+ const summary=`**${count} interactive ${count===1?'device':'devices'} in one ${(bytes/1e6).toFixed(2)} MB HTML file** (${(bytes/1024**2).toFixed(2)} MiB).`;
  const updated=readme.replace(block,`<!-- offline-stats:start -->\n${summary}\n<!-- offline-stats:end -->`);
  if(updated!==readme)fs.writeFileSync('README.md',updated);
 }

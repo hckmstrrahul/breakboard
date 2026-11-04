@@ -54,9 +54,9 @@ for(const board of Object.values(BOARDS))for(const width of [320,800,1260])for(c
   return{id:part.id,w,h:16+15*Math.ceil(text.length*6/(w-20)),part,minLeader:board.id==='uno'?24:8};
  });
  const view={w:width,h:Math.max(width===320?360:600,calloutHeight(items,{w:width}))};
- const half=Math.max(board.half,(board.minHalfWidth||board.half*.82)/(view.w/view.h));
+ const base=T.MathUtils.lerp(board.assembledHalf||board.half,board.half,pose),half=Math.max(base,(board.minHalfWidth||base*.82)/(view.w/view.h));
  const camera=new T.OrthographicCamera(-half*view.w/view.h,half*view.w/view.h,half,-half,.1,800);
- camera.position.set(...(viewName==='3d'?board.camera:viewName==='front'?[0,30,180]:[0,180,.01]));camera.lookAt(...board.target);camera.updateMatrixWorld();
+ const target=new T.Vector3(...(board.assembledTarget||board.target)).lerp(new T.Vector3(...board.target),pose);camera.position.set(...(viewName==='3d'?board.camera:viewName==='front'?[0,30,180]:[0,180,.01])).add(target.clone().sub(new T.Vector3(...board.target)));camera.lookAt(target);camera.updateMatrixWorld();
  for(const item of items){
   const anchor=board.id==='pi5'?(piAnchors[item.id]||item.part.anchor):item.part.anchor;
   const point=new T.Vector3(...anchor).addScaledVector(new T.Vector3(...item.part.offset),pose).project(camera);

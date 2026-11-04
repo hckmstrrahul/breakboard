@@ -1,0 +1,6 @@
+Arduino Portenta X8 reference mechanical geometry
+Source: https://docs.arduino.cc/resources/models/ABX00049-step.zip
+File: PortentaX8.step, dated 2022-10-06 in the source ZIP.
+Copyright Arduino and the respective component suppliers.
+
+Modified 2026-11-04 for breakboard: tessellated all 2,011 supplied solids and shells, transformed coordinates to a centered Y-up frame, grouped functional assemblies using the official datasheet topology, reconstructed materials and readable package markings. No hidden circuitry or internal silicon was added. This is an educational reference visualization, not a manufacturing model. Vendor names and marks identify the depicted hardware and do not imply endorsement.

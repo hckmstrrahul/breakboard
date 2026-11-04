@@ -2,7 +2,7 @@ import * as T from 'three';
 
 // Keep movable hardware out of static geometry/material batches.
 export function isMovingPart(object){
- for(let node=object;node;node=node.parent)if(node.userData.rotor)return true;
+ for(let node=object;node;node=node.parent)if(node.userData.rotor||node.userData.motion)return true;
  return false;
 }
 export function makeRotor(parent,objects,pivot){

@@ -32,6 +32,25 @@ export function createAnatomy(model){
  const ramp=new T.DataTexture(new Uint8Array([85,135,190,255]),4,1,T.RedFormat);
  ramp.minFilter=ramp.magFilter=T.NearestFilter;ramp.needsUpdate=true;
  const fill=new T.MeshToonMaterial({color:'#dbc2ab',gradientMap:ramp,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});
+ // Glass is a physical enclosure, not an opaque cover. Preserve the shared
+ // anatomy ink while allowing the electrodes / optical stack to read through it.
+ const glass=fill.clone();glass.transparent=true;glass.opacity=.14;glass.depthWrite=false;
+ const glassInk={value:new T.Color('#617078')};
+ glass.onBeforeCompile=shader=>{
+  shader.uniforms.glassInk=glassInk;
+  shader.vertexShader='varying vec3 vGlassNormal;\n'+shader.vertexShader;
+  shader.vertexShader=shader.vertexShader.replace('#include <defaultnormal_vertex>','#include <defaultnormal_vertex>\nvGlassNormal = normalize(transformedNormal);');
+  shader.fragmentShader='uniform vec3 glassInk; varying vec3 vGlassNormal;\n'+shader.fragmentShader;
+  // Orthographic view-space normals give a continuous silhouette on smooth
+  // glass. Crease edges alone only draw the horizontal rings of a turned shell.
+  shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>',`
+   float contour = 1.0 - smoothstep(0.0, 0.11, abs(normalize(vGlassNormal).z));
+   outgoingLight = mix(outgoingLight, glassInk, contour);
+   diffuseColor.a = mix(0.10, 0.92, contour);
+   #include <opaque_fragment>
+  `);
+ };
+ glass.customProgramCacheKey=()=> 'anatomy-glass-contour-v1';
  const shell=new T.MeshToonMaterial({color:'#8b959e',gradientMap:ramp,transparent:true,opacity:.12,depthWrite:true,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});
  const ink=new T.LineBasicMaterial({color:'#52616f',transparent:true,opacity:.92,depthWrite:false,toneMapped:false});
  const faint=new T.LineBasicMaterial({color:'#74818b',transparent:true,opacity:.2,depthWrite:false,toneMapped:false});
@@ -63,7 +82,7 @@ export function createAnatomy(model){
   model.root.updateMatrixWorld(true);
   for(const entry of drawings){
    const{group,source,body,lines}=entry,isSubject=id===null||entry.id===id;
-   if(selected!==id){const scene=isSubject?subject:context;scene.add(body);if(lines){scene.add(lines);body.material=isSubject?fill:shell;lines.material=isSubject?ink:faint;}else body.material=isSubject?entry.solid:entry.ghost;}
+   if(selected!==id){const scene=isSubject?subject:context;scene.add(body);if(lines){scene.add(lines);body.material=isSubject?(source.userData.anatomyTransparent?glass:fill):shell;lines.material=isSubject?ink:faint;}else body.material=isSubject?entry.solid:entry.ghost;}
    let visible=group.visible;for(let node=source;node&&node!==group;node=node.parent)visible&&=node.visible;
    body.visible=visible;body.matrix.copy(source.matrixWorld);if(lines){lines.visible=visible;lines.matrix.copy(source.matrixWorld);}
   }
@@ -71,6 +90,8 @@ export function createAnatomy(model){
  }
  function setTheme(dark){
   fill.color.set(dark?'#b8c2cb':'#d6d9d6');ink.color.set(dark?'#52616f':'#617078');
+  glass.color.copy(fill.color);
+  glassInk.value.copy(ink.color);
   shell.color.set(dark?'#738494':'#78868a');faint.color.set(dark?'#9baab6':'#6c797d');
   shell.opacity=dark?.13:.1;faint.opacity=dark?.23:.2;
   for(const mark of markings){mark.solid.color.set(dark?'#384753':'#44515a');mark.ghost.color.copy(faint.color);mark.ghost.opacity=dark?.2:.14;}

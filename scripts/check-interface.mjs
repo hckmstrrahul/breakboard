@@ -4,6 +4,11 @@ import {BOARD_LIST,BOARDS} from '../src/boards.js';
 import {mergedSpecifications} from '../src/specifications.js';
 import {createThemeController,THEME_KEY} from '../src/theme.js';
 import {readJetsonData} from '../src/jetson.js';
+import {deviceFamilies} from '../src/device-menu.js';
+
+const families=deviceFamilies(BOARD_LIST);
+assert.deepEqual(families.map(family=>family.name),['Boards','Displays','Optics','Motion','Radio']);
+assert.deepEqual(families.flatMap(family=>family.devices.map(device=>device.id)).toSorted(),BOARD_LIST.map(device=>device.id).toSorted(),'Every device appears exactly once in the grouped picker');
 
 const cpu=BOARDS.uno.parts.find(p=>p.id==='cpu');
 assert.deepEqual(mergedSpecifications(BOARDS.uno,cpu),[

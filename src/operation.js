@@ -23,14 +23,16 @@ export function advanceOperation(state,dt,{playing,assembled,reduced}){
 }
 
 export function createOperation(model,definition){
- const root=new T.Group();root.name='Illustrative signal flow';const rotors=[],indicators=new Set();
+ const root=new T.Group();root.name='Illustrative signal flow';const rotors=[],motions=[],indicators=new Set(),indicatorRest=new Map();
  model.root.traverse(object=>{
-  if(object.userData.rotor)rotors.push(object);
+  if(object.userData.motion)motions.push({object,rest:object.quaternion.clone(),config:object.userData.motion});
+  else if(object.userData.rotor)rotors.push(object);
   const mat=object.userData.originalMaterial||object.material;
   if(mat?.userData.indicator)indicators.add(mat);
  });
+ for(const material of indicators)indicatorRest.set(material,{color:material.color.clone(),emissive:material.emissive.clone()});
  const parts=new Map(definition.parts.map(p=>[p.id,p]));
- const routes=(CONNECTIONS[definition.id]||[]).map(([from,to])=>{
+ const routes=(definition.connections||CONNECTIONS[definition.id]||[]).map(([from,to])=>{
   const material=new T.LineBasicMaterial({color:'#a43e23',transparent:true,opacity:0,depthTest:false,depthWrite:false});
   const line=new T.Line(new T.BufferGeometry().setFromPoints(Array.from({length:33},()=>new T.Vector3())),material);line.frustumCulled=false;line.renderOrder=20;root.add(line);
   const dotMaterial=new T.MeshBasicMaterial({color:'#a43e23',transparent:true,opacity:0,depthTest:false,depthWrite:false});
@@ -38,11 +40,36 @@ export function createOperation(model,definition){
   const endGeometry=new T.SphereGeometry(.23,8,6),ends=[new T.Mesh(endGeometry,dotMaterial),new T.Mesh(endGeometry,dotMaterial)];ends.forEach(end=>{end.renderOrder=21;root.add(end);});
   return{from,to,line,dot,ends,curve:new T.CubicBezierCurve3(),material,dotMaterial};
  });
- const state={power:0,angle:0,time:0},a=new T.Vector3(),b=new T.Vector3();
+ const optical=model.root.userData.opticalPath;
+ const rays=[];
+ if(optical){
+  const material=new T.LineBasicMaterial({color:'#d6ab62',transparent:true,opacity:0,depthWrite:false});
+  for(const offset of [-1.8,0,1.8]){
+   const from=new T.Vector3(...optical.from),to=new T.Vector3(...optical.to);from.x+=offset;to.x+=offset;
+   const ray=new T.Line(new T.BufferGeometry().setFromPoints([from,to]),material);root.add(ray);rays.push(ray);
+  }
+ }
+ const state={power:0,angle:0,time:0},a=new T.Vector3(),b=new T.Vector3(),rotation=new T.Quaternion();
  function update(dt,{playing,explode,reduced,isolate}){
   const assembled=explode<.002;advanceOperation(state,dt,{playing,assembled,reduced});
   for(const rotor of rotors)rotor.rotation.y=state.angle;
-  for(const material of indicators){const {kind,phase}=material.userData.indicator;const activity=reduced||kind==='power'?1:.25+.75*Math.pow(.5+.5*Math.sin(state.time*2+phase),6);material.emissiveIntensity=state.power*(.5+activity*1.6);}
+  for(const {object,rest,config}of motions){
+   const axis=new T.Vector3(...(config.axis||[0,1,0])).normalize();let angle=0;
+   if(config.type==='stepper')angle=Math.floor(state.time*(config.rate||8))*T.MathUtils.degToRad(config.stepAngle||1.8);
+   if(config.type==='mirror')angle=T.MathUtils.degToRad(config.angle||12)*state.power*(Math.sin(state.time*2+(config.phase||0))>=0?1:-1);
+   object.quaternion.copy(rest).multiply(rotation.setFromAxisAngle(axis,angle));
+  }
+  for(const material of indicators){
+   const {kind,phase=0,digit,index=phase}=material.userData.indicator;
+   if(kind==='nixie'){material.emissiveIntensity=digit===Math.floor(state.time*.65)%10?state.power*3:0;continue;}
+   if(kind==='coil'){material.emissiveIntensity=state.power*.22*(Math.floor(state.time*8)%2===phase?1:0);continue;}
+   if(kind==='matrix'){
+    const row=material.userData.indicator.row??Math.floor(index/8),col=material.userData.indicator.column??index%8,level=.08+.92*Math.pow(.5+.5*Math.sin(state.time*1.5-(row+col)*.35),5);
+    material.emissive.setHSL(((row+col)/28+state.time*.025)%1,.8,.48);material.emissiveIntensity=state.power*level*2.4;continue;
+   }
+   const activity=reduced||kind==='power'?1:.25+.75*Math.pow(.5+.5*Math.sin(state.time*2+phase),6);material.emissiveIntensity=state.power*(.5+activity*1.6);
+  }
+  for(const ray of rays)ray.material.opacity=state.power*(reduced?.5:.4+.15*Math.sin(state.time*1.5));
   root.visible=state.power>.002&&assembled&&!isolate;
   if(!root.visible)return;
   routes.forEach((route,index)=>{
@@ -57,6 +84,6 @@ export function createOperation(model,definition){
   });
  }
  function setTheme(dark){for(const route of routes){route.material.color.set(dark?'#efa17e':'#a43e23');route.dotMaterial.color.copy(route.material.color);}}
- function reset(){Object.assign(state,{power:0,angle:0,time:0});for(const rotor of rotors)rotor.rotation.y=0;for(const material of indicators)material.emissiveIntensity=0;root.visible=false;}
- reset();return{root,rotors,indicators,routes,state,update,setTheme,reset};
+ function reset(){Object.assign(state,{power:0,angle:0,time:0});for(const rotor of rotors)rotor.rotation.y=0;for(const {object,rest}of motions)object.quaternion.copy(rest);for(const material of indicators){material.emissiveIntensity=0;material.color.copy(indicatorRest.get(material).color);material.emissive.copy(indicatorRest.get(material).emissive);}root.visible=false;}
+ reset();return{root,rotors,motions,indicators,routes,rays,state,update,setTheme,reset};
 }

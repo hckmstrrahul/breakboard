@@ -9,13 +9,13 @@ const context=new Proxy({}, {get:(_,key)=>key==='measureText'?()=>({width:0}):()
 globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>context})};
 globalThis.__BREAKBOARD_ASSETS=Object.fromEntries(fs.readdirSync('public/models').filter(f=>f.endsWith('.json.gz')).map(f=>[f.replace('.json.gz',''),fs.readFileSync('public/models/'+f).toString('base64')]));
 const {BOARD_LIST}=await import('../src/boards.js');
-const expectedLights={esp32:1,pi5:0,uno:4,jetson:0,pico2w:1,nano:4,orangepi5:2,beaglebone:5,nucleo:3};
+const expectedLights={esp32:1,pi5:0,uno:4,jetson:0,pico2w:1,nano:4,orangepi5:2,beaglebone:5,nucleo:3,portenta:2,hackrf:6,neopixel:64,hqcamera:0,dlp:0,nixie:10,stepper:8};
 const powered={playing:true,explode:0,reduced:false,isolate:false};
 for(const def of BOARD_LIST){
  const model=await def.build();model.setPose(0);model.setSelection(def.parts[0].id,false,false);model.root.updateMatrixWorld(true);
  const operation=createOperation(model,def);
  assert.equal(operation.rotors.length,['pi5','jetson'].includes(def.id)?1:0,def.id+' has only its physical fan');
- assert.equal(operation.indicators.size,expectedLights[def.id],def.id+' only existing identified LEDs illuminate');
+ assert.equal(operation.indicators.size,expectedLights[def.id],def.id+' only documented indicators or explanatory winding surfaces are animated');
  for(const record of model.batches||[])assert(record.entries.every(entry=>!isMovingPart(entry.object)),def.id+' rotors excluded from static batches');
  const stationary=[];model.root.traverse(o=>{if(o.isMesh&&!o.isBatchedMesh&&!isMovingPart(o))stationary.push([o,o.matrixWorld.clone()]);});
  operation.update(1/60,{...powered,explode:.5});assert.equal(operation.state.power,0,'No operation before assembly');
@@ -23,7 +23,11 @@ for(const def of BOARD_LIST){
  assert(operation.state.power>.99);assert(operation.root.visible);
  if(operation.rotors.length)assert(operation.rotors[0].rotation.y>0,'Impeller rotates');
  model.root.updateMatrixWorld(true);for(const[o,matrix]of stationary)assert.deepEqual(o.matrixWorld.elements,matrix.elements,def.id+' shrouds, cables and sockets stay fixed');
- for(const mat of operation.indicators)assert(mat.emissiveIntensity>0,'LED has emissive activity');
+ for(const mat of operation.indicators)if(!['nixie','coil'].includes(mat.userData.indicator.kind))assert(mat.emissiveIntensity>0,'LED has emissive activity');
+ if(def.id==='nixie')assert.equal([...operation.indicators].filter(mat=>mat.emissiveIntensity>0).length,1,'Exactly one numeral glows');
+ if(def.id==='dlp'){assert.equal(operation.motions.length,16);for(const motion of operation.motions)assert(Math.abs(motion.object.quaternion.angleTo(motion.rest)-12*Math.PI/180)<.002,'Mirrors tilt by the documented 12 degrees');}
+ if(def.id==='stepper'){assert.equal(operation.motions.length,4,'Shaft, magnet and two rotor cups animate together');const angles=operation.motions.map(m=>m.object.quaternion.angleTo(m.rest));assert(angles.every(a=>Math.abs(a-angles[0])<1e-8),'All rotating parts keep their assembly offsets');}
+ if(def.id==='hqcamera'){assert.equal(operation.rays.length,3);for(const ray of operation.rays){const p=ray.geometry.attributes.position;assert.equal(p.getX(0),p.getX(1),'Bare mount does not focus rays');}}
  for(const route of operation.routes){
   assert(route.curve.v0.distanceTo(new T.Vector3(...def.parts.find(p=>p.id===route.from).anchor))<1e-6);
   assert(route.curve.v3.distanceTo(new T.Vector3(...def.parts.find(p=>p.id===route.to).anchor))<1e-6,'Routes terminate at their real assembly anchors');
@@ -55,9 +59,9 @@ for(const def of BOARD_LIST){
    assert.deepEqual(entry.lines.matrix.elements,entry.body.matrix.elements);
    const isSubject=selected===null||entry.id===selected;
    assert.equal(entry.body.parent,isSubject?anatomy.subject:anatomy.context);
-   assert.equal(entry.body.material.transparent,!isSubject,'Unselected anatomy is fully drawn; only context around a selection is ghosted');
+   assert.equal(entry.body.material.transparent,!isSubject||!!entry.source.userData.anatomyTransparent,'Opaque anatomy and genuine glass retain their material roles');
    assert(entry.body.visible,'Full context remains in X-ray');
-   assert(entry.body.material.depthWrite,'Front surfaces retain depth ordering');
+   assert.equal(entry.body.material.depthWrite,!(isSubject&&entry.source.userData.anatomyTransparent),'Opaque surfaces retain depth ordering; genuine glass transmits');
   }
   for(const mark of anatomy.markings){
    const isSubject=selected===null||mark.id===selected;
@@ -71,7 +75,7 @@ for(const def of BOARD_LIST){
  }
  for(const dark of[false,true]){anatomy.setTheme(dark);operation.setTheme(dark);}
  if(operation.rotors.length){model.setPose(0);model.setSelection(def.id==='jetson'?'fan':'blower',false,true);operation.update(1/60,powered);anatomy.update(def.id==='jetson'?'fan':'blower');for(const entry of [...anatomy.entries,...anatomy.markings].filter(e=>isMovingPart(e.source)))assert.deepEqual(entry.body.matrix.elements,entry.source.matrixWorld.elements,'Anatomy and markings follow rotating impeller');}
- console.log(`PASS · ${def.tab}: exact anatomy geometry/pose/isolation, ${anatomy.markings.length} original artwork layers; ${operation.rotors.length} rotor, ${operation.indicators.size} LEDs; assembly gating, reduced motion, stop/reset and attached signal paths`);
+ console.log(`PASS · ${def.tab}: exact anatomy geometry/pose/isolation, ${anatomy.markings.length} original artwork layers; ${operation.rotors.length} rotor, ${operation.indicators.size} emissive surfaces; assembly gating, reduced motion, stop/reset and attached signal paths`);
 }
 const first={power:0,angle:0,time:0},second={power:0,angle:0,time:0};
 for(let i=0;i<60;i++)advanceOperation(first,1/60,{playing:true,assembled:true,reduced:false});
