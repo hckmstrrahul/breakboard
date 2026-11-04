@@ -1,0 +1,19 @@
+Waveshare module reference geometry used in Grobot
+
+Copyright Waveshare and the respective component suppliers.
+Original sources:
+https://files.waveshare.com/wiki/UPS-HAT-D/UPS-HAT-D%203D%20Drawing.zip
+  UPS-HAT_D.stp
+https://files.waveshare.com/upload/c/c5/1_47inch_lcd_module_asm-221122.zip
+  1_47inch_lcd_module_asm-221122.stp
+
+Modified 2026-11-04 for breakboard: tessellated 286 UPS/holder solids and
+39 LCD solids, transformed them into the proposed Grobot assembly, grouped
+functional parts, reconstructed materials and surface markings. The original
+UPS generic cells, stacking studs and acrylic base are omitted; independently
+modeled BAK cells and custom enclosure mounts replace them.
+
+Reference geometry remains subject to its original source terms. No blanket
+open-source license is asserted for manufacturer CAD. Names and marks identify
+the depicted hardware and do not imply vendor endorsement. This educational
+model is not a manufacturing drawing or an electrically validated assembly.

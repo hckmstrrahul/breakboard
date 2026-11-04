@@ -69,19 +69,22 @@ export function createOperation(model,definition){
    const ray=new T.Line(new T.BufferGeometry().setFromPoints([from,to]),material);root.add(ray);rays.push(ray);
   }
  }
- const state={power:0,angle:0,time:0},a=new T.Vector3(),b=new T.Vector3(),rotation=new T.Quaternion();
+ const state={power:0,angle:0,time:0},a=new T.Vector3(),b=new T.Vector3(),rotation=new T.Quaternion(),screenWhite=new T.Color('#d5e8e1');
  function update(dt,{playing,explode,reduced,isolate}){
   const assembled=explode<.002;advanceOperation(state,dt,{playing,assembled,reduced});
   for(const rotor of rotors)rotor.rotation.y=state.angle;
   for(const {object,rest,config}of motions){
    const axis=new T.Vector3(...(config.axis||[0,1,0])).normalize();let angle=0;
    if(config.type==='stepper')angle=Math.floor(state.time*(config.rate||8))*T.MathUtils.degToRad(config.stepAngle||1.8);
+   if(config.type==='servo')angle=T.MathUtils.degToRad(config.angle||30)*state.power*Math.sin(state.time*(config.rate||.6));
    if(config.type==='mirror')angle=T.MathUtils.degToRad(config.angle||12)*state.power*(Math.sin(state.time*2+(config.phase||0))>=0?1:-1);
    object.quaternion.copy(rest).multiply(rotation.setFromAxisAngle(axis,angle));
   }
   for(const material of indicators){
    const {kind,phase=0,digit,index=phase}=material.userData.indicator;
    if(kind==='nixie'){material.emissiveIntensity=digit===Math.floor(state.time*.65)%10?state.power*3:0;continue;}
+   if(kind==='screen'){material.color.copy(indicatorRest.get(material).color).lerp(screenWhite,state.power);material.emissive.setRGB(1,1,1);material.emissiveIntensity=state.power*.85;continue;}
+   if(kind==='filament'){const signal=Math.sin(state.time*.6),green=material.userData.indicator.channel==='green',level=Math.max(0,green?signal:-signal);material.emissive.set(green?'#35ec78':'#ff4231');material.emissiveIntensity=state.power*level*4;continue;}
    if(kind==='coil'){material.emissiveIntensity=state.power*.22*(Math.floor(state.time*8)%2===phase?1:0);continue;}
    if(kind==='matrix'){
     const row=material.userData.indicator.row??Math.floor(index/8),col=material.userData.indicator.column??index%8,level=.3+.7*Math.pow(.5+.5*Math.sin(state.time*1.5-(row+col)*.35),3);
