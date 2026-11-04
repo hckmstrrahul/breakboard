@@ -1,5 +1,6 @@
 // Rebuild with: node reference/grobot/package-cad.mjs /path/to/tessellation-prefixes
 // Inputs: ups-{inventory,meshes}.json and lcd-{inventory,meshes}.json.
+// Stable asset coordinates; src/grobot.js applies rigid open-frame mount poses.
 import fs from 'node:fs';import zlib from 'node:zlib';import path from 'node:path';import * as T from 'three';
 const input=process.argv[2];if(!input)throw Error('Pass the folder containing tessellated Waveshare modules');
 const buckets=new Map(),inventory=[],counts={};
@@ -26,6 +27,6 @@ for(const type of ['ups','lcd']){
   counts[group]=(counts[group]||0)+1;inventory.push({module:type,index:i,name:item.name,group,min:item.min,max:item.max});
  }
 }
-const metadata={source:'Waveshare UPS-HAT_D.stp and 1_47inch_lcd_module_asm-221122.stp',sourceMeshes:325,counts,omitted:'UPS generic cell envelopes, stacking studs and acrylic base; custom enclosure mounts used instead'};
+const metadata={source:'Waveshare UPS-HAT_D.stp and 1_47inch_lcd_module_asm-221122.stp',sourceMeshes:325,counts,omitted:'UPS generic cell envelopes, stacking studs and acrylic base; custom mounts used instead'};
 const data={metadata,meshes:[...buckets.values()]};fs.writeFileSync('public/models/grobot.json.gz',zlib.gzipSync(JSON.stringify(data),{level:9}));fs.writeFileSync('reference/grobot/source-groups.json',JSON.stringify(inventory));
 console.log({counts,draws:data.meshes.length,bytes:fs.statSync('public/models/grobot.json.gz').size,triangles:data.meshes.reduce((n,m)=>n+m.i.length/3,0)});

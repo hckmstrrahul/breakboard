@@ -36,7 +36,7 @@ Actual 2400 px PNG captures from **Save image**. Each pair shares its camera and
 | **HQ Camera** | ![Raspberry Pi HQ Camera with its CS mount, adapter, infrared filter, sensor and rear electronics separated](docs/images/hqcamera-teardown-light.png) | ![The same HQ Camera assembly with anatomy contours and markings](docs/images/hqcamera-anatomy-light.png) |
 | **Stepper motor** | ![Representative hybrid stepper with laminated stator, copper windings, toothed rotor and bearings separated](docs/images/stepper-teardown-light.png) | ![The same Stepper motor assembly with anatomy contours and markings](docs/images/stepper-anatomy-light.png) |
 | **HackRF One** | ![HackRF One r10 with its RF front end, controller, SMA ports and fitted headers separated](docs/images/hackrf-teardown-light.png) | ![The same HackRF One assembly with anatomy contours and markings](docs/images/hackrf-anatomy-light.png) |
-| **Grobot** | ![Grobot Anchor revision B with enclosure, brass mechanism, controller, LCD, UPS, batteries and audio modules separated](docs/images/grobot-teardown-light.png) | ![The same Grobot assembly with anatomy contours and component markings](docs/images/grobot-anatomy-light.png) |
+| **Grobot** | ![Grobot open brass frame, perfboard, servo pointer, controller, LCD, UPS, batteries and audio modules separated](docs/images/grobot-teardown-light.png) | ![The same Grobot assembly with anatomy contours and component markings](docs/images/grobot-anatomy-light.png) |
 
 To reproduce: choose **Light**, reset the device (tags start off), and use **3D**. ESP32 uses its default 78% separation; all other devices use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
 
@@ -62,7 +62,7 @@ Open [127.0.0.1:5174](http://127.0.0.1:5174). No account, API key or backend is 
 | Selection | Tags start off. Click a component or list item to show its selection tag; picking on the model anchors it to the clicked surface. Click empty canvas to clear selection and show all tags when labels are enabled. |
 | X-ray | Show the whole device in anatomy style. Glass retains its transparency and contours. Selecting a part ghosts the others; clicking empty canvas restores the complete view. |
 | Isolate | Frame one component group. Also works with X-ray. |
-| Play / Pause | Assemble the device, then animate fans, LEDs, numeral cathodes, stepped shafts, a servo anchor, mirror tilt or illustrative signal/light paths. Changing separation stops playback. The camera, Nixie tube, stepper and Grobot adjust framing with separation; orbiting or zooming preserves your manual framing until a camera preset or reset. Reduced motion uses a still powered view. |
+| Play / Pause | Assemble the device, then animate fans, LEDs, numeral cathodes, stepped shafts, a servo pointer, mirror tilt or illustrative signal/light paths. Changing separation stops playback. The camera, Nixie tube, stepper and Grobot adjust framing with separation; orbiting or zooming preserves your manual framing until a camera preset or reset. Reduced motion uses a still powered view. |
 | 3D / Top / Front | Switch cameras. Drag to orbit, right-drag to pan, scroll or use + / − to zoom. |
 | Light / Dark / System | Dark by default. Choose Light, Dark or System; the preference persists. |
 | Save image | Download a 2400 px PNG of the model in its current view and theme. |
@@ -93,11 +93,11 @@ X-ray, playback, overview tags and camera choice persist across device changes. 
 | Raspberry Pi HQ Camera, CS mount | `#hqcamera` | Official mount drawings and schematic; reconstructed package bodies |
 | 42 mm hybrid stepper | `#stepper` | Documented two-phase mechanism; representative mechanical dimensions |
 | Great Scott Gadgets HackRF One r10 | `#hackrf` | Official KiCad board; 437 footprint placements |
-| Grobot / Anchor revision B | `#grobot` | Official Waveshare UPS/LCD STEP; specified hardware and proposed custom enclosure |
+| Grobot / open brass frame | `#grobot` | Official Waveshare UPS/LCD STEP; same specified hardware, custom perfboard and open brass frame |
 
 These are educational reconstructions. Separating soldered parts explains their roles; it is not a physical disassembly procedure. Estimated heights, connector interiors and hidden placements are recorded in [reference/](reference/) and the [device registry](src/boards.js). X-ray reuses modeled surfaces, without inventing buried copper or silicon internals. Signal paths illustrate activity, not an electrical simulation. The stepper is a representative mechanism, not a manufacturer-specific replica. The DLP package stays at its documented scale; a separate **600× detail** explains the micromirror mechanism without claiming a disclosed fabrication stack. Nixie electrode shapes and hidden construction are identified as reconstructed.
 
-[Grobot’s evidence record](reference/grobot/evidence.md) distinguishes the 325 original Waveshare solids from reconstructed parts. Its AYWHP ESP32-S3, SG90, two BAK cells, audio modules, brass anchor and four filaments follow the supplied hardware concept. The enclosure, wiring and unmeasured kit footprints are provisional; driver positions remain empty. Play uses sample content and an illustrative servo command.
+[Grobot’s evidence record](reference/grobot/evidence.md) distinguishes the 325 original Waveshare solids from reconstructed parts. Its AYWHP ESP32-S3, SG90, two BAK cells, audio modules and four filaments retain the supplied hardware inventory. A new open brass frame, perforated carrier, visible jumpers and plain servo pointer replace the enclosure and decorative anchor. The frame, mounting layout, wiring and unmeasured kit footprints remain provisional; six driver positions remain empty. Play uses sample content and an illustrative servo command.
 
 ## How I built it
 

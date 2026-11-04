@@ -11,7 +11,7 @@ Modified 2026-11-04 for breakboard: tessellated 286 UPS/holder solids and
 39 LCD solids, transformed them into the proposed Grobot assembly, grouped
 functional parts, reconstructed materials and surface markings. The original
 UPS generic cells, stacking studs and acrylic base are omitted; independently
-modeled BAK cells and custom enclosure mounts replace them.
+modeled BAK cells and custom open-frame mounts replace them.
 
 Reference geometry remains subject to its original source terms. No blanket
 open-source license is asserted for manufacturer CAD. Names and marks identify

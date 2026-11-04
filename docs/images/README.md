@@ -20,7 +20,7 @@ Captured from the running application on 4 November 2026 using **Save image**. T
 | `hqcamera-*-light.png` | HQ Camera | 100% | Default 3D | C-to-CS adapter |
 | `stepper-*-light.png` | Stepper motor | 100% | Default 3D | — |
 | `hackrf-*-light.png` | HackRF One | 100% | Default 3D | — |
-| `grobot-*-light.png` | Grobot / Anchor revision B | 100% | Default 3D | Two fitted filament pairs; third tray empty |
+| `grobot-*-light.png` | Grobot / open brass frame | 100% | Default 3D | Exposed modules, perfboard and servo pointer; two filament pairs |
 
 For each pair, reset the device, choose Light, leave component labels off and set the separation above. Leave playback, auto rotation and isolation off. Save the material view, enable X-ray to clear selection and show the complete anatomy view, then save again without changing the camera. The viewer's width-to-height ratio was 2400:2217; export height follows that ratio.
 
