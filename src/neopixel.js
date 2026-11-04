@@ -39,6 +39,7 @@ export function buildNeoPixel(){const{root,groups}=makeAssembly(NEOPIXEL_PARTS),
   const shell=new T.ExtrudeGeometry(s,{depth:1.45,bevelEnabled:false,curveSegments:28});shell.rotateX(-Math.PI/2);mesh(shell,ceramic,g,[0,1,0]);
   mesh(new T.CylinderGeometry(1.8,1.55,.3,32),cup,g,[0,1.2,0]);
   const index=+e.name.slice(3)-1,glow=indicatorMaterial('#e6d5ae','matrix',index/64*Math.PI*2);glow.userData.indicator.index=index;glow.userData.indicator.row=Math.round((31.115-e.y)/8.89);glow.userData.indicator.column=Math.round((+e.x+31.115)/8.89);
+  glow.userData.indicator.glowPosition=[+e.x,2.48,-e.y];
   mesh(new T.CylinderGeometry(1.68,1.68,.12,32),glow,g,[0,1.68,0]);
   box(g,.45,.02,.45,[-1.95,2.46,-1.95],M.black,.01);
  }else{box(g,2,.6,1.25,[0,1.15,0],e.name.startsWith('C')?M.ceramic:M.black,.045);}

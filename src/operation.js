@@ -22,6 +22,25 @@ export function advanceOperation(state,dt,{playing,assembled,reduced}){
  return state;
 }
 
+function createPixelGlow(indicators){
+ const materials=[...indicators].filter(m=>m.userData.indicator.glowPosition);
+ if(!materials.length)return null;
+ // A shared, small light-spill texture keeps the effect local to each package.
+ // One instanced draw avoids a light or postprocessing pass for every pixel.
+ const size=64,data=new Uint8Array(size*size*4);
+ for(let y=0;y<size;y++)for(let x=0;x<size;x++){
+  const radius=((x+.5)/size*2-1)**2+((y+.5)/size*2-1)**2,i=(y*size+x)*4;
+  data[i]=data[i+1]=data[i+2]=255;data[i+3]=Math.round(255*Math.exp(-radius*4)*Math.max(0,1-radius)**2);
+ }
+ const map=new T.DataTexture(data,size,size);map.magFilter=map.minFilter=T.LinearFilter;map.needsUpdate=true;
+ const material=new T.MeshBasicMaterial({map,transparent:true,blending:T.AdditiveBlending,depthWrite:false,toneMapped:false});
+ const mesh=new T.InstancedMesh(new T.PlaneGeometry(14,14),material,materials.length),matrix=new T.Matrix4();
+ mesh.name='Powered pixel light spill';
+ materials.forEach((m,i)=>{matrix.makeRotationX(-Math.PI/2);matrix.setPosition(...m.userData.indicator.glowPosition);mesh.setMatrixAt(i,matrix);mesh.setColorAt(i,new T.Color(0));});
+ mesh.instanceColor.setUsage(T.DynamicDrawUsage);mesh.computeBoundingSphere();
+ return{mesh,materials,color:new T.Color()};
+}
+
 export function createOperation(model,definition){
  const root=new T.Group();root.name='Illustrative signal flow';const rotors=[],motions=[],indicators=new Set(),indicatorRest=new Map();
  model.root.traverse(object=>{
@@ -31,6 +50,7 @@ export function createOperation(model,definition){
   if(mat?.userData.indicator)indicators.add(mat);
  });
  for(const material of indicators)indicatorRest.set(material,{color:material.color.clone(),emissive:material.emissive.clone()});
+ const pixelGlow=createPixelGlow(indicators);if(pixelGlow)root.add(pixelGlow.mesh);
  const parts=new Map(definition.parts.map(p=>[p.id,p]));
  const routes=(definition.connections||CONNECTIONS[definition.id]||[]).map(([from,to])=>{
   const material=new T.LineBasicMaterial({color:'#a43e23',transparent:true,opacity:0,depthTest:false,depthWrite:false});
@@ -64,12 +84,17 @@ export function createOperation(model,definition){
    if(kind==='nixie'){material.emissiveIntensity=digit===Math.floor(state.time*.65)%10?state.power*3:0;continue;}
    if(kind==='coil'){material.emissiveIntensity=state.power*.22*(Math.floor(state.time*8)%2===phase?1:0);continue;}
    if(kind==='matrix'){
-    const row=material.userData.indicator.row??Math.floor(index/8),col=material.userData.indicator.column??index%8,level=.08+.92*Math.pow(.5+.5*Math.sin(state.time*1.5-(row+col)*.35),5);
-    material.emissive.setHSL(((row+col)/28+state.time*.025)%1,.8,.48);material.emissiveIntensity=state.power*level*2.4;continue;
+    const row=material.userData.indicator.row??Math.floor(index/8),col=material.userData.indicator.column??index%8,level=.3+.7*Math.pow(.5+.5*Math.sin(state.time*1.5-(row+col)*.35),3);
+    material.emissive.setHSL(((row+col)/28+state.time*.025)%1,1,.42);
+    // Keep the trough visibly powered and tint the emitter itself: its pale
+    // unpowered encapsulant otherwise washes out the RGB light under the studio.
+    material.color.copy(indicatorRest.get(material).color).lerp(material.emissive,state.power*.94);
+    material.emissiveIntensity=state.power*level*8;continue;
    }
    const activity=reduced||kind==='power'?1:.25+.75*Math.pow(.5+.5*Math.sin(state.time*2+phase),6);material.emissiveIntensity=state.power*(.5+activity*1.6);
   }
   for(const ray of rays)ray.material.opacity=state.power*(reduced?.5:.4+.15*Math.sin(state.time*1.5));
+  if(pixelGlow){pixelGlow.materials.forEach((material,i)=>pixelGlow.mesh.setColorAt(i,pixelGlow.color.copy(material.emissive).multiplyScalar(material.emissiveIntensity*.24)));pixelGlow.mesh.instanceColor.needsUpdate=true;}
   root.visible=state.power>.002&&assembled&&!isolate;
   if(!root.visible)return;
   routes.forEach((route,index)=>{
