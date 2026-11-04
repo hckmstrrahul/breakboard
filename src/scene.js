@@ -1,7 +1,7 @@
 import * as T from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
-import {pickComponent,projectAnchor,createPickGesture} from './selection.js';
+import {pickComponent,projectAnchor,createPickGesture,resolveSurfacePoint} from './selection.js';
 import {createOperation} from './operation.js';
 import {createAnatomy} from './anatomy.js';
 import {createModelCache} from './model-cache.js';
@@ -44,7 +44,7 @@ export function createScene(host,onSelect){
  controls.addEventListener('start',()=>{transition=null;autoFrame=false;});
  const focus=(id,e)=>{selected=id;const p=parts.find(p=>p.id===id);const poses=pose(e);const a=new T.Vector3(...p.anchor).add(new T.Vector3(...poses[id]));const distance=new T.Vector3(65,75,95);const bounds=new T.Box3().setFromObject(model.groups[id]);const center=bounds.getCenter(new T.Vector3()),sz=bounds.getSize(new T.Vector3());const fit=Math.min(20,Math.max(.6,(definition?.half||45)*1.2/Math.max(sz.x,sz.y,sz.z)));camTo(center.clone().add(distance).toArray(),center.toArray(),fit);};
  const select=(id,isolate,xray,e,anchor)=>{if(!model)return;isolate=!!id&&isolate;if(anchor!==undefined||id!==selected){selectionAnchor=anchor?.clone()||null;selectionSurface=anchor?.surface||null;}model.setSelection(id,isolate,!!id);selected=id;if(isolate)focus(id,e);else if(isolated)view('perspective');isolated=isolate;};
- const project=id=>{const picked=id===selected&&!!selectionAnchor;let anchor=picked?selectionAnchor:new T.Vector3(...partMap.get(id).anchor);if(picked&&selectionSurface){selectionSurface.object.updateWorldMatrix(true,false);anchor=model.groups[id].worldToLocal(selectionSurface.object.localToWorld(selectionSurface.point.clone()));}return{...projectAnchor(model.groups[id],anchor,camera,size),picked};};
+ const project=id=>{const picked=id===selected&&!!selectionAnchor;let anchor=picked?selectionAnchor:new T.Vector3(...partMap.get(id).anchor);if(picked&&selectionSurface){selectionSurface.object.updateWorldMatrix(true,false);anchor=model.groups[id].worldToLocal(selectionSurface.object.localToWorld(resolveSurfacePoint(selectionSurface)));}return{...projectAnchor(model.groups[id],anchor,camera,size),picked};};
  const draw=()=>{
   if(lastState?.xray){
    if(!model.anatomy){model.anatomy=createAnatomy(model);model.anatomy.setTheme(darkTheme);}

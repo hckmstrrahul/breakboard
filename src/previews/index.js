@@ -61,6 +61,16 @@ import as5600_light from './as5600-light.webp';
 import as5600_dark from './as5600-dark.webp';
 import quartz_light from './quartz-light.webp';
 import quartz_dark from './quartz-dark.webp';
+import memsmic_light from './memsmic-light.webp';
+import memsmic_dark from './memsmic-dark.webp';
+import armature_light from './armature-light.webp';
+import armature_dark from './armature-dark.webp';
+import planar_light from './planar-light.webp';
+import planar_dark from './planar-dark.webp';
+import bme688_light from './bme688-light.webp';
+import bme688_dark from './bme688-dark.webp';
+import scd41_light from './scd41-light.webp';
+import scd41_dark from './scd41-dark.webp';
 export default {
  esp32:{light:esp32_light,dark:esp32_dark},
  pi5:{light:pi5_light,dark:pi5_dark},
@@ -92,5 +102,10 @@ export default {
  bldc:{light:bldc_light,dark:bldc_dark},
  haptic:{light:haptic_light,dark:haptic_dark},
  as5600:{light:as5600_light,dark:as5600_dark},
- quartz:{light:quartz_light,dark:quartz_dark}
+ quartz:{light:quartz_light,dark:quartz_dark},
+ memsmic:{light:memsmic_light,dark:memsmic_dark},
+ armature:{light:armature_light,dark:armature_dark},
+ planar:{light:planar_light,dark:planar_dark},
+ bme688:{light:bme688_light,dark:bme688_dark},
+ scd41:{light:scd41_light,dark:scd41_dark}
 };

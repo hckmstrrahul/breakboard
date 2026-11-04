@@ -60,6 +60,9 @@ export function createAnatomy(model){
  }
  for(const[id,group]of Object.entries(model.groups))group.traverse(source=>{
   if(!source.isMesh||source.isBatchedMesh)return;
+  // Colored particles and waves explain a process; they are not hardware and
+  // must not become opaque anatomy surfaces when their animation is stopped.
+  for(let node=source;node;node=node.parent)if(node.userData.explanatoryEffect)return;
   const original=source.userData.originalMaterial||source.material;
   if(original.map){
    const solid=artworkMaterial(original,false),ghost=artworkMaterial(original,true),body=new T.Mesh(source.geometry,ghost);

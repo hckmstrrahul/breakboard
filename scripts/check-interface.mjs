@@ -8,7 +8,7 @@ import {readJetsonData} from '../src/jetson.js';
 import {deviceFamilies,adjacentDevice} from '../src/device-menu.js';
 
 const families=deviceFamilies(BOARD_LIST);
-assert.deepEqual(families.map(family=>family.name),['Boards','Displays','Optics','Sensors','Chips','Motion','Power','Radio']);
+assert.deepEqual(families.map(family=>family.name),['Boards','Displays','Optics','Sensors','Chips','Motion','Power','Audio','Radio']);
 assert.deepEqual(families.flatMap(family=>family.devices.map(device=>device.id)).toSorted(),BOARD_LIST.map(device=>device.id).toSorted(),'Every device appears exactly once in the grouped picker');
 
 const cpu=BOARDS.uno.parts.find(p=>p.id==='cpu');

@@ -1,13 +1,13 @@
 # breakboard
 
-Explore development boards, displays, optics, sensors, chips, power hardware, radio hardware and mechanisms as interactive 3D assemblies. Separate components, inspect their functions, switch to anatomy linework, and operate working mechanisms with device-specific controls.
+Explore development boards, displays, optics, sensors, chips, audio, power hardware, radio hardware and mechanisms as interactive 3D assemblies. Separate components, inspect their functions, switch to anatomy linework, and operate working mechanisms with device-specific controls.
 
 [Open breakboard](https://breakboard-teardown.vercel.app) · Built with Three.js, vanilla JavaScript and Vite. Runs entirely in the browser.
 
 ## Take it offline
 
 <!-- offline-stats:start -->
-**31 interactive devices in one 22.69 MB HTML file** (21.64 MiB).
+**36 interactive devices in one 22.79 MB HTML file** (21.73 MiB).
 <!-- offline-stats:end -->
 
 [Save the standalone HTML](https://breakboard-teardown.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
@@ -51,6 +51,11 @@ Actual 2400 px PNG captures from **Save image**. Each pair shares its camera and
 | **Haptic actuator** | ![C10-100 haptic actuator with its case, representative suspended mass, springs, magnet and coil separated](docs/images/haptic-teardown-light.png) | ![The same haptic actuator in anatomy mode showing its representative suspension](docs/images/haptic-anatomy-light.png) |
 | **AS5600 encoder** | ![AS5600 adapter with its diametric magnet, sensor package, representative chip interior and headers separated](docs/images/as5600-teardown-light.png) | ![The same magnetic encoder assembly in anatomy mode](docs/images/as5600-anatomy-light.png) |
 | **Quartz resonator** | ![Epson FC-135 package with a representative tuning fork, electrodes, supports and lid separated](docs/images/quartz-teardown-light.png) | ![The same quartz resonator in anatomy mode showing its two opposed tines](docs/images/quartz-anatomy-light.png) |
+| **MEMS microphone** | ![Infineon IM73A135 with its bottom port, two representative membranes, fixed stator and bonds separated](docs/images/memsmic-teardown-light.png) | ![The same MEMS microphone in anatomy mode](docs/images/memsmic-anatomy-light.png) |
+| **Balanced armature** | ![Knowles ED-29689 receiver with representative coil, armature linkage and diaphragm separated](docs/images/armature-teardown-light.png) | ![The same balanced-armature receiver in anatomy mode](docs/images/armature-anatomy-light.png) |
+| **Planar magnetic driver** | ![Audeze LCD-2 Classic driver reconstruction with magnet arrays, diaphragm and conductor separated](docs/images/planar-teardown-light.png) | ![The same planar driver in anatomy mode showing its membrane and conductor](docs/images/planar-anatomy-light.png) |
+| **BME688** | ![Bosch BME688 package with representative environmental sensing structures separated](docs/images/bme688-teardown-light.png) | ![The same BME688 in anatomy mode](docs/images/bme688-anatomy-light.png) |
+| **SCD41 CO₂ sensor** | ![Sensirion SCD41 with its protective membrane and representative photoacoustic interior separated](docs/images/scd41-teardown-light.png) | ![The same SCD41 in anatomy mode](docs/images/scd41-anatomy-light.png) |
 
 To reproduce: choose **Light**, reset the device (tags start off), and use **3D**. ESP32 uses its default 78% separation; all other devices use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
 
@@ -73,10 +78,10 @@ After adding or changing a model, run `npm run render:previews` with Chrome inst
 
 | Control | Behavior |
 | --- | --- |
-| Device pills + dropdowns | Choose from Boards, Displays, Optics, Sensors, Chips, Motion, Power and Radio. Each option has a square assembled-model WebP preview that follows Light, Dark or System appearance. Each active pill shows the selected device. Hover opens a menu on a mouse or trackpad; moving between categories switches immediately. Click and keyboard navigation remain available; Escape closes the menu. |
+| Device pills + dropdowns | Choose from Boards, Displays, Optics, Sensors, Chips, Motion, Power, Audio and Radio. Each option has a square assembled-model WebP preview that follows Light, Dark or System appearance. Each active pill shows the selected device. Hover opens a menu on a mouse or trackpad; moving between categories switches immediately. Click and keyboard navigation remain available; Escape closes the menu. |
 | Previous / Next arrows | Cycle within the current category, wrapping at its ends. The arrows sit at the two ends of the viewer toolbar; single-device categories disable them. |
 | Assembled / Exploded + Separation | Move between the assembled device and separated component groups. |
-| Device operation inputs | Switch the relay coil, change BLDC speed/direction, vary haptic frequency/amplitude, rotate an encoder magnet or change an external quartz clock divider. Readouts explain the response; Reset restores their defaults. Inputs share the inline mobile Controls panel. |
+| Device operation inputs | Switch a relay coil, change motor speed/direction, vary haptic pulses, rotate an encoder magnet or change an external quartz clock divider. Audio amplitude/frequency drives membranes and a normalized waveform; environmental inputs drive the corresponding sensing channel. Readouts explain the response; Reset restores defaults. Inputs share the inline mobile Controls panel. |
 | Selection | Models open unselected and tags start off. In either rendering mode, selecting a part keeps it solid and ghosts the rest. Click a component or list item to show its selection tag; picking on the model anchors it to the clicked surface. Click empty canvas to clear selection and show all tags when labels are enabled. |
 | X-ray | Show the whole device in anatomy style. Glass retains its transparency and contours. Selecting a part ghosts the others; clicking empty canvas restores the complete view. |
 | Isolate | Frame one component group. Also works with X-ray. |
@@ -126,6 +131,11 @@ X-ray, playback, overview tags and camera choice persist across device changes. 
 | Precision Microdrives C10-100 / R006-PROD | `#haptic` | [Documented envelope and resonance; representative suspension](reference/haptic/evidence.md) |
 | ams AS5600-SO_EK_AB / AS5600-SO_AB_V2 | `#as5600` | [Documented adapter and magnet; representative chip cutaway](reference/as5600/evidence.md) |
 | Epson FC-135 / 32.768 kHz / 12.5 pF | `#quartz` | [Documented package and frequency; representative tuning fork](reference/quartz/evidence.md) |
+| Infineon IM73A135V01 / PG-LLGA-5-2 | `#memsmic` | [Documented package and dual-membrane principle; representative MEMS geometry](reference/memsmic/evidence.md) |
+| Knowles ED-29689-000 / Rev C | `#armature` | [Documented package and terminals; representative armature linkage](reference/armature/evidence.md) |
+| Audeze LCD-2 Classic / 100-LC-1017-00 | `#planar` | [Documented 106 mm non-Fazor driver; representative internal dimensions](reference/planar/evidence.md) |
+| Bosch BME688 / 0273017016 / datasheet Rev 1.3 | `#bme688` | [Documented package and channels; representative MEMS cutaway](reference/bme688/evidence.md) |
+| Sensirion SCD41-D-R2 / datasheet v1.7 | `#scd41` | [Documented package and photoacoustic principle; representative interior](reference/scd41/evidence.md) |
 
 These are educational reconstructions. Separating soldered parts explains their roles; it is not a physical disassembly procedure. Estimated heights, connector interiors and hidden placements are recorded in [reference/](reference/) and the [device registry](src/boards.js). X-ray reuses the same modeled surfaces. The new sealed-module cutaways explicitly identify illustrative interiors; chip surface regions are functional diagrams, not fabricated transistor layouts or buried-copper maps. Signal paths illustrate activity, not an electrical simulation. The stepper is a representative mechanism, not a manufacturer-specific replica. The DLP package stays at its documented scale; a separate **600× detail** explains the micromirror mechanism without claiming a disclosed fabrication stack. Nixie electrode shapes and hidden construction are identified as reconstructed.
 
@@ -177,9 +187,9 @@ npm run check:offline
 
 Deploy `dist/` to a static host, or use the [standalone offline file](#take-it-offline). On the hosted app, Jetson CAD ships in the app bundle and Pi, Portenta and Grobot CAD load on first selection. The viewer retains up to three built models, releasing unreferenced GPU resources when older models leave the cache.
 
-Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. The first expansion batch adds independent checks for contact mating, motor apertures and rotation, haptic pulses, encoder conversion and quartz division. [Batch review and limitations](docs/verification/expansion-batch1.md).
+Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. The expansion checks cover contact mating, motor apertures and rotation, haptic pulses, encoder conversion, quartz division, audio linkages, waveform response and environmental sensing channels. Independent reviews record source limits and corrected findings: [batch 1](docs/verification/expansion-batch1.md), [batch 2](docs/verification/expansion-batch2.md).
 
-The standalone HTML loaded all 31 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
+The standalone HTML loaded all 36 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
 
 Normal development uses the supplied runtime assets. Downloaded reference CAD, PDFs, photographs and intermediate meshes stay local; source URLs and evidence records are included. Regenerating STEP meshes additionally requires `cadquery-ocp==7.9.3.1.1` and the `import-*` / `package-*` scripts in [scripts/](scripts/) and [reference/grobot/](reference/grobot/). Arduino extraction uses `prepare-uno.py` and `prepare-nano.py`.
 

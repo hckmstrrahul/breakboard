@@ -5,7 +5,7 @@ export function pickComponent(raycaster,groups,{preferredId=null}={}){
  for(const group of Object.values(groups))group.updateWorldMatrix(true,true);
  const hits=raycaster.intersectObjects(Object.values(groups),true).filter(hit=>{
   if(!hit.object.isMesh||!groups[hit.object.userData.partId])return false;
-  for(let object=hit.object;object;object=object.parent)if(!object.visible)return false;
+  for(let object=hit.object;object;object=object.parent)if(!object.visible||object.userData.explanatoryEffect)return false;
   return true;
  });
  // Anatomy renders the selected assembly above its transparent context. Picking
@@ -15,7 +15,17 @@ export function pickComponent(raycaster,groups,{preferredId=null}={}){
  const id=hit.object.userData.partId;
  const anchor=groups[id].worldToLocal(hit.point.clone());
  anchor.surface={object:hit.object,point:hit.object.worldToLocal(hit.point.clone())};
+ // A fixed local point follows rotation but floats off a flexing surface. Keep
+ // the hit's triangle weights so the tag follows its actual deformed vertices.
+ if(hit.face&&hit.barycoord&&hit.instanceId===undefined){anchor.surface.vertices=[hit.face.a,hit.face.b,hit.face.c];anchor.surface.weights=hit.barycoord.toArray();}
  return{id,anchor};
+}
+
+export function resolveSurfacePoint(surface,target=new Vector3()){
+ if(!surface.vertices)return target.copy(surface.point);
+ target.set(0,0,0);const vertex=new Vector3();
+ surface.vertices.forEach((index,i)=>{surface.object.getVertexPosition(index,vertex);target.addScaledVector(vertex,surface.weights[i]);});
+ return target;
 }
 
 export function projectAnchor(group,anchor,camera,size){

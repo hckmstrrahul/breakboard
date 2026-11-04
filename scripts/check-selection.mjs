@@ -3,7 +3,7 @@ import * as T from 'three';
 import fs from 'node:fs';
 import {gunzipSync} from 'node:zlib';
 import {BOARDS} from '../src/boards.js';
-import {pickComponent,projectAnchor,placeCallout,placeCallouts,calloutHeight,createPickGesture} from '../src/selection.js';
+import {pickComponent,projectAnchor,placeCallout,placeCallouts,calloutHeight,createPickGesture,resolveSurfacePoint} from '../src/selection.js';
 
 const root=new T.Group(),groups={ports:new T.Group(),pcb:new T.Group()};
 for(const [id,group]of Object.entries(groups)){root.add(group);group.userData.partId=id;}
@@ -21,6 +21,19 @@ const surface=right.anchor.surface,originalSurface=surface.object.localToWorld(s
 surface.object.rotation.z=.3;surface.object.updateWorldMatrix(true,false);
 assert(surface.object.localToWorld(surface.point.clone()).distanceTo(originalSurface)>.01,'Exact picked surface can follow a moving impeller');
 surface.object.rotation.z=0;
+// A picked point must stay attached when the surface flexes, including through
+// a later object transform. Use known triangle weights, not a builder fixture.
+const membraneGroup=new T.Group(),membraneGeometry=new T.BufferGeometry();
+membraneGeometry.setAttribute('position',new T.Float32BufferAttribute([0,0,0,2,0,0,0,0,2],3));
+const membrane=new T.Mesh(membraneGeometry,new T.MeshBasicMaterial({side:T.DoubleSide}));membrane.userData.partId='membrane';membraneGroup.add(membrane);
+const membraneRay=new T.Raycaster(new T.Vector3(.5,4,.5),new T.Vector3(0,-1,0));
+const membraneHit=pickComponent(membraneRay,{membrane:membraneGroup});
+assert(resolveSurfacePoint(membraneHit.anchor.surface).distanceTo(new T.Vector3(.5,0,.5))<1e-8);
+membraneGeometry.attributes.position.setY(1,2);membraneGeometry.attributes.position.needsUpdate=true;
+const attached=resolveSurfacePoint(membraneHit.anchor.surface);
+assert(attached.distanceTo(new T.Vector3(.5,.5,.5))<1e-8,'Picked leader follows the deformed triangle');
+membrane.position.set(1,2,3);membrane.rotation.z=.2;membrane.updateWorldMatrix(true,false);
+assert(membrane.localToWorld(attached.clone()).distanceTo(membrane.localToWorld(new T.Vector3(.5,.5,.5)))<1e-8,'Deformation and rigid pose compose');
 ray.set(new T.Vector3(-8,30,0),new T.Vector3(0,-1,0));
 const left=pickComponent(ray,groups);assert.equal(left.id,'ports');assert.equal(left.anchor.x,-8,'Separate pieces in one group retain different hit points');
 groups.ports.visible=false;assert.equal(pickComponent(ray,groups).id,'pcb','Hidden/isolate proxies do not intercept picks');groups.ports.visible=true;
