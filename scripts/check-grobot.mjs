@@ -52,16 +52,30 @@ close(bounds('pointer').min.z,bounds('servo').max.z,'Pointer hub seats on the ou
 const operation=createOperation(model,GROBOT_BOARD),filaments=[...operation.indicators].filter(m=>m.userData.indicator.kind==='filament');
 assert.equal(filaments.length,4,'Exactly four real filaments, not a third installed pair');
 assert.deepEqual(filaments.map(m=>m.userData.indicator.row).sort(),[0,0,1,1]);
-assert.equal(operation.motions.length,1,'Only the bare pointer moves');
-const motion=operation.motions[0],played={playing:true,explode:0,reduced:false,isolate:false};
-let min=Infinity,max=-Infinity;
+assert.equal(operation.motions.length,2,'Only the bare pointer and speaker diaphragm move');
+const motion=operation.motions.find(m=>m.config.type==='servo'),speaker=operation.motions.find(m=>m.config.type==='speaker'),played={playing:true,explode:0,reduced:false,isolate:false};
+assert.equal(speaker.object.children.length,2,'Only the cone and dust cap move, not the surround, basket or terminals');
+assert.equal(operation.routes.length,5,'Restrained power, display, servo and audio connections');
+assert(operation.routes.some(r=>r.from==='amplifier'&&r.to==='speaker'),'Speaker activity includes its amplifier connection');
+let min=Infinity,max=-Infinity,speakerMin=Infinity,speakerMax=-Infinity;
 for(let frame=0;frame<900;frame++){
  operation.update(1/60,played);const angle=motion.object.rotation.z;min=Math.min(min,angle);max=Math.max(max,angle);
  assert(Math.abs(angle)<=Math.PI/6+.000001,'Servo demo respects ±30°');
+ const travel=speaker.object.position.z-speaker.restPosition.z;speakerMin=Math.min(speakerMin,travel);speakerMax=Math.max(speakerMax,travel);
+ assert(Math.abs(travel)<=.450001,'Speaker excursion stays subtle and bounded');
+ close(speaker.object.position.x,speaker.restPosition.x,'No lateral speaker wobble',1e-8);close(speaker.object.position.y,speaker.restPosition.y,'Only acoustic-axis motion',1e-8);
  for(const row of[0,1])assert(filaments.filter(m=>m.userData.indicator.row===row&&m.emissiveIntensity>0).length<=1,'Red and green are mutually exclusive');
 }
 assert(min<-.52&&max>.52,`Command reaches both ends of its illustrative sweep: ${min} to ${max}`);
+assert(speakerMin<-.44&&speakerMax>.44,'Speaker cone travels both inward and outward');
+operation.update(1/60,{...played,reduced:true});assert(speaker.object.position.equals(speaker.restPosition),'Reduced motion keeps the speaker still');
+const dot=operation.routes.at(-1).dot.position.clone();operation.update(1/60,{...played,reduced:true});assert(operation.routes.at(-1).dot.position.equals(dot),'Reduced motion retains static electrical connections');
+operation.update(1/60,played);assert(!speaker.object.position.equals(speaker.restPosition),'Playback resumes cone motion');
+operation.update(1/60,{...played,explode:.5});assert(speaker.object.position.equals(speaker.restPosition),'Separation stops cone travel immediately');assert(!operation.root.visible,'No electrical paths in the separated assembly');
+for(let frame=0;frame<180;frame++)operation.update(1/60,{...played,playing:false});assert(speaker.object.position.equals(speaker.restPosition),'Pause settles the cone at rest');assert(!operation.root.visible,'Pause clears the electrical paths');
+operation.update(1/60,played);
 operation.reset();assert(motion.object.quaternion.angleTo(motion.rest)<1e-8,'Reset returns pointer to neutral');
+assert(speaker.object.position.equals(speaker.restPosition),'Reset restores speaker position exactly');
 for(const fraction of[0,.25,.5,.75,1]){
  model.setPose(fraction);model.root.updateMatrixWorld(true);
  for(const part of GROBOT_BOARD.parts)assert(bounds(part.id).min.y>=GROBOT_BOARD.floorY,part.id+' clears the Grobot floor throughout separation');

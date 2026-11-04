@@ -74,7 +74,7 @@ for(const def of BOARD_LIST){
    for(const entry of [...anatomy.entries,...anatomy.markings])assert.equal(entry.body.visible,entry.id===selected,'Isolation is retained for geometry and artwork');}
  }
  for(const dark of[false,true]){anatomy.setTheme(dark);operation.setTheme(dark);}
- if(operation.rotors.length){model.setPose(0);model.setSelection(def.id==='jetson'?'fan':'blower',false,true);operation.update(1/60,powered);anatomy.update(def.id==='jetson'?'fan':'blower');for(const entry of [...anatomy.entries,...anatomy.markings].filter(e=>isMovingPart(e.source)))assert.deepEqual(entry.body.matrix.elements,entry.source.matrixWorld.elements,'Anatomy and markings follow rotating impeller');}
+ if(operation.rotors.length||def.id==='grobot'){const selected=def.id==='grobot'?'speaker':def.id==='jetson'?'fan':'blower';model.setPose(0);model.setSelection(selected,false,true);operation.update(1/60,powered);anatomy.update(selected);for(const entry of [...anatomy.entries,...anatomy.markings].filter(e=>isMovingPart(e.source)))assert.deepEqual(entry.body.matrix.elements,entry.source.matrixWorld.elements,'Anatomy and markings follow moving hardware');}
  console.log(`PASS · ${def.tab}: exact anatomy geometry/pose/isolation, ${anatomy.markings.length} original artwork layers; ${operation.rotors.length} rotor, ${operation.indicators.size} emissive surfaces; assembly gating, reduced motion, stop/reset and attached signal paths`);
 }
 const first={power:0,angle:0,time:0},second={power:0,angle:0,time:0};

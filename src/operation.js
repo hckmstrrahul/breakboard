@@ -44,7 +44,7 @@ function createPixelGlow(indicators){
 export function createOperation(model,definition){
  const root=new T.Group();root.name='Illustrative signal flow';const rotors=[],motions=[],indicators=new Set(),indicatorRest=new Map();
  model.root.traverse(object=>{
-  if(object.userData.motion)motions.push({object,rest:object.quaternion.clone(),config:object.userData.motion});
+  if(object.userData.motion)motions.push({object,rest:object.quaternion.clone(),restPosition:object.position.clone(),axis:new T.Vector3(...(object.userData.motion.axis||[0,1,0])).normalize(),config:object.userData.motion});
   else if(object.userData.rotor)rotors.push(object);
   const mat=object.userData.originalMaterial||object.material;
   if(mat?.userData.indicator)indicators.add(mat);
@@ -73,8 +73,14 @@ export function createOperation(model,definition){
  function update(dt,{playing,explode,reduced,isolate}){
   const assembled=explode<.002;advanceOperation(state,dt,{playing,assembled,reduced});
   for(const rotor of rotors)rotor.rotation.y=state.angle;
-  for(const {object,rest,config}of motions){
-   const axis=new T.Vector3(...(config.axis||[0,1,0])).normalize();let angle=0;
+  for(const {object,rest,restPosition,axis,config}of motions){
+   if(config.type==='speaker'){
+    // Slow, small axial travel illustrates diaphragm activity; it is not an
+    // audio waveform or a measured excursion of the unverified kit speaker.
+    const travel=assembled&&!reduced?state.power*config.amplitude*Math.sin(state.time*config.frequency*Math.PI*2):0;
+    object.position.copy(restPosition).addScaledVector(axis,travel);continue;
+   }
+   let angle=0;
    if(config.type==='stepper')angle=Math.floor(state.time*(config.rate||8))*T.MathUtils.degToRad(config.stepAngle||1.8);
    if(config.type==='servo')angle=T.MathUtils.degToRad(config.angle||30)*state.power*Math.sin(state.time*(config.rate||.6));
    if(config.type==='mirror')angle=T.MathUtils.degToRad(config.angle||12)*state.power*(Math.sin(state.time*2+(config.phase||0))>=0?1:-1);
@@ -112,6 +118,6 @@ export function createOperation(model,definition){
   });
  }
  function setTheme(dark){for(const route of routes){route.material.color.set(dark?'#efa17e':'#a43e23');route.dotMaterial.color.copy(route.material.color);}}
- function reset(){Object.assign(state,{power:0,angle:0,time:0});for(const rotor of rotors)rotor.rotation.y=0;for(const {object,rest}of motions)object.quaternion.copy(rest);for(const material of indicators){material.emissiveIntensity=0;material.color.copy(indicatorRest.get(material).color);material.emissive.copy(indicatorRest.get(material).emissive);}root.visible=false;}
+ function reset(){Object.assign(state,{power:0,angle:0,time:0});for(const rotor of rotors)rotor.rotation.y=0;for(const {object,rest,restPosition}of motions){object.quaternion.copy(rest);object.position.copy(restPosition);}for(const material of indicators){material.emissiveIntensity=0;material.color.copy(indicatorRest.get(material).color);material.emissive.copy(indicatorRest.get(material).emissive);}root.visible=false;}
  reset();return{root,rotors,motions,indicators,routes,rays,state,update,setTheme,reset};
 }

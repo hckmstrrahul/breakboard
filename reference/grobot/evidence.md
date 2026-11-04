@@ -20,7 +20,7 @@ The supplied Grobot revision B project establishes the component inventory. The 
 | Filament mounts | Eight proposed insulating end clips and solder terminals replace the covered trays. Four filaments retain their original 40 mm length. |
 | INMP441 | TDK 4.72 × 3.76 × 1 mm bottom-port package. Reconstructed 16 × 14 mm breakout reservation. Acoustic opening goes through the PCB to the bottom port. Kit board dimensions remain unverified. |
 | MAX98357A | Documented I²S class-D amplifier family. Reconstructed 20 × 20 mm breakout reservation with input header and speaker terminal. Exact kit footprint remains unverified. |
-| Speaker | Project's Ø40 × 10 mm reserved envelope, with reconstructed frame, magnet and cone. Diameter, impedance and power of the delivered kit unit remain unverified. |
+| Speaker | Project's Ø40 × 10 mm reserved envelope, with reconstructed frame, magnet and cone. Diameter, impedance and power of the delivered kit unit remain unverified. Play moves only the cone and dust cap by an illustrative ±0.45 mm at 3 Hz; this slow visual demonstration is not an audio waveform or a measured excursion. |
 | Driver carrier | Six empty channel positions, explicitly reserved. No particular MOSFET, resistor or protection part is presented as selected. |
 | Power, push-to-talk, mute | Required controls represented by provisional physical packages, identified in the inspector. Electrical selection remains open. |
 | Visible wiring | Proposed insulated power pairs and signal bundles connect exposed module ports and carrier terminals. Pad-aligned jumpers and solder tails show the construction. Not a verified netlist or production harness; no invented GPIO numbering. No battery interconnect is drawn in series. |
