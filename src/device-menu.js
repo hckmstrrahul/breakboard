@@ -15,7 +15,7 @@ export function adjacentDevice(devices,id,direction){
  return siblings[(siblings.indexOf(current)+direction+siblings.length)%siblings.length];
 }
 
-export function createDeviceMenu(host,devices,onChange){
+export function createDeviceMenu(host,devices,onChange,createOption){
  const categories=deviceFamilies(devices),buttons=[],menus=[];
  let selected=devices[0].id,openIndex=-1,typeahead='',lastTyped=0;
  host.setAttribute('role','navigation');host.setAttribute('aria-label','Devices');
@@ -32,9 +32,7 @@ export function createDeviceMenu(host,devices,onChange){
   for(const device of category.devices){
    const item=document.createElement('button');item.type='button';item.dataset.board=device.id;
    item.tabIndex=-1;item.setAttribute('role','menuitemradio');item.setAttribute('aria-checked','false');
-   const name=document.createElement('span');name.textContent=device.tab;
-   const detail=document.createElement('small');detail.textContent=device.menuDetail||device.model;
-   item.append(name,detail);menu.append(item);
+   item.append(...createOption(device));menu.append(item);
   }
   document.body.append(menu);menus.push(menu);
  }
@@ -78,7 +76,7 @@ export function createDeviceMenu(host,devices,onChange){
    }
    if(event.key.length===1&&!event.ctrlKey&&!event.metaKey&&!event.altKey){
     const now=performance.now();typeahead=now-lastTyped<650?typeahead+event.key:event.key;lastTyped=now;
-    const match=choices.find(item=>item.querySelector('span').textContent.toLowerCase().startsWith(typeahead.toLowerCase()));
+    const match=choices.find(item=>item.querySelector('.device-option-name').textContent.toLowerCase().startsWith(typeahead.toLowerCase()));
     if(match){event.preventDefault();match.focus();}
    }
   });

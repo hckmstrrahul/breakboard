@@ -8,6 +8,7 @@ import {mergedSpecifications} from './specifications.js';
 import {formatLabel} from './label-text.js';
 import {createMobilePanels} from './mobile-panels.js';
 import {createDeviceMenu,adjacentDevice} from './device-menu.js';
+import {createDeviceOption,setDevicePreviewTheme} from './device-option.js';
 import {createThemeController} from './theme.js';
 import jetsonCAD from '../public/models/jetson.json.gz?url&inline';
 // Ship this CAD with the app so a late fetch cannot strand the Jetson selector.
@@ -31,8 +32,8 @@ app.innerHTML=`<div class="shell">
 </main><button class="show-ui" id="show-ui">Show interface · H</button><div class="toast" id="toast" role="status"></div>
 </div>`;
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)');
-const mobilePanels=createMobilePanels(BOARD_LIST,id=>switchBoard(id));
-const deviceMenu=createDeviceMenu($('board-segments'),BOARD_LIST,id=>switchBoard(id));
+const mobilePanels=createMobilePanels(BOARD_LIST,id=>switchBoard(id),createDeviceOption);
+const deviceMenu=createDeviceMenu($('board-segments'),BOARD_LIST,id=>switchBoard(id),createDeviceOption);
 const state={explode:.78,targetExplode:.78,selected:null,isolate:false,xray:false,labels:false,selectionLabel:false,guides:true,rotate:false,view:'perspective',playing:false,clean:false,cooler:true};
 let stage,ready=false,labels=[],labelWidth=-1,switchId=0,playbackArmed=false,toastTimer;
 const calloutLayout=createCalloutLayout();
@@ -61,7 +62,7 @@ function select(id,anchor=null){if(!ready)return;state.selected=id;state.selecti
 try{stage=createScene($('viewport'),(id,anchor)=>select(id,anchor));}catch(error){$('loading-text').textContent='WebGL is unavailable. Enable hardware acceleration and reload.';console.error(error);throw error;}
 let preferenceStorage;try{preferenceStorage=localStorage;}catch{}
 const appearance=createThemeController({root:document.documentElement,media:matchMedia('(prefers-color-scheme: dark)'),storage:preferenceStorage,onChange:(preference,resolved)=>{
- stage.setTheme(resolved);document.querySelector('meta[name="theme-color"]').content=resolved==='dark'?'#14171c':'#efeee9';
+ stage.setTheme(resolved);setDevicePreviewTheme(resolved);document.querySelector('meta[name="theme-color"]').content=resolved==='dark'?'#14171c':'#efeee9';
  for(const button of document.querySelectorAll('[data-theme-mode]')){const active=button.dataset.themeMode===preference;button.setAttribute('aria-checked',String(active));button.tabIndex=active?0:-1;}
 }});
 $('theme-segments').addEventListener('click',e=>{const button=e.target.closest('[data-theme-mode]');if(button)appearance.set(button.dataset.themeMode);});

@@ -7,7 +7,7 @@ Explore development boards, displays, optics, sensors, chips, radio hardware and
 ## Take it offline
 
 <!-- offline-stats:start -->
-**26 interactive devices in one 22.31 MB HTML file** (21.28 MiB).
+**26 interactive devices in one 22.59 MB HTML file** (21.55 MiB).
 <!-- offline-stats:end -->
 
 [Save the standalone HTML](https://breakboard-teardown.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
@@ -62,11 +62,13 @@ npm run dev -- --port 5174 --strictPort
 
 Open [127.0.0.1:5174](http://127.0.0.1:5174). No account, API key or backend is required.
 
+After adding or changing a model, run `npm run render:previews` with Chrome installed to refresh the light/dark picker images. [Preview details](src/previews/README.md).
+
 ## Explore
 
 | Control | Behavior |
 | --- | --- |
-| Device pills + dropdowns | Choose from Boards, Displays, Optics, Sensors, Chips, Motion and Radio. Each active pill shows the selected device. Arrow keys navigate menus; Escape closes them. |
+| Device pills + dropdowns | Choose from Boards, Displays, Optics, Sensors, Chips, Motion and Radio. Each option has a square assembled-model WebP preview that follows Light, Dark or System appearance. Each active pill shows the selected device. Arrow keys navigate menus; Escape closes them. |
 | Previous / Next arrows | Cycle within the current category, wrapping at its ends. The arrows sit at the two ends of the viewer toolbar; single-device categories disable them. |
 | Assembled / Exploded + Separation | Move between the assembled device and separated component groups. |
 | Selection | Models open unselected and tags start off. In either rendering mode, selecting a part keeps it solid and ghosts the rest. Click a component or list item to show its selection tag; picking on the model anchors it to the clicked surface. Click empty canvas to clear selection and show all tags when labels are enabled. |
@@ -79,7 +81,7 @@ Open [127.0.0.1:5174](http://127.0.0.1:5174). No account, API key or backend is 
 
 Labels use sentence case while preserving part references, technical acronyms and product names. Overview tags retain their placement while orbiting. Collision adjustments move smoothly, while leader dots stay attached to the actual components. Most Uno tags include printed references and readable component types; about 30% use reference codes alone to reduce crowding. Other boards label key subsystems while grouping routine passives; selecting a component shows its full explanation.
 
-On mobile, the model comes first. The device picker, **Controls** and **Components & details** open custom bottom sheets. Drag the handle to adjust their height; close with Escape, the close button or a backdrop tap. Selecting a component closes its sheet and reveals its tag. The theme toggle stays in the header.
+On mobile, the model comes first. The device picker, **Controls** and **Components & details** open custom bottom sheets. Drag the handle to adjust their height; close with Escape, the close button or a backdrop tap. Selecting a component closes its sheet and reveals its tag. The theme toggle stays in the header. Device previews are included in the offline HTML.
 
 X-ray, playback, overview tags and camera choice persist across device changes. Pi's **Cooler** switch toggles its cooling assembly. Shortcuts: **E** separation, **L** labels, **P** playback, **R** reset, **H** interface. **Esc** closes an open device menu; otherwise it stops playback and exits X-ray, isolation and hidden-interface mode. Arrow keys orbit a focused canvas.
 

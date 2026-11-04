@@ -2,7 +2,7 @@ import {deviceFamilies} from './device-menu.js';
 const chevron='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 // Native modal dialogs provide focus containment and an inert background. The
 // existing controls move between layouts, preserving their IDs and state.
-export function createMobilePanels(boards,onBoardChange){
+export function createMobilePanels(boards,onBoardChange,createOption){
  const media=matchMedia('(max-width: 800px), (max-width: 1000px) and (max-height: 500px)'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const header=document.querySelector('.topbar'),workspace=document.querySelector('.workspace');
  let active=null,compact=false;
@@ -43,7 +43,7 @@ export function createMobilePanels(boards,onBoardChange){
  picker.trigger.setAttribute('aria-label','Choose device');header.append(picker.trigger);workspace.append(controls.trigger);workspace.after(components.trigger);
  for(const family of deviceFamilies(boards)){
   const section=document.createElement('section');section.className='sheet-device-group';const title=document.createElement('h3');title.textContent=family.name;section.append(title);
-  for(const board of family.devices){const button=document.createElement('button');button.type='button';button.dataset.device=board.id;button.setAttribute('aria-pressed','false');const name=document.createElement('span'),detail=document.createElement('small');name.textContent=board.tab;detail.textContent=board.menuDetail||board.model;button.append(name,detail);button.onclick=()=>{close();onBoardChange(board.id);};section.append(button);}
+  for(const board of family.devices){const button=document.createElement('button');button.type='button';button.dataset.device=board.id;button.setAttribute('aria-pressed','false');button.append(...createOption(board));button.onclick=()=>{close();onBoardChange(board.id);};section.append(button);}
   picker.content.append(section);
  }
  const moves=[['.assembly-controls',controls],['.tools',controls],['#export',controls],['.sidebar',components],['.inspector',components]].map(([selector,destination])=>{const element=document.querySelector(selector),marker=document.createComment(selector);element.before(marker);return{element,marker,destination};});

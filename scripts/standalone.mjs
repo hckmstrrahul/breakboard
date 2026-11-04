@@ -7,7 +7,7 @@ const inlineAssets={name:'inline-assets',setup(build){
  build.onResolve({filter:/\?url&inline$/},args=>({path:path.resolve(args.resolveDir,args.path.split('?')[0]),namespace:'inline-asset'}));
  build.onLoad({filter:/.*/,namespace:'inline-asset'},args=>({contents:`export default ${JSON.stringify('data:application/gzip;base64,'+fs.readFileSync(args.path).toString('base64'))}`,loader:'js'}));
 }};
-const result=await build({entryPoints:['src/main.js'],bundle:true,minify:true,write:false,format:'iife',target:'es2022',outdir:'out',loader:{'.woff2':'dataurl','.woff':'dataurl','.svg':'dataurl'},plugins:[inlineAssets],legalComments:'none'});
+const result=await build({entryPoints:['src/main.js'],bundle:true,minify:true,write:false,format:'iife',target:'es2022',outdir:'out',loader:{'.woff2':'dataurl','.woff':'dataurl','.svg':'dataurl','.webp':'dataurl'},plugins:[inlineAssets],legalComments:'none'});
 const js=result.outputFiles.find(f=>f.path.endsWith('.js')).text.replace(/<\/script/gi,'<\\/script');
 const css=result.outputFiles.find(f=>f.path.endsWith('.css')).text;
 const brandIcon='data:image/svg+xml;base64,'+fs.readFileSync('src/brand.svg').toString('base64');
