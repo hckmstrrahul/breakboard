@@ -14,7 +14,7 @@ export function plate(parent,w,d,t,p,mat,holes=[]){const s=new T.Shape();s.moveT
 export function frame(parent,w,d,h,t,p,mat){for(const z of[-1,1])box(parent,w,h,t,[p[0],p[1],p[2]+z*(d-t)/2],mat,.03);for(const x of[-1,1])box(parent,t,h,d-t*2,[p[0]+x*(w-t)/2,p[1],p[2]],mat,.03);}
 export function screw(parent,p,r=1,mat=M.silver){cylinder(parent,r,.5,p,mat,24);rod(parent,[p[0],p[1]-.25,p[2]],[p[0],p[1]-2,p[2]],r*.5,mat);for(const a of[0,Math.PI/2]){const o=box(parent,r*1.3,.04,.16,[p[0],p[1]+.27,p[2]],M.black,.01);o.rotation.y=a;}}
 export function glass(parent,geometry,p,opacity=.12){const mat=new T.MeshPhysicalMaterial({color:'#bad6d0',metalness:.12,roughness:.08,transparent:true,opacity,depthWrite:false,side:T.DoubleSide});const o=mesh(geometry,mat,parent,p);o.userData.anatomyTransparent=true;return o;}
-export function smdField(parent,positions,mat=M.ceramic,scale=1){for(const[x,y,z]of positions){box(parent,1.05*scale,.45*scale,.6*scale,[x,y,z],mat,.025*scale);for(const s of[-1,1])box(parent,.2*scale,.45*scale,.62*scale,[x+s*.44*scale,y,z],M.silver,.01);}}
+export function smdField(parent,positions,mat=M.ceramic,scale=1){for(const[x,y,z]of positions){box(parent,.7*scale,.43*scale,.6*scale,[x,y,z],mat,.025*scale);for(const s of[-1,1])box(parent,.2*scale,.45*scale,.62*scale,[x+s*.44*scale,y,z],M.silver,.01);}}
 export function pins(parent,positions,{length=3,r=.23,mat=M.gold}={}){for(const[x,y,z]of positions)rod(parent,[x,y,z],[x,y-length,z],r,mat,10);}
 export function inscription(parent,text,w,d,p,color='#d4d5cb'){return textDecal(parent,text,w,d,p,{size:64,color});}
 // Functional floorplans are explanatory regions, never an invented transistor layout.

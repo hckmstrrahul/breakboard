@@ -6,7 +6,7 @@ Purpose: interactive educational 3D teardown, presented vertically along its sha
 | --- | --- | --- |
 | Two-phase magnetic construction | Manufacturer explanation | 8 stator poles, 4 per phase; two interleaved winding sets. |
 | Rotor pole cups | Manufacturer explanation | Exactly 50 teeth per cup, 7.2° pitch, 3.6° angular offset between cups. |
-| Full-step angle | Manufacturer explanation | 1.8°, 200 full steps per revolution. Play slows this down for inspection. |
+| Full-step angle | Manufacturer explanation | 1.8°, 200 full steps per revolution. Play advances 100 full steps per second (30 rpm), for readable educational motion. |
 | Axial permanent magnet | Manufacturer explanation | Annular magnet between the two rotor cups; opposite poles along the shaft. No alloy or flux-density claim. |
 | Frame size | Commercial family reference | 42 mm square flange is representative of the documented PKP frame-size class. This is not branded as a PKP replica. |
 | Body, mounting and shaft dimensions | Illustrative | 40 mm body length, 31 mm mounting centers and Ø5 shaft are representative choices. The output has a D-flat. |
@@ -36,4 +36,4 @@ Assembled clearances in the illustrative geometry:
 
 Verified finite geometry, nonempty selectable groups and floor clearance over the full pose range. The actual application renderer was visually inspected assembled, separated and in anatomy mode. Unpublished internal tolerances and winding connections are not claimed.
 
-Rebuild with `npm run build`; run `npm run check`. Inspect Stepper motor at 0%/50%/100% separation, in both themes and X-ray. In Play, the shaft and both cups must turn together while the stator stays still; isolate a winding to inspect the loop and bobbin construction.
+Rebuild with `npm run build`; run `npm run check`. Inspect Stepper motor at 0%/50%/100% separation, in both themes and X-ray. In Play, the end bells and outer stator shell become translucent while the windings and pole teeth stay solid. The shaft and both cups turn together at 30 rpm while the stator stays still; isolate a winding to inspect the loop and bobbin construction.

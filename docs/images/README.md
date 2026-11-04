@@ -36,3 +36,5 @@ For each pair, reset the device, choose Light, leave component labels off and se
 The PNG exporter includes the model and scene background, not the surrounding HTML controls or callouts. Normal-mode assembly guides and shadows are retained; anatomy uses its own contour treatment. All 52 saved images were opened and visually checked. Model provenance and reuse terms remain those documented in the [project README](../../README.md#attribution).
 
 The added devices use their documented source revision. The DLP package and enlarged mechanism retain permanent scale labels in both treatments. Glass in the Nixie tube and camera filter preserves translucency with anatomy contours. Tall devices use their fully exploded framing for both exports.
+
+The core-memory pair was refreshed after widening its separated tiers. The 4004 pair was refreshed for its shorter lid, exposed ceramic shoulders, tapered leads and procedural ceramic mottling.

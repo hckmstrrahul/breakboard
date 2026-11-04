@@ -4,9 +4,9 @@ import * as T from 'three';
 export function createModuleEffects(model){
  const spec=model.root.userData.effects||{},root=new T.Group(),paths=[],covers=[],pulseMeshes=[];
  root.name='Illustrative module operation';
- for(const id of spec.cutaway||[])model.groups[id]?.traverse(object=>{
-  if(!object.isMesh)return;const original=object.userData.originalMaterial||object.material,mat=original.clone();object.material=mat;object.userData.originalMaterial=mat;
-  covers.push({mat,opacity:original.opacity,transparent:original.transparent,depthWrite:original.depthWrite});
+ for(const [id,group] of Object.entries(model.groups))group.traverse(object=>{
+  if(!object.isMesh)return;const original=object.userData.originalMaterial||object.material;if(!spec.cutaway?.includes(id)&&!original.userData.playbackCover)return;const mat=original.clone();object.material=mat;object.userData.originalMaterial=mat;
+  covers.push({object,castShadow:object.castShadow,mat,opacity:original.opacity,transparent:original.transparent,depthWrite:original.depthWrite});
  });
  for(const config of spec.paths||[]){
   const points=config.points.map(p=>new T.Vector3(...p)),curve=new T.CatmullRomCurve3(points,false,'centripetal');
@@ -23,12 +23,12 @@ export function createModuleEffects(model){
  let thermal;
  if(spec.thermal){const size=64,data=new Uint8Array(size*size*4);for(let y=0;y<size;y++)for(let x=0;x<size;x++){const i=(y*size+x)*4,value=Math.exp(-((x-26)**2/110+(y-31)**2/230))+.5*Math.exp(-((x-51)**2+(y-15)**2)/90),c=new T.Color().setHSL(.77-Math.min(1,value)*.69,.9,.25+Math.min(1,value)*.35);data[i]=c.r*255;data[i+1]=c.g*255;data[i+2]=c.b*255;data[i+3]=255;}const tx=new T.DataTexture(data,size,size);tx.needsUpdate=true;thermal=new T.Mesh(new T.PlaneGeometry(spec.thermal.width,spec.thermal.depth),new T.MeshBasicMaterial({map:tx,transparent:true,opacity:0,depthWrite:false}));thermal.rotation.x=-Math.PI/2;thermal.position.set(...spec.thermal.position);root.add(thermal);}
  function update(state,{assembled,reduced,selected}){
-  for(const c of covers){const fade=assembled&&!selected?state.power:0,opacity=c.opacity*(1-fade*.92),transparent=c.transparent||fade>.001;if(c.mat.transparent!==transparent){c.mat.transparent=transparent;c.mat.needsUpdate=true;}c.mat.opacity=opacity;c.mat.depthWrite=fade>.1?false:c.depthWrite;}
+  for(const c of covers){const fade=assembled&&!selected?state.power:0,opacity=c.opacity*(1-fade*.92),transparent=c.transparent||fade>.001;if(c.mat.transparent!==transparent){c.mat.transparent=transparent;c.mat.needsUpdate=true;}c.mat.opacity=opacity;c.mat.depthWrite=fade>.1?false:c.depthWrite;c.object.castShadow=c.castShadow&&c.object.material===c.mat&&fade<.1;}
   paths.forEach(({curve,line,dots,config},index)=>{line.material.opacity=state.power*.25;dots.forEach((dot,i)=>{const t=reduced?(i+.5)/dots.length:(state.time*.2+i/dots.length+index*.13)%1;dot.position.copy(curve.getPoint(t));dot.material.opacity=state.power*.9;if(config.cascade)dot.scale.setScalar(.35+t*.85);});});
   pulseMeshes.forEach(dot=>{const p=reduced?1:.35+.65*(.5+.5*Math.sin(state.time*3));dot.material.opacity=state.power*p;dot.scale.setScalar(.7+p*.5);});
   if(scan){scan.beam.rotation.y=state.angle;scan.beam.material.opacity=state.power*.6;scan.cloud.material.opacity=state.power*.55;scan.cloud.geometry.setDrawRange(0,reduced?180:Math.min(180,Math.floor(state.time*35)));}
   if(thermal)thermal.material.opacity=state.power*.9;
  }
- function reset(){for(const c of covers){c.mat.opacity=c.opacity;c.mat.transparent=c.transparent;c.mat.depthWrite=c.depthWrite;c.mat.needsUpdate=true;}root.visible=false;}
+ function reset(){for(const c of covers){c.mat.opacity=c.opacity;c.mat.transparent=c.transparent;c.mat.depthWrite=c.depthWrite;c.mat.needsUpdate=true;c.object.castShadow=c.castShadow&&c.object.material===c.mat;}root.visible=false;}
  return{root,paths,covers,scan,thermal,update,reset};
 }

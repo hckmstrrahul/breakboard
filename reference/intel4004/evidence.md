@@ -8,7 +8,7 @@ Intel/CHM gold-top ceramic package, sixteen leads, 4-bit architecture and approx
 
 ## Reconstruction limits
 
-The gold-top ceramic DIP, sixteen leads and historical architecture are documented by Intel and CHM. Package height, cavity, wire routes and lead bends are reconstructed. Silicon surface regions are explicitly explanatory, not actual lithographic masks or verified die imagery. No copyrighted die photograph is redistributed. Play is conceptual functional activity.
+The gold-top ceramic DIP, sixteen leads and historical architecture are documented by Intel and CHM. The shorter lid, exposed ceramic shoulders, tapered leads and white-gray mottling follow the supplied gold-top package photograph. Their exact proportions, package height, cavity and wire routes remain reconstructed. The mottling is an original procedural material; the reference photograph is not redistributed. Silicon surface regions are explicitly explanatory, not actual lithographic masks or verified die imagery. No copyrighted die photograph is redistributed. Play is conceptual functional activity.
 
 All geometry is generated locally in [the model builder](../../src/intel4004.js) from one component inventory. Realistic, anatomy, selected, isolated, assembled and exploded views share those exact meshes. These are educational assemblies, not manufacturing drawings or instructions for physically opening sealed devices.
 

@@ -1,3 +1,4 @@
+import {prepareSurface} from './surface.js';
 import {indicatorMaterial} from './hardware-motion.js';
 import * as T from 'three';
 import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
@@ -7,14 +8,14 @@ import {DIM as D,PINS,PARTS,assemblyPose} from './data.js';
 const V=T.Vector3;
 function material(color,metalness=0,roughness=.55){return new T.MeshStandardMaterial({color,metalness,roughness});}
 const M={pcb:material('#111a23',0,.58),edge:material('#18202a',0,.72),black:material('#111317',0,.63),silver:material('#bfc3c6',.9,.3),gold:material('#c7a24b',.82,.32),ceramic:material('#ad9476',0,.76),silk:material('#eeefea',0,.72),copper:material('#596651',.45,.5)};
-function mesh(g,mat,parent,p=[0,0,0]){let m=new T.Mesh(g,mat);m.position.set(...p);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
+function mesh(g,mat,parent,p=[0,0,0]){let m=new T.Mesh(g,mat);m.position.set(...p);prepareSurface(m);parent.add(m);return m;}
 function box(parent,w,h,d,p,mat,r=.07){return mesh(r?new RoundedBoxGeometry(w,h,d,2,r):new T.BoxGeometry(w,h,d),mat,parent,p);}
 function texture(w,h,draw,{anatomyBackground}={}){const c=document.createElement('canvas');c.width=w;c.height=h;draw(c.getContext('2d'),w,h);let tx=new T.CanvasTexture(c);tx.colorSpace=T.SRGBColorSpace;tx.anisotropy=8;if(anatomyBackground)tx.userData.anatomyBackground=anatomyBackground;return tx;}
-function decal(parent,w,h,p,tx){const m=mesh(new T.PlaneGeometry(w,h),new T.MeshStandardMaterial({map:tx,transparent:true,roughness:.65,metalness:.2,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1}),parent,p);m.rotation.x=-Math.PI/2;return m;}
+function decal(parent,w,h,p,tx){const m=mesh(new T.PlaneGeometry(w,h),new T.MeshStandardMaterial({map:tx,transparent:true,roughness:.65,metalness:.2,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-2}),parent,p);m.rotation.x=-Math.PI/2;m.castShadow=false;m.userData.decal=true;return m;}
 function textDecal(parent,text,w,d,p,{size=68,color='#b9bdb5',sub=''}={}){return decal(parent,w,d,p,texture(512,256,(g,W,H)=>{g.fillStyle=color;g.textAlign='center';g.font=`500 ${size}px monospace`;g.fillText(text,W/2,H*.47);if(sub){g.font='32px monospace';g.fillText(sub,W/2,H*.72);}}));}
 function trace(parent,pts,r=.09,mat=M.gold){const curve=new T.CurvePath();for(let i=1;i<pts.length;i++)curve.add(new T.LineCurve3(new V(...pts[i-1]),new V(...pts[i])));return mesh(new T.TubeGeometry(curve,Math.max(4,pts.length*3),r,5,false),mat,parent);}
 function chip(parent,w,d,h,x,y,z,label){box(parent,w,h,d,[x,y,z],M.black,.12);if(label)textDecal(parent,label,w*.9,d*.65,[x,y+h/2+.015,z],{size:70});}
-function smd(parent,x,z,w=.65,d=1.1,y=1.02,mat=M.ceramic){box(parent,w,.45,d,[x,y,z],mat,.03);box(parent,w+.03,.42,d*.2,[x,y,z-d*.4],M.silver,.02);box(parent,w+.03,.42,d*.2,[x,y,z+d*.4],M.silver,.02);}
+function smd(parent,x,z,w=.65,d=1.1,y=1.02,mat=M.ceramic){box(parent,w,.45,d*.66,[x,y,z],mat,.03);box(parent,w+.03,.46,d*.2,[x,y,z-d*.4],M.silver,.02);box(parent,w+.03,.46,d*.2,[x,y,z+d*.4],M.silver,.02);}
 function pcbGeometry(w,l,t,holes=[]){const shape=new T.Shape();const r=.65;shape.moveTo(-w/2+r,-l/2);shape.lineTo(w/2-r,-l/2);shape.quadraticCurveTo(w/2,-l/2,w/2,-l/2+r);shape.lineTo(w/2,l/2-r);shape.quadraticCurveTo(w/2,l/2,w/2-r,l/2);shape.lineTo(-w/2+r,l/2);shape.quadraticCurveTo(-w/2,l/2,-w/2,l/2-r);shape.lineTo(-w/2,-l/2+r);shape.quadraticCurveTo(-w/2,-l/2,-w/2+r,-l/2);for(const [x,z]of holes){const h=new T.Path();h.absarc(x,-z,.48,0,Math.PI*2,true);shape.holes.push(h);}const geo=new T.ExtrudeGeometry(shape,{depth:t,bevelEnabled:false,curveSegments:8});geo.rotateX(-Math.PI/2);geo.translate(0,-t/2,0);return geo;}
 
 export function buildModel(){
@@ -64,8 +65,9 @@ export function buildModel(){
  // Printed inverted-F antenna: continuous folded conductor, schematic trace routing.
  trace(module,[[-7,1.66,-28.6],[-7,1.66,-24.7],[-4.6,1.66,-24.7],[-4.6,1.66,-28.6],[-2.2,1.66,-28.6],[-2.2,1.66,-24.7],[.2,1.66,-24.7],[.2,1.66,-28.6],[2.6,1.66,-28.6],[2.6,1.66,-24.7],[5,1.66,-24.7],[5,1.66,-28.6],[7,1.66,-28.6]],.21);
  trace(module,[[-7,1.66,-24.7],[-7,1.66,-22.6],[-4.7,1.66,-22.6],[-4.7,1.66,-20.8]],.18);
- for(let s of [-1,1])for(let i=0;i<14;i++)box(module,1.1,.2,.9,[s*8.45,1.25,-23.2+i*1.27],M.gold,.03);
- for(let i=0;i<10;i++)box(module,.9,.2,1.1,[-5.7+i*1.27,1.25,-5.22],M.gold,.03);
+ const platedGold=M.gold.clone();platedGold.polygonOffset=true;platedGold.polygonOffsetFactor=-1;platedGold.polygonOffsetUnits=-2;
+ for(let s of [-1,1])for(let i=0;i<14;i++)box(module,1.1,.2,.9,[s*8.45,1.25,-23.2+i*1.27],platedGold,.03);
+ for(let i=0;i<10;i++)box(module,.9,.2,1.1,[-5.7+i*1.27,1.25,-5.22],platedGold,.03);
  // Discrete module components lift independently of its etched antenna and PCB.
  box(groups.crystal,3.2,.9,2.5,[3.7,2.1,-20.3],M.silver,.38);textDecal(groups.crystal,'40.0',2.7,1.8,[3.7,2.56,-20.3],{size:88,color:'#333d37'});
  for(let i=0;i<12;i++)smd(groups.rf,-6.5+(i%3)*1.45,-19.5+Math.floor(i/3)*2.9,.55,.9,1.9,i%3?M.ceramic:M.black);
@@ -111,7 +113,7 @@ export function buildModel(){
   g.visible=!isolate||id===key;
   g.traverse(o=>{if(!o.isMesh)return;if(!o.userData.originalMaterial)o.userData.originalMaterial=o.material;
    const muted=xray&&id&&key!==id;
-   if(muted){if(!o.userData.ghost){o.userData.ghost=o.userData.originalMaterial.clone();o.userData.ghost.transparent=true;o.userData.ghost.opacity=.1;o.userData.ghost.depthWrite=false;}o.material=o.userData.ghost;o.castShadow=false;}else{o.material=o.userData.originalMaterial;o.castShadow=true;}
+   if(muted){if(!o.userData.ghost){o.userData.ghost=o.userData.originalMaterial.clone();o.userData.ghost.transparent=true;o.userData.ghost.opacity=.1;o.userData.ghost.depthWrite=false;}o.material=o.userData.ghost;o.castShadow=false;}else{o.material=o.userData.originalMaterial;prepareSurface(o);}
   });
  }
  guides.visible=!isolate;

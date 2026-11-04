@@ -94,6 +94,6 @@ export function ic(parent,{x=0,z=0,width,depth,height=1,base=.8,label='',pins=0,
 const passiveMaterials=new Map();
 export function passive(parent,{x=0,z=0,width=1,depth=.5,base=.8,color='#b39773'}){
  if(!passiveMaterials.has(color))passiveMaterials.set(color,material(color,0,.7));
- box(parent,width,.45,depth,[x,base+.25,z],passiveMaterials.get(color),.035);
+ box(parent,width*.66,.45,depth,[x,base+.25,z],passiveMaterials.get(color),.035);
  for(const s of [-1,1])box(parent,width*.19,.46,depth+.025,[x+s*width*.405,base+.25,z],M.silver,.018);
 }

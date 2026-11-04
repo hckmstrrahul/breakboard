@@ -12,6 +12,8 @@ The 32 × 32 count and ferrite/wire construction follow the CHM artifact and his
 
 All geometry is generated locally in [the model builder](../../src/corememory.js) from one component inventory. Realistic, anatomy, selected, isolated, assembled and exploded views share those exact meshes. These are educational assemblies, not manufacturing drawings or instructions for physically opening sealed devices.
 
+At full separation, the address wires, cores, sense winding and inhibit winding have distinct vertical tiers. Their assembled positions are unchanged.
+
 ## Play
 
 Illustrative half-select currents · highlighted core switches. Covers marked as explanatory cutaways fade only during unselected realistic playback; selecting a part restores its normal material. Effects share the app clock, stop with separation, and use a still powered state under reduced motion. No measured optical, electrical or thermal output is claimed.

@@ -38,7 +38,7 @@ function endBell(parent,y,front){
  for(const[x,z]of corners){const boss=new T.Shape();boss.absarc(x,-z,2.4,0,tau);hole(boss,x,z,1.5);extrude(parent,boss,3.7,front?y-3.7:y+2.3,alloy);}
 }
 function rotorProfile(teeth=50){const s=new T.Shape(),ri=11.45,ro=12.25;for(let i=0;i<teeth;i++)for(const[f,r]of [[0,ri],[.16,ri],[.19,ro],[.66,ro],[.69,ri],[1,ri]]){const a=(i+f)/teeth*tau;if(i===0&&f===0)s.moveTo(Math.cos(a)*r,Math.sin(a)*r);else s.lineTo(Math.cos(a)*r,Math.sin(a)*r);}s.closePath();hole(s,0,0,2.5);return s;}
-function moving(parent,name){const g=new T.Group();g.name=name;g.userData.rotor=true;g.userData.motion={type:'stepper',stepAngle:1.8};parent.add(g);return g;}
+function moving(parent,name){const g=new T.Group();g.name=name;g.userData.rotor=true;g.userData.motion={type:'stepper',stepAngle:1.8,rate:100};parent.add(g);return g;}
 function coil(parent,angle,phase){
  const g=new T.Group();g.rotation.y=angle;parent.add(g);
  // The y/z rectangular loop surrounds one radial iron pole. Adjacent poles are
@@ -68,11 +68,12 @@ function bearing(parent,y){
 }
 export function buildStepper(){
  const{root,groups}=makeAssembly(STEPPER_PARTS);
+ const shell=black.clone(),lamination=steel.clone();shell.userData.playbackCover=lamination.userData.playbackCover=true;
  endBell(groups.rear,0,false);endBell(groups.front,37.7,true);
  // A hollow laminated stack, open around the rotor. Alternating shallow bands
  // describe physical sheets without making dozens of disconnected solid slabs.
- const s=roundedShape(42,3.4);hole(s,0,0,19.3);for(const[x,z]of corners)hole(s,x,z,1.5);extrude(groups.stator,s,28,6,black);
- for(let y=6.2;y<34;y+=.7){const band=roundedShape(42.04,3.4);hole(band,0,0,19.3);for(const[x,z]of corners)hole(band,x,z,1.5);extrude(groups.stator,band,.1,y,steel);}
+ const s=roundedShape(42,3.4);hole(s,0,0,19.3);for(const[x,z]of corners)hole(s,x,z,1.5);extrude(groups.stator,s,28,6,shell);
+ for(let y=6.2;y<34;y+=.7){const band=roundedShape(42.04,3.4);hole(band,0,0,19.3);for(const[x,z]of corners)hole(band,x,z,1.5);extrude(groups.stator,band,.1,y,lamination);}
  for(let i=0;i<8;i++){
   const a=i*tau/8,g=new T.Group();g.rotation.y=a;groups.stator.add(g);
   box(g,5.9,28,3.8,[16.35,20,0],steel,.08);
@@ -107,7 +108,7 @@ export function buildStepper(){
  // Short leads terminate on the rear of the coil assembly, not mid-air.
  for(let i=0;i<4;i++)rod(groups.connector,[(i-1.5)*2.2,4.8,-20.5],[(i-1.5)*2.2,8,-17.5],.24,material(['#343c3d','#a74537','#347357','#446c9c'][i]));
  textDecal(groups.front,'HYBRID',19,4,[0,40.02,15],{size:70,color:'#596160'});
- root.userData={device:'stepper',dimensions:[42,64,42],frameSize:42,bodyLength:40,mountSpacing:31,shaftDiameter:5,statorPoles:8,phases:2,rotorTeethPerCup:50,cupOffsetDegrees:3.6,stepDegrees:1.8,construction:'Representative hybrid motor; not a named manufacturer replica'};
+ root.userData={device:'stepper',effects:{cutaway:['front','rear']},dimensions:[42,64,42],frameSize:42,bodyLength:40,mountSpacing:31,shaftDiameter:5,statorPoles:8,phases:2,rotorTeethPerCup:50,cupOffsetDegrees:3.6,stepDegrees:1.8,construction:'Representative hybrid motor; not a named manufacturer replica'};
  return finishAssembly(root,groups,STEPPER_PARTS);
 }
-export const STEPPER_BOARD={id:'stepper',tab:'Stepper motor',title:'Stepper motor',edition:'011',subtitle:'A precise step, made from magnetic teeth.',intro:'Explore the two-phase windings, toothed rotor and axial magnet inside a hybrid stepper.',model:'42 mm hybrid stepper / representative construction',basis:'Documented mechanism · illustrative dimensions',dimensions:'42 × 42 × 40 MM',parts:STEPPER_PARTS,build:buildStepper,assembledHalf:44,assembledTarget:[0,26,0],half:82,camera:[113,123,-150],target:[0,37,0],start:0,operationNote:'1.8° steps · illustrative winding highlight',stats:[['1.8','°','FULL STEP'],['200','','STEPS PER TURN'],['8','','STATOR POLES'],['50','','TEETH PER ROTOR CUP']],sources:[['Oriental Motor · Hybrid stepper structure and operation','https://www.orientalmotor.com/stepper-motors/technology/stepper-motor-basics.html'],['Oriental Motor · 42 mm PKP family reference','https://www.orientalmotor.com/stepper-motors/2-phase-stepper-motors.html']],accuracy:'This is a representative 42 mm two-phase hybrid motor, not an exact replica of a named product. The eight stator poles, four poles per phase, 50 teeth per rotor cup, 3.6° cup offset and 1.8° full step follow Oriental Motor’s mechanism explanation. The 40 mm body length, shaft, bearing and winding geometry, lamination count, connector and pole-shoe tooth dimensions are illustrative. Coil turns are reduced for legibility. Play shows slowed stepping, not electrical or torque simulation.',hidden:['stator','phasea','phaseb','rotorNorth','rotorSouth','magnet','bearings']};
+export const STEPPER_BOARD={id:'stepper',tab:'Stepper motor',title:'Stepper motor',edition:'011',subtitle:'A precise step, made from magnetic teeth.',intro:'Explore the two-phase windings, toothed rotor and axial magnet inside a hybrid stepper.',model:'42 mm hybrid stepper / representative construction',basis:'Documented mechanism · illustrative dimensions',dimensions:'42 × 42 × 40 MM',parts:STEPPER_PARTS,build:buildStepper,assembledHalf:44,assembledTarget:[0,26,0],half:82,camera:[113,123,-150],target:[0,37,0],start:0,operationNote:'1.8° steps · 30 rpm · illustrative winding activity',stats:[['1.8','°','FULL STEP'],['200','','STEPS PER TURN'],['8','','STATOR POLES'],['50','','TEETH PER ROTOR CUP']],sources:[['Oriental Motor · Hybrid stepper structure and operation','https://www.orientalmotor.com/stepper-motors/technology/stepper-motor-basics.html'],['Oriental Motor · 42 mm PKP family reference','https://www.orientalmotor.com/stepper-motors/2-phase-stepper-motors.html']],accuracy:'This is a representative 42 mm two-phase hybrid motor, not an exact replica of a named product. The eight stator poles, four poles per phase, 50 teeth per rotor cup, 3.6° cup offset and 1.8° full step follow Oriental Motor’s mechanism explanation. The 40 mm body length, shaft, bearing and winding geometry, lamination count, connector and pole-shoe tooth dimensions are illustrative. Coil turns are reduced for legibility. Play shows slowed stepping, not electrical or torque simulation.',hidden:['stator','phasea','phaseb','rotorNorth','rotorSouth','magnet','bearings']};

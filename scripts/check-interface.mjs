@@ -1,3 +1,4 @@
+import {formatLabel} from '../src/label-text.js';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {BOARD_LIST,BOARDS} from '../src/boards.js';
@@ -60,3 +61,5 @@ try{
 console.log('PASS · merged specifications, distinct fact scope, Light/Dark/System, persistence, system changes, denied storage and bundled Jetson without network');
 
 for(const family of families){for(let i=0;i<family.devices.length;i++){const current=family.devices[i];for(const d of[-1,1])assert.equal(adjacentDevice(BOARD_LIST,current.id,d)?.id,family.devices.length>1?family.devices[(i+d+family.devices.length)%family.devices.length].id:undefined);}}
+
+for(const [input,expected]of [['RF SHIELD','RF shield'],['MICRO-USB','Micro-USB'],['USB–UART BRIDGE','USB–UART bridge'],['USB-C CONNECTOR','USB-C connector'],['C2 · CAPACITOR','C2 · capacitor'],['ATMEGA328P','ATmega328P'],['40-PIN GPIO','40-pin GPIO'],['Mica support plates','Mica support plates'],['16 MHZ CRYSTAL','16 MHz crystal'],['LPDDR4X MEMORY','LPDDR4X memory']])assert.equal(formatLabel(input),expected);

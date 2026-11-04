@@ -14,6 +14,9 @@ const powered={playing:true,explode:0,reduced:false,isolate:false};
 for(const def of BOARD_LIST){
  const model=await def.build();model.setPose(0);model.setSelection(def.parts[0].id,false,false);model.root.updateMatrixWorld(true);
  const operation=createOperation(model,def);
+ // Surface print must not start casting opaque rectangular shadows after selection.
+ model.setSelection(def.parts.at(-1).id,false,true);model.setSelection(null,false,false);
+ model.root.traverse(o=>{if(o.userData.decal){assert(!o.castShadow,def.id+' printed surfaces never cast opaque shadows');assert(o.material.polygonOffsetUnits<0,def.id+' artwork has a stable depth offset');}});
  assert.equal(operation.rotors.length,['pi5','jetson','sps30'].includes(def.id)?1:0,def.id+' has only its physical fan');
  assert.equal(operation.indicators.size,expectedLights[def.id],def.id+' only documented indicators or explanatory winding surfaces are animated');
  for(const record of model.batches||[])assert(record.entries.every(entry=>!isMovingPart(entry.object)),def.id+' rotors excluded from static batches');
@@ -26,7 +29,7 @@ for(const def of BOARD_LIST){
  for(const mat of operation.indicators)if(!['nixie','coil','filament','vfd'].includes(mat.userData.indicator.kind))assert(mat.emissiveIntensity>0,'LED has emissive activity');
  if(def.id==='nixie')assert.equal([...operation.indicators].filter(mat=>mat.emissiveIntensity>0).length,1,'Exactly one numeral glows');
  if(def.id==='dlp'){assert.equal(operation.motions.length,16);for(const motion of operation.motions)assert(Math.abs(motion.object.quaternion.angleTo(motion.rest)-12*Math.PI/180)<.002,'Mirrors tilt by the documented 12 degrees');}
- if(def.id==='stepper'){assert.equal(operation.motions.length,4,'Shaft, magnet and two rotor cups animate together');const angles=operation.motions.map(m=>m.object.quaternion.angleTo(m.rest));assert(angles.every(a=>Math.abs(a-angles[0])<1e-8),'All rotating parts keep their assembly offsets');}
+ if(def.id==='stepper'){assert(operation.effects.covers.length>=3,'End bells and outer stator fade to reveal working parts');assert(operation.effects.covers.every(c=>c.mat.opacity<.15),'Powered shell is transparent');assert(operation.motions.every(m=>m.config.rate===100),'Rotor advances at 100 full steps per second');assert.equal(operation.motions.length,4,'Shaft, magnet and two rotor cups animate together');const angles=operation.motions.map(m=>m.object.quaternion.angleTo(m.rest));assert(angles.every(a=>Math.abs(a-angles[0])<1e-8),'All rotating parts keep their assembly offsets');}
  if(def.id==='hqcamera'){assert.equal(operation.rays.length,3);for(const ray of operation.rays){const p=ray.geometry.attributes.position;assert.equal(p.getX(0),p.getX(1),'Bare mount does not focus rays');}}
  for(const route of operation.routes){
   assert(route.curve.v0.distanceTo(new T.Vector3(...def.parts.find(p=>p.id===route.from).anchor))<1e-6);

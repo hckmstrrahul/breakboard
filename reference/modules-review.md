@@ -25,3 +25,13 @@ Module playback uses the shared clock, stops on separation and respects reduced 
 - Eighteen new 2400 × 2217 px PNGs were exported through Save image and visually inspected. The README gallery now contains 52 actual exports.
 
 The checks establish rendering and interaction behavior, not manufacturing tolerances, electrical correctness or measured sensor performance.
+
+## Follow-up: mobile sheets and close-up surfaces
+
+The phone picker, controls and component browser now use modal bottom sheets with natural content height, a 90% viewport cap and a draggable resize handle. Native dialog focus containment, backdrop dismissal and Escape leave the viewer state intact. Theme controls remain at the right of the header; social links move below the subtext only at compact widths. Previous/next targets use the same rounded treatment as the utility buttons. Labels use sentence case with technical identifiers preserved.
+
+Core-memory tiers have more space at full separation. The 4004 has a shorter lid, exposed ceramic shoulders, tapered leads and continuous white-gray procedural mottling. Stepper playback uses 100 steps per second (30 rpm) and makes its outer shell and end bells translucent, retaining solid internal poles and windings.
+
+The surface audit found coplanar passive end caps and PCB edge contacts, plus printed artwork participating in shadow passes. Ceramic passive bodies now end inside their caps; coplanar plating uses a depth offset without changing the board envelope. Printed artwork receives a consistent depth offset and does not cast shadows after selection changes; it still receives shadows from the hardware. Close-up orbit captures were inspected for ESP32, Nano, Pi 5, Jetson, Grobot and the 4004. These checks cover the shared rendering causes and sampled Chrome views, not every GPU or browser.
+
+Responsive browser checks cover 320, 390, 600 and 800 px headers, modal resizing, selection, backdrop/Escape dismissal, category switching and restoration of the desktop controls. Physical-phone touch feel, browser chrome and safe-area behavior still need device verification.

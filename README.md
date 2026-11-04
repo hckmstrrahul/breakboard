@@ -7,7 +7,7 @@ Explore development boards, displays, optics, sensors, chips, radio hardware and
 ## Take it offline
 
 <!-- offline-stats:start -->
-**26 interactive devices in one 22.30 MB HTML file** (21.27 MiB).
+**26 interactive devices in one 22.31 MB HTML file** (21.28 MiB).
 <!-- offline-stats:end -->
 
 [Save the standalone HTML](https://breakboard-teardown.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
@@ -72,14 +72,14 @@ Open [127.0.0.1:5174](http://127.0.0.1:5174). No account, API key or backend is 
 | Selection | Models open unselected and tags start off. In either rendering mode, selecting a part keeps it solid and ghosts the rest. Click a component or list item to show its selection tag; picking on the model anchors it to the clicked surface. Click empty canvas to clear selection and show all tags when labels are enabled. |
 | X-ray | Show the whole device in anatomy style. Glass retains its transparency and contours. Selecting a part ghosts the others; clicking empty canvas restores the complete view. |
 | Isolate | Frame one component group. Also works with X-ray. |
-| Play / Pause | Assemble the device, then animate fans, LEDs, numeral cathodes, stepped shafts, a servo pointer, a speaker cone, mirror tilt, VFD multiplexing, electron cascades, spectral paths, chiplet traffic or sensor activity. Some module covers fade during playback when no part is selected, exposing illustrative interiors. Changing separation stops playback. The camera, Nixie tube, stepper and Grobot adjust framing with separation; orbiting or zooming preserves your manual framing until a camera preset or reset. Reduced motion uses a still powered view. |
+| Play / Pause | Assemble the device, then animate fans, LEDs, numeral cathodes, stepped shafts at 30 rpm, a servo pointer, a speaker cone, mirror tilt, VFD multiplexing, electron cascades, spectral paths, chiplet traffic or sensor activity. Some module covers fade during playback when no part is selected, exposing illustrative interiors. Changing separation stops playback. The camera, Nixie tube, stepper and Grobot adjust framing with separation; orbiting or zooming preserves your manual framing until a camera preset or reset. Reduced motion uses a still powered view. |
 | 3D / Top / Front | Switch cameras. Drag to orbit, right-drag to pan, scroll or use + / − to zoom. |
 | Light / Dark / System | Dark by default. Choose Light, Dark or System; the preference persists. |
 | Save image | Download a 2400 px PNG of the model in its current view and theme. |
 
-Overview tags retain their placement while orbiting. Collision adjustments move smoothly, while leader dots stay attached to the actual components. Most Uno tags include printed references and readable component types; about 30% use reference codes alone to reduce crowding. Other boards label key subsystems while grouping routine passives; selecting a component shows its full explanation.
+Labels use sentence case while preserving part references, technical acronyms and product names. Overview tags retain their placement while orbiting. Collision adjustments move smoothly, while leader dots stay attached to the actual components. Most Uno tags include printed references and readable component types; about 30% use reference codes alone to reduce crowding. Other boards label key subsystems while grouping routine passives; selecting a component shows its full explanation.
 
-On mobile, the model comes first. Use the grouped device picker and expand **Controls** or **Components & details** when needed. Selecting a component closes its panel and reveals its tag on the model.
+On mobile, the model comes first. The device picker, **Controls** and **Components & details** open custom bottom sheets. Drag the handle to adjust their height; close with Escape, the close button or a backdrop tap. Selecting a component closes its sheet and reveals its tag. The theme toggle stays in the header.
 
 X-ray, playback, overview tags and camera choice persist across device changes. Pi's **Cooler** switch toggles its cooling assembly. Shortcuts: **E** separation, **L** labels, **P** playback, **R** reset, **H** interface. **Esc** closes an open device menu; otherwise it stops playback and exits X-ray, isolation and hidden-interface mode. Arrow keys orbit a focused canvas.
 
