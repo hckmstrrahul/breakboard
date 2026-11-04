@@ -1,12 +1,8 @@
-# Upload only the source needed to build the public app.
+# Upload only the application source, public assets and build inputs.
 /*
-!src/
-!src/**
-!public/
-!public/**
-!scripts/
-scripts/*
-!scripts/standalone.mjs
+!src
+!public
+!scripts
 !index.html
 !package.json
 !package-lock.json
