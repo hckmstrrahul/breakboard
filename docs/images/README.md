@@ -38,3 +38,5 @@ The PNG exporter includes the model and scene background, not the surrounding HT
 The added devices use their documented source revision. The DLP package and enlarged mechanism retain permanent scale labels in both treatments. Glass in the Nixie tube and camera filter preserves translucency with anatomy contours. Tall devices use their fully exploded framing for both exports.
 
 The core-memory pair was refreshed after widening its separated tiers. The 4004 pair was refreshed for its shorter lid, exposed ceramic shoulders, tapered leads and procedural ceramic mottling.
+
+The BeagleBone, core-memory, DLP, EPYC, Grobot, Orange Pi, photomultiplier and particle-sensor pairs were refreshed after fitting printed inscriptions inside their texture margins. Matching light/dark picker previews were regenerated.

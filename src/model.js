@@ -12,7 +12,17 @@ function mesh(g,mat,parent,p=[0,0,0]){let m=new T.Mesh(g,mat);m.position.set(...
 function box(parent,w,h,d,p,mat,r=.07){return mesh(r?new RoundedBoxGeometry(w,h,d,2,r):new T.BoxGeometry(w,h,d),mat,parent,p);}
 function texture(w,h,draw,{anatomyBackground}={}){const c=document.createElement('canvas');c.width=w;c.height=h;draw(c.getContext('2d'),w,h);let tx=new T.CanvasTexture(c);tx.colorSpace=T.SRGBColorSpace;tx.anisotropy=8;if(anatomyBackground)tx.userData.anatomyBackground=anatomyBackground;return tx;}
 function decal(parent,w,h,p,tx){const m=mesh(new T.PlaneGeometry(w,h),new T.MeshStandardMaterial({map:tx,transparent:true,roughness:.65,metalness:.2,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-2}),parent,p);m.rotation.x=-Math.PI/2;m.castShadow=false;m.userData.decal=true;return m;}
-function textDecal(parent,text,w,d,p,{size=68,color='#b9bdb5',sub=''}={}){return decal(parent,w,d,p,texture(512,256,(g,W,H)=>{g.fillStyle=color;g.textAlign='center';g.font=`500 ${size}px monospace`;g.fillText(text,W/2,H*.47);if(sub){g.font='32px monospace';g.fillText(sub,W/2,H*.72);}}));}
+function textDecal(parent,text,w,d,p,{size=68,color='#b9bdb5',sub=''}={}){return decal(parent,w,d,p,texture(512,256,(g,W,H)=>{
+ g.fillStyle=color;g.textAlign='center';
+ const line=(value,fontSize,y,weight)=>{
+  g.font=`${weight} ${fontSize}px monospace`;
+  // Fit the complete inscription, including glyph bearings, inside a safe margin.
+  const metrics=g.measureText(value),width=Math.max(metrics.width,(metrics.actualBoundingBoxLeft||0)+(metrics.actualBoundingBoxRight||0));
+  const fitted=fontSize*Math.min(1,(W-40)/Math.max(1,width));
+  g.font=`${weight} ${fitted}px monospace`;g.fillText(value,W/2,y);
+ };
+ line(text,size,H*.47,500);if(sub)line(sub,32,H*.72,400);
+}));}
 function trace(parent,pts,r=.09,mat=M.gold){const curve=new T.CurvePath();for(let i=1;i<pts.length;i++)curve.add(new T.LineCurve3(new V(...pts[i-1]),new V(...pts[i])));return mesh(new T.TubeGeometry(curve,Math.max(4,pts.length*3),r,5,false),mat,parent);}
 function chip(parent,w,d,h,x,y,z,label){box(parent,w,h,d,[x,y,z],M.black,.12);if(label)textDecal(parent,label,w*.9,d*.65,[x,y+h/2+.015,z],{size:70});}
 function smd(parent,x,z,w=.65,d=1.1,y=1.02,mat=M.ceramic){box(parent,w,.45,d*.66,[x,y,z],mat,.03);box(parent,w+.03,.46,d*.2,[x,y,z-d*.4],M.silver,.02);box(parent,w+.03,.46,d*.2,[x,y,z+d*.4],M.silver,.02);}
