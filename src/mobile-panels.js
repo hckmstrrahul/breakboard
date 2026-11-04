@@ -39,19 +39,29 @@ export function createMobilePanels(boards,onBoardChange,createOption){
   grip.addEventListener('keydown',event=>{if(!['ArrowUp','ArrowDown','Home','End'].includes(event.key))return;event.preventDefault();setHeight(event.key==='Home'?220:event.key==='End'?maxHeight():element.offsetHeight+(event.key==='ArrowUp'?64:-64));});
   return sheet;
  }
- const picker=panel('mobile-board','Choose device','mobile-board-picker'),controls=panel('mobile-controls','Controls'),components=panel('mobile-components','Components & details');
- picker.trigger.setAttribute('aria-label','Choose device');header.append(picker.trigger);workspace.append(controls.trigger);workspace.after(components.trigger);
+ const picker=panel('mobile-board','Choose device','mobile-board-picker'),components=panel('mobile-components','Components & details');
+ // Controls share the viewer's height instead of covering it with a modal.
+ const controls={trigger:document.createElement('button'),element:document.createElement('section'),content:document.createElement('div')};
+ controls.trigger.id='mobile-controls';controls.trigger.type='button';controls.trigger.className='mobile-panel';controls.trigger.innerHTML=`<span>Controls</span>${chevron}`;
+ controls.trigger.setAttribute('aria-expanded','false');controls.trigger.setAttribute('aria-controls','mobile-controls-panel');
+ controls.element.id='mobile-controls-panel';controls.element.className='mobile-controls-panel';controls.element.hidden=true;controls.element.setAttribute('aria-labelledby','mobile-controls');
+ controls.content.className='mobile-controls-content';controls.element.append(controls.content);
+ function setControls(expanded,instant=false){controls.trigger.setAttribute('aria-expanded',String(expanded));controls.element.dataset.instant=String(instant);controls.element.hidden=!expanded;}
+ controls.trigger.onclick=event=>setControls(controls.element.hidden,event.detail===0);
+ const collapseControls=event=>{if(event.key==='Escape'&&!controls.element.hidden){event.preventDefault();event.stopPropagation();setControls(false,true);controls.trigger.focus({preventScroll:true});}};
+ controls.element.addEventListener('keydown',collapseControls);controls.trigger.addEventListener('keydown',collapseControls);
+ picker.trigger.setAttribute('aria-label','Choose device');header.append(picker.trigger);workspace.append(controls.element,controls.trigger);workspace.after(components.trigger);
  for(const family of deviceFamilies(boards)){
   const section=document.createElement('section');section.className='sheet-device-group';const title=document.createElement('h3');title.textContent=family.name;section.append(title);
   for(const board of family.devices){const button=document.createElement('button');button.type='button';button.dataset.device=board.id;button.setAttribute('aria-pressed','false');button.append(...createOption(board));button.onclick=()=>{close();onBoardChange(board.id);};section.append(button);}
   picker.content.append(section);
  }
  const moves=[['.assembly-controls',controls],['.tools',controls],['#export',controls],['.sidebar',components],['.inspector',components]].map(([selector,destination])=>{const element=document.querySelector(selector),marker=document.createComment(selector);element.before(marker);return{element,marker,destination};});
- const apply=()=>{if(compact===media.matches)return;close(true);compact=media.matches;for(const{element,marker,destination}of moves){if(compact)destination.content.append(element);else marker.after(element);}document.querySelector('#component-browser').open=true;};
+ const apply=()=>{if(compact===media.matches)return;close(true);setControls(false,true);compact=media.matches;for(const{element,marker,destination}of moves){if(compact)destination.content.append(element);else marker.after(element);}document.querySelector('#component-browser').open=true;};
  media.addEventListener('change',apply);apply();
  return{
   setBoard:id=>{picker.trigger.querySelector('span').textContent=boards.find(b=>b.id===id)?.tab||'Choose device';for(const button of picker.content.querySelectorAll('[data-device]'))button.setAttribute('aria-pressed',String(button.dataset.device===id));},
-  close:()=>close(true),
+  close:()=>{close(true);setControls(false,true);},
   focusControls:()=>{if(!compact)return false;controls.trigger.focus({preventScroll:true});return true;},
   closeComponents:()=>{if(compact&&active===components)close();}
  };
