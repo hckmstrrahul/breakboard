@@ -4,6 +4,16 @@ Explore nine development boards as interactive 3D assemblies. Separate component
 
 [Open breakboard](https://breakboard-hckmstrrahul.vercel.app) · Built with Three.js, vanilla JavaScript and Vite. Runs entirely in the browser.
 
+## Take it offline
+
+<!-- offline-stats:start -->
+**9 interactive boards in one 14.04 MB HTML file** (13.39 MiB).
+<!-- offline-stats:end -->
+
+[Save the standalone HTML](https://breakboard-hckmstrrahul.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
+
+The build refreshes the board count and file size above from the board registry and the generated HTML.
+
 ## Light-mode gallery
 
 Actual 2400 px PNG captures from **Save image**. Each pair shares its camera and separation. Anatomy is the app's **X-ray** mode, shown with no component selected.
@@ -106,7 +116,7 @@ npm run build
 npm run check
 ```
 
-Deploy `dist/` to a static host. The build also creates `dist/breakboard.html`, embedding scripts, styles, fonts and both CAD payloads. Jetson CAD ships in the app bundle; Pi CAD loads on first selection. Built models are cached.
+Deploy `dist/` to a static host, or use the [standalone offline file](#take-it-offline). On the hosted app, Jetson CAD ships in the app bundle and Pi CAD loads on first selection. Built models are cached.
 
 Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. Browser review is recorded separately. The standalone HTML also loaded all nine boards from a local file in Chrome with networking disabled and no HTTP requests. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
 
