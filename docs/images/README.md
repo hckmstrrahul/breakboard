@@ -1,6 +1,6 @@
 # README captures
 
-Captured from the running application on 4 November 2026 using **Save image**. These are original renderer exports, not generated mockups or photographs. All 34 PNGs are 2400 × 2217 px, use Light appearance (`#efeee9`), and retain the app's native framing and colors.
+Captured from the running application on 4 November 2026 using **Save image**. These are original renderer exports, not generated mockups or photographs. All 52 PNGs are 2400 × 2217 px, use Light appearance (`#efeee9`), and retain the app's native framing and colors.
 
 | Pair | Device | Separation | Camera | Accessories |
 | --- | --- | --- | --- | --- |
@@ -21,9 +21,18 @@ Captured from the running application on 4 November 2026 using **Save image**. T
 | `stepper-*-light.png` | Stepper motor | 100% | Default 3D | — |
 | `hackrf-*-light.png` | HackRF One | 100% | Default 3D | — |
 | `grobot-*-light.png` | Grobot / open brass frame | 100% | Default 3D | Exposed modules, perfboard and servo pointer; two filament pairs |
+| `pmt-*-light.png` | Hamamatsu R928 | 100% | Default 3D | — |
+| `spectrometer-*-light.png` | Hamamatsu C12880MA | 100% | Default 3D | — |
+| `epyc-*-light.png` | AMD EPYC 9654 | 100% | Default 3D | — |
+| `lidar-*-light.png` | SLAMTEC RPLIDAR A1 | 100% | Default 3D | — |
+| `vfd-*-light.png` | Representative eight-digit VFD | 100% | Default 3D | — |
+| `corememory-*-light.png` | Representative 32 × 32 magnetic core plane | 100% | Default 3D | — |
+| `lepton-*-light.png` | Teledyne FLIR Lepton 3.5 | 100% | Default 3D | — |
+| `intel4004-*-light.png` | Intel C4004 ceramic package | 100% | Default 3D | — |
+| `sps30-*-light.png` | Sensirion SPS30 | 100% | Default 3D | — |
 
 For each pair, reset the device, choose Light, leave component labels off and set the separation above. Leave playback, auto rotation and isolation off. Save the material view, enable X-ray to clear selection and show the complete anatomy view, then save again without changing the camera. The viewer's width-to-height ratio was 2400:2217; export height follows that ratio.
 
-The PNG exporter includes the model and scene background, not the surrounding HTML controls or callouts. Normal-mode assembly guides and shadows are retained; anatomy uses its own contour treatment. All 34 saved images were opened and visually checked. Model provenance and reuse terms remain those documented in the [project README](../../README.md#attribution).
+The PNG exporter includes the model and scene background, not the surrounding HTML controls or callouts. Normal-mode assembly guides and shadows are retained; anatomy uses its own contour treatment. All 52 saved images were opened and visually checked. Model provenance and reuse terms remain those documented in the [project README](../../README.md#attribution).
 
 The added devices use their documented source revision. The DLP package and enlarged mechanism retain permanent scale labels in both treatments. Glass in the Nixie tube and camera filter preserves translucency with anatomy contours. Tall devices use their fully exploded framing for both exports.

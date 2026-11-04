@@ -1,4 +1,5 @@
 import * as T from 'three';
+import {createModuleEffects} from './module-effects.js';
 
 // These are explanatory connections between functional assemblies, not a PCB
 // netlist or a drawing of buried copper. Endpoints stay on the actual assemblies.
@@ -42,7 +43,7 @@ function createPixelGlow(indicators){
 }
 
 export function createOperation(model,definition){
- const root=new T.Group();root.name='Illustrative signal flow';const rotors=[],motions=[],indicators=new Set(),indicatorRest=new Map();
+ const root=new T.Group();root.name='Illustrative signal flow';const effects=createModuleEffects(model);root.add(effects.root);const rotors=[],motions=[],indicators=new Set(),indicatorRest=new Map();
  model.root.traverse(object=>{
   if(object.userData.motion)motions.push({object,rest:object.quaternion.clone(),restPosition:object.position.clone(),axis:new T.Vector3(...(object.userData.motion.axis||[0,1,0])).normalize(),config:object.userData.motion});
   else if(object.userData.rotor)rotors.push(object);
@@ -70,8 +71,8 @@ export function createOperation(model,definition){
   }
  }
  const state={power:0,angle:0,time:0},a=new T.Vector3(),b=new T.Vector3(),rotation=new T.Quaternion(),screenWhite=new T.Color('#d5e8e1');
- function update(dt,{playing,explode,reduced,isolate}){
-  const assembled=explode<.002;advanceOperation(state,dt,{playing,assembled,reduced});
+ function update(dt,{playing,explode,reduced,isolate,selected}){
+  const assembled=explode<.002;advanceOperation(state,dt,{playing,assembled,reduced});effects.root.visible=true;effects.update(state,{assembled,reduced,selected});
   for(const rotor of rotors)rotor.rotation.y=state.angle;
   for(const {object,rest,restPosition,axis,config}of motions){
    if(config.type==='speaker'){
@@ -81,6 +82,8 @@ export function createOperation(model,definition){
     object.position.copy(restPosition).addScaledVector(axis,travel);continue;
    }
    let angle=0;
+   if(config.type==='scan')angle=state.angle;
+   if(config.type==='shutter')angle=state.power*T.MathUtils.degToRad(config.angle||100)*(reduced?0:Math.max(0,1-Math.abs(state.time%6-.6)/.6));
    if(config.type==='stepper')angle=Math.floor(state.time*(config.rate||8))*T.MathUtils.degToRad(config.stepAngle||1.8);
    if(config.type==='servo')angle=T.MathUtils.degToRad(config.angle||30)*state.power*Math.sin(state.time*(config.rate||.6));
    if(config.type==='mirror')angle=T.MathUtils.degToRad(config.angle||12)*state.power*(Math.sin(state.time*2+(config.phase||0))>=0?1:-1);
@@ -88,6 +91,11 @@ export function createOperation(model,definition){
   }
   for(const material of indicators){
    const {kind,phase=0,digit,index=phase}=material.userData.indicator;
+   if(kind==='vfd'){
+    const patterns=[0x3f,0x06,0x5b,0x4f,0x66,0x6d,0x7d,0x07,0x7f,0x6f],segment=material.userData.indicator.segment,number=(digit+1+Math.floor(state.time/8))%10;
+    const lit=segment===7?digit===3:!!(patterns[number]&(1<<segment)),scan=reduced?1:Math.floor(state.time*2)%8===digit?1:.5;
+    material.emissive.set('#5bf6c4');material.emissiveIntensity=state.power*(lit?3.5*scan:0);continue;
+   }
    if(kind==='nixie'){material.emissiveIntensity=digit===Math.floor(state.time*.65)%10?state.power*3:0;continue;}
    if(kind==='screen'){material.color.copy(indicatorRest.get(material).color).lerp(screenWhite,state.power);material.emissive.setRGB(1,1,1);material.emissiveIntensity=state.power*.85;continue;}
    if(kind==='filament'){const signal=Math.sin(state.time*.6),green=material.userData.indicator.channel==='green',level=Math.max(0,green?signal:-signal);material.emissive.set(green?'#35ec78':'#ff4231');material.emissiveIntensity=state.power*level*4;continue;}
@@ -118,6 +126,6 @@ export function createOperation(model,definition){
   });
  }
  function setTheme(dark){for(const route of routes){route.material.color.set(dark?'#efa17e':'#a43e23');route.dotMaterial.color.copy(route.material.color);}}
- function reset(){Object.assign(state,{power:0,angle:0,time:0});for(const rotor of rotors)rotor.rotation.y=0;for(const {object,rest,restPosition}of motions){object.quaternion.copy(rest);object.position.copy(restPosition);}for(const material of indicators){material.emissiveIntensity=0;material.color.copy(indicatorRest.get(material).color);material.emissive.copy(indicatorRest.get(material).emissive);}root.visible=false;}
- reset();return{root,rotors,motions,indicators,routes,rays,state,update,setTheme,reset};
+ function reset(){effects.reset();Object.assign(state,{power:0,angle:0,time:0});for(const rotor of rotors)rotor.rotation.y=0;for(const {object,rest,restPosition}of motions){object.quaternion.copy(rest);object.position.copy(restPosition);}for(const material of indicators){material.emissiveIntensity=0;material.color.copy(indicatorRest.get(material).color);material.emissive.copy(indicatorRest.get(material).emissive);}root.visible=false;}
+ reset();return{root,rotors,motions,indicators,routes,rays,effects,state,update,setTheme,reset};
 }

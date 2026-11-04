@@ -2,6 +2,16 @@
 // Match its meaning and component, not just the number: two chips may share a clock.
 const fact=(label,covered={})=>({label,covered});
 const schema={
+ pmt:[fact('Dynode stages'),fact('Spectral response',{cathode:['Response']})],
+ spectrometer:[fact('Detector pixels',{sensor:['Pixels']}),fact('Spectral range')],
+ epyc:[fact('CPU cores'),fact('Compute dies'),fact('Total L3 cache')],
+ lidar:[fact('Scan coverage'),fact('Max. sample rate')],
+ vfd:[fact('Digits',{phosphor:['Digits']}),fact('Segments per digit',{phosphor:['Segments per digit']})],
+ corememory:[fact('Plane capacity',{frame:['Plane capacity'],cores:['Storage']}),fact('Ferrite array',{cores:['Matrix']})],
+ lepton:[fact('Thermal resolution',{detector:['Resolution']}),fact('Horizontal field of view',{lens:['Field of view']})],
+ intel4004:[fact('Word size',{die:['Architecture']}),fact('Package leads',{leads:['Contacts']}),fact('Transistors',{die:['Transistors']})],
+ sps30:[fact('Particle diameter range'),fact('Supply',{connector:['Supply']})],
+
  esp32:[fact('CPU clock',{cpu:['CPU clock']}),fact('Radio band'),fact('SPI flash',{flash:['Capacity']}),fact('Header contacts',{headers:['Contacts']})],
  pi5:[fact('CPU clock',{cpu:['CPU clock']}),fact('GPIO header',{headers:['Contacts']}),fact('Micro HDMI',{ports:['Display']}),null],
  uno:[fact('CPU clock',{cpu:['Clock']}),fact('Program flash',{cpu:['Flash / SRAM']}),fact('Digital I/O'),fact('Analog inputs')],
@@ -32,6 +42,6 @@ export function mergedSpecifications(board,part){
  }
  const dimensions=board.dimensions.replace(/MM\b/,'mm').replace(/ CARRIER$/,'');
  const normalize=value=>String(value).toLowerCase().replace(/\s/g,'');
- if(!rows.some(([,value])=>normalize(value)===normalize(dimensions)))rows.push([board.id==='stepper'?'Body dimensions':['nixie','dlp','hqcamera'].includes(board.id)?'Device dimensions':'Board dimensions',dimensions]);
+ if(!rows.some(([,value])=>normalize(value)===normalize(dimensions)))rows.push([board.id==='stepper'?'Body dimensions':(board.category&&board.category!=='boards')||['nixie','dlp','hqcamera'].includes(board.id)?'Device dimensions':'Board dimensions',dimensions]);
  return rows;
 }

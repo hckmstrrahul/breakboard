@@ -4,10 +4,10 @@ import {BOARD_LIST,BOARDS} from '../src/boards.js';
 import {mergedSpecifications} from '../src/specifications.js';
 import {createThemeController,THEME_KEY} from '../src/theme.js';
 import {readJetsonData} from '../src/jetson.js';
-import {deviceFamilies} from '../src/device-menu.js';
+import {deviceFamilies,adjacentDevice} from '../src/device-menu.js';
 
 const families=deviceFamilies(BOARD_LIST);
-assert.deepEqual(families.map(family=>family.name),['Boards','Displays','Optics','Motion','Radio']);
+assert.deepEqual(families.map(family=>family.name),['Boards','Displays','Optics','Sensors','Chips','Motion','Radio']);
 assert.deepEqual(families.flatMap(family=>family.devices.map(device=>device.id)).toSorted(),BOARD_LIST.map(device=>device.id).toSorted(),'Every device appears exactly once in the grouped picker');
 
 const cpu=BOARDS.uno.parts.find(p=>p.id==='cpu');
@@ -58,3 +58,5 @@ try{
  const data=await readJetsonData();assert.equal(data.metadata.sourceMeshes,1920);assert.equal(data.meshes.reduce((sum,mesh)=>sum+mesh.i.length/3,0),267668);
 }finally{globalThis.fetch=fetch;globalThis.__BREAKBOARD_ASSETS=assets;}
 console.log('PASS · merged specifications, distinct fact scope, Light/Dark/System, persistence, system changes, denied storage and bundled Jetson without network');
+
+for(const family of families){for(let i=0;i<family.devices.length;i++){const current=family.devices[i];for(const d of[-1,1])assert.equal(adjacentDevice(BOARD_LIST,current.id,d)?.id,family.devices.length>1?family.devices[(i+d+family.devices.length)%family.devices.length].id:undefined);}}

@@ -9,12 +9,12 @@ const context=new Proxy({}, {get:(_,key)=>key==='measureText'?()=>({width:0}):()
 globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>context})};
 globalThis.__BREAKBOARD_ASSETS=Object.fromEntries(fs.readdirSync('public/models').filter(f=>f.endsWith('.json.gz')).map(f=>[f.replace('.json.gz',''),fs.readFileSync('public/models/'+f).toString('base64')]));
 const {BOARD_LIST}=await import('../src/boards.js');
-const expectedLights={esp32:1,pi5:0,uno:4,jetson:0,pico2w:1,nano:4,orangepi5:2,beaglebone:5,nucleo:3,portenta:2,hackrf:6,neopixel:64,hqcamera:0,dlp:0,nixie:10,stepper:8,grobot:6};
+const expectedLights={esp32:1,pi5:0,uno:4,jetson:0,pico2w:1,nano:4,orangepi5:2,beaglebone:5,nucleo:3,portenta:2,hackrf:6,neopixel:64,hqcamera:0,dlp:0,nixie:10,stepper:8,grobot:6,pmt:0,spectrometer:0,epyc:0,lidar:0,vfd:64,corememory:0,lepton:0,intel4004:0,sps30:0};
 const powered={playing:true,explode:0,reduced:false,isolate:false};
 for(const def of BOARD_LIST){
  const model=await def.build();model.setPose(0);model.setSelection(def.parts[0].id,false,false);model.root.updateMatrixWorld(true);
  const operation=createOperation(model,def);
- assert.equal(operation.rotors.length,['pi5','jetson'].includes(def.id)?1:0,def.id+' has only its physical fan');
+ assert.equal(operation.rotors.length,['pi5','jetson','sps30'].includes(def.id)?1:0,def.id+' has only its physical fan');
  assert.equal(operation.indicators.size,expectedLights[def.id],def.id+' only documented indicators or explanatory winding surfaces are animated');
  for(const record of model.batches||[])assert(record.entries.every(entry=>!isMovingPart(entry.object)),def.id+' rotors excluded from static batches');
  const stationary=[];model.root.traverse(o=>{if(o.isMesh&&!o.isBatchedMesh&&!isMovingPart(o))stationary.push([o,o.matrixWorld.clone()]);});
@@ -23,7 +23,7 @@ for(const def of BOARD_LIST){
  assert(operation.state.power>.99);assert(operation.root.visible);
  if(operation.rotors.length)assert(operation.rotors[0].rotation.y>0,'Impeller rotates');
  model.root.updateMatrixWorld(true);for(const[o,matrix]of stationary)assert.deepEqual(o.matrixWorld.elements,matrix.elements,def.id+' shrouds, cables and sockets stay fixed');
- for(const mat of operation.indicators)if(!['nixie','coil','filament'].includes(mat.userData.indicator.kind))assert(mat.emissiveIntensity>0,'LED has emissive activity');
+ for(const mat of operation.indicators)if(!['nixie','coil','filament','vfd'].includes(mat.userData.indicator.kind))assert(mat.emissiveIntensity>0,'LED has emissive activity');
  if(def.id==='nixie')assert.equal([...operation.indicators].filter(mat=>mat.emissiveIntensity>0).length,1,'Exactly one numeral glows');
  if(def.id==='dlp'){assert.equal(operation.motions.length,16);for(const motion of operation.motions)assert(Math.abs(motion.object.quaternion.angleTo(motion.rest)-12*Math.PI/180)<.002,'Mirrors tilt by the documented 12 degrees');}
  if(def.id==='stepper'){assert.equal(operation.motions.length,4,'Shaft, magnet and two rotor cups animate together');const angles=operation.motions.map(m=>m.object.quaternion.angleTo(m.rest));assert(angles.every(a=>Math.abs(a-angles[0])<1e-8),'All rotating parts keep their assembly offsets');}

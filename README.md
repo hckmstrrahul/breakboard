@@ -1,13 +1,13 @@
 # breakboard
 
-Explore development boards, displays, optics, radio hardware and mechanisms as interactive 3D assemblies. Separate components, inspect their functions, switch to anatomy linework, and play restrained hardware animations.
+Explore development boards, displays, optics, sensors, chips, radio hardware and mechanisms as interactive 3D assemblies. Separate components, inspect their functions, switch to anatomy linework, and play restrained hardware animations.
 
 [Open breakboard](https://breakboard-teardown.vercel.app) · Built with Three.js, vanilla JavaScript and Vite. Runs entirely in the browser.
 
 ## Take it offline
 
 <!-- offline-stats:start -->
-**17 interactive devices in one 22.12 MB HTML file** (21.10 MiB).
+**26 interactive devices in one 22.30 MB HTML file** (21.27 MiB).
 <!-- offline-stats:end -->
 
 [Save the standalone HTML](https://breakboard-teardown.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
@@ -37,6 +37,15 @@ Actual 2400 px PNG captures from **Save image**. Each pair shares its camera and
 | **Stepper motor** | ![Representative hybrid stepper with laminated stator, copper windings, toothed rotor and bearings separated](docs/images/stepper-teardown-light.png) | ![The same Stepper motor assembly with anatomy contours and markings](docs/images/stepper-anatomy-light.png) |
 | **HackRF One** | ![HackRF One r10 with its RF front end, controller, SMA ports and fitted headers separated](docs/images/hackrf-teardown-light.png) | ![The same HackRF One assembly with anatomy contours and markings](docs/images/hackrf-anatomy-light.png) |
 | **Grobot** | ![Grobot open brass frame, perfboard, servo pointer, controller, LCD, UPS, batteries and audio modules separated](docs/images/grobot-teardown-light.png) | ![The same Grobot assembly with anatomy contours and component markings](docs/images/grobot-anatomy-light.png) |
+| **Photomultiplier** | ![Photomultiplier exploded in light mode with realistic materials](docs/images/pmt-teardown-light.png) | ![The same Photomultiplier assembly in anatomy mode with shared geometry and fine contours](docs/images/pmt-anatomy-light.png) |
+| **Mini spectrometer** | ![Mini spectrometer exploded in light mode with realistic materials](docs/images/spectrometer-teardown-light.png) | ![The same Mini spectrometer assembly in anatomy mode with shared geometry and fine contours](docs/images/spectrometer-anatomy-light.png) |
+| **EPYC 9654** | ![EPYC 9654 exploded in light mode with realistic materials](docs/images/epyc-teardown-light.png) | ![The same EPYC 9654 assembly in anatomy mode with shared geometry and fine contours](docs/images/epyc-anatomy-light.png) |
+| **RPLIDAR A1** | ![RPLIDAR A1 exploded in light mode with realistic materials](docs/images/lidar-teardown-light.png) | ![The same RPLIDAR A1 assembly in anatomy mode with shared geometry and fine contours](docs/images/lidar-anatomy-light.png) |
+| **Vacuum display** | ![Vacuum display exploded in light mode with realistic materials](docs/images/vfd-teardown-light.png) | ![The same Vacuum display assembly in anatomy mode with shared geometry and fine contours](docs/images/vfd-anatomy-light.png) |
+| **Core memory** | ![Core memory exploded in light mode with realistic materials](docs/images/corememory-teardown-light.png) | ![The same Core memory assembly in anatomy mode with shared geometry and fine contours](docs/images/corememory-anatomy-light.png) |
+| **Lepton 3.5** | ![Lepton 3.5 exploded in light mode with realistic materials](docs/images/lepton-teardown-light.png) | ![The same Lepton 3.5 assembly in anatomy mode with shared geometry and fine contours](docs/images/lepton-anatomy-light.png) |
+| **Intel 4004** | ![Intel 4004 exploded in light mode with realistic materials](docs/images/intel4004-teardown-light.png) | ![The same Intel 4004 assembly in anatomy mode with shared geometry and fine contours](docs/images/intel4004-anatomy-light.png) |
+| **Particle sensor** | ![Particle sensor exploded in light mode with realistic materials](docs/images/sps30-teardown-light.png) | ![The same Particle sensor assembly in anatomy mode with shared geometry and fine contours](docs/images/sps30-anatomy-light.png) |
 
 To reproduce: choose **Light**, reset the device (tags start off), and use **3D**. ESP32 uses its default 78% separation; all other devices use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
 
@@ -57,12 +66,13 @@ Open [127.0.0.1:5174](http://127.0.0.1:5174). No account, API key or backend is 
 
 | Control | Behavior |
 | --- | --- |
-| Device pills + dropdowns | Choose from Boards, Displays, Optics, Motion and Radio. Each active pill shows the selected device. Arrow keys navigate menus; Escape closes them. |
+| Device pills + dropdowns | Choose from Boards, Displays, Optics, Sensors, Chips, Motion and Radio. Each active pill shows the selected device. Arrow keys navigate menus; Escape closes them. |
+| Previous / Next arrows | Cycle within the current category, wrapping at its ends. The arrows sit at the two ends of the viewer toolbar; single-device categories disable them. |
 | Assembled / Exploded + Separation | Move between the assembled device and separated component groups. |
-| Selection | Tags start off. Click a component or list item to show its selection tag; picking on the model anchors it to the clicked surface. Click empty canvas to clear selection and show all tags when labels are enabled. |
+| Selection | Models open unselected and tags start off. In either rendering mode, selecting a part keeps it solid and ghosts the rest. Click a component or list item to show its selection tag; picking on the model anchors it to the clicked surface. Click empty canvas to clear selection and show all tags when labels are enabled. |
 | X-ray | Show the whole device in anatomy style. Glass retains its transparency and contours. Selecting a part ghosts the others; clicking empty canvas restores the complete view. |
 | Isolate | Frame one component group. Also works with X-ray. |
-| Play / Pause | Assemble the device, then animate fans, LEDs, numeral cathodes, stepped shafts, a servo pointer, a speaker cone, mirror tilt or illustrative signal/light paths. Changing separation stops playback. The camera, Nixie tube, stepper and Grobot adjust framing with separation; orbiting or zooming preserves your manual framing until a camera preset or reset. Reduced motion uses a still powered view. |
+| Play / Pause | Assemble the device, then animate fans, LEDs, numeral cathodes, stepped shafts, a servo pointer, a speaker cone, mirror tilt, VFD multiplexing, electron cascades, spectral paths, chiplet traffic or sensor activity. Some module covers fade during playback when no part is selected, exposing illustrative interiors. Changing separation stops playback. The camera, Nixie tube, stepper and Grobot adjust framing with separation; orbiting or zooming preserves your manual framing until a camera preset or reset. Reduced motion uses a still powered view. |
 | 3D / Top / Front | Switch cameras. Drag to orbit, right-drag to pan, scroll or use + / − to zoom. |
 | Light / Dark / System | Dark by default. Choose Light, Dark or System; the preference persists. |
 | Save image | Download a 2400 px PNG of the model in its current view and theme. |
@@ -94,8 +104,17 @@ X-ray, playback, overview tags and camera choice persist across device changes. 
 | 42 mm hybrid stepper | `#stepper` | Documented two-phase mechanism; representative mechanical dimensions |
 | Great Scott Gadgets HackRF One r10 | `#hackrf` | Official KiCad board; 437 footprint placements |
 | Grobot / open brass frame | `#grobot` | Official Waveshare UPS/LCD STEP; same specified hardware, custom perfboard and open brass frame |
+| Hamamatsu R928 / side-on tube | `#pmt` | [Sources and reconstruction limits](reference/pmt/evidence.md) |
+| Hamamatsu C12880MA | `#spectrometer` | [Sources and reconstruction limits](reference/spectrometer/evidence.md) |
+| AMD EPYC 9654 / Genoa | `#epyc` | [Sources and reconstruction limits](reference/epyc/evidence.md) |
+| SLAMTEC RPLIDAR A1 / triangulation scanner | `#lidar` | [Sources and reconstruction limits](reference/lidar/evidence.md) |
+| Eight-digit VFD / Noritake construction principles | `#vfd` | [Sources and reconstruction limits](reference/vfd/evidence.md) |
+| 32 × 32 magnetic core plane / representative construction | `#corememory` | [Sources and reconstruction limits](reference/corememory/evidence.md) |
+| Teledyne FLIR Lepton 3.5 | `#lepton` | [Sources and reconstruction limits](reference/lepton/evidence.md) |
+| Intel C4004 / ceramic gold-top package | `#intel4004` | [Sources and reconstruction limits](reference/intel4004/evidence.md) |
+| Sensirion SPS30 / laser-scattering sensor | `#sps30` | [Sources and reconstruction limits](reference/sps30/evidence.md) |
 
-These are educational reconstructions. Separating soldered parts explains their roles; it is not a physical disassembly procedure. Estimated heights, connector interiors and hidden placements are recorded in [reference/](reference/) and the [device registry](src/boards.js). X-ray reuses modeled surfaces, without inventing buried copper or silicon internals. Signal paths illustrate activity, not an electrical simulation. The stepper is a representative mechanism, not a manufacturer-specific replica. The DLP package stays at its documented scale; a separate **600× detail** explains the micromirror mechanism without claiming a disclosed fabrication stack. Nixie electrode shapes and hidden construction are identified as reconstructed.
+These are educational reconstructions. Separating soldered parts explains their roles; it is not a physical disassembly procedure. Estimated heights, connector interiors and hidden placements are recorded in [reference/](reference/) and the [device registry](src/boards.js). X-ray reuses the same modeled surfaces. The new sealed-module cutaways explicitly identify illustrative interiors; chip surface regions are functional diagrams, not fabricated transistor layouts or buried-copper maps. Signal paths illustrate activity, not an electrical simulation. The stepper is a representative mechanism, not a manufacturer-specific replica. The DLP package stays at its documented scale; a separate **600× detail** explains the micromirror mechanism without claiming a disclosed fabrication stack. Nixie electrode shapes and hidden construction are identified as reconstructed.
 
 [Grobot’s evidence record](reference/grobot/evidence.md) distinguishes the 325 original Waveshare solids from reconstructed parts. Its AYWHP ESP32-S3, SG90, two BAK cells, audio modules and four filaments retain the supplied hardware inventory. A new open brass frame, perforated carrier, visible jumpers and plain servo pointer replace the enclosure and decorative anchor. The frame, mounting layout, wiring and unmeasured kit footprints remain provisional; six driver positions remain empty. Play uses sample content and an illustrative servo command.
 
@@ -104,8 +123,8 @@ These are educational reconstructions. Separating soldered parts explains their 
 1. **Started with evidence.** I imported manufacturer STEP geometry with OpenCascade and extracted footprints and artwork from official EAGLE and KiCad files. I used drawings and photographs to reconstruct missing packages, recording assumptions.
 2. **Built shared assemblies.** I gave component groups geometry, identity, selection anchors and separation vectors. I batched small meshes while retaining selectable groups; Pi's surface-mount packages share one SMD group.
 3. **Rendered two treatments.** I used Three.js for materials, lighting, shadows and an orthographic camera. Anatomy reuses the same geometry, transforms and artwork with tonal shading and geometric contours. Raycast anchors keep callouts attached through orbit and separation.
-4. **Connected the controls.** I used shared state to drive grouped device menus, cameras, selection, isolation, themes and playback. Only identified moving parts and indicators animate.
-5. **Inspected and checked.** I combined geometry and interaction checks with independent maker–checker reviews and browser inspection. The [review record](reference/maker-checker.md) distinguishes verified behavior from reconstruction limits.
+4. **Connected the controls.** I used shared state to drive grouped device menus, cameras, selection, isolation, themes and playback. Identified moving parts, indicators and explicitly illustrative overlays animate.
+5. **Inspected and checked.** I combined geometry and interaction checks with independent maker–checker reviews and browser inspection. The [review record](reference/maker-checker.md) and [nine-module review](reference/modules-review.md) distinguish verified behavior from reconstruction limits and identify which additions received a separate review.
 
 ### Skills and tools
 
@@ -131,7 +150,7 @@ The browser title and Open Graph title are **breakboard**. The description is: �
 | [boards.js](src/boards.js), board builders, [board-kit.js](src/board-kit.js) | Inventories, geometry, shared packages and connectors |
 | [assembly.js](src/assembly.js), [batching.js](src/batching.js) | Separation, group visibility and mesh batching |
 | [scene.js](src/scene.js), [selection.js](src/selection.js) | Cameras, rendering, picking, callouts and PNG export |
-| [anatomy.js](src/anatomy.js), [operation.js](src/operation.js) | Anatomy rendering and illustrative activity |
+| [anatomy.js](src/anatomy.js), [operation.js](src/operation.js), [module-effects.js](src/module-effects.js) | Anatomy rendering, motion and explanatory optical/electrical overlays |
 | [main.js](src/main.js), [device-menu.js](src/device-menu.js), [style.css](src/style.css), [theme.js](src/theme.js) | Interface, state and appearance |
 
 ## Build and verify
@@ -143,7 +162,7 @@ npm run check
 
 Deploy `dist/` to a static host, or use the [standalone offline file](#take-it-offline). On the hosted app, Jetson CAD ships in the app bundle and Pi, Portenta and Grobot CAD load on first selection. Built models are cached.
 
-Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. Browser review is recorded separately. The standalone HTML also loaded all seventeen devices from a local file in Chrome with networking disabled and no HTTP requests. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
+Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. Browser review is recorded separately. The standalone HTML also loaded all 26 devices from a local file in Chrome with networking disabled and no HTTP requests. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
 
 Normal development uses the supplied runtime assets. Downloaded reference CAD, PDFs, photographs and intermediate meshes stay local; source URLs and evidence records are included. Regenerating STEP meshes additionally requires `cadquery-ocp==7.9.3.1.1` and the `import-*` / `package-*` scripts in [scripts/](scripts/) and [reference/grobot/](reference/grobot/). Arduino extraction uses `prepare-uno.py` and `prepare-nano.py`.
 

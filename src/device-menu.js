@@ -2,11 +2,18 @@
 // Use menu-button semantics, rather than tabs whose content is another picker.
 export const DEVICE_CATEGORIES=[
  {id:'boards',name:'Boards'}, {id:'displays',name:'Displays'},
- {id:'optics',name:'Optics'}, {id:'motion',name:'Motion'}, {id:'radio',name:'Radio'}
+ {id:'optics',name:'Optics'}, {id:'sensors',name:'Sensors'}, {id:'chips',name:'Chips'}, {id:'motion',name:'Motion'}, {id:'radio',name:'Radio'}
 ];
 const family={nixie:'displays',neopixel:'displays',dlp:'displays',hqcamera:'optics',stepper:'motion',hackrf:'radio'};
 export const deviceCategory=device=>device.category||family[device.id]||'boards';
 export function deviceFamilies(devices){return DEVICE_CATEGORIES.map(category=>({...category,devices:devices.filter(device=>deviceCategory(device)===category.id)})).filter(category=>category.devices.length);}
+
+export function adjacentDevice(devices,id,direction){
+ const current=devices.find(device=>device.id===id);if(!current)return null;
+ const siblings=devices.filter(device=>deviceCategory(device)===deviceCategory(current));
+ if(siblings.length<2)return null;
+ return siblings[(siblings.indexOf(current)+direction+siblings.length)%siblings.length];
+}
 
 export function createDeviceMenu(host,devices,onChange){
  const categories=deviceFamilies(devices),buttons=[],menus=[];
@@ -37,12 +44,14 @@ export function createDeviceMenu(host,devices,onChange){
   const index=openIndex;menus[index].hidden=true;buttons[index].setAttribute('aria-expanded','false');openIndex=-1;
   if(returnFocus)buttons[index].focus({preventScroll:true});
  }
- function open(index,last=false){
-  close();openIndex=index;const menu=menus[index],button=buttons[index];
-  menu.hidden=false;button.setAttribute('aria-expanded','true');
-  const bounds=button.getBoundingClientRect(),width=menu.offsetWidth;
+ function positionMenu(index){
+  const menu=menus[index],bounds=buttons[index].getBoundingClientRect(),width=menu.offsetWidth;
   menu.style.left=`${Math.max(12,Math.min(bounds.left,innerWidth-width-12))}px`;
   menu.style.top=`${bounds.bottom+8}px`;menu.style.maxHeight=`${Math.max(120,innerHeight-bounds.bottom-24)}px`;
+ }
+ function open(index,last=false){
+  close();openIndex=index;const menu=menus[index],button=buttons[index];
+  menu.hidden=false;button.setAttribute('aria-expanded','true');positionMenu(index);
   const choices=items(index);(last?choices.at(-1):choices.find(item=>item.dataset.board===selected)||choices[0]).focus({preventScroll:true});
  }
  buttons.forEach((button,index)=>{
@@ -77,7 +86,7 @@ export function createDeviceMenu(host,devices,onChange){
  document.addEventListener('pointerdown',event=>{if(openIndex>=0&&!menus[openIndex].contains(event.target)&&!buttons[openIndex].contains(event.target))close();});
  document.addEventListener('focusin',event=>{if(openIndex>=0&&!menus[openIndex].contains(event.target)&&!buttons[openIndex].contains(event.target))close();});
  addEventListener('resize',()=>close());
- addEventListener('scroll',event=>{if(openIndex>=0&&!menus[openIndex].contains(event.target))close();},true);
+ addEventListener('scroll',event=>{if(openIndex<0)return;if(event.target===host)positionMenu(openIndex);else if(!menus[openIndex].contains(event.target))close();},true);
  function setDevice(id){
   selected=id;
   categories.forEach((category,index)=>{
