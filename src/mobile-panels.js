@@ -56,7 +56,7 @@ export function createMobilePanels(boards,onBoardChange,createOption){
   for(const board of family.devices){const button=document.createElement('button');button.type='button';button.dataset.device=board.id;button.setAttribute('aria-pressed','false');button.append(...createOption(board));button.onclick=()=>{close();onBoardChange(board.id);};section.append(button);}
   picker.content.append(section);
  }
- const moves=[['.assembly-controls',controls],['.tools',controls],['#export',controls],['.sidebar',components],['.inspector',components]].map(([selector,destination])=>{const element=document.querySelector(selector),marker=document.createComment(selector);element.before(marker);return{element,marker,destination};});
+ const moves=[['.assembly-controls',controls],['.device-controls',controls],['.tools',controls],['#export',controls],['.sidebar',components],['.inspector',components]].map(([selector,destination])=>{const element=document.querySelector(selector),marker=document.createComment(selector);element.before(marker);return{element,marker,destination};});
  const apply=()=>{if(compact===media.matches)return;close(true);setControls(false,true);compact=media.matches;for(const{element,marker,destination}of moves){if(compact)destination.content.append(element);else marker.after(element);}document.querySelector('#component-browser').open=true;};
  media.addEventListener('change',apply);apply();
  return{

@@ -51,6 +51,16 @@ import intel4004_light from './intel4004-light.webp';
 import intel4004_dark from './intel4004-dark.webp';
 import sps30_light from './sps30-light.webp';
 import sps30_dark from './sps30-dark.webp';
+import relay_light from './relay-light.webp';
+import relay_dark from './relay-dark.webp';
+import bldc_light from './bldc-light.webp';
+import bldc_dark from './bldc-dark.webp';
+import haptic_light from './haptic-light.webp';
+import haptic_dark from './haptic-dark.webp';
+import as5600_light from './as5600-light.webp';
+import as5600_dark from './as5600-dark.webp';
+import quartz_light from './quartz-light.webp';
+import quartz_dark from './quartz-dark.webp';
 export default {
  esp32:{light:esp32_light,dark:esp32_dark},
  pi5:{light:pi5_light,dark:pi5_dark},
@@ -77,5 +87,10 @@ export default {
  corememory:{light:corememory_light,dark:corememory_dark},
  lepton:{light:lepton_light,dark:lepton_dark},
  intel4004:{light:intel4004_light,dark:intel4004_dark},
- sps30:{light:sps30_light,dark:sps30_dark}
+ sps30:{light:sps30_light,dark:sps30_dark},
+ relay:{light:relay_light,dark:relay_dark},
+ bldc:{light:bldc_light,dark:bldc_dark},
+ haptic:{light:haptic_light,dark:haptic_dark},
+ as5600:{light:as5600_light,dark:as5600_dark},
+ quartz:{light:quartz_light,dark:quartz_dark}
 };

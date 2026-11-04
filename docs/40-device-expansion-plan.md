@@ -1,8 +1,10 @@
 # Forty-device expansion plan
 
-Status: planning complete; implementation and final verification have not started.
+Status: implementation in progress. Batch 1 is integrated and independently reviewed: five additions, **31 devices total**. Batch 2 is being built; the remaining 35 additions and the final 66-device review are pending. [Batch 1 verification](verification/expansion-batch1.md).
 
 Scope: add all 40 agreed devices to the existing 26-device collection, for 66 total. Each addition includes geometry, component selection, assembled/exploded views, X-ray, useful interaction, documentation, previews and offline support. The entries below are research targets, not claims that their exact hardware revision or hidden construction has already been verified. No device is silently dropped or substituted.
+
+The first batch locks Omron G2R-1 DC12, T-MOTOR MN2212 V2.0 KV920, Precision Microdrives C10-100, ams AS5600-SO_EK_AB/AS5600-SO_AB_V2 and Epson FC-135. Shared controls, per-device behavior, a three-model GPU cache, deforming anatomy contours and offline browser verification are implemented. Later mechanisms still need their own geometry and operation work.
 
 ## 1. Lock the evidence before modelling
 
@@ -180,4 +182,4 @@ Keep the final verification report at `docs/verification/40-device-expansion.md`
 3. Full 66-device final review and correction pass.
 4. Final source commit, production deployment and post-deployment verification.
 
-This document is the implementation plan. It does not claim that the additions, performance targets or final review have already been completed.
+This document tracks the full implementation plan. The progress line and batch reports identify completed work; the final performance and 66-device review remain separate completion gates.

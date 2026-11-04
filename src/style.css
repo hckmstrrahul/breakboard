@@ -119,3 +119,15 @@ button:not(:disabled):active,summary:active{filter:brightness(.92)}
 @media(max-width:800px) and (prefers-reduced-motion:no-preference),(max-width:1000px) and (max-height:500px) and (prefers-reduced-motion:no-preference){
  @starting-style{.mobile-controls-panel:not([hidden]) .mobile-controls-content{transform:translateY(6px)}}
 }
+
+/* Device-specific operation inputs share the existing compact controls region. */
+.device-controls{flex:none;padding:12px 18px;border-bottom:1px solid var(--line)}
+.device-control-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px 20px}
+.device-control-meta{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:.6875rem;color:var(--muted)}
+.device-control-meta output{font:.625rem var(--mono);color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.device-readouts{display:flex;flex-wrap:wrap;gap:6px 18px;margin:7px 0 0;font:.625rem/1.5 var(--mono);color:var(--muted)}
+.device-readouts>div{display:flex;gap:6px}.device-readouts dd{margin:0;color:var(--ink);font-variant-numeric:tabular-nums}
+.has-device-controls .viewport{min-height:260px}.clean .device-controls{display:none}
+@media(max-width:800px),(max-width:1000px) and (max-height:500px){
+ .device-controls{padding:0 0 20px;border:0}.device-control-fields{grid-template-columns:1fr;gap:14px}.device-control-meta{font-size:.75rem}.device-controls input{height:32px}.device-readouts{gap:8px 14px;margin-top:10px}.has-device-controls .viewport{min-height:0}
+}

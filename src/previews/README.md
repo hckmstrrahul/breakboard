@@ -4,4 +4,6 @@ Each device has two original **192 × 192 px WebP renders**, one for Light and o
 
 Run `npm run render:previews` after changing a model or adding a device. This starts a temporary local Vite server, renders every entry in `BOARD_LIST` through Chrome, and regenerates these images and `index.js`. Chrome must be installed; Playwright is a development dependency. The renderer closes its browser and server when finished.
 
+For a subset, use `npm run render:previews -- --ids=relay,bldc`. The generated index still includes every registered device.
+
 The dropdowns and mobile device sheet share these assets. Light, Dark and System appearance all select the matching render. The standalone build embeds the WebPs so previews also work offline.

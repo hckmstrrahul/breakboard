@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import * as T from 'three';
+import {ORIGINAL_DEVICE_IDS,IMPLEMENTED_EXPANSION_IDS,EXPANSION_BATCHES} from '../src/expansion-manifest.js';
 
 // Exercise the real builders with canvas drawing stubbed; geometry, groups,
 // material batching and pose/selection behavior are the production code.
@@ -9,8 +10,10 @@ globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>context
 globalThis.__BREAKBOARD_ASSETS=Object.fromEntries(fs.readdirSync('public/models').filter(f=>f.endsWith('.json.gz')).map(f=>[f.replace('.json.gz',''),fs.readFileSync('public/models/'+f).toString('base64')]));
 const {BOARD_LIST}=await import('../src/boards.js');
 assert.equal(new Set(BOARD_LIST.map(b=>b.id)).size,BOARD_LIST.length,'Unique board routes');
-const expected=['esp32','pi5','uno','jetson','pico2w','nano','orangepi5','beaglebone','nucleo','portenta','nixie','neopixel','dlp','hqcamera','stepper','hackrf','grobot','pmt','spectrometer','epyc','lidar','vfd','corememory','lepton','intel4004','sps30'];
-assert.deepEqual(BOARD_LIST.map(b=>b.id).toSorted(),expected.toSorted(),'All twenty-six requested and existing devices are available');
+const expected=[...ORIGINAL_DEVICE_IDS,...IMPLEMENTED_EXPANSION_IDS];
+assert.equal(EXPANSION_BATCHES.flat().length,40);assert.equal(new Set(EXPANSION_BATCHES.flat()).size,40);
+assert(IMPLEMENTED_EXPANSION_IDS.every(id=>EXPANSION_BATCHES.flat().includes(id)));
+assert.deepEqual(BOARD_LIST.map(b=>b.id).toSorted(),expected.toSorted(),'All original devices and the explicitly implemented expansion devices are available');
 const verifiedDimensions={pico2w:[21,1,51],nano:[43.18,1.6,17.78],orangepi5:[100,1.6,62],beaglebone:[86.36,1.6,54.61],nucleo:[70,1.6,82.5]};
 const reports=[];
 for(const def of BOARD_LIST){
@@ -58,7 +61,7 @@ for(const def of BOARD_LIST){
   for(const p of def.parts)assert.equal(model.groups[p.id].visible,!p.accessory);
   model.setAccessories(true);model.setSelection(ids[0],false,false);
  }
- if(!['esp32','pi5','uno','nixie','stepper','dlp','grobot','pmt','spectrometer','epyc','lidar','vfd','corememory','lepton','intel4004','sps30'].includes(def.id))assert.equal(def.parts.filter(p=>p.id==='smd').length,1,def.id+' has one SMD group');
+ if(!IMPLEMENTED_EXPANSION_IDS.includes(def.id)&&!['esp32','pi5','uno','nixie','stepper','dlp','grobot','pmt','spectrometer','epyc','lidar','vfd','corememory','lepton','intel4004','sps30'].includes(def.id))assert.equal(def.parts.filter(p=>p.id==='smd').length,1,def.id+' has one SMD group');
  reports.push({board:def.tab,groups:ids.length,meshes,triangles});
  console.log(`PASS · ${def.tab}: ${ids.length} groups, ${triangles.toLocaleString()} triangles; full pose range, floor clearance, selection, isolation, X-ray and reference metadata`);
 }

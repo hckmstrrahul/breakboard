@@ -28,7 +28,7 @@ function artworkMaterial(source,ghost){
 // CAD, including isolated parts, separation and the moving fan. No hidden PCB
 // layers or silicon internals are invented. Depth testing resolves intersections.
 export function createAnatomy(model){
- const context=new T.Scene(),subject=new T.Scene(),entries=[],markings=[],edgeCache=new Map();
+ const context=new T.Scene(),subject=new T.Scene(),entries=[],markings=[],edgeCache=new Map(),edgeVersions=new Map();
  const ramp=new T.DataTexture(new Uint8Array([85,135,190,255]),4,1,T.RedFormat);
  ramp.minFilter=ramp.magFilter=T.NearestFilter;ramp.needsUpdate=true;
  const fill=new T.MeshToonMaterial({color:'#dbc2ab',gradientMap:ramp,polygonOffset:true,polygonOffsetFactor:1,polygonOffsetUnits:1});
@@ -69,7 +69,7 @@ export function createAnatomy(model){
   const geometry=source.geometry;
   // RoundedBoxGeometry's bevels turn by less than 28 degrees: the former
   // threshold removed every edge of the RF shield and all rounded packages.
-  if(!edgeCache.has(geometry))edgeCache.set(geometry,new T.EdgesGeometry(geometry,20));
+  if(!edgeCache.has(geometry)){edgeCache.set(geometry,new T.EdgesGeometry(geometry,20));edgeVersions.set(geometry,geometry.attributes.position.version);}
   const body=new T.Mesh(geometry,shell),lines=new T.LineSegments(edgeCache.get(geometry),faint);
   body.matrixAutoUpdate=lines.matrixAutoUpdate=false;lines.renderOrder=1;
   // Surface ownership is preserved; selection changes only the rendering pass.
@@ -80,11 +80,14 @@ export function createAnatomy(model){
  function update(id){
   id??=null;
   model.root.updateMatrixWorld(true);
+  // Flexures and membranes can change vertex positions as well as transforms.
+  // Refresh shared contours once per changed geometry; rigid parts keep theirs.
+  for(const [geometry,edges]of edgeCache){const version=geometry.attributes.position.version;if(edgeVersions.get(geometry)!==version){edgeCache.set(geometry,new T.EdgesGeometry(geometry,20));edgeVersions.set(geometry,version);edges.dispose();}}
   for(const entry of drawings){
    const{group,source,body,lines}=entry,isSubject=id===null||entry.id===id;
    if(selected!==id){const scene=isSubject?subject:context;scene.add(body);if(lines){scene.add(lines);body.material=isSubject?(source.userData.anatomyTransparent?glass:fill):shell;lines.material=isSubject?ink:faint;}else body.material=isSubject?entry.solid:entry.ghost;}
    let visible=group.visible;for(let node=source;node&&node!==group;node=node.parent)visible&&=node.visible;
-   body.visible=visible;body.matrix.copy(source.matrixWorld);if(lines){lines.visible=visible;lines.matrix.copy(source.matrixWorld);}
+   body.visible=visible;body.matrix.copy(source.matrixWorld);if(lines){lines.geometry=edgeCache.get(source.geometry);lines.visible=visible;lines.matrix.copy(source.matrixWorld);}
   }
   selected=id;
  }

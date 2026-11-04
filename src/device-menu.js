@@ -2,7 +2,7 @@
 // Use menu-button semantics, rather than tabs whose content is another picker.
 export const DEVICE_CATEGORIES=[
  {id:'boards',name:'Boards'}, {id:'displays',name:'Displays'},
- {id:'optics',name:'Optics'}, {id:'sensors',name:'Sensors'}, {id:'chips',name:'Chips'}, {id:'motion',name:'Motion'}, {id:'radio',name:'Radio'}
+ {id:'optics',name:'Optics'}, {id:'sensors',name:'Sensors'}, {id:'chips',name:'Chips'}, {id:'storage',name:'Storage'}, {id:'motion',name:'Motion'}, {id:'power',name:'Power'}, {id:'audio',name:'Audio'}, {id:'radio',name:'Radio'}
 ];
 const family={nixie:'displays',neopixel:'displays',dlp:'displays',hqcamera:'optics',stepper:'motion',hackrf:'radio'};
 export const deviceCategory=device=>device.category||family[device.id]||'boards';

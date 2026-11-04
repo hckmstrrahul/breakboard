@@ -1,6 +1,6 @@
 # README captures
 
-Captured from the running application on 4 November 2026 using **Save image**. These are original renderer exports, not generated mockups or photographs. All 52 PNGs are 2400 × 2217 px, use Light appearance (`#efeee9`), and retain the app's native framing and colors.
+The original 52 PNGs were captured from the running application on 4 November 2026 using **Save image**. The five-device expansion adds ten captures on 5 November using the same renderer/export path through `scripts/render-device-proofs.mjs --gallery`. These are original renderer exports, not generated mockups or photographs. All 62 PNGs are 2400 × 2217 px, use Light appearance (`#efeee9`), and retain the app's native framing and colors.
 
 | Pair | Device | Separation | Camera | Accessories |
 | --- | --- | --- | --- | --- |
@@ -30,10 +30,15 @@ Captured from the running application on 4 November 2026 using **Save image**. T
 | `lepton-*-light.png` | Teledyne FLIR Lepton 3.5 | 100% | Default 3D | — |
 | `intel4004-*-light.png` | Intel C4004 ceramic package | 100% | Default 3D | — |
 | `sps30-*-light.png` | Sensirion SPS30 | 100% | Default 3D | — |
+| `relay-*-light.png` | Omron G2R-1 DC12 | 100% | Default 3D | — |
+| `bldc-*-light.png` | T-MOTOR MN2212 V2.0 KV920 | 100% | Default 3D | — |
+| `haptic-*-light.png` | Precision Microdrives C10-100 | 100% | Default 3D | Representative suspension cutaway |
+| `as5600-*-light.png` | ams AS5600-SO_AB_V2 adapter | 100% | Default 3D | AS5000-MD6H-1 magnet |
+| `quartz-*-light.png` | Epson FC-135 | 100% | Default 3D | Representative tuning-fork cutaway |
 
 For each pair, reset the device, choose Light, leave component labels off and set the separation above. Leave playback, auto rotation and isolation off. Save the material view, enable X-ray to clear selection and show the complete anatomy view, then save again without changing the camera. The viewer's width-to-height ratio was 2400:2217; export height follows that ratio.
 
-The PNG exporter includes the model and scene background, not the surrounding HTML controls or callouts. Normal-mode assembly guides and shadows are retained; anatomy uses its own contour treatment. All 52 saved images were opened and visually checked. Model provenance and reuse terms remain those documented in the [project README](../../README.md#attribution).
+The PNG exporter includes the model and scene background, not the surrounding HTML controls or callouts. Normal-mode assembly guides and shadows are retained; anatomy uses its own contour treatment. All 62 saved images were opened and visually checked. Model provenance and reuse terms remain those documented in the [project README](../../README.md#attribution).
 
 The added devices use their documented source revision. The DLP package and enlarged mechanism retain permanent scale labels in both treatments. Glass in the Nixie tube and camera filter preserves translucency with anatomy contours. Tall devices use their fully exploded framing for both exports.
 

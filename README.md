@@ -1,13 +1,13 @@
 # breakboard
 
-Explore development boards, displays, optics, sensors, chips, radio hardware and mechanisms as interactive 3D assemblies. Separate components, inspect their functions, switch to anatomy linework, and play restrained hardware animations.
+Explore development boards, displays, optics, sensors, chips, power hardware, radio hardware and mechanisms as interactive 3D assemblies. Separate components, inspect their functions, switch to anatomy linework, and operate working mechanisms with device-specific controls.
 
 [Open breakboard](https://breakboard-teardown.vercel.app) Â· Built with Three.js, vanilla JavaScript and Vite. Runs entirely in the browser.
 
 ## Take it offline
 
 <!-- offline-stats:start -->
-**26 interactive devices in one 22.60 MB HTML file** (21.55 MiB).
+**31 interactive devices in one 22.69 MB HTML file** (21.64 MiB).
 <!-- offline-stats:end -->
 
 [Save the standalone HTML](https://breakboard-teardown.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
@@ -46,6 +46,11 @@ Actual 2400 px PNG captures from **Save image**. Each pair shares its camera and
 | **Lepton 3.5** | ![Lepton 3.5 exploded in light mode with realistic materials](docs/images/lepton-teardown-light.png) | ![The same Lepton 3.5 assembly in anatomy mode with shared geometry and fine contours](docs/images/lepton-anatomy-light.png) |
 | **Intel 4004** | ![Intel 4004 exploded in light mode with realistic materials](docs/images/intel4004-teardown-light.png) | ![The same Intel 4004 assembly in anatomy mode with shared geometry and fine contours](docs/images/intel4004-anatomy-light.png) |
 | **Particle sensor** | ![Particle sensor exploded in light mode with realistic materials](docs/images/sps30-teardown-light.png) | ![The same Particle sensor assembly in anatomy mode with shared geometry and fine contours](docs/images/sps30-anatomy-light.png) |
+| **Relay** | ![Omron G2R-1 relay with its cover, coil, armature and changeover contacts separated](docs/images/relay-teardown-light.png) | ![The same relay in anatomy mode showing coil windings and contact linkage](docs/images/relay-anatomy-light.png) |
+| **BLDC motor** | ![T-MOTOR MN2212 with rotor bell, twelve magnets, nine stator teeth and three winding phases separated](docs/images/bldc-teardown-light.png) | ![The same brushless motor in anatomy mode with winding and bearing contours](docs/images/bldc-anatomy-light.png) |
+| **Haptic actuator** | ![C10-100 haptic actuator with its case, representative suspended mass, springs, magnet and coil separated](docs/images/haptic-teardown-light.png) | ![The same haptic actuator in anatomy mode showing its representative suspension](docs/images/haptic-anatomy-light.png) |
+| **AS5600 encoder** | ![AS5600 adapter with its diametric magnet, sensor package, representative chip interior and headers separated](docs/images/as5600-teardown-light.png) | ![The same magnetic encoder assembly in anatomy mode](docs/images/as5600-anatomy-light.png) |
+| **Quartz resonator** | ![Epson FC-135 package with a representative tuning fork, electrodes, supports and lid separated](docs/images/quartz-teardown-light.png) | ![The same quartz resonator in anatomy mode showing its two opposed tines](docs/images/quartz-anatomy-light.png) |
 
 To reproduce: choose **Light**, reset the device (tags start off), and use **3D**. ESP32 uses its default 78% separation; all other devices use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
 
@@ -68,9 +73,10 @@ After adding or changing a model, run `npm run render:previews` with Chrome inst
 
 | Control | Behavior |
 | --- | --- |
-| Device pills + dropdowns | Choose from Boards, Displays, Optics, Sensors, Chips, Motion and Radio. Each option has a square assembled-model WebP preview that follows Light, Dark or System appearance. Each active pill shows the selected device. Hover opens a menu on a mouse or trackpad; moving between categories switches immediately. Click and keyboard navigation remain available; Escape closes the menu. |
+| Device pills + dropdowns | Choose from Boards, Displays, Optics, Sensors, Chips, Motion, Power and Radio. Each option has a square assembled-model WebP preview that follows Light, Dark or System appearance. Each active pill shows the selected device. Hover opens a menu on a mouse or trackpad; moving between categories switches immediately. Click and keyboard navigation remain available; Escape closes the menu. |
 | Previous / Next arrows | Cycle within the current category, wrapping at its ends. The arrows sit at the two ends of the viewer toolbar; single-device categories disable them. |
 | Assembled / Exploded + Separation | Move between the assembled device and separated component groups. |
+| Device operation inputs | Switch the relay coil, change BLDC speed/direction, vary haptic frequency/amplitude, rotate an encoder magnet or change an external quartz clock divider. Readouts explain the response; Reset restores their defaults. Inputs share the inline mobile Controls panel. |
 | Selection | Models open unselected and tags start off. In either rendering mode, selecting a part keeps it solid and ghosts the rest. Click a component or list item to show its selection tag; picking on the model anchors it to the clicked surface. Click empty canvas to clear selection and show all tags when labels are enabled. |
 | X-ray | Show the whole device in anatomy style. Glass retains its transparency and contours. Selecting a part ghosts the others; clicking empty canvas restores the complete view. |
 | Isolate | Frame one component group. Also works with X-ray. |
@@ -115,6 +121,11 @@ X-ray, playback, overview tags and camera choice persist across device changes. 
 | Teledyne FLIR Lepton 3.5 | `#lepton` | [Sources and reconstruction limits](reference/lepton/evidence.md) |
 | Intel C4004 / ceramic gold-top package | `#intel4004` | [Sources and reconstruction limits](reference/intel4004/evidence.md) |
 | Sensirion SPS30 / laser-scattering sensor | `#sps30` | [Sources and reconstruction limits](reference/sps30/evidence.md) |
+| Omron G2R-1 DC12 / PCB SPDT | `#relay` | [Documented envelope, pinout and coil; representative linkage](reference/relay/evidence.md) |
+| T-MOTOR MN2212 V2.0 / KV920 / 9N12P | `#bldc` | [Documented motor dimensions and pole/slot counts; reconstructed interior](reference/bldc/evidence.md) |
+| Precision Microdrives C10-100 / R006-PROD | `#haptic` | [Documented envelope and resonance; representative suspension](reference/haptic/evidence.md) |
+| ams AS5600-SO_EK_AB / AS5600-SO_AB_V2 | `#as5600` | [Documented adapter and magnet; representative chip cutaway](reference/as5600/evidence.md) |
+| Epson FC-135 / 32.768 kHz / 12.5 pF | `#quartz` | [Documented package and frequency; representative tuning fork](reference/quartz/evidence.md) |
 
 These are educational reconstructions. Separating soldered parts explains their roles; it is not a physical disassembly procedure. Estimated heights, connector interiors and hidden placements are recorded in [reference/](reference/) and the [device registry](src/boards.js). X-ray reuses the same modeled surfaces. The new sealed-module cutaways explicitly identify illustrative interiors; chip surface regions are functional diagrams, not fabricated transistor layouts or buried-copper maps. Signal paths illustrate activity, not an electrical simulation. The stepper is a representative mechanism, not a manufacturer-specific replica. The DLP package stays at its documented scale; a separate **600Ã— detail** explains the micromirror mechanism without claiming a disclosed fabrication stack. Nixie electrode shapes and hidden construction are identified as reconstructed.
 
@@ -152,6 +163,7 @@ The browser title and Open Graph title are **breakboard**. The description is: â
 | [boards.js](src/boards.js), board builders, [board-kit.js](src/board-kit.js) | Inventories, geometry, shared packages and connectors |
 | [assembly.js](src/assembly.js), [batching.js](src/batching.js) | Separation, group visibility and mesh batching |
 | [scene.js](src/scene.js), [selection.js](src/selection.js) | Cameras, rendering, picking, callouts and PNG export |
+| [model-cache.js](src/model-cache.js), [device-controls.js](src/device-controls.js) | Bounded model reuse, resource disposal and per-device inputs/readouts |
 | [anatomy.js](src/anatomy.js), [operation.js](src/operation.js), [module-effects.js](src/module-effects.js) | Anatomy rendering, motion and explanatory optical/electrical overlays |
 | [main.js](src/main.js), [device-menu.js](src/device-menu.js), [style.css](src/style.css), [theme.js](src/theme.js) | Interface, state and appearance |
 
@@ -160,11 +172,14 @@ The browser title and Open Graph title are **breakboard**. The description is: â
 ```sh
 npm run build
 npm run check
+npm run check:offline
 ```
 
-Deploy `dist/` to a static host, or use the [standalone offline file](#take-it-offline). On the hosted app, Jetson CAD ships in the app bundle and Pi, Portenta and Grobot CAD load on first selection. Built models are cached.
+Deploy `dist/` to a static host, or use the [standalone offline file](#take-it-offline). On the hosted app, Jetson CAD ships in the app bundle and Pi, Portenta and Grobot CAD load on first selection. The viewer retains up to three built models, releasing unreferenced GPU resources when older models leave the cache.
 
-Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. Browser review is recorded separately. The standalone HTML also loaded all 26 devices from a local file in Chrome with networking disabled and no HTTP requests. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
+Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. The first expansion batch adds independent checks for contact mating, motor apertures and rotation, haptic pulses, encoder conversion and quartz division. [Batch review and limitations](docs/verification/expansion-batch1.md).
+
+The standalone HTML loaded all 31 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
 
 Normal development uses the supplied runtime assets. Downloaded reference CAD, PDFs, photographs and intermediate meshes stay local; source URLs and evidence records are included. Regenerating STEP meshes additionally requires `cadquery-ocp==7.9.3.1.1` and the `import-*` / `package-*` scripts in [scripts/](scripts/) and [reference/grobot/](reference/grobot/). Arduino extraction uses `prepare-uno.py` and `prepare-nano.py`.
 

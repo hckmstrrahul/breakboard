@@ -112,6 +112,7 @@ export function createOperation(model,definition){
   }
   for(const ray of rays)ray.material.opacity=state.power*(reduced?.5:.4+.15*Math.sin(state.time*1.5));
   if(pixelGlow){pixelGlow.materials.forEach((material,i)=>pixelGlow.mesh.setColorAt(i,pixelGlow.color.copy(material.emissive).multiplyScalar(material.emissiveIntensity*.24)));pixelGlow.mesh.instanceColor.needsUpdate=true;}
+  model.behavior?.update(state,{assembled,reduced,selected,isolate,playing,dt:Math.min(.05,Math.max(0,dt))});
   root.visible=state.power>.002&&assembled&&!isolate;
   if(!root.visible)return;
   routes.forEach((route,index)=>{
@@ -126,6 +127,6 @@ export function createOperation(model,definition){
   });
  }
  function setTheme(dark){for(const route of routes){route.material.color.set(dark?'#efa17e':'#a43e23');route.dotMaterial.color.copy(route.material.color);}}
- function reset(){effects.reset();Object.assign(state,{power:0,angle:0,time:0});for(const rotor of rotors)rotor.rotation.y=0;for(const {object,rest,restPosition}of motions){object.quaternion.copy(rest);object.position.copy(restPosition);}for(const material of indicators){material.emissiveIntensity=0;material.color.copy(indicatorRest.get(material).color);material.emissive.copy(indicatorRest.get(material).emissive);}root.visible=false;}
+ function reset(){effects.reset();Object.assign(state,{power:0,angle:0,time:0});for(const rotor of rotors)rotor.rotation.y=0;for(const {object,rest,restPosition}of motions){object.quaternion.copy(rest);object.position.copy(restPosition);}for(const material of indicators){material.emissiveIntensity=0;material.color.copy(indicatorRest.get(material).color);material.emissive.copy(indicatorRest.get(material).emissive);}model.behavior?.reset();root.visible=false;}
  reset();return{root,rotors,motions,indicators,routes,rays,effects,state,update,setTheme,reset};
 }

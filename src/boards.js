@@ -1,3 +1,8 @@
+import {RELAY_BOARD} from './relay.js';
+import {BLDC_BOARD} from './bldc.js';
+import {HAPTIC_BOARD} from './haptic.js';
+import {AS5600_BOARD} from './as5600.js';
+import {QUARTZ_BOARD} from './quartz.js';
 import {PMT_BOARD} from './pmt.js';
 import {SPECTROMETER_BOARD} from './spectrometer.js';
 import {EPYC_BOARD} from './epyc.js';
@@ -42,4 +47,5 @@ BOARDS[COREMEMORY_BOARD.id]=COREMEMORY_BOARD;
 BOARDS[LEPTON_BOARD.id]=LEPTON_BOARD;
 BOARDS[INTEL4004_BOARD.id]=INTEL4004_BOARD;
 BOARDS[SPS30_BOARD.id]=SPS30_BOARD;
+Object.assign(BOARDS,Object.fromEntries([RELAY_BOARD,BLDC_BOARD,HAPTIC_BOARD,AS5600_BOARD,QUARTZ_BOARD].map(device=>[device.id,device])));
 export const BOARD_LIST=Object.values(BOARDS);
