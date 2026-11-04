@@ -7,7 +7,7 @@ Explore development boards, displays, optics, sensors, chips, audio, power hardw
 ## Take it offline
 
 <!-- offline-stats:start -->
-**36 interactive devices in one 22.79 MB HTML file** (21.73 MiB).
+**41 interactive devices in one 22.91 MB HTML file** (21.85 MiB).
 <!-- offline-stats:end -->
 
 [Save the standalone HTML](https://breakboard-teardown.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
@@ -57,6 +57,12 @@ Actual 2400 px PNG captures from **Save image**. Each pair shares its camera and
 | **BME688** | ![Bosch BME688 package with representative environmental sensing structures separated](docs/images/bme688-teardown-light.png) | ![The same BME688 in anatomy mode](docs/images/bme688-anatomy-light.png) |
 | **SCD41 CO₂ sensor** | ![Sensirion SCD41 with its protective membrane and representative photoacoustic interior separated](docs/images/scd41-teardown-light.png) | ![The same SCD41 in anatomy mode](docs/images/scd41-anatomy-light.png) |
 
+| **ICM-42688-P IMU** | ![ICM-42688-P IMU with fourteen contacts, anchored accelerometer masses and gyroscope combs separated](docs/images/imu-teardown-light.png) | ![The same ICM-42688-P IMU assembly in anatomy mode](docs/images/imu-anatomy-light.png) |
+| **VL53L8CX depth sensor** | ![VL53L8CX depth sensor with receiver and emitter apertures, optical layers, dies and seventeen contact pads separated](docs/images/tof-teardown-light.png) | ![The same VL53L8CX depth sensor assembly in anatomy mode](docs/images/tof-anatomy-light.png) |
+| **IWR6843ISK radar** | ![IWR6843ISK radar with seven antenna arrays, fitted packages and two carrier connectors separated](docs/images/radar-teardown-light.png) | ![The same IWR6843ISK radar assembly in anatomy mode](docs/images/radar-anatomy-light.png) |
+| **PaPIRs motion sensor** | ![PaPIRs motion sensor with Fresnel lens, filter, sensing elements and lead assembly separated](docs/images/pir-teardown-light.png) | ![The same PaPIRs motion sensor assembly in anatomy mode](docs/images/pir-anatomy-light.png) |
+| **SRF04 ultrasonic ranger** | ![SRF04 ultrasonic ranger with transducer cans, piezo benders, cones and support electronics separated](docs/images/ultrasonic-teardown-light.png) | ![The same SRF04 ultrasonic ranger assembly in anatomy mode](docs/images/ultrasonic-anatomy-light.png) |
+
 To reproduce: choose **Light**, reset the device (tags start off), and use **3D**. ESP32 uses its default 78% separation; all other devices use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
 
 ## Run locally
@@ -81,7 +87,7 @@ After adding or changing a model, run `npm run render:previews` with Chrome inst
 | Device pills + dropdowns | Choose from Boards, Displays, Optics, Sensors, Chips, Motion, Power, Audio and Radio. Each option has a square assembled-model WebP preview that follows Light, Dark or System appearance. Each active pill shows the selected device. Hover opens a menu on a mouse or trackpad; moving between categories switches immediately. Click and keyboard navigation remain available; Escape closes the menu. |
 | Previous / Next arrows | Cycle within the current category, wrapping at its ends. The arrows sit at the two ends of the viewer toolbar; single-device categories disable them. |
 | Assembled / Exploded + Separation | Move between the assembled device and separated component groups. |
-| Device operation inputs | Switch a relay coil, change motor speed/direction, vary haptic pulses, rotate an encoder magnet or change an external quartz clock divider. Audio amplitude/frequency drives membranes and a normalized waveform; environmental inputs drive the corresponding sensing channel. Readouts explain the response; Reset restores defaults. Inputs share the inline mobile Controls panel. |
+| Device operation inputs | Switch a relay coil, change motor speed/direction, vary haptic pulses, rotate an encoder magnet or change an external quartz clock divider. Audio amplitude/frequency drives membranes and a normalized waveform; environmental inputs drive the corresponding sensing channel. Tilt/rate inputs move MEMS mechanisms; target controls drive depth, radar, PIR and ultrasonic readouts. The ToF model includes an accessible 8 × 8 depth map. Readouts explain the response; Reset restores defaults. Inputs share the inline mobile Controls panel. |
 | Selection | Models open unselected and tags start off. In either rendering mode, selecting a part keeps it solid and ghosts the rest. Click a component or list item to show its selection tag; picking on the model anchors it to the clicked surface. Click empty canvas to clear selection and show all tags when labels are enabled. |
 | X-ray | Show the whole device in anatomy style. Glass retains its transparency and contours. Selecting a part ghosts the others; clicking empty canvas restores the complete view. |
 | Isolate | Frame one component group. Also works with X-ray. |
@@ -136,6 +142,11 @@ X-ray, playback, overview tags and camera choice persist across device changes. 
 | Audeze LCD-2 Classic / 100-LC-1017-00 | `#planar` | [Documented 106 mm non-Fazor driver; representative internal dimensions](reference/planar/evidence.md) |
 | Bosch BME688 / 0273017016 / datasheet Rev 1.3 | `#bme688` | [Documented package and channels; representative MEMS cutaway](reference/bme688/evidence.md) |
 | Sensirion SCD41-D-R2 / datasheet v1.7 | `#scd41` | [Documented package and photoacoustic principle; representative interior](reference/scd41/evidence.md) |
+| TDK ICM-42688-P | `#imu` | [Documented LGA package; representative six-axis MEMS cutaway](reference/imu/evidence.md) |
+| ST VL53L8CXV9GC/1 | `#tof` | [Documented optical package and contacts; representative SPAD and VCSEL interior](reference/tof/evidence.md) |
+| TI IWR6843ISK / PROC073D / 001_IWR | `#radar` | [Official Rev D fabrication, BOM and placements; reconstructed package detail](reference/radar/evidence.md) |
+| Panasonic EKMB1101111 / Rev 7.1 | `#pir` | [Documented lens envelope and field; representative four-element interior](reference/pir/evidence.md) |
+| Devantech SRF04 / Pro-Wave 400ST160 + 400SR160 | `#ultrasonic` | [Manufacturer circuit and transducer drawings; photo-estimated placement](reference/ultrasonic/evidence.md) |
 
 These are educational reconstructions. Separating soldered parts explains their roles; it is not a physical disassembly procedure. Estimated heights, connector interiors and hidden placements are recorded in [reference/](reference/) and the [device registry](src/boards.js). X-ray reuses the same modeled surfaces. The new sealed-module cutaways explicitly identify illustrative interiors; chip surface regions are functional diagrams, not fabricated transistor layouts or buried-copper maps. Signal paths illustrate activity, not an electrical simulation. The stepper is a representative mechanism, not a manufacturer-specific replica. The DLP package stays at its documented scale; a separate **600× detail** explains the micromirror mechanism without claiming a disclosed fabrication stack. Nixie electrode shapes and hidden construction are identified as reconstructed.
 
@@ -187,9 +198,9 @@ npm run check:offline
 
 Deploy `dist/` to a static host, or use the [standalone offline file](#take-it-offline). On the hosted app, Jetson CAD ships in the app bundle and Pi, Portenta and Grobot CAD load on first selection. The viewer retains up to three built models, releasing unreferenced GPU resources when older models leave the cache.
 
-Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. The expansion checks cover contact mating, motor apertures and rotation, haptic pulses, encoder conversion, quartz division, audio linkages, waveform response and environmental sensing channels. Independent reviews record source limits and corrected findings: [batch 1](docs/verification/expansion-batch1.md), [batch 2](docs/verification/expansion-batch2.md).
+Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. The expansion checks cover contact mating, motor apertures and rotation, haptic pulses, encoder conversion, quartz division, audio linkages, waveform response, environmental sensing channels, MEMS axis signs, depth-zone mapping, radar placement, PIR timing and ultrasonic propagation. Independent reviews record source limits and corrected findings: [batch 1](docs/verification/expansion-batch1.md), [batch 2](docs/verification/expansion-batch2.md), [batch 3](docs/verification/expansion-batch3.md).
 
-The standalone HTML loaded all 36 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
+The standalone HTML loaded all 41 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
 
 Normal development uses the supplied runtime assets. Downloaded reference CAD, PDFs, photographs and intermediate meshes stay local; source URLs and evidence records are included. Regenerating STEP meshes additionally requires `cadquery-ocp==7.9.3.1.1` and the `import-*` / `package-*` scripts in [scripts/](scripts/) and [reference/grobot/](reference/grobot/). Arduino extraction uses `prepare-uno.py` and `prepare-nano.py`.
 

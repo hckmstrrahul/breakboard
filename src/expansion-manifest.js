@@ -11,4 +11,4 @@ export const EXPANSION_BATCHES=[
  ['ne555','rp2350','fpga','hbm','eprom'],
  ['gan','qi2','printhead','thermalprinter','saw']
 ];
-export const IMPLEMENTED_EXPANSION_IDS=EXPANSION_BATCHES.slice(0,2).flat();
+export const IMPLEMENTED_EXPANSION_IDS=EXPANSION_BATCHES.slice(0,3).flat();

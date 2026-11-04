@@ -1,3 +1,4 @@
+import {createDepthMap} from './depth-map.js';
 // Controls belong to the selected device. The same nodes move into the mobile
 // Controls accordion, keeping keyboard focus and input state intact.
 export function createDeviceControls(host,getModel){
@@ -9,8 +10,9 @@ export function createDeviceControls(host,getModel){
  const ns='http://www.w3.org/2000/svg',plot=document.createElementNS(ns,'svg'),baseline=document.createElementNS(ns,'path'),trace=document.createElementNS(ns,'path');
  plot.setAttribute('viewBox','0 0 240 40');plot.setAttribute('preserveAspectRatio','none');plot.setAttribute('role','img');baseline.setAttribute('d','M0 20H240');baseline.classList.add('waveform-baseline');trace.classList.add('waveform-trace');plot.append(baseline,trace);waveform.append(waveLabel,plot,waveCaption);
  host.append(fields,readouts,waveform);
+ const depthMap=createDepthMap(host);
  function bind(definition){
-  controls=definition.controls||[];rows=[];fields.replaceChildren();readouts.replaceChildren();readoutKey='';waveformKey='';waveform.hidden=true;lastReadout=-Infinity;
+  controls=definition.controls||[];rows=[];fields.replaceChildren();readouts.replaceChildren();readoutKey='';waveformKey='';waveform.hidden=true;depthMap.reset();lastReadout=-Infinity;
   host.hidden=controls.length===0;document.querySelector('.workspace')?.classList.toggle('has-device-controls',!!controls.length);
   for(const spec of controls){
    const row=document.createElement('div');row.className='device-control';
@@ -27,6 +29,7 @@ export function createDeviceControls(host,getModel){
  function refresh(force=false){
   if(host.hidden)return;const now=performance.now();if(!force&&now-lastReadout<100)return;lastReadout=now;
   const behavior=getModel()?.behavior,wave=behavior?.getWaveform?.(),waveKey=JSON.stringify(wave);
+  depthMap.update(behavior?.getDepthMap?.());
   if(waveKey!==waveformKey){
    waveformKey=waveKey;const samples=wave?.samples;waveform.hidden=!Array.isArray(samples)||samples.length<2||samples.some(value=>!Number.isFinite(value));
    if(!waveform.hidden){waveLabel.textContent=wave.label;waveCaption.textContent=wave.caption||'';plot.setAttribute('aria-label',`${wave.label}. ${wave.caption||''}`);trace.setAttribute('d',samples.map((value,i)=>`${i?'L':'M'}${(i/(samples.length-1)*240).toFixed(2)} ${(20-Math.max(-1,Math.min(1,value))*17).toFixed(2)}`).join(' '));}

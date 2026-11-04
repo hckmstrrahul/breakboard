@@ -71,6 +71,16 @@ import bme688_light from './bme688-light.webp';
 import bme688_dark from './bme688-dark.webp';
 import scd41_light from './scd41-light.webp';
 import scd41_dark from './scd41-dark.webp';
+import imu_light from './imu-light.webp';
+import imu_dark from './imu-dark.webp';
+import tof_light from './tof-light.webp';
+import tof_dark from './tof-dark.webp';
+import radar_light from './radar-light.webp';
+import radar_dark from './radar-dark.webp';
+import pir_light from './pir-light.webp';
+import pir_dark from './pir-dark.webp';
+import ultrasonic_light from './ultrasonic-light.webp';
+import ultrasonic_dark from './ultrasonic-dark.webp';
 export default {
  esp32:{light:esp32_light,dark:esp32_dark},
  pi5:{light:pi5_light,dark:pi5_dark},
@@ -107,5 +117,10 @@ export default {
  armature:{light:armature_light,dark:armature_dark},
  planar:{light:planar_light,dark:planar_dark},
  bme688:{light:bme688_light,dark:bme688_dark},
- scd41:{light:scd41_light,dark:scd41_dark}
+ scd41:{light:scd41_light,dark:scd41_dark},
+ imu:{light:imu_light,dark:imu_dark},
+ tof:{light:tof_light,dark:tof_dark},
+ radar:{light:radar_light,dark:radar_dark},
+ pir:{light:pir_light,dark:pir_dark},
+ ultrasonic:{light:ultrasonic_light,dark:ultrasonic_dark}
 };
