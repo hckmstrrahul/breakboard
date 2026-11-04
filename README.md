@@ -7,7 +7,7 @@ Explore development boards, displays, optics, radio hardware and mechanisms as i
 ## Take it offline
 
 <!-- offline-stats:start -->
-**17 interactive devices in one 22.12 MB HTML file** (21.09 MiB).
+**17 interactive devices in one 22.12 MB HTML file** (21.10 MiB).
 <!-- offline-stats:end -->
 
 [Save the standalone HTML](https://breakboard-teardown.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
@@ -67,7 +67,7 @@ Open [127.0.0.1:5174](http://127.0.0.1:5174). No account, API key or backend is 
 | Light / Dark / System | Dark by default. Choose Light, Dark or System; the preference persists. |
 | Save image | Download a 2400 px PNG of the model in its current view and theme. |
 
-Overview tags are packed around their component anchors. Most Uno tags include printed references and readable component types; about 30% use reference codes alone to reduce crowding. Other boards label key subsystems while grouping routine passives; selecting a component shows its full explanation.
+Overview tags retain their placement while orbiting. Collision adjustments move smoothly, while leader dots stay attached to the actual components. Most Uno tags include printed references and readable component types; about 30% use reference codes alone to reduce crowding. Other boards label key subsystems while grouping routine passives; selecting a component shows its full explanation.
 
 On mobile, the model comes first. Use the grouped device picker and expand **Controls** or **Components & details** when needed. Selecting a component closes its panel and reveals its tag on the model.
 

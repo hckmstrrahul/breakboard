@@ -3,7 +3,7 @@ import {PARTS as ESP_PARTS,clamp} from './data.js';
 import {BOARDS,BOARD_LIST} from './boards.js';
 let current=BOARDS.esp32,PARTS=ESP_PARTS;
 import {createScene} from './scene.js';
-import {placeCallout,placeCallouts,calloutHeight} from './selection.js';
+import {createCalloutLayout,calloutVisible,calloutHeight} from './selection.js';
 import {mergedSpecifications} from './specifications.js';
 import {createMobilePanels} from './mobile-panels.js';
 import {createDeviceMenu} from './device-menu.js';
@@ -33,12 +33,17 @@ const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-mot
 const mobilePanels=createMobilePanels(BOARD_LIST,id=>switchBoard(id));
 const deviceMenu=createDeviceMenu($('board-segments'),BOARD_LIST,id=>switchBoard(id));
 const state={explode:.78,targetExplode:.78,selected:'shield',isolate:false,xray:false,labels:false,selectionLabel:false,guides:true,rotate:false,view:'perspective',playing:false,clean:false,cooler:true};
-let stage,ready=false,labels=[],switchId=0,playbackArmed=false,toastTimer;
+let stage,ready=false,labels=[],labelWidth=-1,switchId=0,playbackArmed=false,toastTimer;
+const calloutLayout=createCalloutLayout();
+document.fonts.ready.then(()=>{labelWidth=-1;});
+document.fonts.addEventListener('loadingdone',()=>{labelWidth=-1;});
 function toast(message){$('toast').textContent=message;$('toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),3000);}
 function renderLabels(){
  const shown=PARTS.filter(p=>(state.selected===null||p.id===state.selected)&&(!p.accessory||state.cooler));
  $('labels').classList.toggle('all',state.selected===null);
- $('labels').innerHTML=shown.map(p=>`<svg class="label-leader" aria-hidden="true"><path/><circle r="3.5"/></svg><div class="label" data-label="${p.id}" role="tooltip" aria-label="${esc(p.name)}"><span class="label-text">${esc(state.selected===null?(p.tag||p.short):p.short)}</span></div>`).join('');labels=[...document.querySelectorAll('[data-label]')];
+ $('labels').innerHTML=shown.map(p=>`<svg class="label-leader" aria-hidden="true" style="display:none"><path/><circle r="3.5"/></svg><div class="label" data-label="${p.id}" role="tooltip" style="visibility:hidden" aria-label="${esc(p.name)}"><span class="label-text">${esc(state.selected===null?(p.tag||p.short):p.short)}</span></div>`).join('');
+ labels=[...document.querySelectorAll('[data-label]')].map(label=>{const leader=label.previousElementSibling;return{id:label.dataset.label,label,leader,path:leader.querySelector('path'),circle:leader.querySelector('circle'),visible:false,w:0,h:0,minLeader:state.selected!==null||current.id==='uno'?24:8};});
+ labelWidth=-1;calloutLayout.reset();
 }
 function filterParts(){
  const q=$('parts-search').value.trim().toLowerCase();let matches=0;
@@ -126,20 +131,25 @@ function frame(now){
 
  state.explode=reduced.matches?state.targetExplode:state.explode+(state.targetExplode-state.explode)*(1-Math.exp(-dt*5.4));if(Math.abs(state.explode-state.targetExplode)<.0001)state.explode=state.targetExplode;if(playbackArmed&&state.explode<.002){playbackArmed=false;stage.select(state.selected,true,state.xray,state.explode);}
  stage.render(state,now/1000,dt);$('operation-note').hidden=!state.playing||state.explode>.002||state.isolate||state.xray;
- frameNo++;const size=stage.getSize(),overview=state.selected===null,shown=[];for(const label of labels){
-  const id=label.dataset.label,p=stage.project(id),leader=label.previousElementSibling;
-  const hide=!(state.labels||(state.selectionLabel&&id===state.selected))||!p.visible||(state.isolate&&id!==state.selected)||(!overview&&!state.selectionLabel&&!p.picked&&!state.isolate&&state.explode<.18&&((current.hidden||[]).includes(id)||(state.cooler&&(current.hiddenWithAccessories||[]).includes(id))));
-  label.hidden=hide;leader.style.display=hide?'none':'';if(hide)continue;
-  shown.push({id,point:p,label,leader,w:label.offsetWidth,h:label.offsetHeight,minLeader:current.id==='uno'?24:8});
+ frameNo++;const size=stage.getSize(),overview=state.selected===null,shown=[];
+ // Measure together, only when content, fonts or width change. Hidden labels
+ // retain their dimensions, so orbiting cannot resize the viewer beneath them.
+ if(labelWidth!==size.w){for(const item of labels){item.w=item.label.offsetWidth;item.h=item.label.offsetHeight;}labelWidth=size.w;calloutLayout.reset();}
+ for(const item of labels){
+  const {id,label,leader}=item,p=stage.project(id);
+  const enabled=(state.labels||(state.selectionLabel&&id===state.selected))&&!(state.isolate&&id!==state.selected)&&!(!overview&&!state.selectionLabel&&!p.picked&&!state.isolate&&state.explode<.18&&((current.hidden||[]).includes(id)||(state.cooler&&(current.hiddenWithAccessories||[]).includes(id))));
+  const visible=enabled&&calloutVisible(p,size,item.visible);
+  if(item.visible!==visible){label.style.visibility=visible?'visible':'hidden';leader.style.display=visible?'':'none';item.visible=visible;}
+  if(visible)shown.push({...item,point:p});
  }
- const labelSpace=overview&&state.labels?calloutHeight(shown,size):0;
+ const labelSpace=overview&&state.labels?calloutHeight(labels,size):0;
  if($('board-panel').style.getPropertyValue('--label-space')!==`${labelSpace}px`)$('board-panel').style.setProperty('--label-space',`${labelSpace}px`);
- const placements=overview?placeCallouts(shown,size):null;
- for(const {id,point:p,label,leader,w,h}of shown){
-  const placement=placements?.get(id)||placeCallout(p,{w,h},size);
+ const placements=calloutLayout.update(shown,size,dt,{reduced:reduced.matches});
+ for(const {id,point:p,label,path,circle}of shown){
+  const placement=placements.get(id);
   label.style.transform=`translate(${placement.x}px,${placement.y}px)`;
-  leader.querySelector('path').setAttribute('d',`M ${p.x} ${p.y} L ${placement.endX} ${placement.endY}`);
-  leader.querySelector('circle').setAttribute('cx',p.x);leader.querySelector('circle').setAttribute('cy',p.y);
+  path.setAttribute('d',`M ${p.x} ${p.y} L ${placement.endX} ${placement.endY}`);
+  circle.setAttribute('cx',p.x);circle.setAttribute('cy',p.y);
  }
  if(!lowQuality&&frameNo>100){slowFrames=dt>.035?slowFrames+1:Math.max(0,slowFrames-1);if(slowFrames>90){stage.renderer.setPixelRatio(1);stage.renderer.shadowMap.enabled=false;lowQuality=true;}}
 }
