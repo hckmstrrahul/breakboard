@@ -2,7 +2,7 @@
 
 Explore nine development boards as interactive 3D assemblies. Separate components, inspect their functions, switch to anatomy linework, and play restrained fan, LED and signal-flow animations.
 
-[Open breakboard](https://breakboard-hckmstrrahul.vercel.app) · Built with Three.js, vanilla JavaScript and Vite. Runs entirely in the browser.
+[Open breakboard](https://breakboard-teardown.vercel.app) · Built with Three.js, vanilla JavaScript and Vite. Runs entirely in the browser.
 
 ## Take it offline
 
@@ -10,7 +10,7 @@ Explore nine development boards as interactive 3D assemblies. Separate component
 **9 interactive boards in one 14.04 MB HTML file** (13.39 MiB).
 <!-- offline-stats:end -->
 
-[Save the standalone HTML](https://breakboard-hckmstrrahul.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
+[Save the standalone HTML](https://breakboard-teardown.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
 
 The build refreshes the board count and file size above from the board registry and the generated HTML.
 
@@ -22,9 +22,15 @@ Actual 2400 px PNG captures from **Save image**. Each pair shares its camera and
 | --- | --- | --- |
 | **ESP32** | ![Exploded ESP32 in light mode, showing its shield, radio module, carrier and headers](docs/images/esp32-teardown-light.png) | ![The same ESP32 assembly with anatomy shading, outlines and original markings](docs/images/esp32-anatomy-light.png) |
 | **Raspberry Pi 5** | ![Raspberry Pi 5 with its Active Cooler, fan and packages separated in light mode](docs/images/pi5-teardown-light.png) | ![The same Raspberry Pi 5 in anatomy mode, retaining fins, fan blades and connector details](docs/images/pi5-anatomy-light.png) |
+| **Arduino Uno** | ![Exploded Arduino Uno R3 with its socketed processor, headers and discrete components](docs/images/uno-teardown-light.png) | ![The same Uno in anatomy mode with PCB markings, packages and pin outlines](docs/images/uno-anatomy-light.png) |
+| **Jetson Orin Nano** | ![Exploded Jetson Orin Nano with its cooling assembly, compute module and carrier](docs/images/jetson-teardown-light.png) | ![The same Jetson in anatomy mode with fan, heatsink and connector contours](docs/images/jetson-anatomy-light.png) |
+| **Pico 2 W** | ![Exploded Raspberry Pi Pico 2 W with its processor, wireless circuitry and USB connector](docs/images/pico2w-teardown-light.png) | ![The same Pico 2 W in anatomy mode with component outlines and board artwork](docs/images/pico2w-anatomy-light.png) |
+| **Arduino Nano** | ![Exploded classic Arduino Nano with components and pin headers separated](docs/images/nano-teardown-light.png) | ![The same Nano in anatomy mode with packages, pins and printed markings](docs/images/nano-anatomy-light.png) |
+| **Orange Pi 5** | ![Exploded Orange Pi 5 with its processor, memory, connectors and expansion headers](docs/images/orangepi5-teardown-light.png) | ![The same Orange Pi 5 in anatomy mode with detailed connector and package outlines](docs/images/orangepi5-anatomy-light.png) |
+| **BeagleBone Black** | ![Exploded BeagleBone Black with its processor, memory, expansion headers and ports](docs/images/beaglebone-teardown-light.png) | ![The same BeagleBone Black in anatomy mode with component contours and board markings](docs/images/beaglebone-anatomy-light.png) |
 | **STM32 Nucleo** | ![White and blue NUCLEO-F401RE with processors, headers and controls separated](docs/images/nucleo-teardown-light.png) | ![The same Nucleo board in anatomy mode with pin outlines and printed graphics](docs/images/nucleo-anatomy-light.png) |
 
-To reproduce: choose **Light**, reset the board (tags start off), and use **3D**. ESP32 uses its default 78% separation; Pi and Nucleo use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
+To reproduce: choose **Light**, reset the board (tags start off), and use **3D**. ESP32 uses its default 78% separation; all other boards use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
 
 ## Run locally
 
@@ -74,13 +80,13 @@ X-ray, playback, overview tags and camera choice persist across board tabs. Pi's
 
 These are educational reconstructions. Separating soldered parts explains their roles; it is not a physical disassembly procedure. Estimated heights, connector interiors and hidden placements are recorded in [reference/](reference/) and the [board registry](src/boards.js). X-ray reuses modeled surfaces, without inventing buried copper or silicon internals. Signal paths illustrate activity, not an electrical simulation.
 
-## How we built it
+## How I built it
 
-1. **Start with evidence.** Import manufacturer STEP geometry with OpenCascade; extract Arduino footprints and artwork from EAGLE files. Use drawings and photographs to reconstruct missing packages, recording assumptions.
-2. **Build shared assemblies.** Give component groups geometry, identity, selection anchors and separation vectors. Batch small meshes while retaining selectable groups; Pi's surface-mount packages share one SMD group.
-3. **Render two treatments.** Three.js supplies materials, lighting, shadows and an orthographic camera. Anatomy reuses the same geometry, transforms and artwork with tonal shading and geometric contours. Raycast anchors keep callouts attached through orbit and separation.
-4. **Connect the controls.** Shared state drives board tabs, cameras, selection, isolation, themes and playback. Only identified moving parts and indicators animate.
-5. **Inspect and check.** Geometry and interaction checks accompany independent maker–checker reviews and browser inspection. The [review record](reference/maker-checker.md) distinguishes verified behavior from reconstruction limits.
+1. **Started with evidence.** I imported manufacturer STEP geometry with OpenCascade and extracted Arduino footprints and artwork from EAGLE files. I used drawings and photographs to reconstruct missing packages, recording assumptions.
+2. **Built shared assemblies.** I gave component groups geometry, identity, selection anchors and separation vectors. I batched small meshes while retaining selectable groups; Pi's surface-mount packages share one SMD group.
+3. **Rendered two treatments.** I used Three.js for materials, lighting, shadows and an orthographic camera. Anatomy reuses the same geometry, transforms and artwork with tonal shading and geometric contours. Raycast anchors keep callouts attached through orbit and separation.
+4. **Connected the controls.** I used shared state to drive board tabs, cameras, selection, isolation, themes and playback. Only identified moving parts and indicators animate.
+5. **Inspected and checked.** I combined geometry and interaction checks with independent maker–checker reviews and browser inspection. The [review record](reference/maker-checker.md) distinguishes verified behavior from reconstruction limits.
 
 ### Skills and tools
 
@@ -89,15 +95,15 @@ These informed the implementation; the shipped viewer is custom Three.js code.
 | Resource | Contribution |
 | --- | --- |
 | [Teardown skill · Jakub Krehel](https://github.com/jakubkrehel/skills/blob/main/skills/teardown/SKILL.md) | Evidence-led reconstruction, coherent assembly views and precise part-to-annotation correspondence. |
-| [Anatomy skill · wheresryan22](https://github.com/wheresryan22/anatomy) | Detailed solids, tonal hierarchy and fine contours. Its illustration principles were adapted to our WebGL renderer. |
+| [Anatomy skill · wheresryan22](https://github.com/wheresryan22/anatomy) | Detailed solids, tonal hierarchy and fine contours. Its illustration principles were adapted to my WebGL renderer. |
 | [Untitled UI MCP](https://www.untitledui.com/react/integrations/mcp) | Component and icon references for tabs, buttons, inputs and sliders. Adapted to semantic HTML/CSS; [integration notes](reference/untitled-ui/README.md). |
-| [Teardown skill · Elvar](https://github.com/elvarofficial/teardown/blob/main/SKILL.md) | Original simulator reference: shared model/state, studio rendering, cameras, subsystem interaction and portable HTML. We read its skill and examples; breakboard uses its own runtime. |
+| [Teardown skill · Elvar](https://github.com/elvarofficial/teardown/blob/main/SKILL.md) | Original simulator reference: shared model/state, studio rendering, cameras, subsystem interaction and portable HTML. I read its skill and examples; breakboard uses its own runtime. |
 
-The two Teardown skills have different goals. **Elvar’s** starts with an interactive machine that runs: its state drives poses, controls and readouts, with optional tours and film export. **Jakub’s** starts with a technical illustration: evidence, geometry, coherent views, hidden-line handling and annotations that point to the correct features. **Anatomy** supplies the detailed tonal drawing treatment. We adapted these ideas to one Three.js model; we do not ship their complete viewers, claim circuit simulation, or use their tour/video features.
+The two Teardown skills have different goals. **Elvar’s** starts with an interactive machine that runs: its state drives poses, controls and readouts, with optional tours and film export. **Jakub’s** starts with a technical illustration: evidence, geometry, coherent views, hidden-line handling and annotations that point to the correct features. **Anatomy** supplies the detailed tonal drawing treatment. I adapted these ideas to one Three.js model; I do not ship their complete viewers, claim circuit simulation, or use their tour/video features.
 
 ### Sharing metadata
 
-The browser title and Open Graph title are **breakboard**. The description is: “Explore nine development boards in 3D. Take them apart, inspect each component, and switch between realistic and anatomy views.” Open Graph and Twitter image tags reference the public light-mode Pi teardown capture. The canonical URL and `og:url` point to [breakboard-hckmstrrahul.vercel.app](https://breakboard-hckmstrrahul.vercel.app); the preview image is served from the same site. GitHub manages the repository page’s own sharing preview separately.
+The browser title and Open Graph title are **breakboard**. The description is: “Explore nine development boards in 3D. Take them apart, inspect each component, and switch between realistic and anatomy views.” Open Graph and Twitter image tags reference the public light-mode Pi teardown capture. The canonical URL and `og:url` point to [breakboard-teardown.vercel.app](https://breakboard-teardown.vercel.app); the preview image is served from the same site. GitHub manages the repository page’s own sharing preview separately.
 
 ### Code map
 
