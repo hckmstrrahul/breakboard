@@ -1,0 +1,13 @@
+# Upload only the source needed to build the public app.
+/*
+!src/
+!src/**
+!public/
+!public/**
+!scripts/
+scripts/*
+!scripts/standalone.mjs
+!index.html
+!package.json
+!package-lock.json
+!vercel.json

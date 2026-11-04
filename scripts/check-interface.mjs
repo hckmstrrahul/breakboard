@@ -26,14 +26,16 @@ const media={matches:false,addEventListener:(name,fn)=>events.set(name,fn),remov
 const storage={getItem:key=>store.get(key),setItem:(key,value)=>store.set(key,value)};
 const options={root,media,storage,onChange:(...state)=>changes.push(state)};
 let theme=createThemeController(options);
-assert.deepEqual(changes.at(-1),['system','light']);
+assert.deepEqual(changes.at(-1),['dark','dark']);
+assert.equal(root.dataset.theme,'dark','New visits default to dark even on a light system');
+theme.set('system');assert.equal(root.dataset.theme,'light');
 media.matches=true;events.get('change')();assert.equal(root.dataset.theme,'dark');
 theme.set('light');assert.equal(root.dataset.theme,'light');assert.equal(store.get(THEME_KEY),'light');
 events.get('change')();assert.equal(root.dataset.theme,'light','Explicit light ignores system dark');
 theme.set('dark');media.matches=false;events.get('change')();assert.equal(root.dataset.theme,'dark');
 theme.destroy();theme=createThemeController(options);assert.equal(theme.preference,'dark','Preference survives reload');
 theme.set('system');assert.equal(root.dataset.theme,'light');
-theme.destroy();store.set(THEME_KEY,'invalid');theme=createThemeController(options);assert.equal(theme.preference,'system');theme.destroy();
+theme.destroy();store.set(THEME_KEY,'invalid');theme=createThemeController(options);assert.equal(theme.preference,'dark');theme.destroy();
 createThemeController({...options,storage:{getItem(){throw Error('Denied');},setItem(){throw Error('Denied');}}}).set('dark');
 assert.equal(root.dataset.theme,'dark','Unavailable storage does not block theme changes');
 store.clear();store.set('teardown-appearance','light');theme=createThemeController(options);assert.equal(theme.preference,'light','Renaming retains the existing appearance preference');theme.set('dark');assert.equal(store.get(THEME_KEY),'dark');theme.destroy();

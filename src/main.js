@@ -5,6 +5,7 @@ let current=BOARDS.esp32,PARTS=ESP_PARTS;
 import {createScene} from './scene.js';
 import {placeCallout,placeCallouts,calloutHeight} from './selection.js';
 import {mergedSpecifications} from './specifications.js';
+import {createMobilePanels} from './mobile-panels.js';
 import {createThemeController} from './theme.js';
 import jetsonCAD from '../public/models/jetson.json.gz?url&inline';
 // Ship this CAD with the app so a late fetch cannot strand the Jetson selector.
@@ -22,14 +23,14 @@ app.innerHTML=`<div class="shell">
 <details class="parts" id="component-browser" open><summary>Components <span id="parts-count"></span></summary><div class="parts-content"><label class="sr-only" for="parts-search">Find a component</label><div class="search-field">${svg('search')}<input id="parts-search" type="search" placeholder="Find a component…" autocomplete="off"/></div><nav class="parts-list" id="parts-list" aria-label="Components"></nav><div class="empty-search" id="empty-search" hidden><p>No matching components.</p><button id="clear-search">Clear search</button></div></div></details>
 </div>
 <section class="workspace" aria-label="3D viewer"><div class="assembly-controls" aria-label="Assembly controls"><div class="assembly-options"><div class="assembly-tabs segmented" role="group" aria-label="Assembly view"><button id="assembled" aria-pressed="false">Assembled</button><button id="exploded" aria-pressed="true">Exploded</button></div><div class="inspect-actions"><button id="isolate" aria-pressed="false">${svg('isolate')}<span>Isolate</span></button><button id="xray" aria-pressed="false" title="Anatomy drawing of the modeled structure">${svg('xray')}X-ray</button></div></div><div class="spacing"><div class="spacing-meta"><label for="explode">Separation</label><output for="explode" id="explode-value">78%</output></div><input id="explode" type="range" min="0" max="100" value="78"/></div></div><div class="viewport" id="viewport"><div class="labels" id="labels"></div><div class="loading" id="loading" role="status"><span id="loading-text">Loading model…</span><button id="retry-load" hidden>Retry</button></div><div class="operation-note" id="operation-note" hidden>Illustrative signal flow</div></div>
-<div class="tools" aria-label="View controls"><button id="play" class="play-button" title="Play board activity (P)">${svg('play')}<span>Play</span></button><button class="cooler-toggle" id="cooler-toggle" aria-pressed="true" hidden>Cooler</button><div class="camera-views segmented" role="group" aria-label="Camera view"><button data-view="perspective" aria-pressed="true">3D</button><button data-view="top" aria-pressed="false">Top</button><button data-view="front" aria-pressed="false">Front</button></div><div class="icon-tools"><button id="labels-toggle" title="Component labels (L)" aria-label="Show component labels" aria-pressed="true">${svg('labels')}</button><button id="rotate" title="Auto rotate" aria-label="Auto rotate" aria-pressed="false">${svg('rotate')}</button><button id="zoom-out" title="Zoom out" aria-label="Zoom out">${svg('minus')}</button><button id="zoom-in" title="Zoom in" aria-label="Zoom in">${svg('plus')}</button><button id="reset" aria-label="Reset view and settings" title="Reset (R)">${svg('reset')}</button><button id="clean" aria-label="Hide interface" title="Hide interface (H)">${svg('expand')}</button></div></div>
+<div class="tools" aria-label="View controls"><button id="play" class="play-button" title="Play board activity (P)">${svg('play')}<span>Play</span></button><button class="cooler-toggle" id="cooler-toggle" aria-pressed="true" hidden>Cooler</button><div class="camera-views segmented" role="group" aria-label="Camera view"><button data-view="perspective" aria-pressed="true">3D</button><button data-view="top" aria-pressed="false">Top</button><button data-view="front" aria-pressed="false">Front</button></div><div class="icon-tools"><button id="labels-toggle" title="Component labels (L)" aria-label="Show component labels" aria-pressed="false">${svg('labels')}</button><button id="rotate" title="Auto rotate" aria-label="Auto rotate" aria-pressed="false">${svg('rotate')}</button><button id="zoom-out" title="Zoom out" aria-label="Zoom out">${svg('minus')}</button><button id="zoom-in" title="Zoom in" aria-label="Zoom in">${svg('plus')}</button><button id="reset" aria-label="Reset view and settings" title="Reset (R)">${svg('reset')}</button><button id="clean" aria-label="Hide interface" title="Hide interface (H)">${svg('expand')}</button></div></div>
 </section>
 <aside class="inspector" aria-label="Component details"><div class="component-kind" id="component-kind"></div><h2 id="component-name" aria-live="polite"></h2><p class="component-desc" id="component-desc"></p><dl class="specs" id="specs"></dl></aside>
 </main><button class="show-ui" id="show-ui">Show interface · H</button><div class="toast" id="toast" role="status"></div>
 </div>`;
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)');
-if(matchMedia('(max-width: 680px)').matches)$('component-browser').open=false;
-const state={explode:.78,targetExplode:.78,selected:'shield',isolate:false,xray:false,labels:true,guides:true,rotate:false,view:'perspective',playing:false,clean:false,cooler:true};
+const mobilePanels=createMobilePanels(BOARD_LIST,id=>switchBoard(id));
+const state={explode:.78,targetExplode:.78,selected:'shield',isolate:false,xray:false,labels:false,selectionLabel:false,guides:true,rotate:false,view:'perspective',playing:false,clean:false,cooler:true};
 let stage,ready=false,labels=[],switchId=0,playbackArmed=false,toastTimer;
 function toast(message){$('toast').textContent=message;$('toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),3000);}
 function renderLabels(){
@@ -48,7 +49,7 @@ function detail(id){
  $('specs').innerHTML=mergedSpecifications(current,p).map(([k,v])=>`<div class="spec"><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('');
  document.querySelectorAll('[data-part]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.part===id)));
 }
-function select(id,anchor=null){if(!ready)return;state.selected=id;if(id===null){state.isolate=false;playbackArmed=false;}stage.select(id,state.isolate,state.xray,state.explode,anchor);detail(id);sync();}
+function select(id,anchor=null){if(!ready)return;state.selected=id;state.selectionLabel=id!==null;if(id===null){state.isolate=false;playbackArmed=false;}stage.select(id,state.isolate,state.xray,state.explode,anchor);detail(id);sync();}
 try{stage=createScene($('viewport'),(id,anchor)=>select(id,anchor));}catch(error){$('loading-text').textContent='WebGL is unavailable. Enable hardware acceleration and reload.';console.error(error);throw error;}
 let preferenceStorage;try{preferenceStorage=localStorage;}catch{}
 const appearance=createThemeController({root:document.documentElement,media:matchMedia('(prefers-color-scheme: dark)'),storage:preferenceStorage,onChange:(preference,resolved)=>{
@@ -66,9 +67,10 @@ function sync(){
 }
 function setExplode(e){if(!ready)return;if(e>0)stopPlayback();if(state.isolate){state.isolate=false;applySelection();}state.targetExplode=clamp(e);sync();}
 function setView(view){if(!ready)return;state.view=view;stage.view(view);sync();}
+function toggleLabels(){state.labels=!state.labels;state.selectionLabel=false;sync();}
 function applySelection(){if(!ready)return;stage.select(state.selected,state.isolate,state.xray,state.explode);sync();}
 function toggleXray(){if(!ready)return;state.xray=!state.xray;if(state.xray&&!state.isolate)select(null);else applySelection();}
-function reset(){if(!ready)return;stopPlayback();stage.model.operation.reset();Object.assign(state,{targetExplode:current.start,selected:PARTS[0].id,isolate:false,xray:false,labels:true,guides:true,rotate:false,view:'perspective',cooler:true});stage.setCooler(true);$('parts-search').value='';filterParts();setClean(false);stage.select(state.selected,false,false,state.explode,null);stage.view('perspective');detail(state.selected);sync();}
+function reset(){if(!ready)return;stopPlayback();stage.model.operation.reset();Object.assign(state,{targetExplode:current.start,selected:PARTS[0].id,isolate:false,xray:false,labels:false,selectionLabel:false,guides:true,rotate:false,view:'perspective',cooler:true});stage.setCooler(true);$('parts-search').value='';filterParts();setClean(false);stage.select(state.selected,false,false,state.explode,null);stage.view('perspective');detail(state.selected);sync();}
 function stopPlayback(){
  state.playing=false;playbackArmed=false;$('play').innerHTML=svg('play')+'<span>Play</span>';$('play').title='Play board activity (P)';$('operation-note').hidden=true;
 }
@@ -86,7 +88,7 @@ async function switchBoard(id){
   // Viewer modes belong to the session; component selection and separation
   // belong to this board. Active playback always starts the new board assembled.
   const explode=state.playing?0:def.start;
-  Object.assign(state,{explode,targetExplode:explode,selected:state.xray?null:PARTS[0].id,isolate:false,labels:true,guides:true,rotate:false,cooler:true});
+  Object.assign(state,{explode,targetExplode:explode,selected:state.xray?null:PARTS[0].id,isolate:false,selectionLabel:false,guides:true,rotate:false,cooler:true});
   stage.setCooler(true);stage.select(state.selected,false,state.xray,state.explode,null);stage.view(state.view,true);
   $('cooler-toggle').hidden=!def.parts.some(p=>p.accessory);$('parts-search').value='';
   $('board-title').textContent=def.tab;$('model-name').textContent=def.model;$('parts-count').textContent=PARTS.length;
@@ -96,6 +98,7 @@ async function switchBoard(id){
  }catch(error){if(token!==switchId)return;console.error(error);$('loading-text').textContent=`Could not load ${def.tab}. Retry or choose another board.`;$('retry-load').hidden=false;}
 }
 function setBoardSegment(id){
+ mobilePanels.setBoard(id);
  for(const button of document.querySelectorAll('[data-board]')){const active=button.dataset.board===id;button.setAttribute('aria-checked',String(active));button.tabIndex=active?0:-1;if(active){const container=$('board-segments'),left=button.getBoundingClientRect().left-container.getBoundingClientRect().left+container.scrollLeft,right=left+button.offsetWidth;if(left<container.scrollLeft+4)container.scrollLeft=left-4;else if(right>container.scrollLeft+container.clientWidth-4)container.scrollLeft=right-container.clientWidth+4;}}
 }
 new ResizeObserver(()=>{const selected=document.querySelector('[data-board][aria-checked="true"]');if(selected)setBoardSegment(selected.dataset.board);}).observe($('board-segments'));
@@ -104,12 +107,12 @@ $('board-segments').addEventListener('keydown',e=>{if(e.altKey||e.ctrlKey||e.met
 $('retry-load').onclick=()=>switchBoard(document.querySelector('[data-board][aria-checked="true"]').dataset.board);
 $('parts-search').addEventListener('input',filterParts);$('clear-search').onclick=()=>{$('parts-search').value='';filterParts();$('parts-search').focus();};
 $('cooler-toggle').onclick=()=>{if(!ready)return;state.cooler=!state.cooler;stage.setCooler(state.cooler);if(PARTS.find(p=>p.id===state.selected)?.accessory&&!state.cooler)state.selected=PARTS.find(p=>!p.accessory).id;filterParts();detail(state.selected);applySelection();};
-$('parts-list').addEventListener('click',e=>{const b=e.target.closest('[data-part]');if(b&&!b.disabled)select(b.dataset.part);});
+$('parts-list').addEventListener('click',e=>{const b=e.target.closest('[data-part]');if(b&&!b.disabled){select(b.dataset.part);mobilePanels.closeComponents();}});
 for(const b of document.querySelectorAll('[data-view]'))b.addEventListener('click',()=>setView(b.dataset.view));
 $('explode').addEventListener('input',e=>{setExplode(Number(e.target.value)/100);});$('assembled').onclick=()=>setExplode(0);$('exploded').onclick=()=>setExplode(1);
-$('isolate').onclick=()=>{if(!state.selected)return;state.isolate=!state.isolate;applySelection();};$('xray').onclick=toggleXray;$('labels-toggle').onclick=()=>{state.labels=!state.labels;sync();};$('rotate').onclick=()=>{state.rotate=!state.rotate;sync();};$('zoom-in').onclick=()=>stage.zoom(1.18);$('zoom-out').onclick=()=>stage.zoom(1/1.18);$('reset').onclick=reset;$('play').onclick=togglePlayback;
+$('isolate').onclick=()=>{if(!state.selected)return;state.isolate=!state.isolate;applySelection();};$('xray').onclick=toggleXray;$('labels-toggle').onclick=()=>{toggleLabels();};$('rotate').onclick=()=>{state.rotate=!state.rotate;sync();};$('zoom-in').onclick=()=>stage.zoom(1.18);$('zoom-out').onclick=()=>stage.zoom(1/1.18);$('reset').onclick=reset;$('play').onclick=togglePlayback;
 $('export').onclick=()=>{if(!ready)return;stage.render(state,0);const link=document.createElement('a');link.download=`${current.id}-${state.isolate?state.selected:state.targetExplode>.01?'exploded':'assembled'}.png`;link.href=stage.snapshot();link.click();toast('Image saved · 2400 px wide');};
-function setClean(value){const wasClean=state.clean;state.clean=value;app.querySelector('.shell').classList.toggle('clean',value);for(const el of document.querySelectorAll('.topbar,.sidebar,.inspector,.assembly-controls,.tools'))el.inert=value;if(value)$('show-ui').focus();else if(wasClean)$('clean').focus();}
+function setClean(value){const wasClean=state.clean;state.clean=value;app.querySelector('.shell').classList.toggle('clean',value);for(const el of document.querySelectorAll('.topbar,.sidebar,.inspector,.assembly-controls,.tools,.mobile-panel'))el.inert=value;if(value)$('show-ui').focus();else if(wasClean)$('clean').focus();}
 $('clean').onclick=()=>setClean(true);$('show-ui').onclick=()=>setClean(false);
 
 addEventListener('keydown',e=>{
@@ -117,7 +120,7 @@ addEventListener('keydown',e=>{
  if(e.key==='Escape'){stopPlayback();state.isolate=false;state.xray=false;applySelection();if(state.clean)setClean(false);return;}
  if(!['e','l','r','h','p'].includes(e.key.toLowerCase())||e.repeat)return;
  if(e.key.toLowerCase()==='p')togglePlayback();
- if(e.key.toLowerCase()==='e')setExplode(state.targetExplode>0?0:1);if(e.key.toLowerCase()==='l'){state.labels=!state.labels;sync();}if(e.key.toLowerCase()==='r')reset();if(e.key.toLowerCase()==='h')setClean(!state.clean);
+ if(e.key.toLowerCase()==='e')setExplode(state.targetExplode>0?0:1);if(e.key.toLowerCase()==='l'){toggleLabels();}if(e.key.toLowerCase()==='r')reset();if(e.key.toLowerCase()==='h')setClean(!state.clean);
 });
 addEventListener('hashchange',()=>{if(BOARDS[location.hash.slice(1)])switchBoard(location.hash.slice(1));});
 let previous=performance.now(),frameNo=0,slowFrames=0,lowQuality=false;
@@ -128,7 +131,7 @@ function frame(now){
  stage.render(state,now/1000,dt);$('operation-note').hidden=!state.playing||state.explode>.002||state.isolate||state.xray;
  frameNo++;const size=stage.getSize(),overview=state.selected===null,shown=[];for(const label of labels){
   const id=label.dataset.label,p=stage.project(id),leader=label.previousElementSibling;
-  const hide=!state.labels||!p.visible||(state.isolate&&id!==state.selected)||(!overview&&!p.picked&&!state.isolate&&state.explode<.18&&((current.hidden||[]).includes(id)||(state.cooler&&(current.hiddenWithAccessories||[]).includes(id))));
+  const hide=!(state.labels||(state.selectionLabel&&id===state.selected))||!p.visible||(state.isolate&&id!==state.selected)||(!overview&&!state.selectionLabel&&!p.picked&&!state.isolate&&state.explode<.18&&((current.hidden||[]).includes(id)||(state.cooler&&(current.hiddenWithAccessories||[]).includes(id))));
   label.hidden=hide;leader.style.display=hide?'none':'';if(hide)continue;
   shown.push({id,point:p,label,leader,w:label.offsetWidth,h:label.offsetHeight,minLeader:current.id==='uno'?24:8});
  }

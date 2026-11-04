@@ -27,3 +27,7 @@ reference/**/um1724.txt
 .env.*
 !.env.example
 *.log
+
+# Local deployment account and project metadata.
+.vercel/
+.vercel

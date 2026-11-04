@@ -2,7 +2,7 @@
 
 Explore nine development boards as interactive 3D assemblies. Separate components, inspect their functions, switch to anatomy linework, and play restrained fan, LED and signal-flow animations.
 
-Built with Three.js, vanilla JavaScript and Vite. Runs entirely in the browser.
+[Open breakboard](https://breakboard-hckmstrrahul.vercel.app) · Built with Three.js, vanilla JavaScript and Vite. Runs entirely in the browser.
 
 ## Light-mode gallery
 
@@ -14,7 +14,7 @@ Actual 2400 px PNG captures from **Save image**. Each pair shares its camera and
 | **Raspberry Pi 5** | ![Raspberry Pi 5 with its Active Cooler, fan and packages separated in light mode](docs/images/pi5-teardown-light.png) | ![The same Raspberry Pi 5 in anatomy mode, retaining fins, fan blades and connector details](docs/images/pi5-anatomy-light.png) |
 | **STM32 Nucleo** | ![White and blue NUCLEO-F401RE with processors, headers and controls separated](docs/images/nucleo-teardown-light.png) | ![The same Nucleo board in anatomy mode with pin outlines and printed graphics](docs/images/nucleo-anatomy-light.png) |
 
-To reproduce: choose **Light**, reset the board, disable labels, and use **3D**. ESP32 uses its default 78% separation; Pi and Nucleo use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
+To reproduce: choose **Light**, reset the board (tags start off), and use **3D**. ESP32 uses its default 78% separation; Pi and Nucleo use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
 
 ## Run locally
 
@@ -34,17 +34,19 @@ Open [127.0.0.1:5174](http://127.0.0.1:5174). No account, API key or backend is 
 | Control | Behavior |
 | --- | --- |
 | Assembled / Exploded + Separation | Move between the assembled board and separated component groups. |
-| Selection | Click a component or list item. Its tag follows the clicked surface. Click empty canvas to clear selection and show all tags when labels are enabled. |
+| Selection | Tags start off. Click a component or list item to show its selection tag; picking on the model anchors it to the clicked surface. Click empty canvas to clear selection and show all tags when labels are enabled. |
 | X-ray | Show the whole board in anatomy style. Selecting a part ghosts the others; clicking empty canvas restores the complete view. |
 | Isolate | Frame one component group. Also works with X-ray. |
 | Play / Pause | Assemble the board, then animate supported fans, indicators and illustrative signal paths. Changing separation stops playback. Reduced motion uses a still powered view. |
 | 3D / Top / Front | Switch cameras. Drag to orbit, right-drag to pan, scroll or use + / − to zoom. |
-| Light / Dark / System | Change appearance; the preference persists. |
+| Light / Dark / System | Dark by default. Choose Light, Dark or System; the preference persists. |
 | Save image | Download a 2400 px PNG of the model in its current view and theme. |
 
 Overview tags are packed around their component anchors. Most Uno tags include printed references and readable component types; about 30% use reference codes alone to reduce crowding. Other boards label key subsystems while grouping routine passives; selecting a component shows its full explanation.
 
-X-ray, playback and camera choice persist across board tabs. Pi's **Cooler** switch toggles its cooling assembly. Shortcuts: **E** separation, **L** labels, **P** playback, **R** reset, **H** interface. **Esc** stops playback and exits X-ray, isolation and hidden-interface mode. Arrow keys orbit a focused canvas.
+On mobile, the model comes first. Use the board picker and expand **Controls** or **Components & details** when needed. Selecting a component closes its panel and reveals its tag on the model.
+
+X-ray, playback, overview tags and camera choice persist across board tabs. Pi's **Cooler** switch toggles its cooling assembly. Shortcuts: **E** separation, **L** labels, **P** playback, **R** reset, **H** interface. **Esc** stops playback and exits X-ray, isolation and hidden-interface mode. Arrow keys orbit a focused canvas.
 
 ## Boards and evidence
 
@@ -85,7 +87,7 @@ The two Teardown skills have different goals. **Elvar’s** starts with an inter
 
 ### Sharing metadata
 
-The browser title and Open Graph title are **breakboard**. The description is: “Explore nine development boards in 3D. Take them apart, inspect each component, and switch between realistic and anatomy views.” Open Graph and Twitter image tags reference the public light-mode Pi teardown capture. A canonical production URL has not been configured; add `og:url` when a hosting address is chosen. GitHub manages the repository page’s own sharing preview separately.
+The browser title and Open Graph title are **breakboard**. The description is: “Explore nine development boards in 3D. Take them apart, inspect each component, and switch between realistic and anatomy views.” Open Graph and Twitter image tags reference the public light-mode Pi teardown capture. The canonical URL and `og:url` point to [breakboard-hckmstrrahul.vercel.app](https://breakboard-hckmstrrahul.vercel.app); the preview image is served from the same site. GitHub manages the repository page’s own sharing preview separately.
 
 ### Code map
 
@@ -106,7 +108,7 @@ npm run check
 
 Deploy `dist/` to a static host. The build also creates `dist/breakboard.html`, embedding scripts, styles, fonts and both CAD payloads. Jetson CAD ships in the app bundle; Pi CAD loads on first selection. Built models are cached.
 
-Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. Browser review is recorded separately. Direct `file://` inspection of the standalone file was blocked by browser policy; embedded-loader tests passed.
+Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. Browser review is recorded separately. The standalone HTML also loaded all nine boards from a local file in Chrome with networking disabled and no HTTP requests. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
 
 Normal development uses the supplied runtime assets. Downloaded reference CAD, PDFs, photographs and intermediate meshes stay local; source URLs and evidence records are included. Regenerating STEP meshes additionally requires `cadquery-ocp==7.9.3.1.1` and the `import-*` / `package-*` scripts in [scripts/](scripts/). Arduino extraction uses `prepare-uno.py` and `prepare-nano.py`.
 
