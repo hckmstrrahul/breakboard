@@ -1,3 +1,8 @@
+import {PRIME50_BOARD} from './prime50.js';
+import {ZOOMLENS_BOARD} from './zoomlens.js';
+import {PERISCOPE_BOARD} from './periscope.js';
+import {D455_BOARD} from './d455.js';
+import {SHUTTER_BOARD} from './shutter.js';
 import {MAX30102_BOARD} from './max30102.js';
 import {LOADCELL_BOARD} from './loadcell.js';
 import {GNSS_BOARD} from './gnss.js';
@@ -66,4 +71,5 @@ Object.assign(BOARDS,Object.fromEntries([RELAY_BOARD,BLDC_BOARD,HAPTIC_BOARD,AS5
 Object.assign(BOARDS,Object.fromEntries([MEMSMIC_BOARD,ARMATURE_BOARD,PLANAR_BOARD,BME688_BOARD,SCD41_BOARD].map(device=>[device.id,device])));
 Object.assign(BOARDS,Object.fromEntries([IMU_BOARD,TOF_BOARD,RADAR_BOARD,PIR_BOARD,ULTRASONIC_BOARD].map(device=>[device.id,device])));
 Object.assign(BOARDS,Object.fromEntries([MAX30102_BOARD,LOADCELL_BOARD,GNSS_BOARD,IMX500_BOARD,EVENTCAMERA_BOARD].map(device=>[device.id,device])));
+Object.assign(BOARDS,Object.fromEntries([PRIME50_BOARD,ZOOMLENS_BOARD,PERISCOPE_BOARD,D455_BOARD,SHUTTER_BOARD].map(device=>[device.id,device])));
 export const BOARD_LIST=Object.values(BOARDS);

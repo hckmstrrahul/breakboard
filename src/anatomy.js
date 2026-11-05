@@ -1,4 +1,17 @@
 import * as T from 'three';
+import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+
+function anatomyBody(source,material){
+ const body=source.isInstancedMesh?new T.InstancedMesh(source.geometry,material,source.instanceMatrix.count):new T.Mesh(source.geometry,material);
+ if(source.isInstancedMesh)body.instanceMatrix=source.instanceMatrix.clone();
+ return body;
+}
+function instanceContours(source,edges){
+ if(!source.count)return new T.BufferGeometry().setAttribute('position',new T.Float32BufferAttribute([],3));
+ const matrix=new T.Matrix4(),copies=[];
+ for(let i=0;i<source.count;i++){source.getMatrixAt(i,matrix);copies.push(edges.clone().applyMatrix4(matrix));}
+ const geometry=mergeGeometries(copies);copies.forEach(copy=>copy.dispose());return geometry;
+}
 
 // Keep the original artwork and UVs, but print its coverage in the drawing's ink.
 // Most decals have transparent backgrounds. The ESP32 PCB textures also contain
@@ -65,7 +78,7 @@ export function createAnatomy(model){
   for(let node=source;node;node=node.parent)if(node.userData.explanatoryEffect)return;
   const original=source.userData.originalMaterial||source.material;
   if(original.map){
-   const solid=artworkMaterial(original,false),ghost=artworkMaterial(original,true),body=new T.Mesh(source.geometry,ghost);
+   const solid=artworkMaterial(original,false),ghost=artworkMaterial(original,true),body=anatomyBody(source,ghost);
    body.matrixAutoUpdate=false;body.renderOrder=2;context.add(body);
    markings.push({id,group,source,body,solid,ghost});return;
   }
@@ -75,7 +88,7 @@ export function createAnatomy(model){
   // A deforming model may supply crease topology once and deform those same
   // endpoints with its surface. This avoids re-extracting CAD edges per frame.
   if(!edgeCache.has(geometry)){edgeCache.set(geometry,geometry.userData.anatomyEdges||new T.EdgesGeometry(geometry,20));edgeVersions.set(geometry,geometry.attributes.position.version);}
-  const body=new T.Mesh(geometry,shell),lines=new T.LineSegments(edgeCache.get(geometry),faint);
+  const body=anatomyBody(source,shell),lines=new T.LineSegments(source.isInstancedMesh?instanceContours(source,edgeCache.get(geometry)):edgeCache.get(geometry),faint);
   body.matrixAutoUpdate=lines.matrixAutoUpdate=false;lines.renderOrder=1;
   // Surface ownership is preserved; selection changes only the rendering pass.
   context.add(body,lines);entries.push({id,group,source,body,lines});
@@ -90,9 +103,20 @@ export function createAnatomy(model){
   for(const [geometry,edges]of edgeCache){if(geometry.userData.anatomyEdges===edges)continue;const version=geometry.attributes.position.version;if(edgeVersions.get(geometry)!==version){edgeCache.set(geometry,new T.EdgesGeometry(geometry,20));edgeVersions.set(geometry,version);edges.dispose();}}
   for(const entry of drawings){
    const{group,source,body,lines}=entry,isSubject=id===null||entry.id===id;
+   if(source.isInstancedMesh){
+    // Instance transforms belong to the actual hardware, just like its parent
+    // matrix. Keep the fill instanced and batch transformed contours in one draw.
+    const edges=lines&&edgeCache.get(source.geometry),stamp=`${source.instanceMatrix.version}:${source.count}:${edges?.id}`;
+    if(entry.instanceStamp!==stamp){
+     body.instanceMatrix.copy(source.instanceMatrix);body.instanceMatrix.needsUpdate=true;body.count=source.count;
+     body.computeBoundingBox();body.computeBoundingSphere();
+     if(lines){lines.geometry.dispose();lines.geometry=instanceContours(source,edges);}
+     entry.instanceStamp=stamp;
+    }
+   }
    if(selected!==id){const scene=isSubject?subject:context;scene.add(body);if(lines){scene.add(lines);body.material=isSubject?(source.userData.anatomyTransparent?glass:fill):shell;lines.material=isSubject?ink:faint;}else body.material=isSubject?entry.solid:entry.ghost;}
    let visible=group.visible;for(let node=source;node&&node!==group;node=node.parent)visible&&=node.visible;
-   body.visible=visible;body.matrix.copy(source.matrixWorld);if(lines){lines.geometry=edgeCache.get(source.geometry);lines.visible=visible;lines.matrix.copy(source.matrixWorld);}
+   body.visible=visible;body.matrix.copy(source.matrixWorld);if(lines){if(!source.isInstancedMesh)lines.geometry=edgeCache.get(source.geometry);lines.visible=visible;lines.matrix.copy(source.matrixWorld);}
   }
   selected=id;
  }
@@ -111,5 +135,5 @@ export function createAnatomy(model){
   // resolves its own actual surfaces, rather than drawing back edges everywhere.
   renderer.clearDepth();renderer.render(subject,camera);renderer.autoClear=autoClear;
  }
- return{entries,markings,context,subject,update,setTheme,render};
+ return{entries,markings,context,subject,update,setTheme,render,materials:[fill,glass,shell,ink,faint],get contourGeometries(){return [...edgeCache.values()];}};
 }

@@ -4,7 +4,7 @@
 .device-control{min-width:0}
 .device-control-meta{display:flex;align-items:baseline;justify-content:space-between;gap:8px;min-height:16px}
 .device-control-meta label{text-transform:uppercase;letter-spacing:.045em;color:var(--muted);font-size:.625rem}
-.device-control-meta output{font:inherit;white-space:nowrap}.device-control-meta output.is-choice,.device-readout-value{text-transform:uppercase}
+.device-control-meta output{font:inherit;white-space:nowrap}.device-control-meta output.is-choice,.device-readout-value.is-status{text-transform:uppercase}
 .device-controls input[type=range]{height:28px;--progress:0%;outline-offset:0}
 .device-controls input[type=range]::-webkit-slider-runnable-track{height:1px;border-radius:0;background:linear-gradient(to right,var(--instrument-ink) var(--progress),var(--instrument-line) var(--progress))}
 .device-controls input[type=range]::-webkit-slider-thumb{width:8px;height:13px;margin-top:-6px;border:1px solid var(--instrument-ink);border-radius:1px;background:var(--paper);box-shadow:none}

@@ -22,7 +22,7 @@ export function createDeviceControls(host,getModel){
    const label=document.createElement('label'),output=document.createElement('output'),input=document.createElement('input');
    input.type='range';input.id=`device-input-${spec.id}`;input.dataset.control=spec.id;input.min=spec.min;input.max=spec.max;input.step=spec.step;input.value=spec.value;
    label.htmlFor=input.id;label.textContent=presentation.label(spec);input.title=spec.label;output.htmlFor=input.id;
-   function show(){const value=Number(input.value),text=presentation.value(spec,value);output.textContent=text;output.classList.toggle('is-choice',!!spec.format);input.setAttribute('aria-valuetext',spec.format?spec.format(value):text);input.style.setProperty('--progress',`${(value-spec.min)/(spec.max-spec.min)*100}%`);}
+   function show(){const value=Number(input.value),text=presentation.value(spec,value);output.textContent=text;output.classList.toggle('is-choice',!!spec.format&&!/^(?:[\d+−-]|f\/)/i.test(text));input.setAttribute('aria-valuetext',spec.format?spec.format(value):text);input.style.setProperty('--progress',`${(value-spec.min)/(spec.max-spec.min)*100}%`);}
    input.addEventListener('input',()=>{getModel()?.behavior?.setControl(spec.id,Number(input.value));show();refresh(true);});
    show();meta.append(label,output);row.append(meta,input);fields.append(row);rows.push({input,output,spec,show});
   }
@@ -38,7 +38,7 @@ export function createDeviceControls(host,getModel){
   }
   const values=presentation.readouts(behavior?.getReadouts?.()||[]),key=JSON.stringify(values);readouts.hidden=values.length===0;results.hidden=values.length===0&&waveform.hidden&&!depth;if(key===readoutKey)return;readoutKey=key;
   if(readouts.children.length!==values.length){readouts.replaceChildren(...values.map(()=>{const row=document.createElement('div');row.append(document.createElement('dt'),document.createElement('dd'));return row;}));}
-  values.forEach((value,i)=>{const row=readouts.children[i];row.dataset.readout=value.source;row.children[0].textContent=value.label;const number=document.createElement('span');number.className='device-readout-value';number.textContent=String(value.value);row.children[1].replaceChildren(number,document.createTextNode(value.unit?` ${value.unit}`:''));});
+  values.forEach((value,i)=>{const row=readouts.children[i];row.dataset.readout=value.source;row.children[0].textContent=value.label;const number=document.createElement('span');number.className='device-readout-value';number.classList.toggle('is-status',typeof value.value==='string'&&!/^(?:[\d+−.-]|f\/)/i.test(value.value));number.textContent=String(value.value);row.children[1].replaceChildren(number,document.createTextNode(value.unit?` ${value.unit}`:''));});
  }
  function reset(){for(const row of rows){row.input.value=row.spec.value;row.show();}refresh(true);}
  function setEnabled(enabled){for(const{input}of rows)input.disabled=!enabled;}

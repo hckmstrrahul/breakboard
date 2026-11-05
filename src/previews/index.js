@@ -91,6 +91,16 @@ import imx500_light from './imx500-light.webp';
 import imx500_dark from './imx500-dark.webp';
 import eventcamera_light from './eventcamera-light.webp';
 import eventcamera_dark from './eventcamera-dark.webp';
+import prime50_light from './prime50-light.webp';
+import prime50_dark from './prime50-dark.webp';
+import zoomlens_light from './zoomlens-light.webp';
+import zoomlens_dark from './zoomlens-dark.webp';
+import periscope_light from './periscope-light.webp';
+import periscope_dark from './periscope-dark.webp';
+import d455_light from './d455-light.webp';
+import d455_dark from './d455-dark.webp';
+import shutter_light from './shutter-light.webp';
+import shutter_dark from './shutter-dark.webp';
 export default {
  esp32:{light:esp32_light,dark:esp32_dark},
  pi5:{light:pi5_light,dark:pi5_dark},
@@ -137,5 +147,10 @@ export default {
  loadcell:{light:loadcell_light,dark:loadcell_dark},
  gnss:{light:gnss_light,dark:gnss_dark},
  imx500:{light:imx500_light,dark:imx500_dark},
- eventcamera:{light:eventcamera_light,dark:eventcamera_dark}
+ eventcamera:{light:eventcamera_light,dark:eventcamera_dark},
+ prime50:{light:prime50_light,dark:prime50_dark},
+ zoomlens:{light:zoomlens_light,dark:zoomlens_dark},
+ periscope:{light:periscope_light,dark:periscope_dark},
+ d455:{light:d455_light,dark:d455_dark},
+ shutter:{light:shutter_light,dark:shutter_dark}
 };

@@ -1,6 +1,6 @@
 # README captures
 
-The original 52 PNGs were captured from the running application on 4 November 2026 using **Save image**. The first four expansion batches add forty captures on 5 November using the same renderer/export path through `scripts/render-device-proofs.mjs --gallery`. These are original renderer exports, not generated mockups or photographs. All 92 PNGs are 2400 × 2217 px, use Light appearance (`#efeee9`), and retain the app's native framing and colors.
+The original 52 PNGs were captured from the running application on 4 November 2026 using **Save image**. The first five expansion batches add fifty captures on 5 November using the same renderer/export path through `scripts/render-device-proofs.mjs --gallery`. These are original renderer exports, not generated mockups or photographs. All 102 PNGs are 2400 × 2217 px, use Light appearance (`#efeee9`), and retain the app's native framing and colors.
 
 | Pair | Device | Separation | Camera | Accessories |
 | --- | --- | --- | --- | --- |
@@ -50,6 +50,11 @@ The original 52 PNGs were captured from the running application on 4 November 20
 | `gnss-*-light.png` | u-blox ZED-F9P-04B-01 / HPG1.32 | 100% | Default 3D | Documented package and contact pattern; representative hidden circuitry |
 | `imx500-*-light.png` | Sony IMX500 / bare-chip configuration | 100% | Default 3D | Documented active area and stacked architecture; representative die dimensions |
 | `eventcamera-*-light.png` | Sony / Prophesee IMX636-AAMR-C | 100% | Default 3D | Documented envelope, pad count and active area; representative cutaway |
+| `prime50-*-light.png` | Canon EF 50mm f/1.8 STM | 100% | Default 3D | — |
+| `zoomlens-*-light.png` | Nikon AF-S 24–70mm f/2.8E ED VR | 100% | Default 3D | — |
+| `periscope-*-light.png` | Samsung SEM 50M 5× prism-lead telephoto | 100% | Default 3D | — |
+| `d455-*-light.png` | RealSense D455 K83122-110 | 100% | Default 3D | — |
+| `shutter-*-light.png` | Nikon FM3A 1B060-746 shutter | 100% | Default 3D | — |
 
 For each pair, reset the device, choose Light, leave component labels off and set the separation above. Leave playback, auto rotation and isolation off. Save the material view, enable X-ray to clear selection and show the complete anatomy view, then save again without changing the camera. The viewer's width-to-height ratio was 2400:2217; export height follows that ratio.
 

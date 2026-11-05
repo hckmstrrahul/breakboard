@@ -24,8 +24,10 @@ const profiles={
  eventcamera:{labels:{position:'Position',speed:'Speed',brightness:'Brightness',size:'Size',threshold:'Contrast'},readouts:[row('ON / OFF this sample','On / off'),row('Accumulated ON / OFF','Total')],wave:['Events + / −','0.53 s · demo']},
  periscope:{labels:{focus:'Far focus',shakeX:'Pitch shake',shakeY:'Yaw shake',stabilize:'OIS'},readouts:[row('Focus scenario','Focus'),row('Illustrative beam offset','Beam offset')]},
  nand:{labels:{mode:'Operation',wordline:'Word line',string:'String',target:'Write level',reference:'Read level'},readouts:[row('Operation','State'),row('Stored threshold','Stored'),row('Read comparison','Read')],wave:['Threshold','Relative']},
- prime50:{labels:{aperture:'Aperture',focus:'Near focus',sweep:'Sweep'}},
- zoomlens:{labels:{zoom:'Zoom',focus:'Focus',aperture:'Aperture',shake:'Shake',stabilize:'VR'}}
+ prime50:{labels:{aperture:'Aperture',focus:'Near focus',sweep:'Sweep'},formats:{sweep:v=>v?'Auto':'Hold'},readouts:[row('Relative light','Light'),row('Focus setting','Focus')]},
+ zoomlens:{labels:{zoom:'Zoom',focus:'Focus',aperture:'Aperture',shake:'Shake',vr:'VR',sweep:'Sweep'},formats:{sweep:v=>v?'Auto':'Hold'},readouts:[row('Focus group offset','Focus shift','mm'),row('Patent-based VR correction','VR shift','mm'),row('Relative light','Light')]},
+ d455:{labels:{range:'Depth',angle:'Angle',sweep:'Motion'},formats:{sweep:v=>v?'Sweep':'Still'},readouts:[row('Disparity'),row('Depth from fB/d','Depth')]},
+ shutter:{labels:{speed:'Speed'},readouts:[row('Sequence','Stage'),row('Nominal moving slit','Slit')]}
 };
 const shortValues={'Infrared excitation':'Infrared','Pressure response':'Pressure','Acoustic response':'Pressure','Microphone readout':'Readout','Pixel acquisition':'Capture','Signal conditioning':'Readout','Dark interval':'Dark','Red illumination':'Red','Infrared illumination':'Infrared','No brightness change':'No change','Object metadata':'Metadata'};
 export function controlPresentation(definition){
@@ -35,7 +37,7 @@ export function controlPresentation(definition){
   value(spec,value){if(profile.formats?.[spec.id])return profile.formats[spec.id](value);if(spec.format)return spec.format(value);const number=Number(value.toFixed(3));return `${number}${spec.unit?` ${spec.unit}`:''}`;},
   readouts(values){
    const selected=profile.readouts||values.filter(value=>!controls.some(control=>control.label===value.label)&&!['Geometry','Motion','Visualization','Simulation','Timing','Inference','Reference'].includes(value.label)).slice(0,3).map(value=>row(value.label));
-   return selected.flatMap(spec=>{const found=values.find(value=>value.label===spec.source);if(!found)return[];const optical=spec.source==='Optical slot'&&/^(Red|Infrared) · (\d+ nm)$/.exec(found.value);return[{...found,...spec,value:optical?(optical[1]==='Red'?'Red':'IR'):shortValues[found.value]||found.value,...(optical?{unit:optical[2]}:{})}];});
+   return selected.flatMap(spec=>{const found=values.find(value=>value.label===spec.source);if(!found)return[];const optical=spec.source==='Optical slot'&&/^(Red|Infrared) · (\d+ nm)$/.exec(found.value);return[{...found,...spec,value:optical?(optical[1]==='Red'?'Red':'IR'):shortValues[found.value]||(typeof found.value==='number'?Number(found.value.toFixed(3)):found.value),...(optical?{unit:optical[2]}:{})}];});
   },
   wave:profile.wave
  };

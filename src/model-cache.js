@@ -1,20 +1,22 @@
 // A model owns geometry, effects and anatomy copies, while materials/textures
 // may be shared with another retained model. Dispose only unreferenced resources.
 export function modelResources(model){
- const geometry=new Set(),materials=new Set(),textures=new Set(),batches=new Set();
+ const geometry=new Set(),materials=new Set(),textures=new Set(),batches=new Set(),instances=new Set();
  const addMaterial=value=>{for(const material of Array.isArray(value)?value:[value]){if(!material?.isMaterial||materials.has(material))continue;materials.add(material);for(const value of Object.values(material))if(value?.isTexture)textures.add(value);for(const uniform of Object.values(material.uniforms||{}))if(uniform.value?.isTexture)textures.add(uniform.value);}};
  for(const root of [model.root,model.operation?.root,model.anatomy?.context,model.anatomy?.subject])root?.traverse(object=>{
-  if(object.geometry){geometry.add(object.geometry);if(object.geometry.userData.anatomyEdges)geometry.add(object.geometry.userData.anatomyEdges);}if(object.isBatchedMesh)batches.add(object);
+  if(object.geometry){geometry.add(object.geometry);if(object.geometry.userData.anatomyEdges)geometry.add(object.geometry.userData.anatomyEdges);}if(object.isBatchedMesh)batches.add(object);if(object.isInstancedMesh)instances.add(object);
   addMaterial(object.material);addMaterial(object.userData.originalMaterial);addMaterial(object.userData.ghost);
  });
  for(const marking of model.anatomy?.markings||[]){addMaterial(marking.solid);addMaterial(marking.ghost);}
- return{geometry,materials,textures,batches};
+ for(const material of model.anatomy?.materials||[])addMaterial(material);
+ for(const contour of model.anatomy?.contourGeometries||[])geometry.add(contour);
+ return{geometry,materials,textures,batches,instances};
 }
 export function disposeModel(model,retained=[]){
- const resources=modelResources(model),keep={geometry:new Set(),materials:new Set(),textures:new Set(),batches:new Set()};
+ const resources=modelResources(model),keep={geometry:new Set(),materials:new Set(),textures:new Set(),batches:new Set(),instances:new Set()};
  for(const other of retained){const set=modelResources(other);for(const type of Object.keys(keep))for(const item of set[type])keep[type].add(item);}
  model.behavior?.dispose?.();
- for(const type of ['batches','geometry','materials','textures'])for(const item of resources[type])if(!keep[type].has(item))item.dispose();
+ for(const type of ['batches','instances','geometry','materials','textures'])for(const item of resources[type])if(!keep[type].has(item))item.dispose();
 }
 export function createModelCache({limit=3,dispose=disposeModel}={}){
  const entries=new Map();let protectedIds=new Set(),tick=0;
