@@ -37,7 +37,7 @@ try{
  // Yield to the browser between frames in representative dense scenes as well.
  // These are observed headless animation-frame intervals, not phone/display FPS.
  const delivery=[];
- for(const id of ['grobot','zoomlens','lto','nand','printhead','qi2'].filter(id=>environment.ids.includes(id)))for(const xray of[false,true]){
+ for(const id of ['zoomlens','lto','nand','printhead','qi2'].filter(id=>environment.ids.includes(id)))for(const xray of[false,true]){
   const sample=await page.evaluate(async({id,xray})=>{
    const{stage,boards}=gate;await stage.setBoard({...boards.find(d=>d.id===id),start:0});
    const state={explode:0,selected:null,isolate:false,xray,guides:false,rotate:true,playing:true},intervals=[];

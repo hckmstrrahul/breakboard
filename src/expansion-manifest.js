@@ -12,3 +12,7 @@ export const EXPANSION_BATCHES=[
  ['gan','qi2','printhead','thermalprinter','saw']
 ];
 export const IMPLEMENTED_EXPANSION_IDS=EXPANSION_BATCHES.flat();
+
+// Grobot moved intact to the sibling grobot project on 5 November 2026.
+export const MOVED_DEVICE_IDS=['grobot'];
+export const RETAINED_ORIGINAL_DEVICE_IDS=ORIGINAL_DEVICE_IDS.filter(id=>!MOVED_DEVICE_IDS.includes(id));

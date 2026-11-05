@@ -31,8 +31,6 @@ import stepper_light from './stepper-light.webp';
 import stepper_dark from './stepper-dark.webp';
 import hackrf_light from './hackrf-light.webp';
 import hackrf_dark from './hackrf-dark.webp';
-import grobot_light from './grobot-light.webp';
-import grobot_dark from './grobot-dark.webp';
 import pmt_light from './pmt-light.webp';
 import pmt_dark from './pmt-dark.webp';
 import spectrometer_light from './spectrometer-light.webp';
@@ -148,7 +146,6 @@ export default {
  hqcamera:{light:hqcamera_light,dark:hqcamera_dark},
  stepper:{light:stepper_light,dark:stepper_dark},
  hackrf:{light:hackrf_light,dark:hackrf_dark},
- grobot:{light:grobot_light,dark:grobot_dark},
  pmt:{light:pmt_light,dark:pmt_dark},
  spectrometer:{light:spectrometer_light,dark:spectrometer_dark},
  epyc:{light:epyc_light,dark:epyc_dark},

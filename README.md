@@ -7,7 +7,7 @@ Explore development boards, displays, optics, sensors, chips, audio, power hardw
 ## Take it offline
 
 <!-- offline-stats:start -->
-**66 interactive devices in one 25.08 MB HTML file** (23.92 MiB).
+**65 interactive devices in one 23.45 MB HTML file** (22.36 MiB).
 <!-- offline-stats:end -->
 
 [Save the standalone HTML](https://breakboard-teardown.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
@@ -36,7 +36,6 @@ Actual 2400 px PNG captures from **Save image**. Each pair shares its camera and
 | **HQ Camera** | ![Raspberry Pi HQ Camera with its CS mount, adapter, infrared filter, sensor and rear electronics separated](docs/images/hqcamera-teardown-light.png) | ![The same HQ Camera assembly with anatomy contours and markings](docs/images/hqcamera-anatomy-light.png) |
 | **Stepper motor** | ![Representative hybrid stepper with laminated stator, copper windings, toothed rotor and bearings separated](docs/images/stepper-teardown-light.png) | ![The same Stepper motor assembly with anatomy contours and markings](docs/images/stepper-anatomy-light.png) |
 | **HackRF One** | ![HackRF One r10 with its RF front end, controller, SMA ports and fitted headers separated](docs/images/hackrf-teardown-light.png) | ![The same HackRF One assembly with anatomy contours and markings](docs/images/hackrf-anatomy-light.png) |
-| **Grobot** | ![Grobot open brass frame, perfboard, servo pointer, controller, LCD, UPS, batteries and audio modules separated](docs/images/grobot-teardown-light.png) | ![The same Grobot assembly with anatomy contours and component markings](docs/images/grobot-anatomy-light.png) |
 | **Photomultiplier** | ![Photomultiplier exploded in light mode with realistic materials](docs/images/pmt-teardown-light.png) | ![The same Photomultiplier assembly in anatomy mode with shared geometry and fine contours](docs/images/pmt-anatomy-light.png) |
 | **Mini spectrometer** | ![Mini spectrometer exploded in light mode with realistic materials](docs/images/spectrometer-teardown-light.png) | ![The same Mini spectrometer assembly in anatomy mode with shared geometry and fine contours](docs/images/spectrometer-anatomy-light.png) |
 | **EPYC 9654** | ![EPYC 9654 exploded in light mode with realistic materials](docs/images/epyc-teardown-light.png) | ![The same EPYC 9654 assembly in anatomy mode with shared geometry and fine contours](docs/images/epyc-anatomy-light.png) |
@@ -116,7 +115,7 @@ After adding or changing a model, run `npm run render:previews` with Chrome inst
 | X-ray | Show the whole device in anatomy style. Glass retains its transparency and contours. Selecting a part ghosts the others; clicking empty canvas restores the complete view. |
 | Labels / Rotate | Text toggles show overview labels or orbit the device automatically. |
 | Isolate | Frame one component group. Also works with X-ray. |
-| Play / Pause | Assemble the device, then animate fans, LEDs, numeral cathodes, stepped shafts at 30 rpm, a servo pointer, a speaker cone, mirror tilt, VFD multiplexing, electron cascades, spectral paths, chiplet traffic or sensor activity. Some module covers fade during playback when no part is selected, exposing illustrative interiors. Changing separation stops playback. The camera, Nixie tube, stepper and Grobot adjust framing with separation; orbiting or zooming preserves your manual framing until a camera preset or reset. Reduced motion uses a still powered view. |
+| Play / Pause | Assemble the device, then animate fans, LEDs, numeral cathodes, stepped shafts at 30 rpm, mirror tilt, VFD multiplexing, electron cascades, spectral paths, chiplet traffic or sensor activity. Some module covers fade during playback when no part is selected, exposing illustrative interiors. Changing separation stops playback. The camera, Nixie tube and stepper adjust framing with separation; orbiting or zooming preserves your manual framing until a camera preset or reset. Reduced motion uses a still powered view. |
 | 3D / Top / Front | Switch cameras. Drag to orbit, right-drag to pan, scroll or use + / − to zoom. |
 | Light / Dark / System | Dark by default. Choose Light, Dark or System; the preference persists. |
 | Save image | Download a 2400 px PNG of the model in its current view and theme. |
@@ -147,7 +146,6 @@ X-ray, playback, overview tags and camera choice persist across device changes. 
 | Raspberry Pi HQ Camera, CS mount | `#hqcamera` | Official mount drawings and schematic; reconstructed package bodies |
 | 42 mm hybrid stepper | `#stepper` | Documented two-phase mechanism; representative mechanical dimensions |
 | Great Scott Gadgets HackRF One r10 | `#hackrf` | Official KiCad board; 437 footprint placements |
-| Grobot / open brass frame | `#grobot` | Official Waveshare UPS/LCD STEP; same specified hardware, custom perfboard and open brass frame |
 | Hamamatsu R928 / side-on tube | `#pmt` | [Sources and reconstruction limits](reference/pmt/evidence.md) |
 | Hamamatsu C12880MA | `#spectrometer` | [Sources and reconstruction limits](reference/spectrometer/evidence.md) |
 | AMD EPYC 9654 / Genoa | `#epyc` | [Sources and reconstruction limits](reference/epyc/evidence.md) |
@@ -200,8 +198,6 @@ X-ray, playback, overview tags and camera choice persist across device changes. 
 
 These are educational reconstructions. Separating soldered parts explains their roles; it is not a physical disassembly procedure. Estimated heights, connector interiors and hidden placements are recorded in [reference/](reference/) and the [device registry](src/boards.js). X-ray reuses the same modeled surfaces. The new sealed-module cutaways explicitly identify illustrative interiors; chip surface regions are functional diagrams, not fabricated transistor layouts or buried-copper maps. Signal paths illustrate activity, not an electrical simulation. The stepper is a representative mechanism, not a manufacturer-specific replica. The DLP package stays at its documented scale; a separate **600× detail** explains the micromirror mechanism without claiming a disclosed fabrication stack. Nixie electrode shapes and hidden construction are identified as reconstructed.
 
-[Grobot’s evidence record](reference/grobot/evidence.md) distinguishes the 325 original Waveshare solids from reconstructed parts. Its AYWHP ESP32-S3, SG90, two BAK cells, audio modules and four filaments retain the supplied hardware inventory. A new open brass frame, perforated carrier, visible jumpers and plain servo pointer replace the enclosure and decorative anchor. The frame, mounting layout, wiring and unmeasured kit footprints remain provisional; six driver positions remain empty. Play uses sample content and an illustrative servo command.
-
 ## How I built it
 
 1. **Started with evidence.** I imported manufacturer STEP geometry with OpenCascade and extracted footprints and artwork from official EAGLE and KiCad files. I used drawings and photographs to reconstruct missing packages, recording assumptions.
@@ -246,13 +242,13 @@ npm run check
 npm run check:offline
 ```
 
-Deploy `dist/` to a static host, or use the [standalone offline file](#take-it-offline). On the hosted app, Jetson CAD ships in the app bundle and Pi, Portenta and Grobot CAD load on first selection. The viewer retains up to three built models, releasing unreferenced GPU resources when older models leave the cache.
+Deploy `dist/` to a static host, or use the [standalone offline file](#take-it-offline). On the hosted app, Jetson CAD ships in the app bundle and Pi and Portenta CAD load on first selection. The viewer retains up to three built models, releasing unreferenced GPU resources when older models leave the cache.
 
 Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. The expansion checks cover contact mating, motor apertures and rotation, haptic pulses, encoder conversion, quartz division, audio linkages, waveform response, environmental sensing channels, MEMS axis signs, depth-zone mapping, radar placement, PIR timing and ultrasonic propagation. Independent reviews record source limits and corrected findings: [batch 1](docs/verification/expansion-batch1.md), [batch 2](docs/verification/expansion-batch2.md), [batch 3](docs/verification/expansion-batch3.md), [batch 4](docs/verification/expansion-batch4.md), [batch 5](docs/verification/expansion-batch5.md), [batch 6](docs/verification/expansion-batch6.md), [batch 7](docs/verification/expansion-batch7.md).
 
-The standalone HTML loaded all 66 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
+The standalone HTML loaded all 65 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
 
-Normal development uses the supplied runtime assets. Downloaded reference CAD, PDFs, photographs and intermediate meshes stay local; source URLs and evidence records are included. Regenerating STEP meshes additionally requires `cadquery-ocp==7.9.3.1.1` and the `import-*` / `package-*` scripts in [scripts/](scripts/) and [reference/grobot/](reference/grobot/). Arduino extraction uses `prepare-uno.py` and `prepare-nano.py`.
+Normal development uses the supplied runtime assets. Downloaded reference CAD, PDFs, photographs and intermediate meshes stay local; source URLs and evidence records are included. Regenerating STEP meshes additionally requires `cadquery-ocp==7.9.3.1.1` and the `import-*` / `package-*` scripts in [scripts/](scripts/). Arduino extraction uses `prepare-uno.py` and `prepare-nano.py`.
 
 ## Attribution
 
@@ -260,8 +256,9 @@ Normal development uses the supplied runtime assets. Downloaded reference CAD, P
 - Arduino Uno/Nano layouts and adapted geometry retain [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Adaptations: layout extraction, package reconstruction and materials; [source notice](public/licenses/arduino-cad-CC-BY-SA-4.0.txt).
 - BeagleBoard documentation/imagery © BeagleBoard.org Foundation, CC BY-SA 4.0; reconstructed BeagleBone geometry is offered under the same license. NVIDIA reference geometry remains subject to its download terms. Per-board records in [reference/](reference/) link original sources.
 - Adafruit NeoMatrix layout and adapted geometry: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/); [source](https://github.com/adafruit/Adafruit-NeoPixel-8x8-Matrix). HackRF r10 hardware and adapted geometry: [CERN-OHL-P-2.0](https://ohwr.org/cern_ohl_p_v2.txt); [source](https://github.com/greatscottgadgets/hackrf/tree/main/hardware/hackrf-one). Portenta geometry is derived from Arduino’s published reference STEP; see [evidence](reference/portenta/evidence.md).
-- Waveshare UPS HAT (D) and 1.47-inch LCD geometry is adapted from the manufacturer’s published STEP files; [source and modification notice](public/licenses/waveshare-grobot.txt). Grobot’s custom parts are proposed packaging geometry, not manufacturing CAD.
 - NE555 genuine die photograph © Mikhail Svarichevsky / ZeptoBars, [CC BY 3.0](public/licenses/ne555-zeptobars.txt); cropped, resampled and rendered in color or monochrome.
 - [Untitled UI icon notice](public/licenses/untitled-ui-icons.txt). Board names and logos identify their respective hardware vendors.
 
-The complete forty-device expansion received a final maker/checker review: [verification report](docs/verification/40-device-expansion.md), [264-image review ledger](docs/verification/40-device-visual-baseline.json) and [desktop performance measurements](docs/verification/40-device-performance.json).
+Grobot moved to the separate `grobot` project on 5 November 2026. Breakboard now contains 65 electronics teardowns; the original forty additions remain included. See the [split record](docs/grobot-extraction.md).
+
+Before this split, the complete forty-device expansion received a final maker/checker review: [verification report](docs/verification/40-device-expansion.md), [264-image review ledger](docs/verification/40-device-visual-baseline.json) and [desktop performance measurements](docs/verification/40-device-performance.json).
