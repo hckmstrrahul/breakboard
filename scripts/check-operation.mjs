@@ -9,7 +9,7 @@ const context=new Proxy({}, {get:(_,key)=>key==='measureText'?()=>({width:0}):()
 globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>context})};
 globalThis.__BREAKBOARD_ASSETS=Object.fromEntries(fs.readdirSync('public/models').filter(f=>f.endsWith('.json.gz')).map(f=>[f.replace('.json.gz',''),fs.readFileSync('public/models/'+f).toString('base64')]));
 const {BOARD_LIST}=await import('../src/boards.js');
-const expectedLights={esp32:1,pi5:0,uno:4,jetson:0,pico2w:1,nano:4,orangepi5:2,beaglebone:5,nucleo:3,portenta:2,hackrf:6,neopixel:64,hqcamera:0,dlp:0,nixie:10,stepper:8,grobot:6,pmt:0,spectrometer:0,epyc:0,lidar:0,vfd:64,corememory:0,lepton:0,intel4004:0,sps30:0,relay:0,bldc:0,haptic:0,as5600:0,quartz:0,memsmic:0,armature:0,planar:0,bme688:0,scd41:0,imu:0,tof:0,radar:0,pir:0,ultrasonic:0,max30102:0,loadcell:0,gnss:0,imx500:0,eventcamera:0,prime50:0,zoomlens:0,periscope:0,d455:0,shutter:0,hdd:0,bluray:0,lto:0,nvme:0,nand:0,ne555:0,rp2350:0,fpga:0,hbm:0,eprom:0};
+const expectedLights={esp32:1,pi5:0,uno:4,jetson:0,pico2w:1,nano:4,orangepi5:2,beaglebone:5,nucleo:3,portenta:2,hackrf:6,neopixel:64,hqcamera:0,dlp:0,nixie:10,stepper:8,grobot:6,pmt:0,spectrometer:0,epyc:0,lidar:0,vfd:64,corememory:0,lepton:0,intel4004:0,sps30:0,relay:0,bldc:0,haptic:0,as5600:0,quartz:0,memsmic:0,armature:0,planar:0,bme688:0,scd41:0,imu:0,tof:0,radar:0,pir:0,ultrasonic:0,max30102:0,loadcell:0,gnss:0,imx500:0,eventcamera:0,prime50:0,zoomlens:0,periscope:0,d455:0,shutter:0,hdd:0,bluray:0,lto:0,nvme:0,nand:0,ne555:0,rp2350:0,fpga:0,hbm:0,eprom:0,gan:0,qi2:0,printhead:0,thermalprinter:0,saw:0};
 const powered={playing:true,explode:0,reduced:false,isolate:false};
 function visibleInGroup(entry){for(let node=entry.source;node;node=node.parent){if(!node.visible)return false;if(node===entry.group)return true;}return true;}
 for(const def of BOARD_LIST){
@@ -43,7 +43,10 @@ for(const def of BOARD_LIST){
 
  const anatomy=createAnatomy(model);assert(anatomy.entries.length>0);
  const originalArtwork=[];model.root.traverse(source=>{for(let node=source;node;node=node.parent)if(node.userData.explanatoryEffect)return;if(source.isMesh&&!source.isBatchedMesh&&(source.userData.originalMaterial||source.material).map)originalArtwork.push(source);});
- assert(originalArtwork.length>0,def.id+' has original surface artwork');
+ // The selected printhead specimen has no documented exterior artwork.
+ // Its enlarged-cell caption is explanatory and excluded above.
+ if(def.id==='printhead')assert.equal(originalArtwork.length,0,'Printhead has no invented package markings');
+ else assert(originalArtwork.length>0,def.id+' has original surface artwork');
  assert.equal(anatomy.markings.length,originalArtwork.length,def.id+' preserves every existing logo, label and graphic');
  for(const mark of anatomy.markings){
   assert(originalArtwork.includes(mark.source));assert.equal(mark.body.geometry,mark.source.geometry,'Artwork reuses exact surface geometry and UVs');

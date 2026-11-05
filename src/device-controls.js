@@ -30,7 +30,9 @@ export function createDeviceControls(host,getModel){
  }
  function refresh(force=false){
   if(host.hidden)return;const now=performance.now();if(!force&&now-lastReadout<100)return;lastReadout=now;
-  const behavior=getModel()?.behavior,wave=behavior?.getWaveform?.(),waveKey=JSON.stringify(wave);
+  const behavior=getModel()?.behavior,dragged=behavior?.drag?.getValues?.();
+  if(dragged)for(const row of rows){const value=dragged[row.spec.id];if(Number.isFinite(value)&&Number(row.input.value)!==value){row.input.value=value;row.show();}}
+  const wave=behavior?.getWaveform?.(),waveKey=JSON.stringify(wave);
   const depth=behavior?.getDepthMap?.();depthMap.update(depth);
   if(waveKey!==waveformKey){
    waveformKey=waveKey;const samples=wave?.samples;waveform.hidden=!Array.isArray(samples)||samples.length<2||samples.some(value=>!Number.isFinite(value));

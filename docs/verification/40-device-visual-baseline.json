@@ -1,0 +1,1591 @@
+{
+  "date": "2026-11-05",
+  "method": "Every assembled/exploded image in both themes was opened individually. Full-resolution originals were retained; some were displayed as resized individual copies. Hashes record the reviewed original files. Planar shadow clipping and PIR assembled framing were corrected, regenerated and re-reviewed.",
+  "count": 264,
+  "images": [
+    {
+      "file": "armature-assembled-dark.png",
+      "sha256": "90aa7d9e3d54995b189e139282139a9028390e717f85b4e3ab54687c21ea5145",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "armature-assembled-light.png",
+      "sha256": "45a48f604e6b6421d6dca919daca1a2320e80975cd700c8e16f4d59b3878f692",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "armature-exploded-dark.png",
+      "sha256": "f7c34e68d2f0fc2282036183ec7ab39e36d8b250d14261be29b8d9c0ada241bb",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "armature-exploded-light.png",
+      "sha256": "e15c0df207b76cc3d0e1faddb6501958afd5fa4ce114d6639d007e3ae9f233e9",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "as5600-assembled-dark.png",
+      "sha256": "cdd1fb81268b694c5c48708cd13612adc6cf2d209302ab8bef8f4c3e718e5ea6",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "as5600-assembled-light.png",
+      "sha256": "46e273498a3f2b20b33003c5ec25d9a5452f53990b276c9a18d0a48f1177f23c",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "as5600-exploded-dark.png",
+      "sha256": "b54ec97917275f2ca6baf5c465f227e7767b361cce4677348d3a61391a1223dd",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "as5600-exploded-light.png",
+      "sha256": "99c8e44c418e522bb028eb694613865cf58b6bc267cb948b70928fde6529e8dc",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "beaglebone-assembled-dark.png",
+      "sha256": "b8bc641b0c6729fd1995d93e018971333e9be7cf895c341a4433c667893e7c19",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "beaglebone-assembled-light.png",
+      "sha256": "cf1ec2f8364192229c50bb7be906d5f1ad63b3836ac5cdc9a7247aa133b6c814",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "beaglebone-exploded-dark.png",
+      "sha256": "5b481c79c3c99c504f84312675bd2524cdb1d3c377edf340548754cf090ee251",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "beaglebone-exploded-light.png",
+      "sha256": "932ada1bf224c8b2e0d2c6d3904daa583b90579db7527e116a564fc29e10c191",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "bldc-assembled-dark.png",
+      "sha256": "5c8e7e2ac3c50acb5642d074959d5544316bae1f3c6e7646a72ba61434df1903",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "bldc-assembled-light.png",
+      "sha256": "4434287ce58be41991213c0e7fe4227a17b81eaaa747e582c8a8772499e808f5",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "bldc-exploded-dark.png",
+      "sha256": "ec7e42f7c1015a0972e89ef950908f634d0d46ac67efdf3919cabc2a17bd22ec",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "bldc-exploded-light.png",
+      "sha256": "bdf7d14fb9603cb62abe564e31111bfd292b562623ecdd1fa4a62256f8f05b50",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "bluray-assembled-dark.png",
+      "sha256": "9597cc89f508ff14baaec1a439040ec95d6a938c5def1153cf883ba16e5ee782",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "bluray-assembled-light.png",
+      "sha256": "4bfc117acc1e20bd0f3b873a5198e42ff5c9d73748819678dc98b8aaa270389e",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "bluray-exploded-dark.png",
+      "sha256": "13164d581a2759b9c6aa60428823b294e9f1b69bc154890f931f43cf22a30d57",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "bluray-exploded-light.png",
+      "sha256": "e27b7192a0cf77ff83056518cd58c377e4d0acfe41d3a412fa2ad639bdb67666",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "bme688-assembled-dark.png",
+      "sha256": "10a1219a8ff4cd81185969691031cb7484fa6bb9f288b8fb8f8c1991579ae739",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "bme688-assembled-light.png",
+      "sha256": "f28765a69e1eb242e64de2529e2dbb3cd794206b69111aacf5ae3dde4e8336be",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "bme688-exploded-dark.png",
+      "sha256": "8d436897a7635283881a60272ee7d040641d131a04fa0951893f3d27e2bcf4c0",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "bme688-exploded-light.png",
+      "sha256": "2b82e9dc54e9ec266897ce4b8d3b226df12ca373778a90542efb3fa25d0d6c8a",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "corememory-assembled-dark.png",
+      "sha256": "eb42d3ac1a5e6d1ca001775a5dc8cdaded2df3e6153c48ad23e5fe35635c01e0",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "corememory-assembled-light.png",
+      "sha256": "84b2ebb5d24ab4880d242dc890b0f62a1f1bcdc55fb7d49b9cee0c43e5e0785d",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "corememory-exploded-dark.png",
+      "sha256": "956368cf7b0d2b9ebc8e9ab74bb7e627b5d6c1535deea05d33750329cd2d971a",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "corememory-exploded-light.png",
+      "sha256": "47e29dab2f70c228698e1c6b07926a654b5832b6a95fdcd51b72ff8addae4984",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "d455-assembled-dark.png",
+      "sha256": "4ae71153bd17da9693423a28b9edaa9392493c5e23de865399b51ff1bdbca726",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "d455-assembled-light.png",
+      "sha256": "d792f3f89f9383b2f67ff9117e4244dfd0b2cbf0c71ccdf7695af156a14150d8",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "d455-exploded-dark.png",
+      "sha256": "0ddb2b289bc7bd59c9a812eb51573d69f096abfa152d400f12af95d9443d8c19",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "d455-exploded-light.png",
+      "sha256": "43b774beb739d42dbd9089036e36df3ee83b602b1aa19997590abaf548c35de2",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "dlp-assembled-dark.png",
+      "sha256": "574736158bf573088763fc2a170d254083b7ac75ef371ba7cd1bbcb387e0e240",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "dlp-assembled-light.png",
+      "sha256": "72525161ed472f3af951097995477a1be931bae9460ec4fc04522d298bd94b32",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "dlp-exploded-dark.png",
+      "sha256": "1ae1dcb4e8fc90d7ed45d6c6367e30a02e5a469d7ebbf32ff22693d147ea71cc",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "dlp-exploded-light.png",
+      "sha256": "67600325143306f3e6028d23522a4ee498f95fbfbad226152e5d744728af73f4",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "eprom-assembled-dark.png",
+      "sha256": "464e5753d6e2013ee00b6a5b96614d00d40f203667f11ba52a3aff8a957bbe49",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "eprom-assembled-light.png",
+      "sha256": "bfb7ae185b0fba6009d8f5fde89baf86469937a2f6d33a43ac66f99467a1f69b",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "eprom-exploded-dark.png",
+      "sha256": "20f2465867d52669e959091960c5e3370121ee187441438dd645efa67f151fb5",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "eprom-exploded-light.png",
+      "sha256": "8ed4f48766396d185247ec712fe8d9f2bb0ca3f9d108be5f4d4f23062061c9ec",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "epyc-assembled-dark.png",
+      "sha256": "049dc78250d32f939a94999dcc78a719489bc5c3ac38774eaa55220903ae9346",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "epyc-assembled-light.png",
+      "sha256": "0b29c5cddc5a409c8f2da38411ee441c768f64af314ec032abf21ea614f71e87",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "epyc-exploded-dark.png",
+      "sha256": "4ed16b41380013fbccc2c20f3c0c52b99da9004e75077aa54792235fe53cb2a0",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "epyc-exploded-light.png",
+      "sha256": "a426c0af038c8312fc08befeb284781cfaa03789419ce15b70c7955c75c22620",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "esp32-assembled-dark.png",
+      "sha256": "d96252ab0ccf4fad39bafa61a6ebcdb06cf440b897b6d34b865d8d98bc65c40b",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "esp32-assembled-light.png",
+      "sha256": "779b4255f8a12a7f4b572c305ea4fc0996f689d5ea80e81c7bc28035dc13c1fb",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "esp32-exploded-dark.png",
+      "sha256": "a3a034ebc1f3f16f8ccb019f20ab569afa86e706dfb84ad035750805524cfe0e",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "esp32-exploded-light.png",
+      "sha256": "05abb7f170ae31b7e7aed411ca2c2abf09f6a4c73c09d983907c6f6e21438f98",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "eventcamera-assembled-dark.png",
+      "sha256": "d6295036059ff1b00c05647ea6f9cb6c97ebcf40e94fcfd83625d58a155f3ef7",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "eventcamera-assembled-light.png",
+      "sha256": "b18787bc4cc4df18aef4fa6882cc18fcb98a4ba2ba82982601917a6d97dfe3c4",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "eventcamera-exploded-dark.png",
+      "sha256": "7161fcbacf4faeaf7ed35d3a96ac54daaba8ab23ca2ff450c348ddf6fb760302",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "eventcamera-exploded-light.png",
+      "sha256": "b9d117067b0f47bd899d8d1a68d5af36d4cde34c1e68c2c790e8607d9dcb475f",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "fpga-assembled-dark.png",
+      "sha256": "d84be9c7c9e0428ddc7277ea21a5d707b9556398b6d3132928392971f82d08fe",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "fpga-assembled-light.png",
+      "sha256": "46a88ed6595a37a2aaeab6d32cf4b631c2ddf97ea04b04e7ae3fae5671cecb87",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "fpga-exploded-dark.png",
+      "sha256": "80f41da00ed0af3bc862beffaa9adc343ed4d4b303e05d4675574fb35db9d74d",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "fpga-exploded-light.png",
+      "sha256": "091517363bcc6af353f871e2a8ca98e35e1bbb34bf54c451fad54db01861bf6d",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "gan-assembled-dark.png",
+      "sha256": "27c343d5f7417172cd15b60b572ada66641245c11aad52941941d337b6be5b84",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "gan-assembled-light.png",
+      "sha256": "0c378e34b57cb4dbc2f9e6faf48ca2b3b2f5e0644372fe6e758901c155e795fe",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "gan-exploded-dark.png",
+      "sha256": "a004abea18da143213d0a0587555d2fd6774f3439a1b71effa7321aa98f342fb",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "gan-exploded-light.png",
+      "sha256": "fe9f8e87c850447af04fe0c16c791a24886783d9f9a2432dd234feb52ef835fe",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "gnss-assembled-dark.png",
+      "sha256": "76b40d8f14a68a46a8bb33ff320ec6eb0c1b09b45a8ae91e3bac454500d12e6b",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "gnss-assembled-light.png",
+      "sha256": "aa39c2b9af91f22dd8017c2884bc9082cd2717d87f18b356ecec64bcd768c0a8",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "gnss-exploded-dark.png",
+      "sha256": "f7c5a2009231d2af1f2d6e2df8a9a29f59e344e8acc0f27939852c59661ba3e0",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "gnss-exploded-light.png",
+      "sha256": "a2fd3eb1740ae02ec187f6e82318245eac26cc12eed446a9f8add303e19e96d4",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "grobot-assembled-dark.png",
+      "sha256": "54234c08b953ec84431efd27d56d841b4883c5198a413e2b715e1afc0633df93",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "grobot-assembled-light.png",
+      "sha256": "00bbf5e9b1b7649a49908ad2c8297a2fc6f2b53713d3c4b1dc1e5fc402708cd8",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "grobot-exploded-dark.png",
+      "sha256": "97e72ff5ddeddd1a5432ab92092dd1294e5f3f240096a42d9e72cfd2deaa9bf0",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "grobot-exploded-light.png",
+      "sha256": "448b9aaf3ea7dca9484a4f46a81dbd7c24d2b83fc380502f2b9faf8d910912ec",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "hackrf-assembled-dark.png",
+      "sha256": "0e49cd3e35f6257b4535e2f6ffe2daf4c60786994b90647aea761625d7657868",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "hackrf-assembled-light.png",
+      "sha256": "258d199e944866f587a2a509f1aed65acdd441a5edfe526bf7172591fdce0a71",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "hackrf-exploded-dark.png",
+      "sha256": "2aafaabd24b8130d3addc65e588ffbd8c7c393c04d22aa8927007eb8a1a515c9",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "hackrf-exploded-light.png",
+      "sha256": "6f7f79a469f5cdd7846814d597216ee1127a995e0b20ba3d49713b16ec3fdaf9",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "haptic-assembled-dark.png",
+      "sha256": "cc8517f5104766e6a4f0ae45ec99342ad260f581be56d088c708d3ce1d7fbcda",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "haptic-assembled-light.png",
+      "sha256": "587a66c7934afefaeb0f7da7a8c196bf5156a8b49f27d6a0d2cfb39dbd3e7b9d",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "haptic-exploded-dark.png",
+      "sha256": "11c1791540b7fddbd699a4f4e406bf3dbc41ce4baf135d6bb6ebe04611a5ad43",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "haptic-exploded-light.png",
+      "sha256": "ecd9e3b349de702d4ab876af3a9da963550aa2cda0d0c815a47763fd50dc731a",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "hbm-assembled-dark.png",
+      "sha256": "41f06ce9a3fd041eb85e402d7caa0248998b8564b9026507729da514b98e81e0",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "hbm-assembled-light.png",
+      "sha256": "9df64c2568725315e1b192a67bff3f3a803765c81b83aec5925095d391b38920",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "hbm-exploded-dark.png",
+      "sha256": "616d5673f827a9b808814968ba120baec1ed1eb3b40d5264ebba988f510c3724",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "hbm-exploded-light.png",
+      "sha256": "754db7e4d8ee7d80d6980799b0725ec305f4646fc7dbe721804d7d23f9d4fdae",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "hdd-assembled-dark.png",
+      "sha256": "f3bd4e26f023370e40eb153a0da28b3b9c60967483601e8a9912978c907b2369",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "hdd-assembled-light.png",
+      "sha256": "b2f82a9f8a2169935e144beefcda8df527faeb28068b7ee60b856b97cad930a2",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "hdd-exploded-dark.png",
+      "sha256": "9c60bc127ebfc3cff93ac5bb90aae1a98958e9b08bee10f4875a2e7f5bf4c312",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "hdd-exploded-light.png",
+      "sha256": "9a32f312401edc2567fa9b45db051e6c32aeca430afe367376117de0c261e685",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "hqcamera-assembled-dark.png",
+      "sha256": "72d338b00cbc0773b8850852cace617a255f7415518351b0d0685ab583a12658",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "hqcamera-assembled-light.png",
+      "sha256": "1f15e997adbc5262c9f7dc1d085d10665e026badf48a3506e882403b6d647530",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "hqcamera-exploded-dark.png",
+      "sha256": "27d643198955bfdf6f15dfa34a1eed5956340d71d9ed42fa035d3806495d0aff",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "hqcamera-exploded-light.png",
+      "sha256": "f2f72b921ca61d392caca8dc5f44996b53bb562774774a357a71094cf5b97ef7",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "imu-assembled-dark.png",
+      "sha256": "757a0954ebe39aecbb010ee8dd98f9583071c68d501234e816b693d86e2030e3",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "imu-assembled-light.png",
+      "sha256": "cca4fd16c425d67614e85ca26bfd07a3b0b17be3313b334d9c521ae259ee85a1",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "imu-exploded-dark.png",
+      "sha256": "deaf07758bf2629355d1c10685fe6711bc593ce457c6d06adc32747525f5bc85",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "imu-exploded-light.png",
+      "sha256": "ce05c341d5dd34d5921ea4ae5fe0f413e7adb8d9a0beb7563ddad99166ee2fcf",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "imx500-assembled-dark.png",
+      "sha256": "ccacb6e2019d13705fcc40e3275d2c0829d1d202fd7da00fa38f99c1288581ee",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "imx500-assembled-light.png",
+      "sha256": "f9636724bae35e2a257a7a204e23f6d2695833c3278e5fa0b63051f0d64004de",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "imx500-exploded-dark.png",
+      "sha256": "71500ae8a693e103b35f7aa1cf8f2872c1ac05cd39e401ee59f8582c1340462b",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "imx500-exploded-light.png",
+      "sha256": "c36a2a3f19f6bbc864321265d919f796baf7c2253a370d389a56bfbc798f92a2",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "intel4004-assembled-dark.png",
+      "sha256": "14791e5a287e29bded648c113a0be12a027541fffe1ed92684e95c9f50969461",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "intel4004-assembled-light.png",
+      "sha256": "6a1b76d1f1dfaa0307c19a27c3e24a4dc4a01574993b1493ae3823e8ca97ce69",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "intel4004-exploded-dark.png",
+      "sha256": "5019e512f734de71c7d1c9b64cc4379f4103e0c1a5076e034345e9407180f16f",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "intel4004-exploded-light.png",
+      "sha256": "d162d7a4fc04855c64eac4595ce6845ca349c407fc133726d2d630fac052f8b9",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "jetson-assembled-dark.png",
+      "sha256": "d7b675805f82f10273ab83bd840828897d1bdee6d7d96b5c359fd90c70e0a036",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "jetson-assembled-light.png",
+      "sha256": "e666f60470b88892ffd7bf37d4ca2ea4166e47679deaa07c6c91271e7e6eea8b",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "jetson-exploded-dark.png",
+      "sha256": "82661f1de13c817af205b5cb73be1fcff9a6e04caba25cbeacbe5db37253108a",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "jetson-exploded-light.png",
+      "sha256": "c5e4b1cf482d29441bbd255cd7e157ef8aa51814f05a595ec2b8c2d795ac07b6",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "lepton-assembled-dark.png",
+      "sha256": "2fb1bcc361c5fe1bf1f295866d5bc18f18a6a8b903f5b4538bb8360b7b219d52",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "lepton-assembled-light.png",
+      "sha256": "088e6a1b4247c658be358f1182fe2a6bd1b107fa32ac68bf4fa4ef715c486012",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "lepton-exploded-dark.png",
+      "sha256": "65309c53a9339c0694cfed04f0a7c7616dc9cc180e617578bc0ae734d0508253",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "lepton-exploded-light.png",
+      "sha256": "800ae3ff59524917011925873847e13d2cab7223fdc1d0ed5b01304e79db2df2",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "lidar-assembled-dark.png",
+      "sha256": "cb627f0700ca1977b4d04f74b58e6dc9a1285522000f1d3ef7752fc17101f34e",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "lidar-assembled-light.png",
+      "sha256": "4c7df3f0d9fe0176d20c4e86149ea5c68dd0bcdd1a0adb29610c1e099abdde19",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "lidar-exploded-dark.png",
+      "sha256": "9ece7675a1cfcc106de5f55c38c8daf6ca6331f2159e4f17a832376adcd49374",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "lidar-exploded-light.png",
+      "sha256": "57ab866600c860a9a5bbc96510acf61dc6a45805b8bb96c42d27db4335f03da3",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "loadcell-assembled-dark.png",
+      "sha256": "7d884c33d639b29d49cfc9d8aaa522908a06da563116083d07af22ebd96536e1",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "loadcell-assembled-light.png",
+      "sha256": "f3471120efe62dd89549c882d93454b991af04f37ef97ff5ad2fe3e7b806f8b1",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "loadcell-exploded-dark.png",
+      "sha256": "1bb802aa85709ac75c82b040fe52cf875ac67d67cbd4b6bddb8b9462fec93d58",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "loadcell-exploded-light.png",
+      "sha256": "07a60273e17fc8f4d1c0433c98256df922dcde83bc6aa15a07d895adcaed0f10",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "lto-assembled-dark.png",
+      "sha256": "5a1cc68de3629a993b03117ab69c2884c81a4a65261f3fb0eb65ea4d4447bf56",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "lto-assembled-light.png",
+      "sha256": "090b464b4c950f49703f807bc730b4958e4e3e47676962866fc3982b5f96e9b7",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "lto-exploded-dark.png",
+      "sha256": "da7f051160bf99f857322ffa58c2478e49c0f19f3a5d85f389973f2a81ce09a9",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "lto-exploded-light.png",
+      "sha256": "c380253ad125d4f582d890cbe199158146d5c8aae299f2d1f97f07146b2922eb",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "max30102-assembled-dark.png",
+      "sha256": "aa460e9c6562f6cf17111753546851083f46174dda5b5ae1c7231d4443b57f03",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "max30102-assembled-light.png",
+      "sha256": "d1239646354fbe0833e6047e25c9667567bfebb637679206be455264983e8cbd",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "max30102-exploded-dark.png",
+      "sha256": "ab4bd69a0fbe181bf420b0134cbd5a4e0dc423ea04ae79bb0ec343234cbe8b6b",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "max30102-exploded-light.png",
+      "sha256": "e41c7b4dbdeeebbbbfe48f7e259f33f17e0a95a7a9b9bf02cb0340e097b2309a",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "memsmic-assembled-dark.png",
+      "sha256": "f3421402b99c9c9ded6f523bded7b4749f738b0c8eed94f89d6cc48654696aa6",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "memsmic-assembled-light.png",
+      "sha256": "dd7c27b4ff7addd66657edfdbcb93687b5b1ba36b33fc1e4d15d9c3e427cfd33",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "memsmic-exploded-dark.png",
+      "sha256": "d335e2458c273169633cc437054aec8bde2b880270db90e780de4dc92fa71c95",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "memsmic-exploded-light.png",
+      "sha256": "692440bc6a0c6e458daefa4385f105fd6460b8b696233ccfe27cf2ca2b6d63fa",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "nand-assembled-dark.png",
+      "sha256": "85931c02bc79c4adffe7b7d8c8bb960b1afc3295169f140da1e4053fa1448bbc",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "nand-assembled-light.png",
+      "sha256": "b543b999afc2bccefaa820e11e3165fc6682cfe0e324dcafb40fd2c49ea56895",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "nand-exploded-dark.png",
+      "sha256": "4d17a1e28c2b812dd97f96cec1abe3decc82ea8c19318bb3153752d1dd3f4bb4",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "nand-exploded-light.png",
+      "sha256": "fbd64d153f550ae1651ad9ff3024361b4b594b68e2db35e5813ff4bf278420c8",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "nano-assembled-dark.png",
+      "sha256": "f5cff0f6ae7e8957864f9ccdbf2247109c04314266198bc2b80acea6a3316bd2",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "nano-assembled-light.png",
+      "sha256": "c497769af50b56da64d16c8bb8f459b9ef85dd9c308d411bd8b8405dff105bac",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "nano-exploded-dark.png",
+      "sha256": "cb41346b8a3390c0cf8fd71b82839077e0d5bf4cd3128b05472dc148c662decc",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "nano-exploded-light.png",
+      "sha256": "969e0378ebae04f7fb45f18be5f365ab20b6c10c6262b324ad10716b79d2d615",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "ne555-assembled-dark.png",
+      "sha256": "2405668edf1a6a7db758f11c756a8c70a5c58fe406973063bf4380456abb377b",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "ne555-assembled-light.png",
+      "sha256": "9a4eadd7769ed2db581cabc77a9141c7f13945aa02dc222315309884f67eb979",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "ne555-exploded-dark.png",
+      "sha256": "866d05cbd906c7246fc882523d0dc67de6c50e5fb5c76744155bba460958ae93",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "ne555-exploded-light.png",
+      "sha256": "8720edd896c7aa48430257bd7a40931b3e24ce90c3eab9b8166705175e45778d",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "neopixel-assembled-dark.png",
+      "sha256": "7e9571001db0d3a417ef97729474752a25cce1271be148394c31391f217f6281",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "neopixel-assembled-light.png",
+      "sha256": "8e6b7539e40640828082f53a2e5cec79c7aab5f1e4c9772fd1b4d947941ef826",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "neopixel-exploded-dark.png",
+      "sha256": "c2f8bd6e87988cc1c94cf42527282f99a05bef2f79b63e384c39788308c21922",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "neopixel-exploded-light.png",
+      "sha256": "37e5037bdf2ec6c943c798aa090760ee28e118a1d43b11fd121b3d4472902492",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "nixie-assembled-dark.png",
+      "sha256": "701880c1abfe6b89e58a9d138f79be5c5101ba104207ddea64e298e6bbcf2244",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "nixie-assembled-light.png",
+      "sha256": "20955ea89a0bdd13f36cbb2540cc5a95a9af210c42ed53116a118bc4ae85a24c",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "nixie-exploded-dark.png",
+      "sha256": "fd070daa215183f9733f18b40cf77aaad5825e8eef3347ca0fd9b580cb38ffcf",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "nixie-exploded-light.png",
+      "sha256": "b41a957c3ae787073e4546e5673ac891ba830d2b2190cf6a62a5d69ddce2adf6",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "nucleo-assembled-dark.png",
+      "sha256": "65e14270764163e931c968e0e6439e4be5bd06dfd10407ac665c4b29dd693c1c",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "nucleo-assembled-light.png",
+      "sha256": "fae595babbf468df49c7eb873e593b3839245b9a0ddd44a8a53b27e466a65745",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "nucleo-exploded-dark.png",
+      "sha256": "1ae520bf6d87167e34e0746e40e3ffbe9238eb7dc52b332cf07cbe9d62365083",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "nucleo-exploded-light.png",
+      "sha256": "0530c3df009f7d2926b22721600674bc8d4c321e23013fc9fced33627f34c955",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "nvme-assembled-dark.png",
+      "sha256": "92d2bc0e168631e5ce1ea9ec5803a82f110dcabae913a5e026e5fbc93b40213f",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "nvme-assembled-light.png",
+      "sha256": "bdf16f078b14b624de515f81a260152540f83383db0d5914b7fae73cd3138818",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "nvme-exploded-dark.png",
+      "sha256": "8f26c3925e8af661857f887c3c9737dae796472d3b9c83b9df1ad6dc9763ccf6",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "nvme-exploded-light.png",
+      "sha256": "6e4f317bd9af8ceba688010646615eb8d156bdd6cdf99b0ec0fffd3b8a9558ac",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "orangepi5-assembled-dark.png",
+      "sha256": "623cef5c7f2c1d66370cd9758614b4d48175e454a271ee4976d554389467ec29",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "orangepi5-assembled-light.png",
+      "sha256": "bd2a20447d8564d2c0d9702a3e43cb62dcc0722dd9623884c3cf8ae916f0deeb",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "orangepi5-exploded-dark.png",
+      "sha256": "8b3bdcc055b40c3c115b9c0693278427964e51141b3c81d15d6b7bcd50df2f4f",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "orangepi5-exploded-light.png",
+      "sha256": "d5110b3f00bcfcdc28a689e96300e077d739211eaee646361ed5551de366b981",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "periscope-assembled-dark.png",
+      "sha256": "d8bcc1064352f9251fd4cab010304edfa69501f7fcae070526b015b15850d869",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "periscope-assembled-light.png",
+      "sha256": "3565c191e9367dbdee2aa937fbb84e5517cadfdc660eff2a2ad2c4afb1a59c0b",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "periscope-exploded-dark.png",
+      "sha256": "40b590ed180ffd3435c940e4c7c04af3b38288007d5ff7b7a51a0371e8c29522",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "periscope-exploded-light.png",
+      "sha256": "e7b2a5bbdde335f8c3a0676f601ed7730a023d4129ec9fb0ac26f36c8024a208",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "pi5-assembled-dark.png",
+      "sha256": "a1c9b74bc376e2b2fc2b39e86ce90877bd881d6e83921d5985f236445ee2733d",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "pi5-assembled-light.png",
+      "sha256": "b8dcee2ce9900dba0faae86c237e7c2c12bd28938a1178728821d7ce49deff29",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "pi5-exploded-dark.png",
+      "sha256": "4e9d1aa14c45f94bc11f85849abb35ae63163ad47bbf01032e1028016fe6d22e",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "pi5-exploded-light.png",
+      "sha256": "084237224a71d790e2e0e0aed07f5b6513dfe1a1e151a323f4ace2efdce63340",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "pico2w-assembled-dark.png",
+      "sha256": "56bcdec18ac433e5467db69d277b7fa4c096b9704ec9abadee22b451dbb4b632",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "pico2w-assembled-light.png",
+      "sha256": "945216ecc57c09bd7e30fa351ea0e29a40d9afe4b35b25ac2e6e42548ef314fd",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "pico2w-exploded-dark.png",
+      "sha256": "52fbadd5a909583b87bc28ada5f1b854849f752016f3ebda442c3bf79bc50ede",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "pico2w-exploded-light.png",
+      "sha256": "9c86dd2e6c5bc2738ad749ed930c143903bcee183e9e320f59a1a66f40ed65a3",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "pir-assembled-dark.png",
+      "sha256": "07b6c18f7c94a9d1fa3bae3133143a7f54403f770e36c93ef3cc2f7c16b9e6ca",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "pir-assembled-light.png",
+      "sha256": "92ce6b209e9f0ecb5771dd5d3f629439e05718cd00c3bb4ca3f789b9f05b75e4",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "pir-exploded-dark.png",
+      "sha256": "b7ff064d0b6aa3bee16c461ff0b1655ff867883a8501a3b8c20fe43a3a953c1c",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "pir-exploded-light.png",
+      "sha256": "684faff2d43b70b020aff42aa6bd304f46721f0973808035a692fa4c9051ae43",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "planar-assembled-dark.png",
+      "sha256": "4c30559b63c638caf262e8b4488e1f5509bc4fc00555e2e632542b4409db9dd8",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "planar-assembled-light.png",
+      "sha256": "411baedcb6c7172c9a49f2ea041d8f6c60b242afabf0c4217b2406b709969f07",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "planar-exploded-dark.png",
+      "sha256": "2f3105fecb22406f15abe368edaa98bfa3961c372c58f2fb26f1914605a8471c",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "planar-exploded-light.png",
+      "sha256": "45621669b545624b7e597ff4b55c0601b9ee0a7acdd23766e031bea5355e42d2",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "pmt-assembled-dark.png",
+      "sha256": "cabb712b09aebb6dcd4067417c45d419fa9839355c03c4767ef956addb9455a9",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "pmt-assembled-light.png",
+      "sha256": "a2ba3ea6831982c34f370770759eb620fe9bca3f0af5150c5df267deadd014e5",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "pmt-exploded-dark.png",
+      "sha256": "ff0e9515a13c6f51af96468933212d20cb6daf482c869bcd666778291458e81a",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "pmt-exploded-light.png",
+      "sha256": "89a11fa8a7bafdfe136471e2b750b0f196c825c695613cdae3b0afc85e07644b",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "portenta-assembled-dark.png",
+      "sha256": "be2d7c5d84901214a88b783a1818734b19dee32587402c4aedbd8bca44f996c4",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "portenta-assembled-light.png",
+      "sha256": "12f76fc33f744faaf405f4d67d3bb4bf0617ed58ed674f5b70876d6ae016e781",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "portenta-exploded-dark.png",
+      "sha256": "e577abfa12007bb6bf4b6dde7fff77a8cc24d29b3085c3a44c65bc7ec5b22a5f",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "portenta-exploded-light.png",
+      "sha256": "4c8d7b64ed1c6e68306fefefd5cf3706552d15a6b5f2a992c6e1d598d8b63fac",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "prime50-assembled-dark.png",
+      "sha256": "c0bb524d9fa5844843592aca8c936f72711032a487bb04e9b86d5d593d29174b",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "prime50-assembled-light.png",
+      "sha256": "36d425433bd52cfdabec883a3e34082f0186740f633fe3ae690a964b2a956d19",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "prime50-exploded-dark.png",
+      "sha256": "4c25738d8bba36a033e0bb29983d598c82a894acec5918f4d9a6a251085ea769",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "prime50-exploded-light.png",
+      "sha256": "e9429bc5cc6c0713a31bc6371b0ff23cb741ca9a2958162f4c98964d91620d2e",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "printhead-assembled-dark.png",
+      "sha256": "fcd8fb3d64a0591e2361254e2c3c0a565a7b0c97f6343394e027edeae4f1ecaa",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "printhead-assembled-light.png",
+      "sha256": "785eab84f8bb610a86ff71e0b5ff7a3f74dae5d29e53572ede4d4084460ce270",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "printhead-exploded-dark.png",
+      "sha256": "872bc6822fee2fc46c3500d66f2869fa5c3081a06b3efe6a3ab6ccb0f30faba1",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "printhead-exploded-light.png",
+      "sha256": "c185f40ffbf0ad70af52d84bdec103e612c0830e676d54455751ef80e6c775e6",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "qi2-assembled-dark.png",
+      "sha256": "86050e0ae06a31ae74a4fdae17fa78931a7237dcfd6c32608699e20aadb88e40",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "qi2-assembled-light.png",
+      "sha256": "1c58a5835075c834897e96e4c56886be992c4e227bb96a4cbef9f95a12ede697",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "qi2-exploded-dark.png",
+      "sha256": "9666a7dc31caa3ee2173e7298ed59c705cfe47dec2eea960ade330f3e2fe537f",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "qi2-exploded-light.png",
+      "sha256": "2cbf355d1bd3763418144f3f5870714425fea029414db046a560f8cf53efd210",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "quartz-assembled-dark.png",
+      "sha256": "71e3b43284f1a522d3d7021bbb9aa2b510e42b3f177bdd10da7bb2aee2bfcab7",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "quartz-assembled-light.png",
+      "sha256": "2c3ce7bd03f30f6be9abd8349935fdbf0c5c47f550a41959706f7ae99660bce9",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "quartz-exploded-dark.png",
+      "sha256": "9a3d9f253d9fee7bbb078ea6e58ea6ea33324a8ef8bb116d2e7aac12213f21ba",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "quartz-exploded-light.png",
+      "sha256": "5136cc29b3c98137ea358f5291915d9cdee6b8c95aabb66de9f123f76d632a24",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "radar-assembled-dark.png",
+      "sha256": "e90a3b68e12b7ecf2d504846eb560281e11a9c4c8fc78f673cdeca2f06311b11",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "radar-assembled-light.png",
+      "sha256": "68d66769de1d1205c0724d13a44c0b7c6a38c061d1c3e29a738d0b4449f10ff8",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "radar-exploded-dark.png",
+      "sha256": "b22043f7f9d22d675d2db51e21cda3beaf1db372370ee967e4d93a4c5e7e1bd8",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "radar-exploded-light.png",
+      "sha256": "ab7b9e763b19d41402df357d32fdd43518ec9784eb8ca048cc14f43f470452f0",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "relay-assembled-dark.png",
+      "sha256": "d622699c0386e5a9e13152fce36bf767337d40572faf234dd778495c08a5b795",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "relay-assembled-light.png",
+      "sha256": "ff0a20125007e01fafcfc0e3ff4af980b59a5a64f6a0444ad23976a67983226e",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "relay-exploded-dark.png",
+      "sha256": "4aff5a928dfddfed4a798d1c681b7a411eafc78f58bf445c19ee861861aa8ff5",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "relay-exploded-light.png",
+      "sha256": "51ef1cd14e6aa3bab831a0a84b6defe65197b38d99ef42839ce0653e3d43a320",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "rp2350-assembled-dark.png",
+      "sha256": "71ac866dfbe91c82b4bb744d9841369a1b68342ee9769273a785841a7a5f2ff0",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "rp2350-assembled-light.png",
+      "sha256": "d067f5f3fc38c6a2d5d61bbd03f2e3fa2c9555b575b0c5cfdfff942c5366a55e",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "rp2350-exploded-dark.png",
+      "sha256": "0558f496e64627d5b2514ec5f1c26868a7d7a0084de08040654d9e7368588f25",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "rp2350-exploded-light.png",
+      "sha256": "d66bfc72407acfd8e53811a9c7ccdaa389d08075e5302e0e8fd45234def69fff",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "saw-assembled-dark.png",
+      "sha256": "373adb9d2d5c5256c0ab3b9022055548e4d3919db71fb9888d9903a4e39870f1",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "saw-assembled-light.png",
+      "sha256": "ef2623895884137e260be3b1f32396d9913c9ad70776dd8348bdeed01ca59134",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "saw-exploded-dark.png",
+      "sha256": "c1d4ba997051ca251fb8547edab4921ef1ff02785bb866e757325ed9f9d2f20e",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "saw-exploded-light.png",
+      "sha256": "ab27e49c30ecc3182c0d040d24b5d12453d1ebdc72acba9500e6cf7551e10f53",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "scd41-assembled-dark.png",
+      "sha256": "4f4c13f9b7835fa3b947a4f8e10ddc268e57ade660f7ab860b1c08f5b52aa9bc",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "scd41-assembled-light.png",
+      "sha256": "e77f5be01b71baed00d6c144206eee4e0c3bd3d77e3180dcbbf213871982d3ac",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "scd41-exploded-dark.png",
+      "sha256": "b65342894407bf48844e6c33128b64c13d446dcf537c9c2029d56cf6f2ef7551",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "scd41-exploded-light.png",
+      "sha256": "ff018f6012ecca36cd1898f6c5d2e9897db3627ec705bb1815274ca29a437294",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "shutter-assembled-dark.png",
+      "sha256": "783ef67105d444790860cdf4915d5e197495c570506ff4a3b2444c64a11aa9c0",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "shutter-assembled-light.png",
+      "sha256": "7d3d517b7188b6ee6bb60d7455c866ca30cd2d4b39bbdd638bde5bf9a765611b",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "shutter-exploded-dark.png",
+      "sha256": "664a8bd153a5a97712a5a60b138bebbc2dd4960f014dd4718a02e3590bf01d00",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "shutter-exploded-light.png",
+      "sha256": "7bf4d417f65f63822c3ccdf6cd677fb5ac7e0a3963477410ad03cada928eb26e",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "spectrometer-assembled-dark.png",
+      "sha256": "89ab7cd0d0a1414768abab681945501b1c55d3703db70232fb088bdb43474794",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "spectrometer-assembled-light.png",
+      "sha256": "2af7977e5dae0bec573cbf9ade606d9da75e256e2b9815b36500ec2b5f71f35b",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "spectrometer-exploded-dark.png",
+      "sha256": "77fc1c3a396471dc24760a0178c2dd8e2094f91a9a5a22b084df2b68147ae1cc",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "spectrometer-exploded-light.png",
+      "sha256": "99dbbc50aed681244abec59304877c524dea295aec3b3d9fa3e030c2a8b6aeba",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "sps30-assembled-dark.png",
+      "sha256": "62f31845f599b9d90f37917faaf7be37435a13f11dacbc2e7cddd3175b097ae7",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "sps30-assembled-light.png",
+      "sha256": "f95280228df69cfcab9f4d95ae908748d1ef19fe6019789aee0e188bb3b403aa",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "sps30-exploded-dark.png",
+      "sha256": "0dc11a01997d013d2eb84eb1505f79a0ba4e6ab7b59b1199613b37bd1e622942",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "sps30-exploded-light.png",
+      "sha256": "82703327ebe17cd02a0d51f7f5cab04c980398644b398e8b3c19f71e44097ba8",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "stepper-assembled-dark.png",
+      "sha256": "9cc9ea83ca5cfccf69522a4207064dfa5b765659da11c6399e7cd59069634041",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "stepper-assembled-light.png",
+      "sha256": "c43a3c62b7258188d57cdcae416d2fb79e9173c335deac5eb69c1bb8e02314f4",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "stepper-exploded-dark.png",
+      "sha256": "15d2aa86419acd0453287288482e043f49865f8c00e898c0714675a7c960d911",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "stepper-exploded-light.png",
+      "sha256": "f17d8fe49b9ba7ff1c4cdabad2d527e71f128e9aa08e1954b039325a3e5c57c8",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "thermalprinter-assembled-dark.png",
+      "sha256": "6b8d223938aeb10c66c6063dbae9de520ee7f8a0a832c81c6686ca68dc9df35c",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "thermalprinter-assembled-light.png",
+      "sha256": "78a4649db34f975be0e1c2a299b3e48143316efd2cc708fb14e7e74d22a703d6",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "thermalprinter-exploded-dark.png",
+      "sha256": "fa71338cc5c7918900d511195fc8d1d7d0bc3ab72cb59d39181e3bca1650ec84",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "thermalprinter-exploded-light.png",
+      "sha256": "2fcaf0c15b2ad4030562376428d86074219356ec00ac19651051d019dbb132cd",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "tof-assembled-dark.png",
+      "sha256": "6564dda20bbc53ffae95dec7307d06528336bd456e4d39e49a850f9a12486f9d",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "tof-assembled-light.png",
+      "sha256": "5a03d1ce87a4c86a946514d9e4233ffb012a940e695761b7a85f80815ed7071d",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "tof-exploded-dark.png",
+      "sha256": "6b3dee9543ff32ab002fbc5992bac7283704697d946e15fbd5cdcb16c8b60c03",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "tof-exploded-light.png",
+      "sha256": "2475c528fb303298775e42679c78b74a3e4bc5ff43d32c99cd12f80c74dee258",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "ultrasonic-assembled-dark.png",
+      "sha256": "79ca56e49a178ae103ddac666d1fd4122cb007485e653503cfd44724a821f27a",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "ultrasonic-assembled-light.png",
+      "sha256": "b11059e945a17ddae32c76ba2a0ea5a9a2f711f219d92d04f0bc5670e591a278",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "ultrasonic-exploded-dark.png",
+      "sha256": "fbaf92312a7c9b608b3d30017dfd8746999fc7fe31e77400470c158e12dc05d0",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "ultrasonic-exploded-light.png",
+      "sha256": "b69a82769982135b2128c05e2deceee14c0bd38ce6d884cad6eb1f8332a865f2",
+      "reviewer": "maker_microdevices",
+      "result": "pass"
+    },
+    {
+      "file": "uno-assembled-dark.png",
+      "sha256": "f7d59fab126c7b50e18f31ebd4363cfbe52858350bfde4a37b9e474de5e0946d",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "uno-assembled-light.png",
+      "sha256": "51b0b9d2f190dca66e8abb2106419023cef461cb58d074939732ec2f1f4f896e",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "uno-exploded-dark.png",
+      "sha256": "6145e655ffe9b1551ad87820f477f5a52b863e71c849b03f4b261f321d212a78",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "uno-exploded-light.png",
+      "sha256": "6bb18161e066a4c15ea392681ce45f492c0c257604c0d41bbc2ee5962612c2ea",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "vfd-assembled-dark.png",
+      "sha256": "dfb74a476adcea98a49ee1688acab228727f8c518f5074a42ce51414b6107987",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "vfd-assembled-light.png",
+      "sha256": "d5db319ccfa8954e00caf49b5c2172de927a10ca524ec04fcd458dc90367d4ea",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "vfd-exploded-dark.png",
+      "sha256": "16aaa27c9b15cae5057d5505b2c5a3f2dea184beb54eefe6b7f3499ad72c7f4b",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "vfd-exploded-light.png",
+      "sha256": "932c185d1547b3b834efc176cc37846c2eb7dc67320b12b8ba375e333ae54e39",
+      "reviewer": "root",
+      "result": "pass"
+    },
+    {
+      "file": "zoomlens-assembled-dark.png",
+      "sha256": "eb4451cec05efd4150469399195810817f540e5c4b3dea2b5dd422c4e1f54f2f",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "zoomlens-assembled-light.png",
+      "sha256": "3ede8c2e2d23bea3d30b37fae0659540ac935922b6e2919f32cd1969a590ee24",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "zoomlens-exploded-dark.png",
+      "sha256": "6fd7e3d223b8a4314840a161bf725466d8006e8d1208c72e9940c73a17555235",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    },
+    {
+      "file": "zoomlens-exploded-light.png",
+      "sha256": "6c7c9f44b4c9e05cc086f04e8cfbf7a98fc2bad2f0feaa66219d33029b1b2f20",
+      "reviewer": "maker_mechanisms",
+      "result": "pass"
+    }
+  ]
+}

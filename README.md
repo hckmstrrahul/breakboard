@@ -7,7 +7,7 @@ Explore development boards, displays, optics, sensors, chips, audio, power hardw
 ## Take it offline
 
 <!-- offline-stats:start -->
-**61 interactive devices in one 24.95 MB HTML file** (23.79 MiB).
+**66 interactive devices in one 25.08 MB HTML file** (23.92 MiB).
 <!-- offline-stats:end -->
 
 [Save the standalone HTML](https://breakboard-teardown.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
@@ -81,6 +81,11 @@ Actual 2400 px PNG captures from **Save image**. Each pair shares its camera and
 | **Artix-7 FPGA** | ![Wire-bond package, representative logic die and 324 solder balls separated in light mode](docs/images/fpga-teardown-light.png) | ![The same Artix-7 FPGA in anatomy mode](docs/images/fpga-anatomy-light.png) |
 | **Micron HBM3E** | ![Eight memory dies with vertical interconnects, base die and package bumps separated in light mode](docs/images/hbm-teardown-light.png) | ![The same Micron HBM3E in anatomy mode](docs/images/hbm-anatomy-light.png) |
 | **Windowed EPROM** | ![Ceramic windowed package, 28 leads, die and bond wires separated in light mode](docs/images/eprom-teardown-light.png) | ![The same Windowed EPROM in anatomy mode](docs/images/eprom-anatomy-light.png) |
+| **GaN USB-C charger** | ![Power Integrations DER-942 Rev B board, transformer windings, power components and USB-C port separated](docs/images/gan-teardown-light.png) | ![The same gan usb-c charger in anatomy mode](docs/images/gan-anatomy-light.png) |
+| **Qi2 charging pair** | ![Apple A2580 transmitter and iPhone 15 Pro receiving assembly with their coil layers separated](docs/images/qi2-teardown-light.png) | ![The same qi2 charging pair in anatomy mode](docs/images/qi2-anatomy-light.png) |
+| **PrecisionCore printhead** | ![Epson I3200(4)-A1 printhead with its 3,200-nozzle plate and representative internal layers separated](docs/images/printhead-teardown-light.png) | ![The same precisioncore printhead in anatomy mode](docs/images/printhead-anatomy-light.png) |
+| **Thermal printer** | ![SII LTP02-245-01 frame, platen, gears, motor, heater row and paper separated](docs/images/thermalprinter-teardown-light.png) | ![The same thermal printer in anatomy mode](docs/images/thermalprinter-anatomy-light.png) |
+| **SAW filter** | ![Murata SF2124E ceramic package, six contacts, lid and representative acoustic die separated](docs/images/saw-teardown-light.png) | ![The same saw filter in anatomy mode](docs/images/saw-anatomy-light.png) |
 
 To reproduce: choose **Light**, reset the device (tags start off), and use **3D**. ESP32 uses its default 78% separation; all other devices use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
 
@@ -187,6 +192,11 @@ X-ray, playback, overview tags and camera choice persist across device changes. 
 | AMD / Xilinx XC7A35T-1CSG324C | `#fpga` | [Artix-specific wire-bond package drawing; representative die and configurable logic](reference/fpga/evidence.md) |
 | Micron MT65B12G16080A00QG-92:A / 24 GB | `#hbm` | [Documented eight-high stack; representative TSV and microbump detail](reference/hbm/evidence.md) |
 | ST M27W256-80F6 / FDIP28W / Rev 3 | `#eprom` | [Documented windowed package and 32K-byte organization; representative die](reference/eprom/evidence.md) |
+| Power Integrations RDK-942 / DER-942 Rev B / RDR-942 Rev 1.0 | `#gan` | [Documented 65 W active-clamp flyback board and windings; representative hidden IC detail](reference/gan/evidence.md) |
+| Apple A2580 / Qi 14294 / iPhone 15 Pro receiving assembly | `#qi2` | [Photographed compatible Qi2 pair; representative receiver winding and qualitative coupling](reference/qi2/evidence.md) |
+| Epson I3200(4)-A1 / March 2022 | `#printhead` | [Documented 3,200-nozzle module; representative enlarged MicroTFP chamber](reference/printhead/evidence.md) |
+| Seiko Instruments LTP02-245-01 / August 2012 | `#thermalprinter` | [Documented 384-element mechanism; reconstructed gears and persistent sample print](reference/thermalprinter/evidence.md) |
+| Murata SF2124E / SM3030-6 / August 2019 | `#saw` | [Documented six-pad RF package; representative SAW transducers and illustrative response](reference/saw/evidence.md) |
 
 These are educational reconstructions. Separating soldered parts explains their roles; it is not a physical disassembly procedure. Estimated heights, connector interiors and hidden placements are recorded in [reference/](reference/) and the [device registry](src/boards.js). X-ray reuses the same modeled surfaces. The new sealed-module cutaways explicitly identify illustrative interiors; chip surface regions are functional diagrams, not fabricated transistor layouts or buried-copper maps. Signal paths illustrate activity, not an electrical simulation. The stepper is a representative mechanism, not a manufacturer-specific replica. The DLP package stays at its documented scale; a separate **600× detail** explains the micromirror mechanism without claiming a disclosed fabrication stack. Nixie electrode shapes and hidden construction are identified as reconstructed.
 
@@ -240,7 +250,7 @@ Deploy `dist/` to a static host, or use the [standalone offline file](#take-it-o
 
 Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. The expansion checks cover contact mating, motor apertures and rotation, haptic pulses, encoder conversion, quartz division, audio linkages, waveform response, environmental sensing channels, MEMS axis signs, depth-zone mapping, radar placement, PIR timing and ultrasonic propagation. Independent reviews record source limits and corrected findings: [batch 1](docs/verification/expansion-batch1.md), [batch 2](docs/verification/expansion-batch2.md), [batch 3](docs/verification/expansion-batch3.md), [batch 4](docs/verification/expansion-batch4.md), [batch 5](docs/verification/expansion-batch5.md), [batch 6](docs/verification/expansion-batch6.md), [batch 7](docs/verification/expansion-batch7.md).
 
-The standalone HTML loaded all 61 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
+The standalone HTML loaded all 66 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
 
 Normal development uses the supplied runtime assets. Downloaded reference CAD, PDFs, photographs and intermediate meshes stay local; source URLs and evidence records are included. Regenerating STEP meshes additionally requires `cadquery-ocp==7.9.3.1.1` and the `import-*` / `package-*` scripts in [scripts/](scripts/) and [reference/grobot/](reference/grobot/). Arduino extraction uses `prepare-uno.py` and `prepare-nano.py`.
 
@@ -253,3 +263,5 @@ Normal development uses the supplied runtime assets. Downloaded reference CAD, P
 - Waveshare UPS HAT (D) and 1.47-inch LCD geometry is adapted from the manufacturer’s published STEP files; [source and modification notice](public/licenses/waveshare-grobot.txt). Grobot’s custom parts are proposed packaging geometry, not manufacturing CAD.
 - NE555 genuine die photograph © Mikhail Svarichevsky / ZeptoBars, [CC BY 3.0](public/licenses/ne555-zeptobars.txt); cropped, resampled and rendered in color or monochrome.
 - [Untitled UI icon notice](public/licenses/untitled-ui-icons.txt). Board names and logos identify their respective hardware vendors.
+
+The complete forty-device expansion received a final maker/checker review: [verification report](docs/verification/40-device-expansion.md), [264-image review ledger](docs/verification/40-device-visual-baseline.json) and [desktop performance measurements](docs/verification/40-device-performance.json).

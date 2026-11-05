@@ -1,3 +1,8 @@
+import {GAN_BOARD} from './gan.js';
+import {QI2_BOARD} from './qi2.js';
+import {PRINTHEAD_BOARD} from './printhead.js';
+import {THERMALPRINTER_BOARD} from './thermalprinter.js';
+import {SAW_BOARD} from './saw.js';
 import {NE555_BOARD} from './ne555.js';
 import {RP2350_BOARD} from './rp2350.js';
 import {FPGA_BOARD} from './fpga.js';
@@ -84,4 +89,5 @@ Object.assign(BOARDS,Object.fromEntries([MAX30102_BOARD,LOADCELL_BOARD,GNSS_BOAR
 Object.assign(BOARDS,Object.fromEntries([PRIME50_BOARD,ZOOMLENS_BOARD,PERISCOPE_BOARD,D455_BOARD,SHUTTER_BOARD].map(device=>[device.id,device])));
 Object.assign(BOARDS,Object.fromEntries([HDD_BOARD,BLURAY_BOARD,LTO_BOARD,NVME_BOARD,NAND_BOARD].map(device=>[device.id,device])));
 Object.assign(BOARDS,Object.fromEntries([NE555_BOARD,RP2350_BOARD,FPGA_BOARD,HBM_BOARD,EPROM_BOARD].map(device=>[device.id,device])));
+Object.assign(BOARDS,Object.fromEntries([GAN_BOARD,QI2_BOARD,PRINTHEAD_BOARD,THERMALPRINTER_BOARD,SAW_BOARD].map(device=>[device.id,device])));
 export const BOARD_LIST=Object.values(BOARDS);

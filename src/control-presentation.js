@@ -2,6 +2,11 @@
 // only useful outputs, with the longer method notes in the device inspector.
 const row=(source,label=source,unit)=>({source,label,...(unit===undefined?{}:{unit})});
 const profiles={
+ gan:{labels:{profile:'Profile',pps:'PPS voltage',load:'Load',attach:'USB-C',phase:'Phase'},readouts:[row('VBUS / load current','Output'),row('Ideal delivered load','Power'),row('USB PD state','State')]},
+ qi2:{labels:{offsetX:'Offset X',offsetZ:'Offset Z',gap:'Gap',load:'Load',powered:'Power',phase:'Phase'},readouts:[row('Receiver coupling','Alignment')],wave:['Induced AC','Relative']},
+ printhead:{labels:{row:'Row',nozzle:'Nozzle',pulse:'Drive',rate:'Rate'},readouts:[row('Ink channel','Ink'),row('Chamber phase','Phase'),row('Illustrative droplets','Drops')]},
+ thermalprinter:{labels:{speed:'Speed',pattern:'Pattern',heat:'Heat',paper:'Paper'},formats:{heat:v=>v?'On':'Off',paper:v=>v?'Loaded':'Empty'},readouts:[row('Status','State'),row('Feed'),row('Printed half-dot rows','Rows')]},
+ saw:{labels:{frequency:'Frequency',level:'Input',sweep:'Sweep'},readouts:[row('Illustrative loss','Loss'),row('Output level','Output','')],wave:['Output','Relative']},
  ne555:{labels:{ra:'RA',rb:'RB',c:'Capacitor',supply:'Supply',phase:'Phase'},readouts:[row('Ideal oscillation','Frequency'),row('Output high duty','Duty'),row('Capacitor voltage','Voltage')],wave:['Capacitor','⅓–⅔ VCC']},
  rp2350:{labels:{core0:'Core 0',core1:'Core 1',pio:'PIO',sm:'State machine',gpio:'GPIO',divider:'Divider',delay:'Delay',step:'Output'},formats:{core0:v=>v?'Hazard3':'Cortex-M33',core1:v=>v?'Hazard3':'Cortex-M33',step:v=>v?'Low':'High'},readouts:[row('PIO output frequency','Frequency','Hz'),row('Package destination','Pin')],wave:['GPIO','50% duty']},
  fpga:{labels:{program:'Function',a:'Input A',b:'Input B',c:'Input C',auto:'Sequence'},formats:{auto:v=>v?'Auto':'Manual'},readouts:[row('Output Y','Output'),row('Truth table (000 → 111)','Truth table')]},
@@ -38,7 +43,7 @@ const profiles={
  nvme:{labels:{mode:'Operation',rate:'Activity'},readouts:[row('Payload route','Data path')]},
  shutter:{labels:{speed:'Speed'},readouts:[row('Sequence','Stage'),row('Nominal moving slit','Slit')]}
 };
-const shortValues={'Parked on inner landing zone':'Parked','Seeking landing zone / slowing':'Parking','Infrared excitation':'Infrared','Pressure response':'Pressure','Acoustic response':'Pressure','Microphone readout':'Readout','Pixel acquisition':'Capture','Signal conditioning':'Readout','Dark interval':'Dark','Red illumination':'Red','Infrared illumination':'Infrared','No brightness change':'No change','Object metadata':'Metadata'};
+const shortValues={'Detached · VBUS off':'Off','Attached · default 5 V':'Default 5 V','CC request / accept':'Request','Transition / PS_RDY':'Switching','PPS contract active':'PPS active','Fixed PDO contract active':'PD active','Strong alignment':'Aligned','Reduced alignment':'Reduced','Weak alignment':'Weak','Very weak alignment':'Very weak','Excitation off':'Off','Refill / expansion':'Refill','Compression / ejection':'Eject','Feed without heating':'Feed only','Thermal printing':'Printing','Parked on inner landing zone':'Parked','Seeking landing zone / slowing':'Parking','Infrared excitation':'Infrared','Pressure response':'Pressure','Acoustic response':'Pressure','Microphone readout':'Readout','Pixel acquisition':'Capture','Signal conditioning':'Readout','Dark interval':'Dark','Red illumination':'Red','Infrared illumination':'Infrared','No brightness change':'No change','Object metadata':'Metadata'};
 export function controlPresentation(definition){
  const profile=profiles[definition.id]||{},controls=definition.controls||[];
  return{

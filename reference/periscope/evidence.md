@@ -1,6 +1,6 @@
 # Folded telephoto module reference lock
 
-Batch-5 maker candidate complete; independent review and integration are pending.
+Implemented and independently reviewed in [batch 5](../../docs/verification/expansion-batch5.md), including integrated browser and offline checks.
 
 Selected configuration: Samsung Electro-Mechanics **50M 5× Prism Lead Type**, 1/2.5-inch optical format, 0.7 µm pixels, 6P lens, F/2.53, 20.74° field of view, 18.45 mm total track length, 31.76 × 15.4 × 8.55 mm module envelope. This is the left-hand prism-lead specimen on the manufacturer page, not its smaller lens-lead neighbor or a dual-fold 10× module. No public ordering code, PCB revision or silicon stepping is supplied; the source configuration and retrieved page are the available reference lock.
 

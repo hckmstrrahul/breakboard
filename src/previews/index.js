@@ -121,6 +121,16 @@ import hbm_light from './hbm-light.webp';
 import hbm_dark from './hbm-dark.webp';
 import eprom_light from './eprom-light.webp';
 import eprom_dark from './eprom-dark.webp';
+import gan_light from './gan-light.webp';
+import gan_dark from './gan-dark.webp';
+import qi2_light from './qi2-light.webp';
+import qi2_dark from './qi2-dark.webp';
+import printhead_light from './printhead-light.webp';
+import printhead_dark from './printhead-dark.webp';
+import thermalprinter_light from './thermalprinter-light.webp';
+import thermalprinter_dark from './thermalprinter-dark.webp';
+import saw_light from './saw-light.webp';
+import saw_dark from './saw-dark.webp';
 export default {
  esp32:{light:esp32_light,dark:esp32_dark},
  pi5:{light:pi5_light,dark:pi5_dark},
@@ -182,5 +192,10 @@ export default {
  rp2350:{light:rp2350_light,dark:rp2350_dark},
  fpga:{light:fpga_light,dark:fpga_dark},
  hbm:{light:hbm_light,dark:hbm_dark},
- eprom:{light:eprom_light,dark:eprom_dark}
+ eprom:{light:eprom_light,dark:eprom_dark},
+ gan:{light:gan_light,dark:gan_dark},
+ qi2:{light:qi2_light,dark:qi2_dark},
+ printhead:{light:printhead_light,dark:printhead_dark},
+ thermalprinter:{light:thermalprinter_light,dark:thermalprinter_dark},
+ saw:{light:saw_light,dark:saw_dark}
 };

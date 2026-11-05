@@ -40,7 +40,9 @@ for(const def of BOARD_LIST){
   for(const part of def.parts){
    assert.deepEqual(model.groups[part.id].position.toArray(),part.offset.map(v=>v*e));
    const bounds=new T.Box3().setFromObject(model.groups[part.id]);assert(!bounds.isEmpty(),def.id+'/'+part.id+' geometry');
-   assert(bounds.min.y>-19.2,def.id+'/'+part.id+' clears the floor at '+e);
+   const floorY=def.floorY??-19.2;
+   assert(Number.isFinite(floorY),def.id+' finite floor height');
+   assert(bounds.min.y>floorY,def.id+'/'+part.id+' clears the declared floor at '+e);
   }
  }
  model.setPose(0);model.root.updateMatrixWorld(true);

@@ -1,10 +1,10 @@
 # Forty-device expansion plan
 
-Status: implementation in progress. Batches 1–7 are integrated and independently reviewed: thirty-five additions, **61 devices total**. The final five additions are being built and reviewed; the final 66-device review remains pending. [Batch 1 verification](verification/expansion-batch1.md) · [Batch 2 verification](verification/expansion-batch2.md) · [Batch 3 verification](verification/expansion-batch3.md) · [Batch 4 verification](verification/expansion-batch4.md) · [Batch 5 verification](verification/expansion-batch5.md) · [Batch 6 verification](verification/expansion-batch6.md) · [Batch 7 verification](verification/expansion-batch7.md).
+Status: **implementation and final local verification complete**. All eight batches are integrated and independently reviewed: all forty additions, **66 devices total**. The final review covers 264 individually inspected baselines, all controls, component framing, three GPU-cache traversals and offline operation in Chrome, Firefox and WebKit. Publication verification is recorded in the [final report](verification/40-device-expansion.md).
 
-Scope: add all 40 agreed devices to the existing 26-device collection, for 66 total. Each addition includes geometry, component selection, assembled/exploded views, X-ray, useful interaction, documentation, previews and offline support. The entries below are research targets, not claims that their exact hardware revision or hidden construction has already been verified. No device is silently dropped or substituted.
+Scope: add all 40 agreed devices to the existing 26-device collection, for 66 total. Each addition includes geometry, component selection, assembled/exploded views, X-ray, useful interaction, documentation, previews and offline support. The entries below preserve the original research targets; the selected reference locks and limits are recorded in the individual evidence files and the [final source closure](verification/expansion-batch8.md#final-40-referencedisclosure-closure). No device is silently dropped or substituted.
 
-The first batch locks Omron G2R-1 DC12, T-MOTOR MN2212 V2.0 KV920, Precision Microdrives C10-100, ams AS5600-SO_EK_AB/AS5600-SO_AB_V2 and Epson FC-135. Shared controls, per-device behavior, a three-model GPU cache, deforming anatomy contours and offline browser verification are implemented. Later mechanisms still need their own geometry and operation work.
+The first batch locks Omron G2R-1 DC12, T-MOTOR MN2212 V2.0 KV920, Precision Microdrives C10-100, ams AS5600-SO_EK_AB/AS5600-SO_AB_V2 and Epson FC-135. Shared controls, per-device behavior, a three-model GPU cache, deforming anatomy contours and offline browser verification are implemented. All later batches now have their own geometry, causal operation and independent checks.
 
 ## 1. Lock the evidence before modelling
 
@@ -182,4 +182,4 @@ Keep the final verification report at `docs/verification/40-device-expansion.md`
 3. Full 66-device final review and correction pass.
 4. Final source commit, production deployment and post-deployment verification.
 
-This document tracks the full implementation plan. The progress line and batch reports identify completed work; the final performance and 66-device review remain separate completion gates.
+This document preserves the full implementation plan. All eight batches and the final 66-device local review have passed; the final report records measured results, publication verification and physical-device limitations.

@@ -1,6 +1,6 @@
 # BiCS FLASH 8 reference lock
 
-Maker implementation and local checks complete; independent checker review pending.
+Implemented and independently reviewed in [batch 6](../../docs/verification/expansion-batch6.md), including integrated browser and offline checks.
 
 Reference: Kioxia BiCS FLASH generation 8 **1 Tb TLC**, the 218-word-line CBA/OPS technology reported at VLSI 2023 / IEDM 2023 and described in the manufacturer's **28 March 2024** technical overview. This is a magnified memory-array section bonded to CMOS, not a replica of an unspecified retail BGA package. No public ordering code or silicon stepping is assigned. No dimensions in the magnified diagram will be presented as actual device millimetres.
 
@@ -22,4 +22,4 @@ Maker construction: 14 selectable groups, 218 actual gate plates, eight displaye
 
 The authored memory state contains 218 sample pages of eight cells. A program operation raises the selected page to a chosen ordered threshold; a lower requested state requires block erase. Read compares the selected stored state with an ordered reference. Block erase resets the full sample block. The 2.4-second sequence and sample sizes are explanatory. No bit coding, physical voltage or write endurance is claimed.
 
-Local maker checks cover finite geometry, floor clearance through separation, selection/ghosting/isolation, exact shared anatomy geometry, non-pickable explanatory annotations, pause/reduced motion/reset, page-only programming, rejected threshold lowering, read comparison, block erase and equal final states at 30/60/120 updates per second. Nine actual Three.js captures in dark/light, assembled/exploded, Play, close orbit and X-ray were opened. Proofs remain local at `/tmp/breakboard-proof/nand-maker`; independent review and final integrated browser gates are still pending.
+Local maker checks cover finite geometry, floor clearance through separation, selection/ghosting/isolation, exact shared anatomy geometry, non-pickable explanatory annotations, pause/reduced motion/reset, page-only programming, rejected threshold lowering, read comparison, block erase and equal final states at 30/60/120 updates per second. Nine actual Three.js captures in dark/light, assembled/exploded, Play, close orbit and X-ray were opened. Proofs remain local at `/tmp/breakboard-proof/nand-maker`; the completed independent and integration checks are recorded in [batch 6](../../docs/verification/expansion-batch6.md).

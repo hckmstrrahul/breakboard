@@ -34,6 +34,21 @@ try{
  for(let i=0;i<environment.ids.length;i++){
   const a=passes[1][i],b=passes[2][i];assert.deepEqual(b.memory,a.memory,b.id+' stable geometry and texture allocation on repeated full traversals');assert.equal(b.programs,a.programs,b.id+' stable compiled-program count');
  }
- assert.deepEqual(errors,[],'No page/WebGL errors');await fs.mkdir(out,{recursive:true});await fs.writeFile(path.join(out,'catalogue-gpu.json'),JSON.stringify({environment,passes},null,2));
+ // Yield to the browser between frames in representative dense scenes as well.
+ // These are observed headless animation-frame intervals, not phone/display FPS.
+ const delivery=[];
+ for(const id of ['grobot','zoomlens','lto','nand','printhead','qi2'].filter(id=>environment.ids.includes(id)))for(const xray of[false,true]){
+  const sample=await page.evaluate(async({id,xray})=>{
+   const{stage,boards}=gate;await stage.setBoard({...boards.find(d=>d.id===id),start:0});
+   const state={explode:0,selected:null,isolate:false,xray,guides:false,rotate:true,playing:true},intervals=[];
+   let previous;
+   for(let i=0;i<140;i++){
+    const now=await new Promise(requestAnimationFrame),dt=previous===undefined?1/60:(now-previous)/1000;
+    if(i>=20)intervals.push(now-previous);stage.render(state,now/1000,dt);previous=now;
+   }
+   intervals.sort((a,b)=>a-b);return{id,mode:xray?'anatomy':'normal',median:intervals[Math.floor(intervals.length/2)],p95:intervals[Math.floor(intervals.length*.95)],max:intervals.at(-1)};
+  },{id,xray});delivery.push(sample);
+ }
+ assert.deepEqual(errors,[],'No page/WebGL errors');await fs.mkdir(out,{recursive:true});await fs.writeFile(path.join(out,'catalogue-gpu.json'),JSON.stringify({environment,passes,delivery},null,2));
  console.log(`PASS ${environment.ids.length} devices ×3 traversals: stable GPU allocations after warm-up. Report ${out}/catalogue-gpu.json`);
 }finally{await browser?.close();await server.close();}

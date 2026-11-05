@@ -1,0 +1,5120 @@
+{
+  "environment": {
+    "agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M5 Max, Unspecified Version)",
+    "ids": [
+      "esp32",
+      "pi5",
+      "uno",
+      "jetson",
+      "pico2w",
+      "nano",
+      "orangepi5",
+      "beaglebone",
+      "nucleo",
+      "portenta",
+      "nixie",
+      "neopixel",
+      "dlp",
+      "hqcamera",
+      "stepper",
+      "hackrf",
+      "grobot",
+      "pmt",
+      "spectrometer",
+      "epyc",
+      "lidar",
+      "vfd",
+      "corememory",
+      "lepton",
+      "intel4004",
+      "sps30",
+      "relay",
+      "bldc",
+      "haptic",
+      "as5600",
+      "quartz",
+      "memsmic",
+      "armature",
+      "planar",
+      "bme688",
+      "scd41",
+      "imu",
+      "tof",
+      "radar",
+      "pir",
+      "ultrasonic",
+      "max30102",
+      "loadcell",
+      "gnss",
+      "imx500",
+      "eventcamera",
+      "prime50",
+      "zoomlens",
+      "periscope",
+      "d455",
+      "shutter",
+      "hdd",
+      "bluray",
+      "lto",
+      "nvme",
+      "nand",
+      "ne555",
+      "rp2350",
+      "fpga",
+      "hbm",
+      "eprom",
+      "gan",
+      "qi2",
+      "printhead",
+      "thermalprinter",
+      "saw"
+    ],
+    "viewport": [
+      1280,
+      960
+    ],
+    "pixelRatio": 1
+  },
+  "passes": [
+    [
+      {
+        "id": "esp32",
+        "cycle": 0,
+        "cache": [
+          "esp32"
+        ],
+        "memory": {
+          "geometries": 77,
+          "textures": 16
+        },
+        "programs": 14,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.2999997138977051
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.2999997138977051
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "pi5",
+        "cycle": 0,
+        "cache": [
+          "esp32",
+          "pi5"
+        ],
+        "memory": {
+          "geometries": 370,
+          "textures": 87
+        },
+        "programs": 16,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.5,
+            "max": 0.5
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "uno",
+        "cycle": 0,
+        "cache": [
+          "esp32",
+          "pi5",
+          "uno"
+        ],
+        "memory": {
+          "geometries": 580,
+          "textures": 94
+        },
+        "programs": 17,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 1.0999999046325684
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "jetson",
+        "cycle": 0,
+        "cache": [
+          "pi5",
+          "uno",
+          "jetson"
+        ],
+        "memory": {
+          "geometries": 597,
+          "textures": 139
+        },
+        "programs": 16,
+        "timing": {
+          "normal": {
+            "p95": 0.2999997138977051,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "pico2w",
+        "cycle": 0,
+        "cache": [
+          "uno",
+          "jetson",
+          "pico2w"
+        ],
+        "memory": {
+          "geometries": 378,
+          "textures": 75
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nano",
+        "cycle": 0,
+        "cache": [
+          "jetson",
+          "pico2w",
+          "nano"
+        ],
+        "memory": {
+          "geometries": 244,
+          "textures": 77
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "orangepi5",
+        "cycle": 0,
+        "cache": [
+          "pico2w",
+          "nano",
+          "orangepi5"
+        ],
+        "memory": {
+          "geometries": 402,
+          "textures": 149
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.39999961853027344,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "beaglebone",
+        "cycle": 0,
+        "cache": [
+          "nano",
+          "orangepi5",
+          "beaglebone"
+        ],
+        "memory": {
+          "geometries": 466,
+          "textures": 192
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nucleo",
+        "cycle": 0,
+        "cache": [
+          "orangepi5",
+          "beaglebone",
+          "nucleo"
+        ],
+        "memory": {
+          "geometries": 475,
+          "textures": 191
+        },
+        "programs": 18,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "portenta",
+        "cycle": 0,
+        "cache": [
+          "beaglebone",
+          "nucleo",
+          "portenta"
+        ],
+        "memory": {
+          "geometries": 328,
+          "textures": 101
+        },
+        "programs": 18,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nixie",
+        "cycle": 0,
+        "cache": [
+          "nucleo",
+          "portenta",
+          "nixie"
+        ],
+        "memory": {
+          "geometries": 307,
+          "textures": 53
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "neopixel",
+        "cycle": 0,
+        "cache": [
+          "portenta",
+          "nixie",
+          "neopixel"
+        ],
+        "memory": {
+          "geometries": 380,
+          "textures": 49
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "dlp",
+        "cycle": 0,
+        "cache": [
+          "nixie",
+          "neopixel",
+          "dlp"
+        ],
+        "memory": {
+          "geometries": 346,
+          "textures": 18
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.2999997138977051
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "hqcamera",
+        "cycle": 0,
+        "cache": [
+          "neopixel",
+          "dlp",
+          "hqcamera"
+        ],
+        "memory": {
+          "geometries": 309,
+          "textures": 19
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "stepper",
+        "cycle": 0,
+        "cache": [
+          "dlp",
+          "hqcamera",
+          "stepper"
+        ],
+        "memory": {
+          "geometries": 228,
+          "textures": 17
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "hackrf",
+        "cycle": 0,
+        "cache": [
+          "hqcamera",
+          "stepper",
+          "hackrf"
+        ],
+        "memory": {
+          "geometries": 304,
+          "textures": 22
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "grobot",
+        "cycle": 0,
+        "cache": [
+          "stepper",
+          "hackrf",
+          "grobot"
+        ],
+        "memory": {
+          "geometries": 470,
+          "textures": 61
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "pmt",
+        "cycle": 0,
+        "cache": [
+          "hackrf",
+          "grobot",
+          "pmt"
+        ],
+        "memory": {
+          "geometries": 445,
+          "textures": 61
+        },
+        "programs": 24,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "spectrometer",
+        "cycle": 0,
+        "cache": [
+          "grobot",
+          "pmt",
+          "spectrometer"
+        ],
+        "memory": {
+          "geometries": 338,
+          "textures": 51
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "epyc",
+        "cycle": 0,
+        "cache": [
+          "pmt",
+          "spectrometer",
+          "epyc"
+        ],
+        "memory": {
+          "geometries": 208,
+          "textures": 26
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "lidar",
+        "cycle": 0,
+        "cache": [
+          "spectrometer",
+          "epyc",
+          "lidar"
+        ],
+        "memory": {
+          "geometries": 447,
+          "textures": 28
+        },
+        "programs": 18,
+        "timing": {
+          "normal": {
+            "p95": 0.39999961853027344,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.5,
+            "max": 0.6999998092651367
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "vfd",
+        "cycle": 0,
+        "cache": [
+          "epyc",
+          "lidar",
+          "vfd"
+        ],
+        "memory": {
+          "geometries": 583,
+          "textures": 28
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.39999961853027344
+          },
+          "anatomy": {
+            "p95": 0.2999997138977051,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "corememory",
+        "cycle": 0,
+        "cache": [
+          "lidar",
+          "vfd",
+          "corememory"
+        ],
+        "memory": {
+          "geometries": 495,
+          "textures": 13
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.10000038146972656,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "lepton",
+        "cycle": 0,
+        "cache": [
+          "vfd",
+          "corememory",
+          "lepton"
+        ],
+        "memory": {
+          "geometries": 243,
+          "textures": 13
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "intel4004",
+        "cycle": 0,
+        "cache": [
+          "corememory",
+          "lepton",
+          "intel4004"
+        ],
+        "memory": {
+          "geometries": 94,
+          "textures": 13
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "sps30",
+        "cycle": 0,
+        "cache": [
+          "lepton",
+          "intel4004",
+          "sps30"
+        ],
+        "memory": {
+          "geometries": 162,
+          "textures": 16
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "relay",
+        "cycle": 0,
+        "cache": [
+          "intel4004",
+          "sps30",
+          "relay"
+        ],
+        "memory": {
+          "geometries": 183,
+          "textures": 19
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.2999997138977051
+          },
+          "anatomy": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "bldc",
+        "cycle": 0,
+        "cache": [
+          "sps30",
+          "relay",
+          "bldc"
+        ],
+        "memory": {
+          "geometries": 226,
+          "textures": 19
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "haptic",
+        "cycle": 0,
+        "cache": [
+          "relay",
+          "bldc",
+          "haptic"
+        ],
+        "memory": {
+          "geometries": 182,
+          "textures": 17
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.2999997138977051,
+            "max": 0.2999997138977051
+          },
+          "anatomy": {
+            "p95": 1.8000001907348633,
+            "max": 2.200000286102295
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "as5600",
+        "cycle": 0,
+        "cache": [
+          "bldc",
+          "haptic",
+          "as5600"
+        ],
+        "memory": {
+          "geometries": 173,
+          "textures": 18
+        },
+        "programs": 17,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "quartz",
+        "cycle": 0,
+        "cache": [
+          "haptic",
+          "as5600",
+          "quartz"
+        ],
+        "memory": {
+          "geometries": 141,
+          "textures": 18
+        },
+        "programs": 14,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.6999998092651367
+          },
+          "anatomy": {
+            "p95": 1.4000000953674316,
+            "max": 1.4000000953674316
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "memsmic",
+        "cycle": 0,
+        "cache": [
+          "as5600",
+          "quartz",
+          "memsmic"
+        ],
+        "memory": {
+          "geometries": 122,
+          "textures": 17
+        },
+        "programs": 16,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.6000003814697266
+          },
+          "anatomy": {
+            "p95": 2.5999999046325684,
+            "max": 2.6000003814697266
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "armature",
+        "cycle": 0,
+        "cache": [
+          "quartz",
+          "memsmic",
+          "armature"
+        ],
+        "memory": {
+          "geometries": 112,
+          "textures": 11
+        },
+        "programs": 16,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 5.199999809265137,
+            "max": 5.199999809265137
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "planar",
+        "cycle": 0,
+        "cache": [
+          "memsmic",
+          "armature",
+          "planar"
+        ],
+        "memory": {
+          "geometries": 112,
+          "textures": 11
+        },
+        "programs": 16,
+        "timing": {
+          "normal": {
+            "p95": 0.5999999046325684,
+            "max": 0.6000003814697266
+          },
+          "anatomy": {
+            "p95": 5.599999904632568,
+            "max": 5.900000095367432
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "bme688",
+        "cycle": 0,
+        "cache": [
+          "armature",
+          "planar",
+          "bme688"
+        ],
+        "memory": {
+          "geometries": 337,
+          "textures": 12
+        },
+        "programs": 18,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "scd41",
+        "cycle": 0,
+        "cache": [
+          "planar",
+          "bme688",
+          "scd41"
+        ],
+        "memory": {
+          "geometries": 444,
+          "textures": 15
+        },
+        "programs": 25,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 1.6999998092651367,
+            "max": 2
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "imu",
+        "cycle": 0,
+        "cache": [
+          "bme688",
+          "scd41",
+          "imu"
+        ],
+        "memory": {
+          "geometries": 1032,
+          "textures": 23
+        },
+        "programs": 25,
+        "timing": {
+          "normal": {
+            "p95": 0.7999997138977051,
+            "max": 0.9000000953674316
+          },
+          "anatomy": {
+            "p95": 1,
+            "max": 1.5
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "tof",
+        "cycle": 0,
+        "cache": [
+          "scd41",
+          "imu",
+          "tof"
+        ],
+        "memory": {
+          "geometries": 958,
+          "textures": 22
+        },
+        "programs": 26,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "radar",
+        "cycle": 0,
+        "cache": [
+          "imu",
+          "tof",
+          "radar"
+        ],
+        "memory": {
+          "geometries": 884,
+          "textures": 32
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "pir",
+        "cycle": 0,
+        "cache": [
+          "tof",
+          "radar",
+          "pir"
+        ],
+        "memory": {
+          "geometries": 314,
+          "textures": 24
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.19999980926513672
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "ultrasonic",
+        "cycle": 0,
+        "cache": [
+          "radar",
+          "pir",
+          "ultrasonic"
+        ],
+        "memory": {
+          "geometries": 196,
+          "textures": 28
+        },
+        "programs": 16,
+        "timing": {
+          "normal": {
+            "p95": 0.10000038146972656,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "max30102",
+        "cycle": 0,
+        "cache": [
+          "pir",
+          "ultrasonic",
+          "max30102"
+        ],
+        "memory": {
+          "geometries": 165,
+          "textures": 15
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "loadcell",
+        "cycle": 0,
+        "cache": [
+          "ultrasonic",
+          "max30102",
+          "loadcell"
+        ],
+        "memory": {
+          "geometries": 204,
+          "textures": 17
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 2.3000001907348633,
+            "max": 2.4000000953674316
+          },
+          "anatomy": {
+            "p95": 2.5,
+            "max": 2.700000286102295
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "gnss",
+        "cycle": 0,
+        "cache": [
+          "max30102",
+          "loadcell",
+          "gnss"
+        ],
+        "memory": {
+          "geometries": 317,
+          "textures": 17
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.2999997138977051,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.2999997138977051,
+            "max": 0.2999997138977051
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "imx500",
+        "cycle": 0,
+        "cache": [
+          "loadcell",
+          "gnss",
+          "imx500"
+        ],
+        "memory": {
+          "geometries": 336,
+          "textures": 22
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "eventcamera",
+        "cycle": 0,
+        "cache": [
+          "gnss",
+          "imx500",
+          "eventcamera"
+        ],
+        "memory": {
+          "geometries": 296,
+          "textures": 22
+        },
+        "programs": 25,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "prime50",
+        "cycle": 0,
+        "cache": [
+          "imx500",
+          "eventcamera",
+          "prime50"
+        ],
+        "memory": {
+          "geometries": 589,
+          "textures": 20
+        },
+        "programs": 26,
+        "timing": {
+          "normal": {
+            "p95": 0.7000002861022949,
+            "max": 0.7000002861022949
+          },
+          "anatomy": {
+            "p95": 0.7000002861022949,
+            "max": 0.7999997138977051
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "zoomlens",
+        "cycle": 0,
+        "cache": [
+          "eventcamera",
+          "prime50",
+          "zoomlens"
+        ],
+        "memory": {
+          "geometries": 1114,
+          "textures": 21
+        },
+        "programs": 28,
+        "timing": {
+          "normal": {
+            "p95": 1.1000003814697266,
+            "max": 1.1999998092651367
+          },
+          "anatomy": {
+            "p95": 0.7000002861022949,
+            "max": 0.7000002861022949
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "periscope",
+        "cycle": 0,
+        "cache": [
+          "prime50",
+          "zoomlens",
+          "periscope"
+        ],
+        "memory": {
+          "geometries": 1133,
+          "textures": 19
+        },
+        "programs": 26,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "d455",
+        "cycle": 0,
+        "cache": [
+          "zoomlens",
+          "periscope",
+          "d455"
+        ],
+        "memory": {
+          "geometries": 840,
+          "textures": 23
+        },
+        "programs": 27,
+        "timing": {
+          "normal": {
+            "p95": 0.6000003814697266,
+            "max": 0.6000003814697266
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "shutter",
+        "cycle": 0,
+        "cache": [
+          "periscope",
+          "d455",
+          "shutter"
+        ],
+        "memory": {
+          "geometries": 521,
+          "textures": 17
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "hdd",
+        "cycle": 0,
+        "cache": [
+          "d455",
+          "shutter",
+          "hdd"
+        ],
+        "memory": {
+          "geometries": 724,
+          "textures": 18
+        },
+        "programs": 24,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.40000009536743164,
+            "max": 0.5
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "bluray",
+        "cycle": 0,
+        "cache": [
+          "shutter",
+          "hdd",
+          "bluray"
+        ],
+        "memory": {
+          "geometries": 869,
+          "textures": 12
+        },
+        "programs": 27,
+        "timing": {
+          "normal": {
+            "p95": 1,
+            "max": 1.5999999046325684
+          },
+          "anatomy": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "lto",
+        "cycle": 0,
+        "cache": [
+          "hdd",
+          "bluray",
+          "lto"
+        ],
+        "memory": {
+          "geometries": 903,
+          "textures": 15
+        },
+        "programs": 27,
+        "timing": {
+          "normal": {
+            "p95": 0.5,
+            "max": 0.6000003814697266
+          },
+          "anatomy": {
+            "p95": 1.1999998092651367,
+            "max": 1.4000000953674316
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nvme",
+        "cycle": 0,
+        "cache": [
+          "bluray",
+          "lto",
+          "nvme"
+        ],
+        "memory": {
+          "geometries": 874,
+          "textures": 26
+        },
+        "programs": 29,
+        "timing": {
+          "normal": {
+            "p95": 0.6999998092651367,
+            "max": 0.7000002861022949
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nand",
+        "cycle": 0,
+        "cache": [
+          "lto",
+          "nvme",
+          "nand"
+        ],
+        "memory": {
+          "geometries": 598,
+          "textures": 26
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "ne555",
+        "cycle": 0,
+        "cache": [
+          "nvme",
+          "nand",
+          "ne555"
+        ],
+        "memory": {
+          "geometries": 338,
+          "textures": 34
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "rp2350",
+        "cycle": 0,
+        "cache": [
+          "nand",
+          "ne555",
+          "rp2350"
+        ],
+        "memory": {
+          "geometries": 232,
+          "textures": 35
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.2999997138977051
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "fpga",
+        "cycle": 0,
+        "cache": [
+          "ne555",
+          "rp2350",
+          "fpga"
+        ],
+        "memory": {
+          "geometries": 228,
+          "textures": 38
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "hbm",
+        "cycle": 0,
+        "cache": [
+          "rp2350",
+          "fpga",
+          "hbm"
+        ],
+        "memory": {
+          "geometries": 354,
+          "textures": 29
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.2999997138977051,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "eprom",
+        "cycle": 0,
+        "cache": [
+          "fpga",
+          "hbm",
+          "eprom"
+        ],
+        "memory": {
+          "geometries": 264,
+          "textures": 20
+        },
+        "programs": 24,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "gan",
+        "cycle": 0,
+        "cache": [
+          "hbm",
+          "eprom",
+          "gan"
+        ],
+        "memory": {
+          "geometries": 428,
+          "textures": 40
+        },
+        "programs": 25,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "qi2",
+        "cycle": 0,
+        "cache": [
+          "eprom",
+          "gan",
+          "qi2"
+        ],
+        "memory": {
+          "geometries": 482,
+          "textures": 45
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "printhead",
+        "cycle": 0,
+        "cache": [
+          "gan",
+          "qi2",
+          "printhead"
+        ],
+        "memory": {
+          "geometries": 537,
+          "textures": 41
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.5,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 2.3000001907348633,
+            "max": 2.5
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "thermalprinter",
+        "cycle": 0,
+        "cache": [
+          "qi2",
+          "printhead",
+          "thermalprinter"
+        ],
+        "memory": {
+          "geometries": 548,
+          "textures": 19
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.5,
+            "max": 0.5
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "saw",
+        "cycle": 0,
+        "cache": [
+          "printhead",
+          "thermalprinter",
+          "saw"
+        ],
+        "memory": {
+          "geometries": 365,
+          "textures": 13
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      }
+    ],
+    [
+      {
+        "id": "esp32",
+        "cycle": 1,
+        "cache": [
+          "thermalprinter",
+          "saw",
+          "esp32"
+        ],
+        "memory": {
+          "geometries": 334,
+          "textures": 22
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.2999997138977051,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "pi5",
+        "cycle": 1,
+        "cache": [
+          "saw",
+          "esp32",
+          "pi5"
+        ],
+        "memory": {
+          "geometries": 408,
+          "textures": 90
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.39999961853027344
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "uno",
+        "cycle": 1,
+        "cache": [
+          "esp32",
+          "pi5",
+          "uno"
+        ],
+        "memory": {
+          "geometries": 580,
+          "textures": 94
+        },
+        "programs": 18,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "jetson",
+        "cycle": 1,
+        "cache": [
+          "pi5",
+          "uno",
+          "jetson"
+        ],
+        "memory": {
+          "geometries": 597,
+          "textures": 139
+        },
+        "programs": 17,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "pico2w",
+        "cycle": 1,
+        "cache": [
+          "uno",
+          "jetson",
+          "pico2w"
+        ],
+        "memory": {
+          "geometries": 378,
+          "textures": 75
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.2999997138977051
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nano",
+        "cycle": 1,
+        "cache": [
+          "jetson",
+          "pico2w",
+          "nano"
+        ],
+        "memory": {
+          "geometries": 244,
+          "textures": 77
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.7000002861022949
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "orangepi5",
+        "cycle": 1,
+        "cache": [
+          "pico2w",
+          "nano",
+          "orangepi5"
+        ],
+        "memory": {
+          "geometries": 402,
+          "textures": 149
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "beaglebone",
+        "cycle": 1,
+        "cache": [
+          "nano",
+          "orangepi5",
+          "beaglebone"
+        ],
+        "memory": {
+          "geometries": 466,
+          "textures": 192
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nucleo",
+        "cycle": 1,
+        "cache": [
+          "orangepi5",
+          "beaglebone",
+          "nucleo"
+        ],
+        "memory": {
+          "geometries": 475,
+          "textures": 191
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "portenta",
+        "cycle": 1,
+        "cache": [
+          "beaglebone",
+          "nucleo",
+          "portenta"
+        ],
+        "memory": {
+          "geometries": 328,
+          "textures": 101
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nixie",
+        "cycle": 1,
+        "cache": [
+          "nucleo",
+          "portenta",
+          "nixie"
+        ],
+        "memory": {
+          "geometries": 307,
+          "textures": 53
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.2999997138977051,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "neopixel",
+        "cycle": 1,
+        "cache": [
+          "portenta",
+          "nixie",
+          "neopixel"
+        ],
+        "memory": {
+          "geometries": 380,
+          "textures": 49
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.40000009536743164,
+            "max": 0.7000002861022949
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "dlp",
+        "cycle": 1,
+        "cache": [
+          "nixie",
+          "neopixel",
+          "dlp"
+        ],
+        "memory": {
+          "geometries": 346,
+          "textures": 18
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "hqcamera",
+        "cycle": 1,
+        "cache": [
+          "neopixel",
+          "dlp",
+          "hqcamera"
+        ],
+        "memory": {
+          "geometries": 309,
+          "textures": 19
+        },
+        "programs": 24,
+        "timing": {
+          "normal": {
+            "p95": 0.2999997138977051,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "stepper",
+        "cycle": 1,
+        "cache": [
+          "dlp",
+          "hqcamera",
+          "stepper"
+        ],
+        "memory": {
+          "geometries": 228,
+          "textures": 17
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "hackrf",
+        "cycle": 1,
+        "cache": [
+          "hqcamera",
+          "stepper",
+          "hackrf"
+        ],
+        "memory": {
+          "geometries": 304,
+          "textures": 22
+        },
+        "programs": 24,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "grobot",
+        "cycle": 1,
+        "cache": [
+          "stepper",
+          "hackrf",
+          "grobot"
+        ],
+        "memory": {
+          "geometries": 470,
+          "textures": 61
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.39999961853027344
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "pmt",
+        "cycle": 1,
+        "cache": [
+          "hackrf",
+          "grobot",
+          "pmt"
+        ],
+        "memory": {
+          "geometries": 445,
+          "textures": 61
+        },
+        "programs": 25,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.19999980926513672
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "spectrometer",
+        "cycle": 1,
+        "cache": [
+          "grobot",
+          "pmt",
+          "spectrometer"
+        ],
+        "memory": {
+          "geometries": 338,
+          "textures": 51
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "epyc",
+        "cycle": 1,
+        "cache": [
+          "pmt",
+          "spectrometer",
+          "epyc"
+        ],
+        "memory": {
+          "geometries": 208,
+          "textures": 26
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "lidar",
+        "cycle": 1,
+        "cache": [
+          "spectrometer",
+          "epyc",
+          "lidar"
+        ],
+        "memory": {
+          "geometries": 447,
+          "textures": 28
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "vfd",
+        "cycle": 1,
+        "cache": [
+          "epyc",
+          "lidar",
+          "vfd"
+        ],
+        "memory": {
+          "geometries": 583,
+          "textures": 28
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "corememory",
+        "cycle": 1,
+        "cache": [
+          "lidar",
+          "vfd",
+          "corememory"
+        ],
+        "memory": {
+          "geometries": 495,
+          "textures": 13
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.10000038146972656,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "lepton",
+        "cycle": 1,
+        "cache": [
+          "vfd",
+          "corememory",
+          "lepton"
+        ],
+        "memory": {
+          "geometries": 243,
+          "textures": 13
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.19999980926513672
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "intel4004",
+        "cycle": 1,
+        "cache": [
+          "corememory",
+          "lepton",
+          "intel4004"
+        ],
+        "memory": {
+          "geometries": 94,
+          "textures": 13
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "sps30",
+        "cycle": 1,
+        "cache": [
+          "lepton",
+          "intel4004",
+          "sps30"
+        ],
+        "memory": {
+          "geometries": 162,
+          "textures": 16
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "relay",
+        "cycle": 1,
+        "cache": [
+          "intel4004",
+          "sps30",
+          "relay"
+        ],
+        "memory": {
+          "geometries": 183,
+          "textures": 19
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "bldc",
+        "cycle": 1,
+        "cache": [
+          "sps30",
+          "relay",
+          "bldc"
+        ],
+        "memory": {
+          "geometries": 226,
+          "textures": 19
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.2999997138977051
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "haptic",
+        "cycle": 1,
+        "cache": [
+          "relay",
+          "bldc",
+          "haptic"
+        ],
+        "memory": {
+          "geometries": 182,
+          "textures": 17
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 2,
+            "max": 2.5999999046325684
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "as5600",
+        "cycle": 1,
+        "cache": [
+          "bldc",
+          "haptic",
+          "as5600"
+        ],
+        "memory": {
+          "geometries": 173,
+          "textures": 18
+        },
+        "programs": 18,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.19999980926513672
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "quartz",
+        "cycle": 1,
+        "cache": [
+          "haptic",
+          "as5600",
+          "quartz"
+        ],
+        "memory": {
+          "geometries": 141,
+          "textures": 18
+        },
+        "programs": 15,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 1.6999998092651367,
+            "max": 3
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "memsmic",
+        "cycle": 1,
+        "cache": [
+          "as5600",
+          "quartz",
+          "memsmic"
+        ],
+        "memory": {
+          "geometries": 122,
+          "textures": 17
+        },
+        "programs": 17,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.7000002861022949
+          },
+          "anatomy": {
+            "p95": 2.5999999046325684,
+            "max": 2.9000000953674316
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "armature",
+        "cycle": 1,
+        "cache": [
+          "quartz",
+          "memsmic",
+          "armature"
+        ],
+        "memory": {
+          "geometries": 112,
+          "textures": 11
+        },
+        "programs": 17,
+        "timing": {
+          "normal": {
+            "p95": 0.5,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 5.200000286102295,
+            "max": 5.300000190734863
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "planar",
+        "cycle": 1,
+        "cache": [
+          "memsmic",
+          "armature",
+          "planar"
+        ],
+        "memory": {
+          "geometries": 112,
+          "textures": 11
+        },
+        "programs": 17,
+        "timing": {
+          "normal": {
+            "p95": 0.7000002861022949,
+            "max": 1
+          },
+          "anatomy": {
+            "p95": 7.799999713897705,
+            "max": 7.800000190734863
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "bme688",
+        "cycle": 1,
+        "cache": [
+          "armature",
+          "planar",
+          "bme688"
+        ],
+        "memory": {
+          "geometries": 337,
+          "textures": 12
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 0.40000009536743164,
+            "max": 0.7999997138977051
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "scd41",
+        "cycle": 1,
+        "cache": [
+          "planar",
+          "bme688",
+          "scd41"
+        ],
+        "memory": {
+          "geometries": 444,
+          "textures": 15
+        },
+        "programs": 26,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 1.6999998092651367,
+            "max": 1.700000286102295
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "imu",
+        "cycle": 1,
+        "cache": [
+          "bme688",
+          "scd41",
+          "imu"
+        ],
+        "memory": {
+          "geometries": 1032,
+          "textures": 23
+        },
+        "programs": 26,
+        "timing": {
+          "normal": {
+            "p95": 1.4000000953674316,
+            "max": 1.5
+          },
+          "anatomy": {
+            "p95": 0.9000000953674316,
+            "max": 1
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "tof",
+        "cycle": 1,
+        "cache": [
+          "scd41",
+          "imu",
+          "tof"
+        ],
+        "memory": {
+          "geometries": 958,
+          "textures": 22
+        },
+        "programs": 27,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "radar",
+        "cycle": 1,
+        "cache": [
+          "imu",
+          "tof",
+          "radar"
+        ],
+        "memory": {
+          "geometries": 884,
+          "textures": 32
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "pir",
+        "cycle": 1,
+        "cache": [
+          "tof",
+          "radar",
+          "pir"
+        ],
+        "memory": {
+          "geometries": 314,
+          "textures": 24
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "ultrasonic",
+        "cycle": 1,
+        "cache": [
+          "radar",
+          "pir",
+          "ultrasonic"
+        ],
+        "memory": {
+          "geometries": 196,
+          "textures": 28
+        },
+        "programs": 17,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "max30102",
+        "cycle": 1,
+        "cache": [
+          "pir",
+          "ultrasonic",
+          "max30102"
+        ],
+        "memory": {
+          "geometries": 165,
+          "textures": 15
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.19999980926513672
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "loadcell",
+        "cycle": 1,
+        "cache": [
+          "ultrasonic",
+          "max30102",
+          "loadcell"
+        ],
+        "memory": {
+          "geometries": 204,
+          "textures": 17
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 2.8999996185302734,
+            "max": 2.9000000953674316
+          },
+          "anatomy": {
+            "p95": 2.799999713897705,
+            "max": 2.8000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "gnss",
+        "cycle": 1,
+        "cache": [
+          "max30102",
+          "loadcell",
+          "gnss"
+        ],
+        "memory": {
+          "geometries": 317,
+          "textures": 17
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.2999997138977051,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "imx500",
+        "cycle": 1,
+        "cache": [
+          "loadcell",
+          "gnss",
+          "imx500"
+        ],
+        "memory": {
+          "geometries": 336,
+          "textures": 22
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "eventcamera",
+        "cycle": 1,
+        "cache": [
+          "gnss",
+          "imx500",
+          "eventcamera"
+        ],
+        "memory": {
+          "geometries": 296,
+          "textures": 22
+        },
+        "programs": 26,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "prime50",
+        "cycle": 1,
+        "cache": [
+          "imx500",
+          "eventcamera",
+          "prime50"
+        ],
+        "memory": {
+          "geometries": 589,
+          "textures": 20
+        },
+        "programs": 27,
+        "timing": {
+          "normal": {
+            "p95": 1.0999999046325684,
+            "max": 1.200000286102295
+          },
+          "anatomy": {
+            "p95": 0.8000001907348633,
+            "max": 1.1999998092651367
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "zoomlens",
+        "cycle": 1,
+        "cache": [
+          "eventcamera",
+          "prime50",
+          "zoomlens"
+        ],
+        "memory": {
+          "geometries": 1114,
+          "textures": 21
+        },
+        "programs": 28,
+        "timing": {
+          "normal": {
+            "p95": 1.0999999046325684,
+            "max": 1.1000003814697266
+          },
+          "anatomy": {
+            "p95": 0.9000000953674316,
+            "max": 0.9000000953674316
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "periscope",
+        "cycle": 1,
+        "cache": [
+          "prime50",
+          "zoomlens",
+          "periscope"
+        ],
+        "memory": {
+          "geometries": 1133,
+          "textures": 19
+        },
+        "programs": 26,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "d455",
+        "cycle": 1,
+        "cache": [
+          "zoomlens",
+          "periscope",
+          "d455"
+        ],
+        "memory": {
+          "geometries": 840,
+          "textures": 23
+        },
+        "programs": 27,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "shutter",
+        "cycle": 1,
+        "cache": [
+          "periscope",
+          "d455",
+          "shutter"
+        ],
+        "memory": {
+          "geometries": 521,
+          "textures": 17
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.39999961853027344
+          },
+          "anatomy": {
+            "p95": 0.39999961853027344,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "hdd",
+        "cycle": 1,
+        "cache": [
+          "d455",
+          "shutter",
+          "hdd"
+        ],
+        "memory": {
+          "geometries": 724,
+          "textures": 18
+        },
+        "programs": 24,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "bluray",
+        "cycle": 1,
+        "cache": [
+          "shutter",
+          "hdd",
+          "bluray"
+        ],
+        "memory": {
+          "geometries": 869,
+          "textures": 12
+        },
+        "programs": 27,
+        "timing": {
+          "normal": {
+            "p95": 0.7000002861022949,
+            "max": 0.8000001907348633
+          },
+          "anatomy": {
+            "p95": 0.40000009536743164,
+            "max": 0.5
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "lto",
+        "cycle": 1,
+        "cache": [
+          "hdd",
+          "bluray",
+          "lto"
+        ],
+        "memory": {
+          "geometries": 903,
+          "textures": 15
+        },
+        "programs": 27,
+        "timing": {
+          "normal": {
+            "p95": 0.5,
+            "max": 0.9000000953674316
+          },
+          "anatomy": {
+            "p95": 1.5999999046325684,
+            "max": 26
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nvme",
+        "cycle": 1,
+        "cache": [
+          "bluray",
+          "lto",
+          "nvme"
+        ],
+        "memory": {
+          "geometries": 874,
+          "textures": 26
+        },
+        "programs": 29,
+        "timing": {
+          "normal": {
+            "p95": 0.7000002861022949,
+            "max": 1.5
+          },
+          "anatomy": {
+            "p95": 0.39999961853027344,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nand",
+        "cycle": 1,
+        "cache": [
+          "lto",
+          "nvme",
+          "nand"
+        ],
+        "memory": {
+          "geometries": 598,
+          "textures": 26
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "ne555",
+        "cycle": 1,
+        "cache": [
+          "nvme",
+          "nand",
+          "ne555"
+        ],
+        "memory": {
+          "geometries": 338,
+          "textures": 34
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "rp2350",
+        "cycle": 1,
+        "cache": [
+          "nand",
+          "ne555",
+          "rp2350"
+        ],
+        "memory": {
+          "geometries": 232,
+          "textures": 35
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "fpga",
+        "cycle": 1,
+        "cache": [
+          "ne555",
+          "rp2350",
+          "fpga"
+        ],
+        "memory": {
+          "geometries": 228,
+          "textures": 38
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.2999997138977051
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "hbm",
+        "cycle": 1,
+        "cache": [
+          "rp2350",
+          "fpga",
+          "hbm"
+        ],
+        "memory": {
+          "geometries": 354,
+          "textures": 29
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "eprom",
+        "cycle": 1,
+        "cache": [
+          "fpga",
+          "hbm",
+          "eprom"
+        ],
+        "memory": {
+          "geometries": 264,
+          "textures": 20
+        },
+        "programs": 24,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "gan",
+        "cycle": 1,
+        "cache": [
+          "hbm",
+          "eprom",
+          "gan"
+        ],
+        "memory": {
+          "geometries": 428,
+          "textures": 40
+        },
+        "programs": 25,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 1
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "qi2",
+        "cycle": 1,
+        "cache": [
+          "eprom",
+          "gan",
+          "qi2"
+        ],
+        "memory": {
+          "geometries": 482,
+          "textures": 45
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "printhead",
+        "cycle": 1,
+        "cache": [
+          "gan",
+          "qi2",
+          "printhead"
+        ],
+        "memory": {
+          "geometries": 537,
+          "textures": 41
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.5,
+            "max": 1.0999999046325684
+          },
+          "anatomy": {
+            "p95": 2.5999999046325684,
+            "max": 13.600000381469727
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "thermalprinter",
+        "cycle": 1,
+        "cache": [
+          "qi2",
+          "printhead",
+          "thermalprinter"
+        ],
+        "memory": {
+          "geometries": 548,
+          "textures": 19
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.5,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 0.5,
+            "max": 0.6999998092651367
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "saw",
+        "cycle": 1,
+        "cache": [
+          "printhead",
+          "thermalprinter",
+          "saw"
+        ],
+        "memory": {
+          "geometries": 365,
+          "textures": 13
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      }
+    ],
+    [
+      {
+        "id": "esp32",
+        "cycle": 2,
+        "cache": [
+          "thermalprinter",
+          "saw",
+          "esp32"
+        ],
+        "memory": {
+          "geometries": 334,
+          "textures": 22
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "pi5",
+        "cycle": 2,
+        "cache": [
+          "saw",
+          "esp32",
+          "pi5"
+        ],
+        "memory": {
+          "geometries": 408,
+          "textures": 90
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.5,
+            "max": 0.5
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "uno",
+        "cycle": 2,
+        "cache": [
+          "esp32",
+          "pi5",
+          "uno"
+        ],
+        "memory": {
+          "geometries": 580,
+          "textures": 94
+        },
+        "programs": 18,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "jetson",
+        "cycle": 2,
+        "cache": [
+          "pi5",
+          "uno",
+          "jetson"
+        ],
+        "memory": {
+          "geometries": 597,
+          "textures": 139
+        },
+        "programs": 17,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "pico2w",
+        "cycle": 2,
+        "cache": [
+          "uno",
+          "jetson",
+          "pico2w"
+        ],
+        "memory": {
+          "geometries": 378,
+          "textures": 75
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nano",
+        "cycle": 2,
+        "cache": [
+          "jetson",
+          "pico2w",
+          "nano"
+        ],
+        "memory": {
+          "geometries": 244,
+          "textures": 77
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.2999997138977051
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "orangepi5",
+        "cycle": 2,
+        "cache": [
+          "pico2w",
+          "nano",
+          "orangepi5"
+        ],
+        "memory": {
+          "geometries": 402,
+          "textures": 149
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.5,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "beaglebone",
+        "cycle": 2,
+        "cache": [
+          "nano",
+          "orangepi5",
+          "beaglebone"
+        ],
+        "memory": {
+          "geometries": 466,
+          "textures": 192
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nucleo",
+        "cycle": 2,
+        "cache": [
+          "orangepi5",
+          "beaglebone",
+          "nucleo"
+        ],
+        "memory": {
+          "geometries": 475,
+          "textures": 191
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "portenta",
+        "cycle": 2,
+        "cache": [
+          "beaglebone",
+          "nucleo",
+          "portenta"
+        ],
+        "memory": {
+          "geometries": 328,
+          "textures": 101
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.8000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nixie",
+        "cycle": 2,
+        "cache": [
+          "nucleo",
+          "portenta",
+          "nixie"
+        ],
+        "memory": {
+          "geometries": 307,
+          "textures": 53
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "neopixel",
+        "cycle": 2,
+        "cache": [
+          "portenta",
+          "nixie",
+          "neopixel"
+        ],
+        "memory": {
+          "geometries": 380,
+          "textures": 49
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "dlp",
+        "cycle": 2,
+        "cache": [
+          "nixie",
+          "neopixel",
+          "dlp"
+        ],
+        "memory": {
+          "geometries": 346,
+          "textures": 18
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "hqcamera",
+        "cycle": 2,
+        "cache": [
+          "neopixel",
+          "dlp",
+          "hqcamera"
+        ],
+        "memory": {
+          "geometries": 309,
+          "textures": 19
+        },
+        "programs": 24,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "stepper",
+        "cycle": 2,
+        "cache": [
+          "dlp",
+          "hqcamera",
+          "stepper"
+        ],
+        "memory": {
+          "geometries": 228,
+          "textures": 17
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "hackrf",
+        "cycle": 2,
+        "cache": [
+          "hqcamera",
+          "stepper",
+          "hackrf"
+        ],
+        "memory": {
+          "geometries": 304,
+          "textures": 22
+        },
+        "programs": 24,
+        "timing": {
+          "normal": {
+            "p95": 0.39999961853027344,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "grobot",
+        "cycle": 2,
+        "cache": [
+          "stepper",
+          "hackrf",
+          "grobot"
+        ],
+        "memory": {
+          "geometries": 470,
+          "textures": 61
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "pmt",
+        "cycle": 2,
+        "cache": [
+          "hackrf",
+          "grobot",
+          "pmt"
+        ],
+        "memory": {
+          "geometries": 445,
+          "textures": 61
+        },
+        "programs": 25,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.19999980926513672
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "spectrometer",
+        "cycle": 2,
+        "cache": [
+          "grobot",
+          "pmt",
+          "spectrometer"
+        ],
+        "memory": {
+          "geometries": 338,
+          "textures": 51
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "epyc",
+        "cycle": 2,
+        "cache": [
+          "pmt",
+          "spectrometer",
+          "epyc"
+        ],
+        "memory": {
+          "geometries": 208,
+          "textures": 26
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.2999997138977051,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "lidar",
+        "cycle": 2,
+        "cache": [
+          "spectrometer",
+          "epyc",
+          "lidar"
+        ],
+        "memory": {
+          "geometries": 447,
+          "textures": 28
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.5,
+            "max": 0.5999999046325684
+          },
+          "anatomy": {
+            "p95": 0.5,
+            "max": 1.1999998092651367
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "vfd",
+        "cycle": 2,
+        "cache": [
+          "epyc",
+          "lidar",
+          "vfd"
+        ],
+        "memory": {
+          "geometries": 583,
+          "textures": 28
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "corememory",
+        "cycle": 2,
+        "cache": [
+          "lidar",
+          "vfd",
+          "corememory"
+        ],
+        "memory": {
+          "geometries": 495,
+          "textures": 13
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "lepton",
+        "cycle": 2,
+        "cache": [
+          "vfd",
+          "corememory",
+          "lepton"
+        ],
+        "memory": {
+          "geometries": 243,
+          "textures": 13
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "intel4004",
+        "cycle": 2,
+        "cache": [
+          "corememory",
+          "lepton",
+          "intel4004"
+        ],
+        "memory": {
+          "geometries": 94,
+          "textures": 13
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "sps30",
+        "cycle": 2,
+        "cache": [
+          "lepton",
+          "intel4004",
+          "sps30"
+        ],
+        "memory": {
+          "geometries": 162,
+          "textures": 16
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "relay",
+        "cycle": 2,
+        "cache": [
+          "intel4004",
+          "sps30",
+          "relay"
+        ],
+        "memory": {
+          "geometries": 183,
+          "textures": 19
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.2999997138977051,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "bldc",
+        "cycle": 2,
+        "cache": [
+          "sps30",
+          "relay",
+          "bldc"
+        ],
+        "memory": {
+          "geometries": 226,
+          "textures": 19
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "haptic",
+        "cycle": 2,
+        "cache": [
+          "relay",
+          "bldc",
+          "haptic"
+        ],
+        "memory": {
+          "geometries": 182,
+          "textures": 17
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 1.9000000953674316,
+            "max": 2
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "as5600",
+        "cycle": 2,
+        "cache": [
+          "bldc",
+          "haptic",
+          "as5600"
+        ],
+        "memory": {
+          "geometries": 173,
+          "textures": 18
+        },
+        "programs": 18,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "quartz",
+        "cycle": 2,
+        "cache": [
+          "haptic",
+          "as5600",
+          "quartz"
+        ],
+        "memory": {
+          "geometries": 141,
+          "textures": 18
+        },
+        "programs": 15,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.9000000953674316
+          },
+          "anatomy": {
+            "p95": 1.5,
+            "max": 1.8000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "memsmic",
+        "cycle": 2,
+        "cache": [
+          "as5600",
+          "quartz",
+          "memsmic"
+        ],
+        "memory": {
+          "geometries": 122,
+          "textures": 17
+        },
+        "programs": 17,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.5999999046325684
+          },
+          "anatomy": {
+            "p95": 3,
+            "max": 3.0999999046325684
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "armature",
+        "cycle": 2,
+        "cache": [
+          "quartz",
+          "memsmic",
+          "armature"
+        ],
+        "memory": {
+          "geometries": 112,
+          "textures": 11
+        },
+        "programs": 17,
+        "timing": {
+          "normal": {
+            "p95": 0.5,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 5.700000286102295,
+            "max": 5.800000190734863
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "planar",
+        "cycle": 2,
+        "cache": [
+          "memsmic",
+          "armature",
+          "planar"
+        ],
+        "memory": {
+          "geometries": 112,
+          "textures": 11
+        },
+        "programs": 17,
+        "timing": {
+          "normal": {
+            "p95": 0.9000000953674316,
+            "max": 1
+          },
+          "anatomy": {
+            "p95": 8,
+            "max": 31.59999990463257
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "bme688",
+        "cycle": 2,
+        "cache": [
+          "armature",
+          "planar",
+          "bme688"
+        ],
+        "memory": {
+          "geometries": 337,
+          "textures": 12
+        },
+        "programs": 19,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.5999999046325684
+          },
+          "anatomy": {
+            "p95": 0.5,
+            "max": 0.9000000953674316
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "scd41",
+        "cycle": 2,
+        "cache": [
+          "planar",
+          "bme688",
+          "scd41"
+        ],
+        "memory": {
+          "geometries": 444,
+          "textures": 15
+        },
+        "programs": 26,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.39999961853027344
+          },
+          "anatomy": {
+            "p95": 1.8000001907348633,
+            "max": 2
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "imu",
+        "cycle": 2,
+        "cache": [
+          "bme688",
+          "scd41",
+          "imu"
+        ],
+        "memory": {
+          "geometries": 1032,
+          "textures": 23
+        },
+        "programs": 26,
+        "timing": {
+          "normal": {
+            "p95": 1.3000001907348633,
+            "max": 1.700000286102295
+          },
+          "anatomy": {
+            "p95": 1.4000000953674316,
+            "max": 1.5
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "tof",
+        "cycle": 2,
+        "cache": [
+          "scd41",
+          "imu",
+          "tof"
+        ],
+        "memory": {
+          "geometries": 958,
+          "textures": 22
+        },
+        "programs": 27,
+        "timing": {
+          "normal": {
+            "p95": 0.5,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.2999997138977051
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "radar",
+        "cycle": 2,
+        "cache": [
+          "imu",
+          "tof",
+          "radar"
+        ],
+        "memory": {
+          "geometries": 884,
+          "textures": 32
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "pir",
+        "cycle": 2,
+        "cache": [
+          "tof",
+          "radar",
+          "pir"
+        ],
+        "memory": {
+          "geometries": 314,
+          "textures": 24
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "ultrasonic",
+        "cycle": 2,
+        "cache": [
+          "radar",
+          "pir",
+          "ultrasonic"
+        ],
+        "memory": {
+          "geometries": 196,
+          "textures": 28
+        },
+        "programs": 17,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.19999980926513672,
+            "max": 0.8000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "max30102",
+        "cycle": 2,
+        "cache": [
+          "pir",
+          "ultrasonic",
+          "max30102"
+        ],
+        "memory": {
+          "geometries": 165,
+          "textures": 15
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.2999997138977051
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "loadcell",
+        "cycle": 2,
+        "cache": [
+          "ultrasonic",
+          "max30102",
+          "loadcell"
+        ],
+        "memory": {
+          "geometries": 204,
+          "textures": 17
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 3.200000286102295,
+            "max": 3.4000000953674316
+          },
+          "anatomy": {
+            "p95": 3,
+            "max": 3
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "gnss",
+        "cycle": 2,
+        "cache": [
+          "max30102",
+          "loadcell",
+          "gnss"
+        ],
+        "memory": {
+          "geometries": 317,
+          "textures": 17
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.39999961853027344,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "imx500",
+        "cycle": 2,
+        "cache": [
+          "loadcell",
+          "gnss",
+          "imx500"
+        ],
+        "memory": {
+          "geometries": 336,
+          "textures": 22
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "eventcamera",
+        "cycle": 2,
+        "cache": [
+          "gnss",
+          "imx500",
+          "eventcamera"
+        ],
+        "memory": {
+          "geometries": 296,
+          "textures": 22
+        },
+        "programs": 26,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.2999997138977051
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "prime50",
+        "cycle": 2,
+        "cache": [
+          "imx500",
+          "eventcamera",
+          "prime50"
+        ],
+        "memory": {
+          "geometries": 589,
+          "textures": 20
+        },
+        "programs": 27,
+        "timing": {
+          "normal": {
+            "p95": 1.0999999046325684,
+            "max": 1.1000003814697266
+          },
+          "anatomy": {
+            "p95": 0.5999999046325684,
+            "max": 0.7000002861022949
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "zoomlens",
+        "cycle": 2,
+        "cache": [
+          "eventcamera",
+          "prime50",
+          "zoomlens"
+        ],
+        "memory": {
+          "geometries": 1114,
+          "textures": 21
+        },
+        "programs": 28,
+        "timing": {
+          "normal": {
+            "p95": 0.9000000953674316,
+            "max": 0.9000000953674316
+          },
+          "anatomy": {
+            "p95": 1,
+            "max": 1
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "periscope",
+        "cycle": 2,
+        "cache": [
+          "prime50",
+          "zoomlens",
+          "periscope"
+        ],
+        "memory": {
+          "geometries": 1133,
+          "textures": 19
+        },
+        "programs": 26,
+        "timing": {
+          "normal": {
+            "p95": 0.2999997138977051,
+            "max": 0.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "d455",
+        "cycle": 2,
+        "cache": [
+          "zoomlens",
+          "periscope",
+          "d455"
+        ],
+        "memory": {
+          "geometries": 840,
+          "textures": 23
+        },
+        "programs": 27,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "shutter",
+        "cycle": 2,
+        "cache": [
+          "periscope",
+          "d455",
+          "shutter"
+        ],
+        "memory": {
+          "geometries": 521,
+          "textures": 17
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "hdd",
+        "cycle": 2,
+        "cache": [
+          "d455",
+          "shutter",
+          "hdd"
+        ],
+        "memory": {
+          "geometries": 724,
+          "textures": 18
+        },
+        "programs": 24,
+        "timing": {
+          "normal": {
+            "p95": 0.40000009536743164,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 0.5,
+            "max": 0.5
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "bluray",
+        "cycle": 2,
+        "cache": [
+          "shutter",
+          "hdd",
+          "bluray"
+        ],
+        "memory": {
+          "geometries": 869,
+          "textures": 12
+        },
+        "programs": 27,
+        "timing": {
+          "normal": {
+            "p95": 0.9000000953674316,
+            "max": 1.3000001907348633
+          },
+          "anatomy": {
+            "p95": 0.5,
+            "max": 1
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "lto",
+        "cycle": 2,
+        "cache": [
+          "hdd",
+          "bluray",
+          "lto"
+        ],
+        "memory": {
+          "geometries": 903,
+          "textures": 15
+        },
+        "programs": 27,
+        "timing": {
+          "normal": {
+            "p95": 0.6000003814697266,
+            "max": 1.1999998092651367
+          },
+          "anatomy": {
+            "p95": 1.5,
+            "max": 26.699999809265137
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nvme",
+        "cycle": 2,
+        "cache": [
+          "bluray",
+          "lto",
+          "nvme"
+        ],
+        "memory": {
+          "geometries": 874,
+          "textures": 26
+        },
+        "programs": 29,
+        "timing": {
+          "normal": {
+            "p95": 0.6000003814697266,
+            "max": 0.6999998092651367
+          },
+          "anatomy": {
+            "p95": 0.40000009536743164,
+            "max": 0.40000009536743164
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "nand",
+        "cycle": 2,
+        "cache": [
+          "lto",
+          "nvme",
+          "nand"
+        ],
+        "memory": {
+          "geometries": 598,
+          "textures": 26
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 1.0999999046325684
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "ne555",
+        "cycle": 2,
+        "cache": [
+          "nvme",
+          "nand",
+          "ne555"
+        ],
+        "memory": {
+          "geometries": 338,
+          "textures": 34
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.19999980926513672
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.10000038146972656
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "rp2350",
+        "cycle": 2,
+        "cache": [
+          "nand",
+          "ne555",
+          "rp2350"
+        ],
+        "memory": {
+          "geometries": 232,
+          "textures": 35
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.2999997138977051
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "fpga",
+        "cycle": 2,
+        "cache": [
+          "ne555",
+          "rp2350",
+          "fpga"
+        ],
+        "memory": {
+          "geometries": 228,
+          "textures": 38
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.19999980926513672
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "hbm",
+        "cycle": 2,
+        "cache": [
+          "rp2350",
+          "fpga",
+          "hbm"
+        ],
+        "memory": {
+          "geometries": 354,
+          "textures": 29
+        },
+        "programs": 20,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.39999961853027344
+          },
+          "anatomy": {
+            "p95": 0.2999997138977051,
+            "max": 0.2999997138977051
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "eprom",
+        "cycle": 2,
+        "cache": [
+          "fpga",
+          "hbm",
+          "eprom"
+        ],
+        "memory": {
+          "geometries": 264,
+          "textures": 20
+        },
+        "programs": 24,
+        "timing": {
+          "normal": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          },
+          "anatomy": {
+            "p95": 0.20000028610229492,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "gan",
+        "cycle": 2,
+        "cache": [
+          "hbm",
+          "eprom",
+          "gan"
+        ],
+        "memory": {
+          "geometries": 428,
+          "textures": 40
+        },
+        "programs": 25,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.3000001907348633,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "qi2",
+        "cycle": 2,
+        "cache": [
+          "eprom",
+          "gan",
+          "qi2"
+        ],
+        "memory": {
+          "geometries": 482,
+          "textures": 45
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.40000009536743164
+          },
+          "anatomy": {
+            "p95": 0.2999997138977051,
+            "max": 0.3000001907348633
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "printhead",
+        "cycle": 2,
+        "cache": [
+          "gan",
+          "qi2",
+          "printhead"
+        ],
+        "memory": {
+          "geometries": 537,
+          "textures": 41
+        },
+        "programs": 21,
+        "timing": {
+          "normal": {
+            "p95": 0.5999999046325684,
+            "max": 0.6999998092651367
+          },
+          "anatomy": {
+            "p95": 2,
+            "max": 2
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "thermalprinter",
+        "cycle": 2,
+        "cache": [
+          "qi2",
+          "printhead",
+          "thermalprinter"
+        ],
+        "memory": {
+          "geometries": 548,
+          "textures": 19
+        },
+        "programs": 22,
+        "timing": {
+          "normal": {
+            "p95": 0.3000001907348633,
+            "max": 0.5
+          },
+          "anatomy": {
+            "p95": 0.39999961853027344,
+            "max": 0.5
+          }
+        },
+        "contextLost": false
+      },
+      {
+        "id": "saw",
+        "cycle": 2,
+        "cache": [
+          "printhead",
+          "thermalprinter",
+          "saw"
+        ],
+        "memory": {
+          "geometries": 365,
+          "textures": 13
+        },
+        "programs": 23,
+        "timing": {
+          "normal": {
+            "p95": 0.19999980926513672,
+            "max": 0.19999980926513672
+          },
+          "anatomy": {
+            "p95": 0.10000038146972656,
+            "max": 0.20000028610229492
+          }
+        },
+        "contextLost": false
+      }
+    ]
+  ],
+  "delivery": [
+    {
+      "id": "grobot",
+      "mode": "normal",
+      "median": 16.69999999999709,
+      "p95": 16.700000000004366,
+      "max": 16.80000000000291
+    },
+    {
+      "id": "grobot",
+      "mode": "anatomy",
+      "median": 16.69999999999709,
+      "p95": 16.70000000001164,
+      "max": 16.80000000000291
+    },
+    {
+      "id": "zoomlens",
+      "mode": "normal",
+      "median": 16.69999999999709,
+      "p95": 16.69999999999709,
+      "max": 16.80000000000291
+    },
+    {
+      "id": "zoomlens",
+      "mode": "anatomy",
+      "median": 16.69999999999709,
+      "p95": 16.70000000001164,
+      "max": 16.80000000000291
+    },
+    {
+      "id": "lto",
+      "mode": "normal",
+      "median": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "max": 16.80000000000291
+    },
+    {
+      "id": "lto",
+      "mode": "anatomy",
+      "median": 16.69999999999709,
+      "p95": 16.79999999998836,
+      "max": 16.80000000000291
+    },
+    {
+      "id": "nand",
+      "mode": "normal",
+      "median": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "max": 16.80000000000291
+    },
+    {
+      "id": "nand",
+      "mode": "anatomy",
+      "median": 16.69999999999709,
+      "p95": 16.79999999998836,
+      "max": 16.80000000000291
+    },
+    {
+      "id": "printhead",
+      "mode": "normal",
+      "median": 16.69999999999709,
+      "p95": 16.70000000001164,
+      "max": 16.80000000000291
+    },
+    {
+      "id": "printhead",
+      "mode": "anatomy",
+      "median": 16.69999999999709,
+      "p95": 16.79999999998836,
+      "max": 16.80000000000291
+    },
+    {
+      "id": "qi2",
+      "mode": "normal",
+      "median": 16.69999999999709,
+      "p95": 16.80000000000291,
+      "max": 16.80000000000291
+    },
+    {
+      "id": "qi2",
+      "mode": "anatomy",
+      "median": 16.69999999999709,
+      "p95": 16.70000000001164,
+      "max": 16.80000000000291
+    }
+  ]
+}
