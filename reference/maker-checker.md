@@ -1,5 +1,7 @@
 # Collection maker–checker review
 
+Historical review notes: device counts describe the catalogue at each review date. The [current project README](../README.md) documents the active 65-device collection.
+
 Completed 2026-11-04. Scope: six new boards, Pi grouping/material corrections, and a simpler interface across the nine-board collection.
 
 ## Roles and evidence
@@ -169,33 +171,10 @@ The header groups devices in pill menus under Boards, Displays, Optics, Motion a
 
 Verification: all sixteen devices loaded from the standalone local file in Chrome with networking disabled and zero HTTP requests. Browser tests covered mode persistence across each new device, tags off initially, selected tags, isolation, complete anatomy labels, Play, grouped mobile selection and no console errors. Existing geometry, pose, picking, callout, theme and operation checks were extended to the new inventory. Fourteen new 2400 × 2217 px light-mode gallery exports pair realistic and anatomy views. Desktop and emulated mobile review does not replace physical-phone testing.
 
-## Addition: Grobot / Anchor revision B
-
-Grobot joins Motion as a 22-group assembly. The supplied revision B hardware inventory sets the module choices and front-panel arrangement. Official Waveshare STEP files provide 281 UPS circuit-board solids, five holder solids and 39 LCD solids. Manufacturer dimensions constrain the BAK cells and SG90; the matching AYWHP photograph guides the dual-USB-C, 44-contact controller. The voice-kit modules, speaker, enclosure, mounts, controls and harness retain their documented reconstruction limits. Four filaments make two working red/green bars; the third tray and six reserved driver positions remain unpopulated. [Evidence and sources](grobot/evidence.md).
-
-This addition was checked through source comparison, geometry checks and browser inspection in the same implementation pass; it did not receive a separate agent or physical-hardware review. Corrections during inspection included the UPS orientation, cell centres, microphone port alignment, servo badge surface, component separation, floor height and dedicated front/top camera positions. Automated checks cover imported PCB dimensions, cell clearance, cut-through fascia apertures, the common servo/anchor axis, filament count and bounded ±30° motion. They do not establish manufacturing tolerances, thermal safety or electrical correctness.
-
-Realistic and anatomy captures were inspected in assembled and exploded states, with separate checks for Play, front/top cameras, isolation and selected labels. Header alignment and responsive layouts passed at 1600, 1280, 1024, 800 and 390 px widths. The new brand subline and smaller social icons remain visible at phone width. The full model suite passes for all 17 devices, and all 17 load from the standalone HTML with networking disabled and no HTTP requests. Two 2400 × 2217 px light-mode exports were saved through the app and visually reviewed. No private Grobot project files, service settings, purchase records or portfolio data were copied into the repository.
-
 ## Follow-up: stable labels while orbiting
 
 The previous overview packer searched for a new arrangement every frame without retaining placement history. Small anchor movements could switch radial candidates and move several tags abruptly. Label measurements were also interleaved with visibility writes, and reserved label height depended on whichever anchors were currently onscreen.
 
 Packing now retains anchor-relative targets, adjusts only for crowding or bounds, and eases necessary corrections. Leader endpoints use the displayed box and current projected component point throughout the adjustment. Single selected labels use the same placement history. Clip-edge hysteresis avoids repeated hide/show near the viewport boundary. Dimensions are measured together when content, fonts or width change; overview height uses the complete active inventory and stays fixed during orbit and zoom clipping.
 
-Validation: the full check suite passes, including new motion regressions for all 17 devices, settled non-overlap, exact leader endpoints, single-tag boundary jitter and viewport resets. Browser drag sampling across all 17 devices found no packing jumps over 30 px; additional movement from packing stayed below 4.1 px per frame in that run. The original Uno, Pi 5 and Grobot comparison measured maxima of 523, 318 and 328 px respectively. Desktop and emulated-phone checks covered zoom clipping/return, stable viewport height, selected tags with overview labels off, auto rotation and reduced motion. This measures label stability in Chrome, not frame-rate performance on a physical phone.
-
-## Redesign: Grobot open brass frame
-
-The same revision B electronics now sit on a perforated 2.54 mm carrier inside an open brass structure. The shell, lid, fascia, decorative anchor and covered filament trays are removed. A plain perforated servo horn becomes the pointer; four exposed filaments retain the two red/green pairs. Twenty selectable groups separate the frame, carrier, mounts, modules, cells, wiring and fixings. The original 325 Waveshare solids are rigidly repositioned without scaling. Reference photographs informed the handcrafted appearance, not dimensions or additional hardware.
-
-Inspection corrected unsupported filament rails, the speaker's cone-facing material and the UPS mounting positions. Standoffs now meet original STEP hole axes, both cells remain within their holder channels, the pointer hub meets the SG90 output, and both controller socket rows register with actual carrier holes. The mobile camera reserves width for the broad frame and the wider exploded assembly. Geometry checks cover these fits, real cut-through holes, device clearance, full separation, floor clearance, phone framing and bounded pointer motion. This was implementation and review in one pass, without a separate agent or physical prototype. Proposed mounting tolerances and wire routes remain unvalidated; no electrical netlist is claimed.
-
-The full 17-device suite passed. Chrome checks covered themes, desktop/mobile layout, camera presets, selected labels, anatomy/isolation, Play persistence and background deselection. Grobot orbit sampling recorded no label jumps over 30 px (maximum additional packing movement 4.04 px/frame). All 17 devices loaded from the standalone HTML with networking disabled and no HTTP requests. Both light-mode README exports were regenerated through Save image and inspected. No private project files or supplied inspiration photographs were added to the public repository.
-
-
-## Grobot playback: speaker and electrical flow
-
-Grobot now uses the existing connection renderer for five illustrative paths: UPS → controller, controller → display/servo/amplifier, and amplifier → speaker. The bare speaker cone and dust cap move together along their acoustic axis; the surround, basket, magnet, terminals, supports and wires stay fixed. The small 3 Hz excursion is deliberately slow explanatory motion, not a simulated audio frequency or verified circuit. It reuses the existing power fade and clock, with no new animation dependency.
-
-The full suite passes for all 17 devices. Focused checks verify bounded inward/outward travel, stationary surrounding hardware, pause/reset, immediate stop on separation, static reduced-motion paths and exact anatomy transforms. Chrome renders were reviewed in both themes, isolated speaker playback and anatomy mode; browser checks reported no runtime errors.
+Validation: the full check suite passes, including new motion regressions for all 17 devices, settled non-overlap, exact leader endpoints, single-tag boundary jitter and viewport resets. Browser drag sampling across all 17 devices found no packing jumps over 30 px; additional movement from packing stayed below 4.1 px per frame in that run. The original Uno and Pi 5 comparison measured maxima of 523 and 318 px respectively. Desktop and emulated-phone checks covered zoom clipping/return, stable viewport height, selected tags with overview labels off, auto rotation and reduced motion. This measures label stability in Chrome, not frame-rate performance on a physical phone.

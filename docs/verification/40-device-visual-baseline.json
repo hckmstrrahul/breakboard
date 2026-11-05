@@ -1,7 +1,7 @@
 {
   "date": "2026-11-05",
   "method": "Every assembled/exploded image in both themes was opened individually. Full-resolution originals were retained; some were displayed as resized individual copies. Hashes record the reviewed original files. Planar shadow clipping and PIR assembled framing were corrected, regenerated and re-reviewed.",
-  "count": 264,
+  "count": 260,
   "images": [
     {
       "file": "armature-assembled-dark.png",
@@ -385,30 +385,6 @@
       "file": "gnss-exploded-light.png",
       "sha256": "a2fd3eb1740ae02ec187f6e82318245eac26cc12eed446a9f8add303e19e96d4",
       "reviewer": "maker_microdevices",
-      "result": "pass"
-    },
-    {
-      "file": "grobot-assembled-dark.png",
-      "sha256": "54234c08b953ec84431efd27d56d841b4883c5198a413e2b715e1afc0633df93",
-      "reviewer": "root",
-      "result": "pass"
-    },
-    {
-      "file": "grobot-assembled-light.png",
-      "sha256": "00bbf5e9b1b7649a49908ad2c8297a2fc6f2b53713d3c4b1dc1e5fc402708cd8",
-      "reviewer": "root",
-      "result": "pass"
-    },
-    {
-      "file": "grobot-exploded-dark.png",
-      "sha256": "97e72ff5ddeddd1a5432ab92092dd1294e5f3f240096a42d9e72cfd2deaa9bf0",
-      "reviewer": "root",
-      "result": "pass"
-    },
-    {
-      "file": "grobot-exploded-light.png",
-      "sha256": "448b9aaf3ea7dca9484a4f46a81dbd7c24d2b83fc380502f2b9faf8d910912ec",
-      "reviewer": "root",
       "result": "pass"
     },
     {
@@ -1587,5 +1563,6 @@
       "reviewer": "maker_mechanisms",
       "result": "pass"
     }
-  ]
+  ],
+  "scope": "The 260 previously reviewed baselines for the current 65-device electronics catalogue. Original image hashes, reviewers and results are retained; this is a catalogue subset, not a new visual review."
 }

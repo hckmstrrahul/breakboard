@@ -1,6 +1,6 @@
 // Explicit requested scope, independent of the runtime catalogue. Integrated
 // batches join IMPLEMENTED_EXPANSION_IDS and must pass review before release.
-export const ORIGINAL_DEVICE_IDS=['esp32','pi5','uno','jetson','pico2w','nano','orangepi5','beaglebone','nucleo','portenta','nixie','neopixel','dlp','hqcamera','stepper','hackrf','grobot','pmt','spectrometer','epyc','lidar','vfd','corememory','lepton','intel4004','sps30'];
+export const ORIGINAL_DEVICE_IDS=['esp32','pi5','uno','jetson','pico2w','nano','orangepi5','beaglebone','nucleo','portenta','nixie','neopixel','dlp','hqcamera','stepper','hackrf','pmt','spectrometer','epyc','lidar','vfd','corememory','lepton','intel4004','sps30'];
 export const EXPANSION_BATCHES=[
  ['relay','bldc','haptic','as5600','quartz'],
  ['memsmic','armature','planar','bme688','scd41'],
@@ -12,7 +12,3 @@ export const EXPANSION_BATCHES=[
  ['gan','qi2','printhead','thermalprinter','saw']
 ];
 export const IMPLEMENTED_EXPANSION_IDS=EXPANSION_BATCHES.flat();
-
-// Grobot moved intact to the sibling grobot project on 5 November 2026.
-export const MOVED_DEVICE_IDS=['grobot'];
-export const RETAINED_ORIGINAL_DEVICE_IDS=ORIGINAL_DEVICE_IDS.filter(id=>!MOVED_DEVICE_IDS.includes(id));

@@ -259,6 +259,4 @@ Normal development uses the supplied runtime assets. Downloaded reference CAD, P
 - NE555 genuine die photograph © Mikhail Svarichevsky / ZeptoBars, [CC BY 3.0](public/licenses/ne555-zeptobars.txt); cropped, resampled and rendered in color or monochrome.
 - [Untitled UI icon notice](public/licenses/untitled-ui-icons.txt). Board names and logos identify their respective hardware vendors.
 
-Grobot moved to the separate `grobot` project on 5 November 2026. Breakboard now contains 65 electronics teardowns; the original forty additions remain included. See the [split record](docs/grobot-extraction.md).
-
-Before this split, the complete forty-device expansion received a final maker/checker review: [verification report](docs/verification/40-device-expansion.md), [264-image review ledger](docs/verification/40-device-visual-baseline.json) and [desktop performance measurements](docs/verification/40-device-performance.json).
+The complete forty-device expansion received a final maker/checker review: [verification report](docs/verification/40-device-expansion.md), [260-image review ledger](docs/verification/40-device-visual-baseline.json) and [desktop performance measurements](docs/verification/40-device-performance.json).

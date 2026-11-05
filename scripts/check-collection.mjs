@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import * as T from 'three';
-import {RETAINED_ORIGINAL_DEVICE_IDS,IMPLEMENTED_EXPANSION_IDS,EXPANSION_BATCHES} from '../src/expansion-manifest.js';
+import {ORIGINAL_DEVICE_IDS,IMPLEMENTED_EXPANSION_IDS,EXPANSION_BATCHES} from '../src/expansion-manifest.js';
 
 // Exercise the real builders with canvas drawing stubbed; geometry, groups,
 // material batching and pose/selection behavior are the production code.
@@ -10,7 +10,7 @@ globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>context
 globalThis.__BREAKBOARD_ASSETS=Object.fromEntries(fs.readdirSync('public/models').filter(f=>f.endsWith('.json.gz')).map(f=>[f.replace('.json.gz',''),fs.readFileSync('public/models/'+f).toString('base64')]));
 const {BOARD_LIST}=await import('../src/boards.js');
 assert.equal(new Set(BOARD_LIST.map(b=>b.id)).size,BOARD_LIST.length,'Unique board routes');
-const expected=[...RETAINED_ORIGINAL_DEVICE_IDS,...IMPLEMENTED_EXPANSION_IDS];
+const expected=[...ORIGINAL_DEVICE_IDS,...IMPLEMENTED_EXPANSION_IDS];
 assert.equal(EXPANSION_BATCHES.flat().length,40);assert.equal(new Set(EXPANSION_BATCHES.flat()).size,40);
 assert(IMPLEMENTED_EXPANSION_IDS.every(id=>EXPANSION_BATCHES.flat().includes(id)));
 assert.deepEqual(BOARD_LIST.map(b=>b.id).toSorted(),expected.toSorted(),'All original devices and the explicitly implemented expansion devices are available');

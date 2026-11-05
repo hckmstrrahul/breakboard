@@ -1,6 +1,6 @@
 # README captures
 
-The original 52 PNGs were captured from the running application on 4 November 2026 using **Save image**. The first five expansion batches add fifty captures on 5 November using the same renderer/export path through `scripts/render-device-proofs.mjs --gallery`. These are original renderer exports, not generated mockups or photographs. All 102 PNGs are 2400 × 2217 px, use Light appearance (`#efeee9`), and retain the app's native framing and colors.
+The current gallery contains **130 PNGs**, two views for each of 65 devices. They were captured from the running application's **Save image** path or `scripts/render-device-proofs.mjs --gallery` on 4–5 November 2026. These are actual renderer exports. The images are 2400 × 2217 px, use Light appearance (`#efeee9`), and retain the app's native framing and colors. The table below records the initial devices and first five expansion batches; the [project gallery](../../README.md#light-mode-gallery) includes all 65 devices.
 
 | Pair | Device | Separation | Camera | Accessories |
 | --- | --- | --- | --- | --- |
@@ -20,7 +20,6 @@ The original 52 PNGs were captured from the running application on 4 November 20
 | `hqcamera-*-light.png` | HQ Camera | 100% | Default 3D | C-to-CS adapter |
 | `stepper-*-light.png` | Stepper motor | 100% | Default 3D | — |
 | `hackrf-*-light.png` | HackRF One | 100% | Default 3D | — |
-| `grobot-*-light.png` | Grobot / open brass frame | 100% | Default 3D | Exposed modules, perfboard and servo pointer; two filament pairs |
 | `pmt-*-light.png` | Hamamatsu R928 | 100% | Default 3D | — |
 | `spectrometer-*-light.png` | Hamamatsu C12880MA | 100% | Default 3D | — |
 | `epyc-*-light.png` | AMD EPYC 9654 | 100% | Default 3D | — |
@@ -58,10 +57,10 @@ The original 52 PNGs were captured from the running application on 4 November 20
 
 For each pair, reset the device, choose Light, leave component labels off and set the separation above. Leave playback, auto rotation and isolation off. Save the material view, enable X-ray to clear selection and show the complete anatomy view, then save again without changing the camera. The viewer's width-to-height ratio was 2400:2217; export height follows that ratio.
 
-The PNG exporter includes the model and scene background, not the surrounding HTML controls or callouts. Normal-mode assembly guides and shadows are retained; anatomy uses its own contour treatment. All 92 saved images were opened and visually checked. Model provenance and reuse terms remain those documented in the [project README](../../README.md#attribution).
+The PNG exporter includes the model and scene background, not the surrounding HTML controls or callouts. Normal-mode assembly guides and shadows are retained; anatomy uses its own contour treatment. The batch reviews record the visual inspection of their saved images. Model provenance and reuse terms remain those documented in the [project README](../../README.md#attribution).
 
 The added devices use their documented source revision. The DLP package and enlarged mechanism retain permanent scale labels in both treatments. Glass in the Nixie tube and camera filter preserves translucency with anatomy contours. Tall devices use their fully exploded framing for both exports.
 
 The core-memory pair was refreshed after widening its separated tiers. The 4004 pair was refreshed for its shorter lid, exposed ceramic shoulders, tapered leads and procedural ceramic mottling.
 
-The BeagleBone, core-memory, DLP, EPYC, Grobot, Orange Pi, photomultiplier and particle-sensor pairs were refreshed after fitting printed inscriptions inside their texture margins. Matching light/dark picker previews were regenerated.
+The BeagleBone, core-memory, DLP, EPYC, Orange Pi, photomultiplier and particle-sensor pairs were refreshed after fitting printed inscriptions inside their texture margins. Matching light/dark picker previews were regenerated.

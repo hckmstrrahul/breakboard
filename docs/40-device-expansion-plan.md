@@ -1,8 +1,8 @@
 # Forty-device expansion plan
 
-Status: **complete and published**. All eight batches are integrated and independently reviewed: all forty additions, **66 devices total**. The final review covers 264 individually inspected baselines, all controls, component framing, three GPU-cache traversals and offline operation in Chrome, Firefox and WebKit. Production catalogue, interactions, previews and matching offline download passed; details are recorded in the [final report](verification/40-device-expansion.md).
+Status: **complete and published**. All eight batches are integrated and independently reviewed: all forty additions, **65 devices total**. The final review covers 260 individually inspected baselines, all controls, component framing, three GPU-cache traversals and offline operation in Chrome, Firefox and WebKit. Production catalogue, interactions, previews and matching offline download passed; details are recorded in the [final report](verification/40-device-expansion.md).
 
-Scope: add all 40 agreed devices to the existing 26-device collection, for 66 total. Each addition includes geometry, component selection, assembled/exploded views, X-ray, useful interaction, documentation, previews and offline support. The entries below preserve the original research targets; the selected reference locks and limits are recorded in the individual evidence files and the [final source closure](verification/expansion-batch8.md#final-40-referencedisclosure-closure). No device is silently dropped or substituted.
+Scope: add all 40 agreed devices to the existing 25-device collection, for 65 total. Each addition includes geometry, component selection, assembled/exploded views, X-ray, useful interaction, documentation, previews and offline support. The entries below preserve the original research targets; the selected reference locks and limits are recorded in the individual evidence files and the [final source closure](verification/expansion-batch8.md#final-40-referencedisclosure-closure). No device is silently dropped or substituted.
 
 The first batch locks Omron G2R-1 DC12, T-MOTOR MN2212 V2.0 KV920, Precision Microdrives C10-100, ams AS5600-SO_EK_AB/AS5600-SO_AB_V2 and Epson FC-135. Shared controls, per-device behavior, a three-model GPU cache, deforming anatomy contours and offline browser verification are implemented. All later batches now have their own geometry, causal operation and independent checks.
 
@@ -28,7 +28,7 @@ Reuse the Three.js viewer and its visual language. Do not introduce a second vie
 
 | Area | Planned work | Acceptance condition |
 | --- | --- | --- |
-| Catalogue | Separate lightweight catalogue metadata from heavy builders; register the 40 explicit IDs in a scope manifest. | All 66 devices appear exactly once, with stable routes and no missing previews. |
+| Catalogue | Separate lightweight catalogue metadata from heavy builders; register the 40 explicit IDs in a scope manifest. | All 65 devices appear exactly once, with stable routes and no missing previews. |
 | Memory and loading | Replace the unbounded model cache in `scene.js` with bounded reuse; dispose geometry, textures, effects and anatomy resources safely, respecting shared ownership. Load expensive geometry only when needed. | Repeated full-catalogue navigation reaches a stable memory level; switching during loading cannot show stale models. |
 | Motion | Extend `hardware-motion.js` and `operation.js` for sliding joints, iris linkages, linked rotation, spring motion, membrane deformation and sequenced mechanisms. | Motion uses real pivots/constraints, stays out of static batches, is independent of frame rate and resets reproducibly. |
 | Device behaviour | Add per-device operation controllers instead of growing one large device-specific conditional. Expose input, phase/time, output and reset state. | Changing an input changes the correct mechanism/readout; labels and anatomy follow moving parts. |
@@ -143,16 +143,16 @@ For each device, work in this order:
 
 A device is complete only when its physical representation is reviewed, its advertised interaction works, and its device-specific check passes. Passing a build or seeing an animated object is insufficient.
 
-## 5. Integrate all 66 devices without adding clutter
+## 5. Integrate all 65 devices without adding clutter
 
 - Keep Boards, Displays, Optics, Sensors, Chips, Motion and Radio; add Storage, Power and Audio. Each device has one primary category.
 - Preserve desktop hover menus, theme-aware previews, selected-item visibility and category-scoped previous/next navigation. Validate overflow and keyboard navigation with the expanded category set.
 - Retain mobile device/component bottom sheets and inline upward-expanding Controls, leaving the 3D canvas usable. Group model-specific controls into compact sections.
 - Preserve dark default, labels off by default, selected label visibility, sentence-case labels, matching selection ghosting in normal/X-ray mode and stable callouts during orbit.
-- Add 80 new assembled WebP previews, making 132 light/dark previews in total. Use renders of the actual geometry rather than concept images.
+- Add 80 new assembled WebP previews, making 130 light/dark previews in total. Use renders of the actual geometry rather than concept images.
 - Add all 40 devices to the GitHub gallery, with consistent light/dark captures and short descriptions.
 - Continue producing one fully offline HTML with geometry, fonts, textures and previews embedded once. Web loading can be lazy; the standalone build must not depend on a server, dynamic network fetches or a CDN.
-- Measure the new HTML size after each batch. Preserve automatic README device-count/file-size updates; do not promise the 66-device build will retain the current 26-device file size.
+- Measure the new HTML size after each batch. Preserve automatic README device-count/file-size updates; do not promise the 65-device build will retain the current 25-device file size.
 
 ## 6. Final review after implementation — required release gate
 
@@ -160,16 +160,16 @@ Run this after all 40 additions are implemented, as well as smaller checks durin
 
 | Review | Required evidence |
 | --- | --- |
-| Scope | Exactly 40 additions plus all original 26; unique IDs/routes, correct categories, complete parts and 132 theme previews. |
+| Scope | Exactly 40 additions plus all original 25; unique IDs/routes, correct categories, complete parts and 130 theme previews. |
 | Accuracy | Reopen each evidence record and compare the final render with the selected revision. Check dimensions, component counts, pinouts, material roles and every representative-cutaway disclosure. |
-| Visual quality | Capture a baseline of 264 images: all 66 devices × assembled/exploded × light/dark. Inspect every image, not just a contact sheet, and capture functional close-ups for each addition. |
+| Visual quality | Capture a baseline of 260 images: all 65 devices × assembled/exploded × light/dark. Inspect every image, not just a contact sheet, and capture functional close-ups for each addition. |
 | Dynamic quality | Exercise each control at minimum/default/maximum and capture key operation phases. Check real pivots, no unintended collisions, no drifting wires, continuous tape paths and moving label anchors. |
 | Rendering defects | Orbit slowly and zoom to the supported maximum: inspect flickering surfaces, clipping, transparency order, smooth contours, shadows, texture seams and printed-text cropping. |
 | Functional behaviour | Test Play, pause/resume, reset, separation, camera presets, selection, deselection, isolation, X-ray and category navigation; verify outputs respond to inputs. |
-| Regression | Run `npm run build`, `npm run check` and the new browser/operation checks against all 66. Keep existing Grobot, label, selection, material and offline regressions. |
+| Regression | Run `npm run build`, `npm run check` and the new browser/operation checks against all 65. Keep label, selection, material and offline regressions. |
 | Browser/responsive | Test Chromium, Firefox and WebKit plus available real Chrome/Safari browsers. Cover 320/390 px phones, landscape, tablet and 1280/1600 px desktop; touch, keyboard, zoom, light/dark/system and reduced motion. Report physical-device gaps explicitly. |
 | Performance | Profile the heaviest mechanical, optical and dense-silicon scenes. Cycle through all devices repeatedly and verify bounded caches, resource cleanup and no WebGL errors. Record frame times and memory trends. |
-| Offline | Open the generated HTML directly with network unavailable. Visit all 66 models, operate controls, switch themes and export images. Verify no missing external asset or chunk request. |
+| Offline | Open the generated HTML directly with network unavailable. Visit all 65 models, operate controls, switch themes and export images. Verify no missing external asset or chunk request. |
 | Documentation/assets | Check gallery links, model descriptions, source links, alt text, preview framing and the measured offline size/count. Confirm licenses and remove private paths or source metadata from public output. |
 | Publication | Review the complete diff; run the secrets hook and use the existing GitHub noreply identity. Push the final commit, deploy to `breakboard-teardown.vercel.app`, and verify production catalogue, representative interactions, thumbnails and downloadable offline file against that build. |
 
@@ -179,7 +179,7 @@ Keep the final verification report at `docs/verification/40-device-expansion.md`
 
 1. Evidence inventory and reference locks, alongside the shared-runtime foundation.
 2. Eight completed and reviewed batches; update source records, previews, gallery and measured offline statistics with each.
-3. Full 66-device final review and correction pass.
+3. Full 65-device final review and correction pass.
 4. Final source commit, production deployment and post-deployment verification.
 
-This document preserves the full implementation plan. All eight batches and the final 66-device local review have passed; the final report records measured results, publication verification and physical-device limitations.
+This document describes the forty additions within the current electronics catalogue. All eight batches and the final 65-device local review have passed; the final report records measured results, publication verification and physical-device limitations.
