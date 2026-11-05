@@ -7,7 +7,7 @@ Explore development boards, displays, optics, sensors, chips, audio, power hardw
 ## Take it offline
 
 <!-- offline-stats:start -->
-**56 interactive devices in one 23.82 MB HTML file** (22.72 MiB).
+**61 interactive devices in one 24.95 MB HTML file** (23.79 MiB).
 <!-- offline-stats:end -->
 
 [Save the standalone HTML](https://breakboard-teardown.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
@@ -66,19 +66,23 @@ Actual 2400 px PNG captures from **Save image**. Each pair shares its camera and
 | **ZED-F9P receiver** | ![Receiver shield, dual-band front end, timing components and 102 lands separated](docs/images/gnss-teardown-light.png) | ![The same ZED-F9P receiver assembly in anatomy mode](docs/images/gnss-anatomy-light.png) |
 | **IMX500 vision sensor** | ![Pixel and logic chips, color filters, microlenses and representative processing blocks separated](docs/images/imx500-teardown-light.png) | ![The same IMX500 vision sensor assembly in anatomy mode](docs/images/imx500-anatomy-light.png) |
 | **IMX636 event sensor** | ![Ceramic LGA156 package, glass and stacked monochrome sensor chips separated](docs/images/eventcamera-teardown-light.png) | ![The same IMX636 event sensor assembly in anatomy mode](docs/images/eventcamera-anatomy-light.png) |
-
 | **Canon 50 mm STM** | ![Six optical elements, seven iris leaves, geared focusing barrel and lens mount separated](docs/images/prime50-teardown-light.png) | ![The same Canon 50 mm STM assembly in anatomy mode](docs/images/prime50-anatomy-light.png) |
 | **Nikon 24–70 mm VR** | ![Twenty optical elements, zoom cams, nine iris leaves and representative VR carriage separated](docs/images/zoomlens-teardown-light.png) | ![The same Nikon 24–70 mm VR assembly in anatomy mode](docs/images/zoomlens-anatomy-light.png) |
 | **Folded telephoto** | ![Prism, two-axis OIS cradle, six lenses and ball-guided autofocus carrier separated](docs/images/periscope-teardown-light.png) | ![The same Folded telephoto assembly in anatomy mode](docs/images/periscope-anatomy-light.png) |
 | **RealSense D455** | ![Capsule housing, stereo imagers, projector, RGB camera and processor board separated](docs/images/d455-teardown-light.png) | ![The same RealSense D455 assembly in anatomy mode](docs/images/d455-anatomy-light.png) |
 | **FM3A shutter** | ![Representative front and rear curtain leaves, guides, electromagnet and governor separated](docs/images/shutter-teardown-light.png) | ![The same FM3A shutter assembly in anatomy mode](docs/images/shutter-anatomy-light.png) |
-
-To reproduce: choose **Light**, reset the device (tags start off), and use **3D**. ESP32 uses its default 78% separation; all other devices use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
 | **Barracuda HDD** | ![Two-disk Seagate ST31000528AS with four-head actuator and controller separated in light mode](docs/images/hdd-teardown-light.png) | ![The same Barracuda HDD in anatomy mode](docs/images/hdd-anatomy-light.png) |
 | **Blu-ray pickup** | ![Sony KES-400A with its optical elements, objective suspension and radial mechanism separated in light mode](docs/images/bluray-teardown-light.png) | ![The same Blu-ray pickup in anatomy mode](docs/images/bluray-anatomy-light.png) |
 | **IBM LTO-9 transport** | ![IBM TS2290 enclosure and representative single-reel cartridge transport separated in light mode](docs/images/lto-teardown-light.png) | ![The same IBM LTO-9 transport in anatomy mode](docs/images/lto-anatomy-light.png) |
 | **Samsung 990 PRO** | ![Samsung 990 PRO 2 TB with controller, DRAM and representative NAND die stacks separated in light mode](docs/images/nvme-teardown-light.png) | ![The same Samsung 990 PRO in anatomy mode](docs/images/nvme-anatomy-light.png) |
 | **BiCS8 3D NAND** | ![Magnified 218-word-line BiCS8 cutaway with channels and bonded CMOS separated in light mode](docs/images/nand-teardown-light.png) | ![The same BiCS8 3D NAND in anatomy mode](docs/images/nand-anatomy-light.png) |
+| **NE555 timer** | ![SOIC package, leadframe, bonds and genuine TI die image separated in light mode](docs/images/ne555-teardown-light.png) | ![The same NE555 timer in anatomy mode](docs/images/ne555-anatomy-light.png) |
+| **RP2350B** | ![QFN-80 package with representative core, SRAM and PIO regions separated in light mode](docs/images/rp2350-teardown-light.png) | ![The same RP2350B in anatomy mode](docs/images/rp2350-anatomy-light.png) |
+| **Artix-7 FPGA** | ![Wire-bond package, representative logic die and 324 solder balls separated in light mode](docs/images/fpga-teardown-light.png) | ![The same Artix-7 FPGA in anatomy mode](docs/images/fpga-anatomy-light.png) |
+| **Micron HBM3E** | ![Eight memory dies with vertical interconnects, base die and package bumps separated in light mode](docs/images/hbm-teardown-light.png) | ![The same Micron HBM3E in anatomy mode](docs/images/hbm-anatomy-light.png) |
+| **Windowed EPROM** | ![Ceramic windowed package, 28 leads, die and bond wires separated in light mode](docs/images/eprom-teardown-light.png) | ![The same Windowed EPROM in anatomy mode](docs/images/eprom-anatomy-light.png) |
+
+To reproduce: choose **Light**, reset the device (tags start off), and use **3D**. ESP32 uses its default 78% separation; all other devices use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
 
 ## Run locally
 
@@ -178,6 +182,11 @@ X-ray, playback, overview tags and camera choice persist across device changes. 
 | IBM TS2290 3580-H9S / 02XW568 cartridge | `#lto` | [Documented enclosure and media; representative conserved-length tape transport](reference/lto/evidence.md) |
 | Samsung 990 PRO 2 TB / MZ-V9P2T0BW / October 2022 | `#nvme` | [Photographed original PCB; inferred sixteen-die NAND stacks](reference/nvme/evidence.md) |
 | Kioxia BiCS FLASH generation 8 / 1 Tb TLC | `#nand` | [Documented 218-level CBA architecture; magnified representative eight-string cutaway](reference/nand/evidence.md) |
+| TI NE555D / D0008A SOIC-8 | `#ne555` | [Documented package and genuine licensed TI die image; ideal external RC circuit](reference/ne555/evidence.md) |
+| Raspberry Pi RP2350B / A4 / QFN-80 | `#rp2350` | [Documented A4 package and architecture; representative functional floorplan](reference/rp2350/evidence.md) |
+| AMD / Xilinx XC7A35T-1CSG324C | `#fpga` | [Artix-specific wire-bond package drawing; representative die and configurable logic](reference/fpga/evidence.md) |
+| Micron MT65B12G16080A00QG-92:A / 24 GB | `#hbm` | [Documented eight-high stack; representative TSV and microbump detail](reference/hbm/evidence.md) |
+| ST M27W256-80F6 / FDIP28W / Rev 3 | `#eprom` | [Documented windowed package and 32K-byte organization; representative die](reference/eprom/evidence.md) |
 
 These are educational reconstructions. Separating soldered parts explains their roles; it is not a physical disassembly procedure. Estimated heights, connector interiors and hidden placements are recorded in [reference/](reference/) and the [device registry](src/boards.js). X-ray reuses the same modeled surfaces. The new sealed-module cutaways explicitly identify illustrative interiors; chip surface regions are functional diagrams, not fabricated transistor layouts or buried-copper maps. Signal paths illustrate activity, not an electrical simulation. The stepper is a representative mechanism, not a manufacturer-specific replica. The DLP package stays at its documented scale; a separate **600× detail** explains the micromirror mechanism without claiming a disclosed fabrication stack. Nixie electrode shapes and hidden construction are identified as reconstructed.
 
@@ -229,9 +238,9 @@ npm run check:offline
 
 Deploy `dist/` to a static host, or use the [standalone offline file](#take-it-offline). On the hosted app, Jetson CAD ships in the app bundle and Pi, Portenta and Grobot CAD load on first selection. The viewer retains up to three built models, releasing unreferenced GPU resources when older models leave the cache.
 
-Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. The expansion checks cover contact mating, motor apertures and rotation, haptic pulses, encoder conversion, quartz division, audio linkages, waveform response, environmental sensing channels, MEMS axis signs, depth-zone mapping, radar placement, PIR timing and ultrasonic propagation. Independent reviews record source limits and corrected findings: [batch 1](docs/verification/expansion-batch1.md), [batch 2](docs/verification/expansion-batch2.md), [batch 3](docs/verification/expansion-batch3.md), [batch 4](docs/verification/expansion-batch4.md), [batch 5](docs/verification/expansion-batch5.md), [batch 6](docs/verification/expansion-batch6.md).
+Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. The expansion checks cover contact mating, motor apertures and rotation, haptic pulses, encoder conversion, quartz division, audio linkages, waveform response, environmental sensing channels, MEMS axis signs, depth-zone mapping, radar placement, PIR timing and ultrasonic propagation. Independent reviews record source limits and corrected findings: [batch 1](docs/verification/expansion-batch1.md), [batch 2](docs/verification/expansion-batch2.md), [batch 3](docs/verification/expansion-batch3.md), [batch 4](docs/verification/expansion-batch4.md), [batch 5](docs/verification/expansion-batch5.md), [batch 6](docs/verification/expansion-batch6.md), [batch 7](docs/verification/expansion-batch7.md).
 
-The standalone HTML loaded all 56 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
+The standalone HTML loaded all 61 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
 
 Normal development uses the supplied runtime assets. Downloaded reference CAD, PDFs, photographs and intermediate meshes stay local; source URLs and evidence records are included. Regenerating STEP meshes additionally requires `cadquery-ocp==7.9.3.1.1` and the `import-*` / `package-*` scripts in [scripts/](scripts/) and [reference/grobot/](reference/grobot/). Arduino extraction uses `prepare-uno.py` and `prepare-nano.py`.
 
@@ -242,4 +251,5 @@ Normal development uses the supplied runtime assets. Downloaded reference CAD, P
 - BeagleBoard documentation/imagery © BeagleBoard.org Foundation, CC BY-SA 4.0; reconstructed BeagleBone geometry is offered under the same license. NVIDIA reference geometry remains subject to its download terms. Per-board records in [reference/](reference/) link original sources.
 - Adafruit NeoMatrix layout and adapted geometry: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/); [source](https://github.com/adafruit/Adafruit-NeoPixel-8x8-Matrix). HackRF r10 hardware and adapted geometry: [CERN-OHL-P-2.0](https://ohwr.org/cern_ohl_p_v2.txt); [source](https://github.com/greatscottgadgets/hackrf/tree/main/hardware/hackrf-one). Portenta geometry is derived from Arduino’s published reference STEP; see [evidence](reference/portenta/evidence.md).
 - Waveshare UPS HAT (D) and 1.47-inch LCD geometry is adapted from the manufacturer’s published STEP files; [source and modification notice](public/licenses/waveshare-grobot.txt). Grobot’s custom parts are proposed packaging geometry, not manufacturing CAD.
+- NE555 genuine die photograph © Mikhail Svarichevsky / ZeptoBars, [CC BY 3.0](public/licenses/ne555-zeptobars.txt); cropped, resampled and rendered in color or monochrome.
 - [Untitled UI icon notice](public/licenses/untitled-ui-icons.txt). Board names and logos identify their respective hardware vendors.

@@ -1,0 +1,173 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import * as T from 'three';
+import {createOperation} from '../src/operation.js';
+import {createAnatomy} from '../src/anatomy.js';
+import {isMovingPart} from '../src/hardware-motion.js';
+import {pickComponent} from '../src/selection.js';
+import {shadowFrame} from '../src/shadow-framing.js';
+import {disposeModel,modelResources} from '../src/model-cache.js';
+import {createModuleEffects} from '../src/module-effects.js';
+import {formatLabel} from '../src/label-text.js';
+
+const canvasContext=new Proxy({}, {get:(_,key)=>key==='measureText'?text=>({width:String(text).length*30}):()=>{},set:()=>true});
+globalThis.document={createElement:()=>({width:0,height:0,getContext:()=>canvasContext})};
+const ids=['ne555','rp2350','fpga','hbm','eprom'];
+const running={playing:true,explode:0,reduced:false,isolate:false,selected:null};
+const round=value=>Math.round(value*1e9)/1e9;
+const close=(actual,expected,tolerance=1e-6,message='numeric agreement')=>assert(Math.abs(actual-expected)<=tolerance,`${message}: ${actual} vs ${expected} ±${tolerance}`);
+function tick(operation,seconds,options=running){for(let i=0;i<Math.round(seconds*120);i++)operation.update(1/120,options);}
+function state(model){
+ model.root.updateMatrixWorld(true);const values=[];
+ model.root.traverse(object=>{
+  if(!object.geometry||object.isBatchedMesh)return;
+  values.push(object.visible,...object.matrixWorld.elements.map(round));
+  const position=object.geometry.attributes.position;if(position)for(let i=0;i<position.array.length;i+=Math.max(1,Math.floor(position.array.length/70)))values.push(round(position.array[i]));
+  // Shared lighting/cutaway fades may settle after Pause. Kinematic stability
+  // concerns physical transforms and vertices; material responses are checked
+  // separately for the environmental inputs below.
+ });
+ return JSON.stringify([values,model.behavior.getReadouts()]);
+}
+function readouts(model,id){const rows=model.behavior.getReadouts();assert(Array.isArray(rows)&&rows.length,id+' exposes output');for(const row of rows){assert.equal(typeof row.label,'string');assert(typeof row.value==='number'?Number.isFinite(row.value):!/NaN|undefined/.test(String(row.value)),id+' finite readout');}return rows;}
+function objects(group,predicate=()=>true){const found=[];group.traverse(o=>{if(predicate(o))found.push(o);});return found;}
+function effect(object){for(let node=object;node;node=node.parent)if(node.userData.explanatoryEffect)return true;return false;}
+function bounds(group){group.updateWorldMatrix(true,true);return new T.Box3().setFromObject(group,true);}
+function rays(group,x,z,y=20,direction=-1){group.updateWorldMatrix(true,true);return new T.Raycaster(new T.Vector3(x,y,z),new T.Vector3(0,direction,0)).intersectObject(group,true);}
+function vertexY(mesh){const p=mesh.geometry.attributes.position;return Array.from({length:p.count},(_,i)=>p.getY(i));}
+function peak(mesh){return Math.max(...vertexY(mesh).map(Math.abs));}
+// Recover disconnected physical solids from merged mesh triangles. This checks
+// pin counts after rendering optimization rather than trusting reference metadata.
+function solids(group,color){const result=[];group.updateWorldMatrix(true,true);for(const mesh of objects(group,o=>o.isMesh&&o.material.color.getHexString()===color)){
+ const p=mesh.geometry.attributes.position,index=mesh.geometry.index,parents=[],points=[],keys=new Map(),vertex=[];
+ const find=i=>parents[i]===i?i:parents[i]=find(parents[i]);
+ for(let i=0;i<p.count;i++){const v=new T.Vector3().fromBufferAttribute(p,i).applyMatrix4(mesh.matrixWorld),key=v.toArray().map(n=>n.toFixed(4)).join(',');let k=keys.get(key);if(k===undefined){k=points.length;keys.set(key,k);points.push(v);parents.push(k);}vertex.push(k);}
+ for(let i=0;i<(index?.count||p.count);i+=3){const ids=[0,1,2].map(k=>vertex[index?index.getX(i+k):i+k]);parents[find(ids[1])]=find(ids[0]);parents[find(ids[2])]=find(ids[0]);}
+ const boxes=new Map();points.forEach((v,i)=>{const root=find(i);if(!boxes.has(root))boxes.set(root,new T.Box3());boxes.get(root).expandByPoint(v);});result.push(...boxes.values());
+ }return result;}
+function checkWaveform(model,operation,id){
+ if(!model.behavior.getWaveform)return;
+ operation.reset();const check=()=>{const w=model.behavior.getWaveform();assert(typeof w.label==='string'&&typeof w.caption==='string');assert(w.samples.length>=32);assert(w.samples.every(v=>Number.isFinite(v)&&Math.abs(v)<=1+1e-6),id+' bounded relative waveform');return JSON.stringify(w);};
+ const first=check();tick(operation,.071);const active=check();assert(active!==first,id+' waveform phase advances');tick(operation,.2,{...running,playing:false});assert.equal(check(),active,id+' waveform freezes with pause');operation.reset();assert.equal(check(),first,id+' waveform reset');
+
+}
+function hullXZ(mesh){const p=mesh.geometry.attributes.position,points=[];for(let i=0;i<p.count;i++){const v=new T.Vector3().fromBufferAttribute(p,i).applyMatrix4(mesh.matrixWorld);points.push([v.x,v.z]);}points.sort((a,b)=>a[0]-b[0]||a[1]-b[1]);const cross=(a,b,c)=>(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]),h=[];for(const p of points){while(h.length>1&&cross(h.at(-2),h.at(-1),p)<=0)h.pop();h.push(p);}const n=h.length;for(let i=points.length-2;i>=0;i--){const p=points[i];while(h.length>n&&cross(h.at(-2),h.at(-1),p)<=0)h.pop();h.push(p);}h.pop();return h;}
+function convexPenetration(a,b){let overlap=Infinity;for(const polygon of[a,b])for(let i=0;i<polygon.length;i++){const p=polygon[i],q=polygon[(i+1)%polygon.length],length=Math.hypot(q[0]-p[0],q[1]-p[1]);if(length<1e-10)continue;const nx=(q[1]-p[1])/length,nz=(p[0]-q[0])/length,aa=a.map(p=>p[0]*nx+p[1]*nz),bb=b.map(p=>p[0]*nx+p[1]*nz),d=Math.min(Math.max(...aa),Math.max(...bb))-Math.max(Math.min(...aa),Math.min(...bb));if(d<=0)return 0;overlap=Math.min(overlap,d);}return overlap;}
+function expectedContours(source,edges){const p=edges.attributes.position,matrix=new T.Matrix4(),v=new T.Vector3(),out=[];for(let n=0;n<(source.isInstancedMesh?source.count:1);n++){if(source.isInstancedMesh)source.getMatrixAt(n,matrix);else matrix.identity();for(let i=0;i<p.count;i++){v.fromBufferAttribute(p,i).applyMatrix4(matrix);out.push(v.x,v.y,v.z);}}return Array.from(new Float32Array(out));}
+function checkInstancedAnatomy(){
+ const root=new T.Group(),a=new T.Group(),b=new T.Group();root.add(a,b);root.position.set(3,4,5);a.position.set(-8,3,1);a.rotation.z=.21;const geometry=new T.BoxGeometry(1,2,3),material=new T.MeshStandardMaterial(),source=new T.InstancedMesh(geometry,material,3);a.add(source);const dummy=new T.Object3D();for(let i=0;i<3;i++){dummy.position.set(i*5,2+i,-3*i);dummy.rotation.set(.1*i,.2*i,.3*i);dummy.scale.set(1+i*.2,1,1-i*.1);dummy.updateMatrix();source.setMatrixAt(i,dummy.matrix);}source.instanceMatrix.needsUpdate=true;const other=new T.Mesh(new T.BoxGeometry(),material);b.add(other);const model={root,groups:{a,b}},anatomy=model.anatomy=createAnatomy(model),entry=anatomy.entries.find(e=>e.source===source);
+ const check=()=>{anatomy.update(null);assert(entry.body.isInstancedMesh);assert.equal(entry.body.count,source.count);assert.deepEqual(Array.from(entry.body.instanceMatrix.array),Array.from(source.instanceMatrix.array));assert.notEqual(entry.body.instanceMatrix,source.instanceMatrix);assert.deepEqual(entry.body.matrix.elements,source.matrixWorld.elements);const edges=source.geometry.userData.anatomyEdges||new T.EdgesGeometry(source.geometry,20);assert.deepEqual(Array.from(entry.lines.geometry.attributes.position.array),expectedContours(source,edges),'every transformed instance contour is present');if(!source.geometry.userData.anatomyEdges)edges.dispose();};check();
+ const initialLines=entry.lines.geometry;anatomy.update(null);assert.equal(entry.lines.geometry,initialLines,'unchanged instance arrays reuse contours');let retired=0;initialLines.addEventListener('dispose',()=>retired++);dummy.position.set(-7,6,5);dummy.rotation.set(.4,-.2,.6);dummy.updateMatrix();source.setMatrixAt(1,dummy.matrix);source.instanceMatrix.needsUpdate=true;check();assert.equal(retired,1,'updated contours disposed exactly once');source.count=1;check();source.count=0;check();source.count=3;check();geometry.attributes.position.setX(0,1.4);geometry.attributes.position.needsUpdate=true;check();anatomy.update('b');assert.equal(entry.body.parent,anatomy.context);assert(entry.body.material.transparent&&entry.body.material.opacity<.2);anatomy.update('a');assert.equal(entry.body.parent,anatomy.subject);assert(!entry.body.material.transparent);a.visible=false;anatomy.update(null);assert(!entry.body.visible&&!entry.lines.visible);a.visible=true;check();
+ const owned=[...new Set(Object.values(modelResources(model)).flatMap(set=>[...set]))],disposed=new Map();for(const o of owned)o.addEventListener('dispose',()=>disposed.set(o,(disposed.get(o)||0)+1));disposeModel(model);for(const o of owned)assert.equal(disposed.get(o),1,'owned instance/body/contour/material resources disposed exactly once');
+}
+function checkCoverOpacity(){
+ const root=new T.Group(),group=new T.Group();root.add(group);root.userData.effects={cutaway:['cover']};const expected=[.072,0,.025,0,.9],materials=[];
+ for(const requested of[undefined,0,.025,-1,8]){const mat=new T.MeshStandardMaterial({opacity:.9,transparent:false,depthWrite:true});if(requested!==undefined)mat.userData.playbackOpacity=requested;const mesh=new T.Mesh(new T.BoxGeometry(),mat);mesh.castShadow=true;group.add(mesh);materials.push(mat);}
+ const fx=createModuleEffects({root,groups:{cover:group}});for(const power of[0,.5,1]){fx.update({power,time:0},{assembled:true,selected:null,reduced:false});fx.covers.forEach((c,i)=>{close(c.mat.opacity,.9+(expected[i]-.9)*power);assert.equal(c.mat.depthWrite,power<=.1);assert.equal(c.object.castShadow,power<.1);});}
+ fx.update({power:1,time:0},{assembled:true,selected:'cover',reduced:false});for(const c of fx.covers){close(c.mat.opacity,.9);assert(!c.mat.transparent&&c.mat.depthWrite&&c.object.castShadow);}
+ fx.update({power:1,time:0},{assembled:true,selected:null,reduced:false});fx.reset();fx.covers.forEach(c=>{close(c.mat.opacity,.9);assert(!c.mat.transparent&&c.mat.depthWrite&&c.object.castShadow);const ghost=c.mat.clone();c.object.material=ghost;fx.update({power:0,time:0},{assembled:true,selected:'other'});assert(!c.object.castShadow);c.object.material=c.mat;fx.reset();assert(c.object.castShadow);ghost.dispose();c.mat.dispose();c.object.geometry.dispose();});materials.forEach(m=>m.dispose());
+}
+checkCoverOpacity();
+function checkLuminanceArtwork(){
+ const root=new T.Group(),group=new T.Group();root.add(group);const maps=[];for(const opt of[false,true]){const tx=new T.DataTexture(new Uint8Array([0,0,0,255,255,255,255,255]),2,1,T.RGBAFormat);if(opt)tx.userData.anatomyLuminance=true;maps.push(tx);group.add(new T.Mesh(new T.PlaneGeometry(2,1),new T.MeshBasicMaterial({map:tx})));}
+ const anatomy=createAnatomy({root,groups:{art:group}});anatomy.update(null);const keys=[];for(let i=0;i<2;i++){const mark=anatomy.markings[i];assert.equal(mark.body.geometry,mark.source.geometry);assert.equal(mark.solid.map,maps[i]);assert.equal(mark.ghost.map,maps[i]);const shader={uniforms:{},fragmentShader:'#include <map_fragment>'};mark.solid.onBeforeCompile(shader);assert.equal(shader.fragmentShader.includes('1.0 - dot(artwork.rgb'),i===1,'only opted-in photo receives luminance coverage');assert(shader.fragmentShader.includes('float coverage = artwork.a'));keys.push(mark.solid.customProgramCacheKey());assert.equal(mark.solid.customProgramCacheKey(),mark.ghost.customProgramCacheKey());}
+ assert.notEqual(keys[0],keys[1],'opaque-photo and alpha-artwork shader programs cannot alias');const model={root,groups:{art:group},anatomy};disposeModel(model);
+}
+checkLuminanceArtwork();
+
+checkInstancedAnatomy();
+for(const text of ['EF bayonet mount','AF-S focus','STM motor','SWM rotor','VR carrier','OIS coils','ED glass','HRI element','MEMS die','ASIC die','SPAD array','VCSEL emitter','8M sensor','1DX module'])assert.equal(formatLabel(text),text,'preserves meaningful reference capitalization');assert.equal(formatLabel('40-PIN HEADER'),'40-pin header');
+function output(model,label){return model.behavior.getReadouts().find(row=>row.label===label)?.value;}
+function physicalBounds(model){const box=new T.Box3();for(const g of Object.values(model.groups))box.union(bounds(g));return box;}
+function physicalState(model){model.root.updateMatrixWorld(true);return JSON.stringify(Object.values(model.groups).flatMap(group=>objects(group,o=>o.isMesh&&!o.isBatchedMesh)).map(o=>[...o.matrixWorld.elements,...o.geometry.attributes.position.array]));}
+function checkPackageAndBehavior(id,model,operation){
+ const b=model.behavior,g=model.groups,m=model.mechanism;
+ operation.reset();model.setPose(0);model.root.updateMatrixWorld(true);
+ const initialPhysical=physicalState(model),envelope=physicalBounds(model).getSize(new T.Vector3());
+ if(id==='ne555'){
+  const base=bounds(g.base).getSize(new T.Vector3());close(base.x,3.9,1e-5);close(base.z,4.9,1e-5);close(bounds(g.base).min.y,.18,1e-5,'body seating clearance');close(envelope.x,6,1e-5);assert(envelope.y<=1.75);
+  const leads=solids(g.leads,'b9bec0');assert.equal(leads.length,8,'eight actual disconnected leads');for(const side of[-1,1]){const row=leads.filter(bb=>Math.sign(bb.getCenter(new T.Vector3()).x)===side).sort((a,b)=>a.min.z-b.min.z);assert.equal(row.length,4);row.forEach((bb,i)=>{close(bb.min.y,0,1e-5);close(bb.max.z-bb.min.z,.41,1e-5);close(bb.getCenter(new T.Vector3()).z,(i-1.5)*1.27,1e-5);});}
+  const photo=objects(g.die,o=>o.material?.map?.isDataTexture)[0];assert(photo?.userData.decal);const size=bounds(photo).getSize(new T.Vector3());close(size.x,1.034,1e-5);close(size.z,.762,1e-5);assert(photo.material.map.userData.anatomyLuminance);assert.equal(photo.material.map.image.width,512);assert.equal(photo.material.map.image.height,378);assert(new Set(photo.material.map.image.data).size>200,'actual multitone die photograph retained');
+  const notice=fs.readFileSync('public/licenses/ne555-zeptobars.txt','utf8');assert(/Creative Commons|CC BY/.test(notice)&&/zeptobars.com/.test(notice)&&/Svarichevsky/.test(notice));
+  for(const ra of[1,10,100])for(const rb of[1,47,100])for(const c of[1,100])for(const supply of[5,15]){
+   b.setControl('ra',ra);b.setControl('rb',rb);b.setControl('c',c);b.setControl('supply',supply);const high=Math.LN2*(ra+rb)*c*.001,low=Math.LN2*rb*c*.001,period=high+low;
+   close(+output(model,'Ideal oscillation'),1/period,.000501);close(+output(model,'Output high duty'),100*high/period,.00501);close(+output(model,'Physical period'),period,.000051);
+   for(const phase of[0,25,50,75,100]){b.setControl('phase',phase);const time=Math.min(.999999999,phase/100)*period,charging=time<high,vc=charging?supply*(1-(2/3)*Math.exp(-time/((ra+rb)*c*.001))):supply*2/3*Math.exp(-(time-high)/(rb*c*.001));close(+output(model,'Capacitor voltage'),vc,.000501);assert.equal(output(model,'Output / discharge').startsWith('High'),charging,'capacitor threshold chooses output/discharge state');}
+  }
+  b.setControl('ra',2);b.setControl('rb',1);b.setControl('c',1);b.setControl('supply',9);b.setControl('phase',75);assert(output(model,'Output / discharge').startsWith('Low'));close(+output(model,'Capacitor voltage'),6,.000501,'upper threshold switches discharge on');operation.reset();checkWaveform(model,operation,id);const wf=b.getWaveform();assert(wf.samples.every(v=>v>=-1/3-1e-6&&v<=1/3+1e-6),'normalized capacitor trace stays between documented thresholds');
+ }
+ if(id==='rp2350'){
+  close(envelope.x,10,1e-5);close(envelope.z,10,1e-5);assert(envelope.y>=.8&&envelope.y<=.9);const contacts=solids(g.terminals,'b7c0c3');assert.equal(contacts.length,80,'80 actual separate QFN contacts');for(const bb of contacts){const d=bb.getSize(new T.Vector3());close(Math.min(d.x,d.z),.2,1e-5);close(Math.max(d.x,d.z),.4,1e-5);close(bb.min.y,0,1e-5);}
+  const paddle=solids(g.paddle,'b7c0c3').find(bb=>Math.abs(bb.min.y)<1e-6);assert(paddle);close(paddle.getSize(new T.Vector3()).x,3.4,1e-5);close(paddle.getSize(new T.Vector3()).z,3.4,1e-5);
+  const banks=solids(g.sram,'7c896d');assert.equal(banks.length,10);assert.equal(banks.filter(bb=>bb.getSize(new T.Vector3()).x>.6).length,8,'eight full and two small SRAM macros');const machines=solids(g.pio,'998aaf');assert.equal(machines.length,12,'twelve rendered state-machine regions');
+  // Independent transcription of manufacturer Figure 3, QFN-80 top view.
+  const gpioPins=[77,78,79,80,1,2,3,4,6,7,8,9,11,12,13,14,16,17,18,19,20,21,22,23,25,26,27,28,36,37,38,39,40,42,43,44,45,46,47,48,49,52,53,54,55,56,57,58];
+  const marker=objects(model.root,o=>effect(o)&&o.geometry?.parameters?.radius===.16)[0];assert(marker);
+  gpioPins.forEach((pin,gpio)=>{b.setControl('gpio',gpio);assert.equal(output(model,'Package destination'),`Pin ${pin} · GPIOBASE ${gpio>=32?16:0}`);const side=Math.floor((pin-1)/20),j=(pin-1)%20,t=(j-9.5)*.4,expected=side===0?[-4.8,t]:side===1?[t,4.8]:side===2?[4.8,-t]:[-t,-4.8];close(marker.position.x,expected[0]);close(marker.position.z,expected[1]);const bb=contacts.find(bb=>bb.containsPoint(new T.Vector3(expected[0],.1,expected[1])));assert(bb,'explanatory destination aligns with actual package land');});
+  for(const divider of[1,1000,2000])for(const delay of[0,7,31]){b.setControl('divider',divider);b.setControl('delay',delay);close(+output(model,'PIO output frequency'),150e6/(divider*2*(delay+1)),.00501);for(const instruction of[0,1]){b.setControl('step',instruction);const row=b.getReadouts().find(r=>r.label.includes('→ GPIO'));assert.equal(row.value.startsWith('High'),instruction===0);}}
+  for(const a of[0,1])for(const c of[0,1]){b.setControl('step',1);b.setControl('core0',a);b.setControl('core1',c);assert.equal(output(model,'Core 0 / core 1'),`${a?'Hazard3':'Cortex-M33'} / ${c?'Hazard3':'Cortex-M33'}`);assert(b.getReadouts().find(r=>r.label.includes('→ GPIO')).value.startsWith('High'),'architecture selection resets sequence');const lit=objects(g.cores,o=>o.material?.emissive&&['78999e','a48870'].includes(o.material.color.getHexString()));assert.equal(lit.length,2,'exactly two physical alternatives selected');}
+  operation.reset();checkWaveform(model,operation,id);
+ }
+ if(id==='fpga'){
+  close(envelope.x,15,1e-5);close(envelope.z,15,1e-5);close(envelope.y,1.363,.001,'nominal package plus stable artwork');assert(m.balls.isInstancedMesh&&m.balls.count===324);const actual=[],matrix=new T.Matrix4(),v=new T.Vector3();for(let i=0;i<m.balls.count;i++){m.balls.getMatrixAt(i,matrix);actual.push(v.setFromMatrixPosition(matrix).clone());}const unique=axis=>[...new Set(actual.map(p=>round(p[axis])))].sort((a,b)=>a-b);for(const axis of['x','z']){const row=unique(axis);assert.equal(row.length,18);row.forEach((n,i)=>close(n,(i-8.5)*.8,1e-6));}assert.equal(new Set(actual.map(v=>v.toArray().join(','))).size,324);m.balls.geometry.computeBoundingBox();const bd=m.balls.geometry.boundingBox.getSize(new T.Vector3());close(bd.x,.45,1e-6);close(bd.y,.3,1e-6);close(bd.z,.45,1e-6);
+  assert.equal(m.bondPaths.length,80);for(const p of m.bondPaths){for(const [group,end]of[[g.die,p[0]],[g.routing,p.at(-1)]]){const hit=rays(group,end[0],end[2],end[1]+.08)[0];assert(hit);assert(Math.abs(hit.point.y-end[1])<.02,'wire endpoint meets physical landing pad');}}
+  const functions=[(a,b,c)=>a^b^c,(a,b,c)=>+(a+b+c>=2),(a,b,c)=>a?c:b];for(let program=0;program<3;program++){b.setControl('program',program);const bits=[];for(let n=0;n<8;n++){const inputs=[n>>2&1,n>>1&1,n&1];['a','b','c'].forEach((key,i)=>b.setControl(key,inputs[i]));const expected=functions[program](...inputs);assert.equal(+output(model,'Output Y'),expected);assert.equal(m.output,expected);bits.push(expected);}assert.equal(output(model,'Truth table (000 → 111)'),bits.join(''));}
+  operation.reset();b.setControl('auto',1);for(let n=0;n<8;n++){tick(operation,.8);const j=(n+1)%8;assert.deepEqual(m.inputs,[j>>2&1,j>>1&1,j&1]);}operation.update(0,{...running,selected:'die'});assert(!m.overlay.visible);operation.update(0,{...running,isolate:true});assert(!m.overlay.visible);
+ }
+ if(id==='hbm'){
+  close(envelope.x,10.98,1e-5);close(envelope.z,10.98,1e-5);close(envelope.y,.781,.00001);assert.equal(m.coreMeshes.length,8);assert.equal(m.viaCenters.length,48);const p=new T.Vector3(),matrix=new T.Matrix4();
+  for(let i=0;i<8;i++){const core=m.coreMeshes[i],bb=bounds(core),bottom=.154+i*.074;assert(objects(g['core'+i]).includes(core),'actual source die retained');close(bb.min.y,bottom,1e-6);close(bb.max.y,bottom+.06,1e-6);close(bb.getSize(new T.Vector3()).x,10.3,1e-5);if(i)close(bb.min.y-bounds(m.coreMeshes[i-1]).max.y,.014,1e-6);assert.equal(m.viaMeshes[i].count,48);assert.equal(m.bondMeshes[i].count,48);
+   for(let k=0;k<48;k++){const[x,z]=m.viaCenters[k];assert.equal(rays(core,x,z,1).length,0,'real TSV aperture in silicon');assert(rays(core,x+.05,z,1).length>0,'silicon exists immediately beside via');m.viaMeshes[i].getMatrixAt(k,matrix);p.setFromMatrixPosition(matrix);close(p.x,x,1e-6);close(p.z,z,1e-6);close(p.y,bottom+.03,1e-6);m.bondMeshes[i].getMatrixAt(k,matrix);p.setFromMatrixPosition(matrix);close(p.y+.007,bottom,1e-6,'joining bump meets copper bottom');if(i)close(p.y-.007,bounds(m.coreMeshes[i-1]).max.y,1e-6,'joining bump reaches previous die');}
+  }
+  assert.equal(m.bumps.count,400);b.setControl('layer',7);b.setControl('mode',1);close(m.dots[0].position.distanceTo(m.path.getPoint(0)),0,1e-7,'write starts at host');b.setControl('mode',0);close(m.dots[0].position.distanceTo(m.path.getPoint(1)),0,1e-7,'read starts at selected die');close(m.path.getPoint(1).y,bounds(m.coreMeshes[7]).getCenter(new T.Vector3()).y,1e-6,'traffic endpoint selects real layer height');operation.reset();const original=Array.from(m.memory);assert.equal(original.length,128);for(const layer of[0,3,7])for(const address of[0,8,15]){operation.reset();b.setControl('mode',1);b.setControl('layer',layer);b.setControl('address',address);const desired=(original[layer*16+address]+79)%256;b.setControl('data',desired);tick(operation,1.1);assert.deepEqual(Array.from(m.memory),original,'no premature byte commit');tick(operation,.11);const after=Array.from(m.memory);after.forEach((value,i)=>assert.equal(value,i===layer*16+address?desired:original[i],'write isolates selected layer/address'));assert.equal(m.lastValue,desired);b.setControl('mode',0);b.setControl('data',(desired+1)%256);tick(operation,1.21);assert.deepEqual(Array.from(m.memory),after,'read never writes');assert.equal(m.lastValue,desired);}
+  const endings=[];for(const hz of[30,60,120]){operation.reset();b.setControl('mode',1);b.setControl('data',202);for(let i=0;i<hz*6;i++)operation.update(1/hz,running);endings.push([m.completed,m.lastValue,...m.memory]);}assert.deepEqual(endings[0],endings[1]);assert.deepEqual(endings[1],endings[2]);assert.equal(endings[0][0],5);
+  operation.reset();b.setControl('mode',1);tick(operation,1.1);const before=Array.from(m.memory);tick(operation,2,{...running,playing:false});tick(operation,2,{...running,reduced:true});tick(operation,2,{...running,explode:1});assert.deepEqual(Array.from(m.memory),before,'pause/reduced/separation cannot commit a pending write');operation.reset();assert.deepEqual(Array.from(m.memory),original);
+ }
+ if(id==='eprom'){
+  const body=new T.Box3();for(const key of['base','seal','lid'])body.union(bounds(g[key]));const d=body.getSize(new T.Vector3());close(d.x,13.21,1e-5);close(d.z,36.92,1e-5);assert(d.y>=3.91&&d.y<=4.57);assert.equal(rays(g.lid,0,0,10).length,0,'actual ceramic window aperture');assert(rays(g.lid,3.6,0,10).length>0,'ceramic begins outside documented window');const glass=objects(g.window,o=>o.userData.anatomyTransparent)[0];assert(glass&&rays(glass,0,0,10).length);
+  const leadSolids=solids(g.leads,'babbb6'),legs=leadSolids.filter(bb=>bb.min.y<0);assert.equal(legs.length,28,'all 28 actual narrow formed lead stems');for(const side of[-1,1]){const row=legs.filter(bb=>Math.sign(bb.getCenter(new T.Vector3()).x)===side).sort((a,b)=>a.min.z-b.min.z);assert.equal(row.length,14);row.forEach((bb,i)=>{close(bb.getCenter(new T.Vector3()).z,-16.51+i*2.54,1e-5);close(bb.getSize(new T.Vector3()).z,.485,1e-5);});}
+  const pinout=['VPP','A12','A7','A6','A5','A4','A3','A2','A1','A0','Q0','Q1','Q2','VSS','Q3','Q4','Q5','Q6','Q7','/E','A10','/G','A11','A9','A8','A13','A14','VCC'];assert.deepEqual(model.root.userData.pinout.map(p=>p.name),pinout);
+  const byte=()=>Number.parseInt(output(model,'Stored byte').slice(2),16),write=(address,data)=>{b.setControl('mode',1);b.setControl('address',address);b.setControl('data',data);tick(operation,2.01);};operation.reset();for(const address of[0,12345,32767]){write(address,0xA5);assert.equal(byte(),0xA5);b.setControl('address',address===32767?32766:address+1);assert.equal(byte(),255,'neighbor unchanged');}
+  write(0,0xF0);assert.equal(byte(),0xA0);assert.equal(output(model,'Operation'),'Erase required','0-to-1 request disclosed while legal 1-to-0 bits program');b.setControl('mode',2);tick(operation,1.9);assert.equal(byte(),0xA0);tick(operation,.11);for(let address=0;address<32768;address++){b.setControl('address',address);assert.equal(byte(),255,'whole 32 KiB array erased');}
+  operation.reset();b.setControl('mode',1);tick(operation,1.9);tick(operation,3,{...running,playing:false});tick(operation,3,{...running,reduced:true});assert.equal(byte(),255,'no hidden programming while paused/reduced');operation.reset();assert.equal(byte(),255);
+ }
+ operation.reset();tick(operation,.37);assert.equal(physicalState(model),initialPhysical,id+' operating activity never moves physical silicon or package');
+}
+
+for(const id of ids.filter(id=>process.argv.length<3||process.argv.slice(2).includes(id))){
+ const module=await import(`../src/${id}.js`),definition=module[`${id.toUpperCase()}_BOARD`];assert(definition?.id===id);
+ const evidence=fs.readFileSync(`reference/${id}/evidence.md`,'utf8');assert(/documented|observed/i.test(evidence)&&/representative/i.test(evidence),id+' source classes');assert(definition.sources.length>=1&&definition.accuracy.length>60,id+' public reference limits');
+ const model=await definition.build(),operation=createOperation(model,definition),size=group=>new T.Box3().setFromObject(model.groups[group],true).getSize(new T.Vector3());
+ assert.deepEqual(Object.keys(model.groups).sort(),definition.parts.map(part=>part.id).sort());
+ for(const method of ['update','setControl','reset','getReadouts'])assert.equal(typeof model.behavior?.[method],'function');
+ let triangles=0,moving=0;
+ model.root.traverse(object=>{if(!object.isMesh||object.isBatchedMesh)return;const positions=object.geometry.attributes.position;assert(positions?.count>0);for(const value of positions.array)assert(Number.isFinite(value),id+' finite geometry');for(const index of object.geometry.index?.array||[])assert(index>=0&&index<positions.count);triangles+=(object.geometry.index?.count||positions.count)/3;if(isMovingPart(object))moving++;if(object.userData.decal)assert(!object.castShadow,id+' artwork does not cast rectangular shadows');});
+ assert(moving>0,id+' moving geometry registered');for(const batch of model.batches||[])assert(batch.entries.every(entry=>!isMovingPart(entry.object)),id+' animated meshes outside batches');
+ for(const separation of [0,.25,.5,.75,1]){model.setPose(separation);model.root.updateMatrixWorld(true);for(const part of definition.parts){const box=new T.Box3().setFromObject(model.groups[part.id]);assert(!box.isEmpty());assert(box.min.y>=(definition.floorY??-19.2)-.01,id+'/'+part.id+' clear of floor');assert.deepEqual(model.groups[part.id].position.toArray(),part.offset.map(n=>n*separation));}}
+ if(definition.fitShadows){const f=shadowFrame(model,definition.floorY),camera=new T.OrthographicCamera(-f.half,f.half,f.half,-f.half,f.near,f.far);camera.position.copy(f.position);camera.lookAt(f.center);camera.updateMatrixWorld(true);for(const separation of[0,1]){model.setPose(separation);for(const group of Object.values(model.groups)){const box=bounds(group);for(const x of[box.min.x,box.max.x])for(const y of[box.min.y,box.max.y])for(const z of[box.min.z,box.max.z]){const p=new T.Vector3(x,y,z).project(camera);assert(Math.abs(p.x)<=1&&Math.abs(p.y)<=1&&Math.abs(p.z)<=1,id+' all physical corners fit shadow camera');}}}for(const p of f.corners){const q=p.clone().project(camera);assert(Math.abs(q.x)<=1&&Math.abs(q.y)<=1&&Math.abs(q.z)<=1,id+' shadow projection fits');}}
+ model.setPose(0);operation.reset();operation.update(0,{...running,playing:false});readouts(model,id);const initial=state(model);
+ for(const control of definition.controls){
+  assert([control.min,control.max,control.step,control.value].every(Number.isFinite));assert(control.max>control.min&&control.step>0&&control.value>=control.min&&control.value<=control.max);
+  const responses=[];for(const value of [control.min,control.value,control.max]){operation.reset();if(id==='hbm'&&control.id==='data')model.behavior.setControl('mode',1);if(id==='eprom'&&control.id==='data')model.behavior.setControl('mode',1);model.behavior.setControl(control.id,value);tick(operation,(id==='eprom'||id==='hbm')&&control.id==='data'?2.41:.37);readouts(model,id);responses.push(state(model));}
+  assert(new Set(responses).size>1,id+'/'+control.id+' input causes response');
+ }
+ operation.reset();tick(operation,.37);const active=state(model);tick(operation,.5,{...running,playing:false});const paused=state(model);tick(operation,.5,{...running,playing:false});assert(state(model)===paused,id+' pause stable');
+ operation.reset();operation.update(0,{...running,playing:false});if(state(model)!==initial){const a=JSON.parse(initial),b=JSON.parse(state(model));console.error('reset differences',a[0].map((v,i)=>v===b[0][i]?null:[i,v,b[0][i]]).filter(Boolean).slice(0,25),a[1],b[1]);}assert(state(model)===initial,id+' reset repeatable');assert(active!==initial,id+' Play changes meaningful state');
+ tick(operation,.5,{...running,reduced:true});const reduced=state(model);tick(operation,.5,{...running,reduced:true});assert.equal(state(model),reduced,id+' reduced motion stable');
+ model.setPose(.5);tick(operation,.5,{...running,explode:.5});const separated=state(model);tick(operation,.5,{...running,explode:.5});assert.equal(state(model),separated,id+' separated mechanism stops');model.setPose(0);operation.reset();
+ operation.reset();for(let i=0;i<27;i++)operation.update(1/30,running);const at30=JSON.parse(state(model))[0];operation.reset();for(let i=0;i<108;i++)operation.update(1/120,running);assert.deepEqual(JSON.parse(state(model))[0],at30,id+' geometry independent of 30/120Hz update cadence');operation.reset();
+ model.setSelection(null,false,false);const originals=new Map();for(const group of Object.values(model.groups))group.traverse(object=>{if(object.isMesh)originals.set(object,object.material);});
+ for(const part of definition.parts){model.setSelection(part.id,false,true);for(const [groupId,group]of Object.entries(model.groups))group.traverse(object=>{if(!object.isMesh)return;if(groupId===part.id)assert.equal(object.material,originals.get(object));else assert(object.material.transparent&&object.material.opacity<=.1&&!object.material.depthWrite,id+' context ghost');});model.setSelection(part.id,true,true);assert.equal(Object.values(model.groups).filter(group=>group.visible).length,1);}
+ model.setSelection(null,false,false);for(const[object,material]of originals)assert.equal(object.material,material,id+' restores exact material');
+ const anatomy=createAnatomy(model);anatomy.update(null);
+ const physical=Object.values(model.groups).flatMap(group=>objects(group,o=>o.isMesh&&!o.isBatchedMesh&&!effect(o))),drawings=[...anatomy.entries,...anatomy.markings];
+ assert.equal(drawings.length,physical.length,id+' anatomy retains every physical surface');for(const source of physical)assert(drawings.some(entry=>entry.source===source),id+' physical source retained');assert(drawings.every(entry=>!effect(entry.source)),id+' explanatory effects excluded from anatomy');for(const entry of drawings){let shown=true;for(let o=entry.source;o;o=o.parent)shown&&=o.visible;assert.equal(entry.body.visible,shown,id+' physical context follows source visibility');}
+ const overlays=objects(model.root,o=>o.userData.explanatoryEffect);assert(overlays.length>=1,id+' explicit effect classification');
+ // A visible explanatory overlay must not intercept the component picker.
+ for(const overlay of overlays){const mesh=objects(overlay,o=>o.isMesh&&!o.isInstancedMesh)[0];if(!mesh){assert(objects(overlay,o=>o.isLine).length>0,id+' line-only explanatory rays');continue;}const point=bounds(mesh).getCenter(new T.Vector3()),visible=overlay.visible;overlay.visible=true;model.root.updateMatrixWorld(true);const ray=new T.Raycaster(point.clone().add(new T.Vector3(20,0,0)),new T.Vector3(-1,0,0));ray.layers.enable(1);assert(ray.intersectObject(overlay,true).length>0,id+' test ray intersects effect');assert.equal(pickComponent(ray,{[mesh.userData.partId]:overlay}),null,id+' effects cannot pick');overlay.visible=visible;}
+ const rest=new Map(anatomy.entries.map(entry=>[entry,Array.from(entry.lines.geometry.attributes.position.array)]));tick(operation,.37);anatomy.update(null);
+ for(const entry of anatomy.entries){assert.equal(entry.body.geometry,entry.source.geometry);assert.deepEqual(entry.body.matrix.elements,entry.source.matrixWorld.elements);{const expected=new T.EdgesGeometry(entry.source.geometry,20);assert.deepEqual(Array.from(entry.lines.geometry.attributes.position.array),expectedContours(entry.source,expected),id+' all current physical instance contours');if(entry.source.isInstancedMesh){assert(entry.body.isInstancedMesh);assert.equal(entry.body.count,entry.source.count);assert.deepEqual(Array.from(entry.body.instanceMatrix.array),Array.from(entry.source.instanceMatrix.array));}expected.dispose();}}
+ operation.reset();anatomy.update(null);for(const entry of anatomy.entries)assert.deepEqual(Array.from(entry.lines.geometry.attributes.position.array),rest.get(entry),id+' restored anatomy contour');
+ checkPackageAndBehavior(id,model,operation);
+ console.log(`PASS ${id}: package, causal behavior and runtime gate, ${definition.parts.length} groups, ${moving} moving meshes, ${triangles} triangles`);
+}

@@ -111,6 +111,16 @@ import nvme_light from './nvme-light.webp';
 import nvme_dark from './nvme-dark.webp';
 import nand_light from './nand-light.webp';
 import nand_dark from './nand-dark.webp';
+import ne555_light from './ne555-light.webp';
+import ne555_dark from './ne555-dark.webp';
+import rp2350_light from './rp2350-light.webp';
+import rp2350_dark from './rp2350-dark.webp';
+import fpga_light from './fpga-light.webp';
+import fpga_dark from './fpga-dark.webp';
+import hbm_light from './hbm-light.webp';
+import hbm_dark from './hbm-dark.webp';
+import eprom_light from './eprom-light.webp';
+import eprom_dark from './eprom-dark.webp';
 export default {
  esp32:{light:esp32_light,dark:esp32_dark},
  pi5:{light:pi5_light,dark:pi5_dark},
@@ -167,5 +177,10 @@ export default {
  bluray:{light:bluray_light,dark:bluray_dark},
  lto:{light:lto_light,dark:lto_dark},
  nvme:{light:nvme_light,dark:nvme_dark},
- nand:{light:nand_light,dark:nand_dark}
+ nand:{light:nand_light,dark:nand_dark},
+ ne555:{light:ne555_light,dark:ne555_dark},
+ rp2350:{light:rp2350_light,dark:rp2350_dark},
+ fpga:{light:fpga_light,dark:fpga_dark},
+ hbm:{light:hbm_light,dark:hbm_dark},
+ eprom:{light:eprom_light,dark:eprom_dark}
 };

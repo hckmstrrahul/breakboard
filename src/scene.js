@@ -22,7 +22,6 @@ export function createScene(host,onSelect){
  const fill=new T.DirectionalLight('#f5f7ff',.65);fill.position.set(50,35,-55);scene.add(fill);
  const floor=new T.Mesh(new T.PlaneGeometry(500,500),new T.ShadowMaterial({color:'#62656b',opacity:.19}));floor.rotation.x=-Math.PI/2;floor.position.y=-19.2;floor.receiveShadow=true;scene.add(floor);
  let model=null,parts=[],partMap=new Map(),definition=null; const cache=createModelCache({limit:3}); let loadVersion=0;
- const pose=e=>Object.fromEntries(parts.map(p=>[p.id,p.offset.map(v=>v*e)]));
  // An unobtrusive ground datum marks the physical assembly axis.
  const ring=new T.Mesh(new T.RingGeometry(33.95,34.03,128),new T.MeshBasicMaterial({color:'#c9cbc0',side:T.DoubleSide,transparent:true,opacity:.55}));ring.rotation.x=-Math.PI/2;ring.position.y=-19.1;scene.add(ring);
  let themeBackground='#efeee9',darkTheme=false,lastState=null,inView=true;
@@ -37,13 +36,29 @@ export function createScene(host,onSelect){
  let size={w:1,h:1}, transition=null, selected=null,isolated=false,selectionAnchor=null,selectionSurface=null,framingPose=0,fitPose=0,autoFrame=true;
  const frameTarget=(e=fitPose)=>new T.Vector3(...(definition?.assembledTarget||definition?.target||[0,10,-4])).lerp(new T.Vector3(...(definition?.target||[0,10,-4])),e);
  const projection=()=>{const aspect=size.w/size.h,base=T.MathUtils.lerp(definition?.assembledHalf||definition?.half||45,definition?.half||45,fitPose),minimumWidth=T.MathUtils.lerp(definition?.minHalfWidth||0,definition?.explodedMinHalfWidth??definition?.minHalfWidth??0,fitPose),half=Math.max(base,Math.max(minimumWidth,base*.82)/aspect);camera.left=-half*aspect;camera.right=half*aspect;camera.top=half;camera.bottom=-half;camera.updateProjectionMatrix();};
- const resize=()=>{size={w:Math.max(1,host.clientWidth),h:Math.max(1,host.clientHeight)};renderer.setSize(size.w,size.h);projection();};
+ const resize=()=>{size={w:Math.max(1,host.clientWidth),h:Math.max(1,host.clientHeight)};renderer.setSize(size.w,size.h);projection();if(isolated&&selected&&model)focus(selected,framingPose);};
  const observer=new ResizeObserver(resize);observer.observe(host);resize();
  const camTo=(pos,target,zoom=1)=>{transition={from:camera.position.clone(),to:new T.Vector3(...pos),a:controls.target.clone(),b:new T.Vector3(...target),z0:camera.zoom,z1:zoom,start:performance.now()};};
  let views={perspective:[76,80,105],top:[0,160,-3.99],front:[0,30,150]};
  const view=(name,immediate=false)=>{autoFrame=true;fitPose=framingPose;projection();const target=frameTarget(),shift=target.clone().sub(new T.Vector3(...(definition?.target||[0,10,-4]))),position=new T.Vector3(...views[name]).add(shift);if(immediate){camera.position.copy(position);controls.target.copy(target);camera.zoom=1;camera.updateProjectionMatrix();transition=null;controls.update();}else camTo(position.toArray(),target.toArray());};
  controls.addEventListener('start',()=>{transition=null;autoFrame=false;});
- const focus=(id,e)=>{selected=id;const p=parts.find(p=>p.id===id);const poses=pose(e);const a=new T.Vector3(...p.anchor).add(new T.Vector3(...poses[id]));const distance=new T.Vector3(65,75,95);const bounds=new T.Box3().setFromObject(model.groups[id]);const center=bounds.getCenter(new T.Vector3()),sz=bounds.getSize(new T.Vector3());const fit=Math.min(20,Math.max(.6,(definition?.half||45)*1.2/Math.max(sz.x,sz.y,sz.z)));camTo(center.clone().add(distance).toArray(),center.toArray(),fit);};
+ const focus=(id,e)=>{
+  selected=id;model.setPose(e);
+  const bounds=new T.Box3().setFromObject(model.groups[id],true);if(bounds.isEmpty())return;
+  const center=bounds.getCenter(new T.Vector3()),distance=new T.Vector3(65,75,95),radius=bounds.getSize(new T.Vector3()).length()/2;
+  distance.setLength(Math.max(distance.length(),radius+camera.near+10));
+  camera.far=Math.max(800,distance.length()+radius+10);camera.updateProjectionMatrix();
+  // Fit the projected volume to the current frustum, including a narrow/mobile
+  // viewport and the assembled camera scale. Exploded model dimensions are not
+  // a valid proxy for the visible width of an isolated component.
+  const fitCamera=camera.clone();fitCamera.zoom=1;fitCamera.position.copy(center).add(distance);fitCamera.lookAt(center);fitCamera.updateMatrixWorld(true);fitCamera.updateProjectionMatrix();
+  let extent=0;
+  for(const x of [bounds.min.x,bounds.max.x])for(const y of [bounds.min.y,bounds.max.y])for(const z of [bounds.min.z,bounds.max.z]){
+   const corner=new T.Vector3(x,y,z).project(fitCamera);extent=Math.max(extent,Math.abs(corner.x),Math.abs(corner.y));
+  }
+  const fit=T.MathUtils.clamp(.84/Math.max(extent,1e-6),controls.minZoom,controls.maxZoom);
+  camTo(fitCamera.position.toArray(),center.toArray(),fit);
+ };
  const select=(id,isolate,xray,e,anchor)=>{if(!model)return;isolate=!!id&&isolate;if(anchor!==undefined||id!==selected){selectionAnchor=anchor?.clone()||null;selectionSurface=anchor?.surface||null;}model.setSelection(id,isolate,!!id);selected=id;if(isolate)focus(id,e);else if(isolated)view('perspective');isolated=isolate;};
  const project=id=>{const picked=id===selected&&!!selectionAnchor;let anchor=picked?selectionAnchor:new T.Vector3(...partMap.get(id).anchor);if(picked&&selectionSurface){selectionSurface.object.updateWorldMatrix(true,false);anchor=model.groups[id].worldToLocal(selectionSurface.object.localToWorld(resolveSurfacePoint(selectionSurface)));}return{...projectAnchor(model.groups[id],anchor,camera,size),picked};};
  const draw=()=>{

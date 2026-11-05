@@ -1,3 +1,8 @@
+import {NE555_BOARD} from './ne555.js';
+import {RP2350_BOARD} from './rp2350.js';
+import {FPGA_BOARD} from './fpga.js';
+import {HBM_BOARD} from './hbm.js';
+import {EPROM_BOARD} from './eprom.js';
 import {HDD_BOARD} from './hdd.js';
 import {BLURAY_BOARD} from './bluray.js';
 import {LTO_BOARD} from './lto.js';
@@ -78,4 +83,5 @@ Object.assign(BOARDS,Object.fromEntries([IMU_BOARD,TOF_BOARD,RADAR_BOARD,PIR_BOA
 Object.assign(BOARDS,Object.fromEntries([MAX30102_BOARD,LOADCELL_BOARD,GNSS_BOARD,IMX500_BOARD,EVENTCAMERA_BOARD].map(device=>[device.id,device])));
 Object.assign(BOARDS,Object.fromEntries([PRIME50_BOARD,ZOOMLENS_BOARD,PERISCOPE_BOARD,D455_BOARD,SHUTTER_BOARD].map(device=>[device.id,device])));
 Object.assign(BOARDS,Object.fromEntries([HDD_BOARD,BLURAY_BOARD,LTO_BOARD,NVME_BOARD,NAND_BOARD].map(device=>[device.id,device])));
+Object.assign(BOARDS,Object.fromEntries([NE555_BOARD,RP2350_BOARD,FPGA_BOARD,HBM_BOARD,EPROM_BOARD].map(device=>[device.id,device])));
 export const BOARD_LIST=Object.values(BOARDS);

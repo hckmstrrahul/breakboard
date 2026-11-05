@@ -2,6 +2,11 @@
 // only useful outputs, with the longer method notes in the device inspector.
 const row=(source,label=source,unit)=>({source,label,...(unit===undefined?{}:{unit})});
 const profiles={
+ ne555:{labels:{ra:'RA',rb:'RB',c:'Capacitor',supply:'Supply',phase:'Phase'},readouts:[row('Ideal oscillation','Frequency'),row('Output high duty','Duty'),row('Capacitor voltage','Voltage')],wave:['Capacitor','⅓–⅔ VCC']},
+ rp2350:{labels:{core0:'Core 0',core1:'Core 1',pio:'PIO',sm:'State machine',gpio:'GPIO',divider:'Divider',delay:'Delay',step:'Output'},formats:{core0:v=>v?'Hazard3':'Cortex-M33',core1:v=>v?'Hazard3':'Cortex-M33',step:v=>v?'Low':'High'},readouts:[row('PIO output frequency','Frequency','Hz'),row('Package destination','Pin')],wave:['GPIO','50% duty']},
+ fpga:{labels:{program:'Function',a:'Input A',b:'Input B',c:'Input C',auto:'Sequence'},formats:{auto:v=>v?'Auto':'Manual'},readouts:[row('Output Y','Output'),row('Truth table (000 → 111)','Truth table')]},
+ hbm:{labels:{mode:'Operation',layer:'Layer',address:'Address',data:'Write byte'},readouts:[row('Transfer','State'),row('Stored byte','Stored'),row('Last transferred byte','Output')]},
+ eprom:{labels:{mode:'Operation',address:'Address',data:'Write byte'},readouts:[row('Operation','State'),row('Stored byte','Stored'),row('Binary output','Bits')]},
  relay:{labels:{coil:'Coil',cycle:'Cycle'},formats:{cycle:v=>v?'Auto':'Manual'},readouts:[row('Contact path','Contact'),row('Coil current','Current')]},
  bldc:{labels:{speed:'Speed'},formats:{direction:v=>v>0?'CW':'CCW'},readouts:[row('Electrical frequency','Electrical rate')]},
  haptic:{labels:{amplitude:'Level',frequency:'Frequency',pattern:'Pattern'},formats:{pattern:v=>['Steady','Single','Double'][v]},readouts:[]},
