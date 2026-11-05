@@ -1,0 +1,10 @@
+TI NE5550 / TI06 die micrograph
+Copyright Mikhail Svarichevsky / ZeptoBars, 3 July 2017.
+Source: https://zeptobars.com/en/read/Ti-555-NE555-real-vs-face-china-chinese
+Original image: https://s.zeptobars.com/Ti-NE555-genuine.jpg
+License: Creative Commons Attribution 3.0 Unported (CC BY 3.0)
+https://creativecommons.org/licenses/by/3.0/
+Author's published licensing terms: https://zeptobars.com/en/about-us
+Changes: dark camera border cropped; resampled to 512 × 378; embedded as RGBA pixels.
+The anatomy rendering displays a luminance-derived monochrome view of the same image.
+No physical circuit details were added or moved. No endorsement is implied.

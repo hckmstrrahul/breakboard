@@ -1,13 +1,13 @@
 # breakboard
 
-Explore development boards, displays, optics, sensors, chips, audio, power hardware, radio hardware and mechanisms as interactive 3D assemblies. Separate components, inspect their functions, switch to anatomy linework, and operate working mechanisms with device-specific controls.
+Explore development boards, displays, optics, sensors, chips, audio, power hardware, radio hardware, storage and mechanisms as interactive 3D assemblies. Separate components, inspect their functions, switch to anatomy linework, and operate working mechanisms with device-specific controls.
 
 [Open breakboard](https://breakboard-teardown.vercel.app) · Built with Three.js, vanilla JavaScript and Vite. Runs entirely in the browser.
 
 ## Take it offline
 
 <!-- offline-stats:start -->
-**51 interactive devices in one 23.69 MB HTML file** (22.59 MiB).
+**56 interactive devices in one 23.82 MB HTML file** (22.72 MiB).
 <!-- offline-stats:end -->
 
 [Save the standalone HTML](https://breakboard-teardown.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
@@ -74,6 +74,11 @@ Actual 2400 px PNG captures from **Save image**. Each pair shares its camera and
 | **FM3A shutter** | ![Representative front and rear curtain leaves, guides, electromagnet and governor separated](docs/images/shutter-teardown-light.png) | ![The same FM3A shutter assembly in anatomy mode](docs/images/shutter-anatomy-light.png) |
 
 To reproduce: choose **Light**, reset the device (tags start off), and use **3D**. ESP32 uses its default 78% separation; all other devices use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
+| **Barracuda HDD** | ![Two-disk Seagate ST31000528AS with four-head actuator and controller separated in light mode](docs/images/hdd-teardown-light.png) | ![The same Barracuda HDD in anatomy mode](docs/images/hdd-anatomy-light.png) |
+| **Blu-ray pickup** | ![Sony KES-400A with its optical elements, objective suspension and radial mechanism separated in light mode](docs/images/bluray-teardown-light.png) | ![The same Blu-ray pickup in anatomy mode](docs/images/bluray-anatomy-light.png) |
+| **IBM LTO-9 transport** | ![IBM TS2290 enclosure and representative single-reel cartridge transport separated in light mode](docs/images/lto-teardown-light.png) | ![The same IBM LTO-9 transport in anatomy mode](docs/images/lto-anatomy-light.png) |
+| **Samsung 990 PRO** | ![Samsung 990 PRO 2 TB with controller, DRAM and representative NAND die stacks separated in light mode](docs/images/nvme-teardown-light.png) | ![The same Samsung 990 PRO in anatomy mode](docs/images/nvme-anatomy-light.png) |
+| **BiCS8 3D NAND** | ![Magnified 218-word-line BiCS8 cutaway with channels and bonded CMOS separated in light mode](docs/images/nand-teardown-light.png) | ![The same BiCS8 3D NAND in anatomy mode](docs/images/nand-anatomy-light.png) |
 
 ## Run locally
 
@@ -163,12 +168,16 @@ X-ray, playback, overview tags and camera choice persist across device changes. 
 | u-blox ZED-F9P-04B-01 / HPG1.32 | `#gnss` | [Documented package and contact pattern; representative hidden circuitry](reference/gnss/evidence.md) |
 | Sony IMX500 / bare-chip configuration | `#imx500` | [Documented active area and stacked architecture; representative die dimensions](reference/imx500/evidence.md) |
 | Sony / Prophesee IMX636-AAMR-C | `#eventcamera` | [Documented envelope, pad count and active area; representative cutaway](reference/eventcamera/evidence.md) |
-
 | Canon EF 50mm f/1.8 STM / May 2015 | `#prime50` | [Documented 6/5 optics and seven-blade iris; specimen-informed focusing mechanism](reference/prime50/evidence.md) |
 | Nikon AF-S 24–70mm f/2.8E ED VR / F mount | `#zoomlens` | [Documented 20/16 optics; patent-informed representative focusing and VR motion](reference/zoomlens/evidence.md) |
 | Samsung Electro-Mechanics 50M 5× / Prism Lead Type | `#periscope` | [Documented module architecture and dimensions; representative lens prescription and actuators](reference/periscope/evidence.md) |
 | Intel RealSense D455 / K83122-110 / BMI085 | `#d455` | [Documented mechanical envelope and stereo baseline; representative concealed electronics](reference/d455/evidence.md) |
 | Nikon FM3A / shutter unit 1B060-746 | `#shutter` | [Documented hybrid shutter and timing; representative four-leaf straight-guide mechanism](reference/shutter/evidence.md) |
+| Seagate ST31000528AS / JC4A / 100535537 Rev A | `#hdd` | [Documented two disks/four heads; specimen-informed mechanics](reference/hdd/evidence.md) |
+| Sony KES-400A / 2006-marked specimen | `#bluray` | [First-hand optical dissection; measured pickup with representative servo travel](reference/bluray/evidence.md) |
+| IBM TS2290 3580-H9S / 02XW568 cartridge | `#lto` | [Documented enclosure and media; representative conserved-length tape transport](reference/lto/evidence.md) |
+| Samsung 990 PRO 2 TB / MZ-V9P2T0BW / October 2022 | `#nvme` | [Photographed original PCB; inferred sixteen-die NAND stacks](reference/nvme/evidence.md) |
+| Kioxia BiCS FLASH generation 8 / 1 Tb TLC | `#nand` | [Documented 218-level CBA architecture; magnified representative eight-string cutaway](reference/nand/evidence.md) |
 
 These are educational reconstructions. Separating soldered parts explains their roles; it is not a physical disassembly procedure. Estimated heights, connector interiors and hidden placements are recorded in [reference/](reference/) and the [device registry](src/boards.js). X-ray reuses the same modeled surfaces. The new sealed-module cutaways explicitly identify illustrative interiors; chip surface regions are functional diagrams, not fabricated transistor layouts or buried-copper maps. Signal paths illustrate activity, not an electrical simulation. The stepper is a representative mechanism, not a manufacturer-specific replica. The DLP package stays at its documented scale; a separate **600× detail** explains the micromirror mechanism without claiming a disclosed fabrication stack. Nixie electrode shapes and hidden construction are identified as reconstructed.
 
@@ -220,9 +229,9 @@ npm run check:offline
 
 Deploy `dist/` to a static host, or use the [standalone offline file](#take-it-offline). On the hosted app, Jetson CAD ships in the app bundle and Pi, Portenta and Grobot CAD load on first selection. The viewer retains up to three built models, releasing unreferenced GPU resources when older models leave the cache.
 
-Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. The expansion checks cover contact mating, motor apertures and rotation, haptic pulses, encoder conversion, quartz division, audio linkages, waveform response, environmental sensing channels, MEMS axis signs, depth-zone mapping, radar placement, PIR timing and ultrasonic propagation. Independent reviews record source limits and corrected findings: [batch 1](docs/verification/expansion-batch1.md), [batch 2](docs/verification/expansion-batch2.md), [batch 3](docs/verification/expansion-batch3.md), [batch 4](docs/verification/expansion-batch4.md), [batch 5](docs/verification/expansion-batch5.md).
+Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. The expansion checks cover contact mating, motor apertures and rotation, haptic pulses, encoder conversion, quartz division, audio linkages, waveform response, environmental sensing channels, MEMS axis signs, depth-zone mapping, radar placement, PIR timing and ultrasonic propagation. Independent reviews record source limits and corrected findings: [batch 1](docs/verification/expansion-batch1.md), [batch 2](docs/verification/expansion-batch2.md), [batch 3](docs/verification/expansion-batch3.md), [batch 4](docs/verification/expansion-batch4.md), [batch 5](docs/verification/expansion-batch5.md), [batch 6](docs/verification/expansion-batch6.md).
 
-The standalone HTML loaded all 51 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
+The standalone HTML loaded all 56 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
 
 Normal development uses the supplied runtime assets. Downloaded reference CAD, PDFs, photographs and intermediate meshes stay local; source URLs and evidence records are included. Regenerating STEP meshes additionally requires `cadquery-ocp==7.9.3.1.1` and the `import-*` / `package-*` scripts in [scripts/](scripts/) and [reference/grobot/](reference/grobot/). Arduino extraction uses `prepare-uno.py` and `prepare-nano.py`.
 

@@ -101,6 +101,16 @@ import d455_light from './d455-light.webp';
 import d455_dark from './d455-dark.webp';
 import shutter_light from './shutter-light.webp';
 import shutter_dark from './shutter-dark.webp';
+import hdd_light from './hdd-light.webp';
+import hdd_dark from './hdd-dark.webp';
+import bluray_light from './bluray-light.webp';
+import bluray_dark from './bluray-dark.webp';
+import lto_light from './lto-light.webp';
+import lto_dark from './lto-dark.webp';
+import nvme_light from './nvme-light.webp';
+import nvme_dark from './nvme-dark.webp';
+import nand_light from './nand-light.webp';
+import nand_dark from './nand-dark.webp';
 export default {
  esp32:{light:esp32_light,dark:esp32_dark},
  pi5:{light:pi5_light,dark:pi5_dark},
@@ -152,5 +162,10 @@ export default {
  zoomlens:{light:zoomlens_light,dark:zoomlens_dark},
  periscope:{light:periscope_light,dark:periscope_dark},
  d455:{light:d455_light,dark:d455_dark},
- shutter:{light:shutter_light,dark:shutter_dark}
+ shutter:{light:shutter_light,dark:shutter_dark},
+ hdd:{light:hdd_light,dark:hdd_dark},
+ bluray:{light:bluray_light,dark:bluray_dark},
+ lto:{light:lto_light,dark:lto_dark},
+ nvme:{light:nvme_light,dark:nvme_dark},
+ nand:{light:nand_light,dark:nand_dark}
 };

@@ -27,9 +27,13 @@ const profiles={
  prime50:{labels:{aperture:'Aperture',focus:'Near focus',sweep:'Sweep'},formats:{sweep:v=>v?'Auto':'Hold'},readouts:[row('Relative light','Light'),row('Focus setting','Focus')]},
  zoomlens:{labels:{zoom:'Zoom',focus:'Focus',aperture:'Aperture',shake:'Shake',vr:'VR',sweep:'Sweep'},formats:{sweep:v=>v?'Auto':'Hold'},readouts:[row('Focus group offset','Focus shift','mm'),row('Patent-based VR correction','VR shift','mm'),row('Relative light','Light')]},
  d455:{labels:{range:'Depth',angle:'Angle',sweep:'Motion'},formats:{sweep:v=>v?'Sweep':'Still'},readouts:[row('Disparity'),row('Depth from fB/d','Depth')]},
+ hdd:{labels:{spindle:'Spindle',mode:'Action',track:'Track',head:'Head'},formats:{spindle:v=>v?'Run':'Park'},readouts:[row('State'),row('Spindle','Speed'),row('Head position','Radius','mm')]},
+ bluray:{labels:{track:'Track',focus:'Focus',tracking:'Tracking',layer:'Collimator',wavelength:'Disc',scan:'Scan'},formats:{scan:v=>v?'Auto':'Hold'},readouts:[row('Objective focus travel','Focus travel','mm'),row('Fine tracking travel','Track travel','mm'),row('Illustrative return signal','Return')]},
+ lto:{labels:{position:'Cycle',target:'Transfer',rate:'Speed'},readouts:[row('Sequence','Stage'),row('Tape on takeup','On takeup')]},
+ nvme:{labels:{mode:'Operation',rate:'Activity'},readouts:[row('Payload route','Data path')]},
  shutter:{labels:{speed:'Speed'},readouts:[row('Sequence','Stage'),row('Nominal moving slit','Slit')]}
 };
-const shortValues={'Infrared excitation':'Infrared','Pressure response':'Pressure','Acoustic response':'Pressure','Microphone readout':'Readout','Pixel acquisition':'Capture','Signal conditioning':'Readout','Dark interval':'Dark','Red illumination':'Red','Infrared illumination':'Infrared','No brightness change':'No change','Object metadata':'Metadata'};
+const shortValues={'Parked on inner landing zone':'Parked','Seeking landing zone / slowing':'Parking','Infrared excitation':'Infrared','Pressure response':'Pressure','Acoustic response':'Pressure','Microphone readout':'Readout','Pixel acquisition':'Capture','Signal conditioning':'Readout','Dark interval':'Dark','Red illumination':'Red','Infrared illumination':'Infrared','No brightness change':'No change','Object metadata':'Metadata'};
 export function controlPresentation(definition){
  const profile=profiles[definition.id]||{},controls=definition.controls||[];
  return{

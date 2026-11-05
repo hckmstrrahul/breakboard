@@ -7,9 +7,11 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build && node scripts/standalone.mjs",
     "preview": "vite preview --host 127.0.0.1",
-    "check": "node scripts/check-model.mjs && node scripts/check-boards.mjs && node scripts/check-pi-loader.mjs && node scripts/check-collection.mjs && node scripts/check-selection.mjs && node scripts/check-callout-motion.mjs && node scripts/check-interface.mjs && node scripts/check-operation.mjs && node scripts/check-grobot.mjs && node scripts/check-modules.mjs && node scripts/check-model-cache.mjs && node scripts/check-expansion-batch1.mjs && node scripts/check-expansion-batch2.mjs && node scripts/check-expansion-batch3.mjs && node scripts/check-expansion-batch4.mjs && node scripts/check-expansion-batch5.mjs",
+    "check": "node scripts/check-model.mjs && node scripts/check-boards.mjs && node scripts/check-pi-loader.mjs && node scripts/check-collection.mjs && node scripts/check-selection.mjs && node scripts/check-callout-motion.mjs && node scripts/check-interface.mjs && node scripts/check-operation.mjs && node scripts/check-grobot.mjs && node scripts/check-modules.mjs && node scripts/check-model-cache.mjs && node scripts/check-expansion-batch1.mjs && node scripts/check-expansion-batch2.mjs && node scripts/check-expansion-batch3.mjs && node scripts/check-expansion-batch4.mjs && node scripts/check-expansion-batch5.mjs && node scripts/check-expansion-batch6.mjs",
     "render:previews": "node scripts/render-previews.mjs",
-    "check:offline": "node scripts/check-offline.mjs"
+    "check:offline": "node scripts/check-offline.mjs",
+    "check:controls": "node scripts/check-controls-browser.mjs",
+    "check:gpu": "node scripts/check-catalogue-gpu.mjs"
   },
   "dependencies": {
     "@fontsource-variable/inter": "5.3.0",

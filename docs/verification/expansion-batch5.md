@@ -79,3 +79,5 @@ The large Nikon assembly opts into a fitted shadow volume derived from both asse
 The final standalone HTML is **23,690,826 bytes** (23.69 MB / 22.59 MiB), SHA-256 `742b276e7e3deacd50d602fd10c9dc7e1ea52bf683519d61ea7a7b402be7dc93`. All **51 devices** passed network-blocked local-file checks in Chrome 156.0.8078.80, Firefox 157.0 and WebKit 27.2: inventory, every operation input, Play/pause, selection, X-ray, reset, all light/dark previews and 2400 px PNG export. There were no HTTP asset requests or page errors. Logs are `/tmp/breakboard-batch5-offline-{chrome,firefox,webkit}.log`.
 
 `npm run check` passed the full shared regression and all five expansion gates. `npm run build` and `git diff --check` also passed. The only build message is the existing Vite large-chunk advisory for bundled 3D assets.
+
+Production release `867ae06` was pushed after the mandatory secrets hook passed and deployed to the canonical site. All five optics interactions and text toggles passed in production, the catalogue contained 51 models, and the downloaded offline file matched the SHA-256 above exactly. Production capture: `/tmp/breakboard-proof/batch5/production-optics.png`.

@@ -17,7 +17,7 @@ function instanceContours(source,edges){
 // Most decals have transparent backgrounds. The ESP32 PCB textures also contain
 // solder-mask color, which must be removed instead of covering the anatomy fill.
 function artworkMaterial(source,ghost){
- const background=source.map.userData.anatomyBackground,copper=source.map.userData.anatomyCopperColor;
+ const background=source.map.userData.anatomyBackground,copper=source.map.userData.anatomyCopperColor,luminance=source.map.userData.anatomyLuminance;
  const material=new T.MeshBasicMaterial({map:source.map,color:'#384753',transparent:true,opacity:ghost?.16:.95,depthWrite:false,depthTest:true,side:source.side,toneMapped:false,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});
  material.onBeforeCompile=shader=>{
   if(background){shader.uniforms.anatomyBackground={value:new T.Color(background)};shader.fragmentShader='uniform vec3 anatomyBackground;\n'+shader.fragmentShader;}
@@ -26,13 +26,14 @@ function artworkMaterial(source,ghost){
    #ifdef USE_MAP
     vec4 artwork = texture2D(map, vMapUv);
     float coverage = artwork.a;
+    ${luminance?'coverage *= 1.0 - dot(artwork.rgb, vec3(0.2126, 0.7152, 0.0722));':''}
     ${background?'vec3 difference = abs(artwork.rgb - anatomyBackground); coverage *= smoothstep(0.006, 0.065, max(difference.r, max(difference.g, difference.b)));':''}
     ${copper?'coverage *= smoothstep(0.005, 0.06, length(artwork.rgb - anatomyCopper));':''}
     diffuseColor.a *= coverage;
    #endif
   `);
  };
- material.customProgramCacheKey=()=>`anatomy-artwork-${background?'background':'alpha'}-${copper?'silkscreen':'all'}-v2`;
+ material.customProgramCacheKey=()=>`anatomy-artwork-${background?'background':'alpha'}-${copper?'silkscreen':'all'}-${luminance?'luminance':'coverage'}-v3`;
  return material;
 }
 
