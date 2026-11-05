@@ -11,7 +11,7 @@
 .device-controls input[type=range]::-moz-range-track{height:1px;border-radius:0;background:var(--instrument-line)}
 .device-controls input[type=range]::-moz-range-progress{height:1px;border-radius:0;background:var(--instrument-ink)}
 .device-controls input[type=range]::-moz-range-thumb{width:6px;height:11px;border:1px solid var(--instrument-ink);border-radius:1px;background:var(--paper);box-shadow:none}
-.device-control-results{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;padding-top:8px;border-top:1px dashed var(--line)}
+.device-control-results{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;padding-top:8px}
 .device-simulation{font-size:.5625rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .device-readouts{display:flex;flex-wrap:wrap;gap:5px 16px;margin:0;font:inherit}
 .device-readouts>div{display:flex;align-items:baseline;gap:7px}
