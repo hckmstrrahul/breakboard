@@ -49,8 +49,11 @@ export function createDeviceMenu(host,devices,onChange,createOption){
   if(instant)menu.hidden=true;else exitTimers.set(menu,setTimeout(()=>{menu.hidden=true;exitTimers.delete(menu);},100));
  }
  function positionMenu(index){
-  const menu=menus[index],bounds=buttons[index].getBoundingClientRect(),width=menu.offsetWidth;
-  const left=Math.max(12,Math.min(bounds.left,innerWidth-width-12));
+  const menu=menus[index],bounds=buttons[index].getBoundingClientRect(),container=host.getBoundingClientRect();
+  const start=Math.max(12,container.left),end=Math.min(innerWidth-12,container.right);
+  // Keep edge categories opening inward, within the tab bar's visible bounds.
+  menu.style.maxWidth=`${Math.max(0,end-start)}px`;
+  const width=menu.offsetWidth,left=Math.max(start,Math.min(bounds.left,end-width));
   menu.style.left=`${left}px`;menu.style.top=`${bounds.bottom+8}px`;menu.style.maxHeight=`${Math.max(120,innerHeight-bounds.bottom-24)}px`;
   menu.style.setProperty('--menu-origin',`${Math.max(12,Math.min(width-12,bounds.left+bounds.width/2-left))}px`);
  }

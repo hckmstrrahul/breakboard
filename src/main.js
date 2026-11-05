@@ -11,6 +11,8 @@ import {createDeviceMenu,adjacentDevice} from './device-menu.js';
 import {createDeviceOption,setDevicePreviewTheme} from './device-option.js';
 import {createThemeController} from './theme.js';
 import {createDeviceControls} from './device-controls.js';
+import {createInfiniteGrid} from './infinite-grid.js';
+import {createHeaderLayout} from './header-layout.js';
 import jetsonCAD from '../public/models/jetson.json.gz?url&inline';
 // Ship this CAD with the app so a late fetch cannot strand the Jetson selector.
 globalThis.__BREAKBOARD_ASSETS={...globalThis.__BREAKBOARD_ASSETS,jetson:jetsonCAD.split(',')[1]};
@@ -21,7 +23,7 @@ const app=document.querySelector('#app');
 const esc=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 app.innerHTML=`<div class="shell">
 <a class="skip-link" href="#board-title">Skip to device</a>
-<header class="topbar"><div class="brand-cluster"><div class="brand"><span class="brandmark" aria-hidden="true"><span class="brand-symbol"></span></span><span>breakboard</span></div><div class="brand-subline"><p>Teardown collection of electronic devices &amp; parts.</p><nav class="brand-links" aria-label="Project links"><a href="https://github.com/hckmstrrahul/breakboard" target="_blank" rel="noopener noreferrer" aria-label="breakboard on GitHub (opens in a new tab)" title="GitHub repository">${svg('github')}</a><a href="https://x.com/hckmstrrahul" target="_blank" rel="noopener noreferrer" aria-label="hckmstrrahul on X (opens in a new tab)" title="@hckmstrrahul on X">${svg('x')}</a></nav></div></div><nav class="board-segments segmented" id="board-segments" aria-label="Devices"></nav><div class="header-actions"><div class="theme-segments segmented" id="theme-segments" role="radiogroup" aria-label="Appearance">${[['light','sun','Light'],['dark','moon','Dark'],['system','system','System']].map(([value,icon,label])=>`<button role="radio" data-theme-mode="${value}" aria-label="${label}" title="${label}" aria-checked="false" tabindex="-1">${svg(icon)}</button>`).join('')}</div><button class="export" id="export" aria-label="Save image" title="Save image">${svg('download')}<span>Save image</span></button></div></header>
+<header class="topbar"><div class="brand-cluster"><div class="brand"><span class="brandmark" aria-hidden="true"><span class="brand-symbol"></span></span><span>breakboard</span></div><nav class="brand-links" aria-label="Project links"><a href="https://github.com/hckmstrrahul/breakboard" target="_blank" rel="noopener noreferrer" aria-label="breakboard on GitHub (opens in a new tab)" title="GitHub repository">${svg('github')}</a><a href="https://x.com/hckmstrrahul" target="_blank" rel="noopener noreferrer" aria-label="hckmstrrahul on X (opens in a new tab)" title="@hckmstrrahul on X">${svg('x')}</a></nav></div><div class="collection-nav"><nav class="board-segments segmented" id="board-segments" aria-label="Devices"></nav><button id="collection-toggle" class="collection-toggle" type="button" aria-label="Open infinite grid" title="Infinite grid" aria-pressed="false" aria-controls="collection-view"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="6" height="6" rx="1.2"/><rect x="15" y="3" width="6" height="6" rx="1.2"/><rect x="3" y="15" width="6" height="6" rx="1.2"/><rect x="15" y="15" width="6" height="6" rx="1.2"/></svg></button></div><div class="header-actions"><div class="theme-segments segmented" id="theme-segments" role="radiogroup" aria-label="Appearance">${[['light','sun','Light'],['dark','moon','Dark'],['system','system','System']].map(([value,icon,label])=>`<button role="radio" data-theme-mode="${value}" aria-label="${label}" title="${label}" aria-checked="false" tabindex="-1">${svg(icon)}</button>`).join('')}</div><button class="export" id="export" aria-label="Save image" title="Save image">${svg('download')}<span>Save image</span></button></div></header>
 <main id="board-panel" aria-labelledby="board-title">
 <div class="sidebar"><section class="intro"><h1 id="board-title" tabindex="-1">ESP32</h1><p class="model-name" id="model-name"></p></section>
 <details class="parts" id="component-browser" open><summary>Components <span id="parts-count"></span></summary><div class="parts-content"><label class="sr-only" for="parts-search">Find a component</label><div class="search-field">${svg('search')}<input id="parts-search" type="search" placeholder="Find a component…" autocomplete="off"/></div><nav class="parts-list" id="parts-list" aria-label="Components"></nav><div class="empty-search" id="empty-search" hidden><p>No matching components.</p><button id="clear-search">Clear search</button></div></div></details>
@@ -30,11 +32,23 @@ app.innerHTML=`<div class="shell">
 <div class="tools" aria-label="View controls"><button id="previous-device" class="device-step" aria-label="Previous model" title="Previous model">${svg('arrow')}</button><div class="tool-actions"><button id="play" class="play-button" title="Play device activity (P)">${svg('play')}<span>Play</span></button><button class="cooler-toggle" id="cooler-toggle" aria-pressed="true" hidden>Cooler</button><div class="camera-views segmented" role="group" aria-label="Camera view"><button data-view="perspective" aria-pressed="true">3D</button><button data-view="top" aria-pressed="false">Top</button><button data-view="front" aria-pressed="false">Front</button></div><div class="view-toggles inspect-actions"><button id="labels-toggle" title="Component labels (L)" aria-label="Show component labels" aria-pressed="false">${svg('labels')}<span>Labels</span></button><button id="rotate" title="Auto rotate" aria-label="Auto rotate" aria-pressed="false">${svg('rotate')}<span>Rotate</span></button></div><div class="icon-tools"><button id="zoom-out" title="Zoom out" aria-label="Zoom out">${svg('minus')}</button><button id="zoom-in" title="Zoom in" aria-label="Zoom in">${svg('plus')}</button><button id="reset" aria-label="Reset view and settings" title="Reset (R)">${svg('reset')}</button><button id="clean" aria-label="Hide interface" title="Hide interface (H)">${svg('expand')}</button></div></div><button id="next-device" class="device-step" aria-label="Next model" title="Next model">${svg('arrow')}</button></div>
 </section>
 <aside class="inspector" aria-label="Component details"><div class="component-kind" id="component-kind"></div><h2 id="component-name" aria-live="polite"></h2><p class="component-desc" id="component-desc"></p><dl class="specs" id="specs"></dl><details class="model-notes" id="model-notes"><summary>Model notes</summary><p id="model-accuracy"></p><ul id="model-sources"></ul></details></aside>
-</main><button class="show-ui" id="show-ui">Show interface · H</button><div class="toast" id="toast" role="status"></div>
+</main><section id="collection-view" hidden></section><button class="show-ui" id="show-ui">Show interface · H</button><div class="toast" id="toast" role="status"></div>
 </div>`;
 const $=id=>document.getElementById(id),reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const mobilePanels=createMobilePanels(BOARD_LIST,id=>switchBoard(id),createDeviceOption);
 const deviceMenu=createDeviceMenu($('board-segments'),BOARD_LIST,id=>switchBoard(id),createDeviceOption);
+createHeaderLayout(document.querySelector('.topbar'));
+export const grid=createInfiniteGrid($('collection-view'),BOARD_LIST,id=>switchBoard(id));
+function setGridMode(enabled,{focus=true}={}){
+ deviceMenu.close();mobilePanels.close();if(state.clean)setClean(false);
+ document.body.classList.toggle('collection-active',enabled);
+ try{enabled?grid.open():grid.close();}catch(error){grid.close();document.body.classList.remove('collection-active');toast('Could not open the grid. Please try again.');console.error(error);enabled=false;}
+ $('export').disabled=enabled||!ready;
+ const button=$('collection-toggle');button.setAttribute('aria-pressed',String(enabled));button.setAttribute('aria-label',enabled?'Return to device view':'Open infinite grid');button.title=enabled?'Return to device view':'Infinite grid';
+ document.querySelector('.skip-link').href=enabled?'#collection-view':'#board-title';
+ history.replaceState(null,'',enabled?'#grid':`#${current.id}`);if(!enabled&&focus)button.focus();
+}
+$('collection-toggle').onclick=()=>setGridMode(!grid.active);
 const state={explode:.78,targetExplode:.78,selected:null,isolate:false,xray:false,labels:false,selectionLabel:false,guides:true,rotate:false,view:'perspective',playing:false,clean:false,cooler:true};
 let stage,ready=false,labels=[],labelWidth=-1,switchId=0,playbackArmed=false,toastTimer;
 const calloutLayout=createCalloutLayout();
@@ -65,7 +79,7 @@ function select(id,anchor=null){if(!ready)return;state.selected=id;state.selecti
 try{stage=createScene($('viewport'),(id,anchor)=>select(id,anchor));}catch(error){$('loading-text').textContent='WebGL is unavailable. Enable hardware acceleration and reload.';console.error(error);throw error;}
 let preferenceStorage;try{preferenceStorage=localStorage;}catch{}
 const appearance=createThemeController({root:document.documentElement,media:matchMedia('(prefers-color-scheme: dark)'),storage:preferenceStorage,onChange:(preference,resolved)=>{
- stage.setTheme(resolved);setDevicePreviewTheme(resolved);document.querySelector('meta[name="theme-color"]').content=resolved==='dark'?'#14171c':'#efeee9';
+ stage.setTheme(resolved);grid.setTheme(resolved);setDevicePreviewTheme(resolved);document.querySelector('meta[name="theme-color"]').content=resolved==='dark'?'#14171c':'#efeee9';
  for(const button of document.querySelectorAll('[data-theme-mode]')){const active=button.dataset.themeMode===preference;button.setAttribute('aria-checked',String(active));button.tabIndex=active?0:-1;}
 }});
 $('theme-segments').addEventListener('click',e=>{const button=e.target.closest('[data-theme-mode]');if(button)appearance.set(button.dataset.themeMode);});
@@ -95,9 +109,9 @@ function startPlayback(){
  $('play').innerHTML=svg('pause')+'<span>Pause</span>';$('play').title='Pause device activity (P)';sync();
 }
 function togglePlayback(){state.playing?stopPlayback():startPlayback();}
-function enableModelControls(enabled){deviceControls.setEnabled(enabled);for(const el of document.querySelectorAll('.tools button,.assembly-controls button,.assembly-controls input,#export'))el.disabled=!enabled;}
+function enableModelControls(enabled){deviceControls.setEnabled(enabled);for(const el of document.querySelectorAll('.tools button,.assembly-controls button,.assembly-controls input'))el.disabled=!enabled;$('export').disabled=!enabled||grid.active;}
 async function switchBoard(id){
- if(!BOARDS[id])return;const token=++switchId;playbackArmed=false;$('operation-note').hidden=true;ready=false;enableModelControls(false);const def=BOARDS[id];
+ if(!BOARDS[id])return;if(grid.active)setGridMode(false,{focus:false});const token=++switchId;playbackArmed=false;$('operation-note').hidden=true;ready=false;enableModelControls(false);const def=BOARDS[id];
  $('loading-text').textContent=`Loading ${def.tab}…`;$('loading').classList.remove('done');$('retry-load').hidden=true;$('labels').hidden=true;setBoardSegment(id);
  try{
   if(!await stage.setBoard(def)||token!==switchId)return;current=def;PARTS=def.parts;
@@ -111,7 +125,7 @@ async function switchBoard(id){
   $('board-title').textContent=def.tab;$('model-name').textContent=def.model;$('parts-count').textContent=PARTS.length;
   $('parts-list').innerHTML=PARTS.map(p=>`<button class="part" data-part="${p.id}" aria-pressed="${p.id===state.selected}"><span>${esc(p.name)}</span>${svg('arrow','arrow')}</button>`).join('');
   renderLabels();filterParts();$('labels').hidden=false;
-  document.title='breakboard';history.replaceState(null,'',`#${id}`);ready=true;enableModelControls(true);detail(state.selected);sync();stage.render(state,0);$('loading').classList.add('done');
+  document.title='breakboard';history.replaceState(null,'',grid.active?'#grid':`#${id}`);ready=true;enableModelControls(true);detail(state.selected);sync();stage.render(state,0);$('loading').classList.add('done');
  }catch(error){if(token!==switchId)return;console.error(error);$('loading-text').textContent=`Could not load ${def.tab}. Retry or choose another device.`;$('retry-load').hidden=false;}
 }
 function setBoardSegment(id){mobilePanels.setBoard(id);deviceMenu.setDevice(id);}
@@ -123,21 +137,22 @@ $('parts-list').addEventListener('click',e=>{const b=e.target.closest('[data-par
 for(const b of document.querySelectorAll('[data-view]'))b.addEventListener('click',()=>setView(b.dataset.view));
 $('explode').addEventListener('input',e=>{setExplode(Number(e.target.value)/100);});$('assembled').onclick=()=>setExplode(0);$('exploded').onclick=()=>setExplode(1);
 $('isolate').onclick=()=>{if(!state.selected)return;state.isolate=!state.isolate;applySelection();};$('xray').onclick=toggleXray;$('labels-toggle').onclick=()=>{toggleLabels();};$('rotate').onclick=()=>{state.rotate=!state.rotate;sync();};$('zoom-in').onclick=()=>stage.zoom(1.18);$('zoom-out').onclick=()=>stage.zoom(1/1.18);$('reset').onclick=reset;$('play').onclick=togglePlayback;
-$('export').onclick=()=>{if(!ready)return;stage.render(state,0);const link=document.createElement('a');link.download=`${current.id}-${state.isolate?state.selected:state.targetExplode>.01?'exploded':'assembled'}.png`;link.href=stage.snapshot();link.click();toast('Image saved · 2400 px wide');};
+$('export').onclick=()=>{if(!ready||grid.active)return;stage.render(state,0);const link=document.createElement('a');link.download=`${current.id}-${state.isolate?state.selected:state.targetExplode>.01?'exploded':'assembled'}.png`;link.href=stage.snapshot();link.click();toast('Image saved · 2400 px wide');};
 function setClean(value){deviceMenu.close();mobilePanels.close();const wasClean=state.clean;state.clean=value;app.querySelector('.shell').classList.toggle('clean',value);for(const el of document.querySelectorAll('.topbar,.sidebar,.inspector,.assembly-controls,.device-controls,.tools,.mobile-panel'))el.inert=value;if(value)$('show-ui').focus();else if(wasClean&&!mobilePanels.focusControls())$('clean').focus();}
 $('clean').onclick=()=>setClean(true);$('show-ui').onclick=()=>setClean(false);
 
 addEventListener('keydown',e=>{
+ if(grid.active){if(e.key==='Escape')setGridMode(false);return;}
  if(e.target.matches('input,select,textarea')||e.metaKey||e.ctrlKey||e.altKey)return;
  if(e.key==='Escape'){stopPlayback();state.isolate=false;state.xray=false;applySelection();if(state.clean)setClean(false);return;}
  if(!['e','l','r','h','p'].includes(e.key.toLowerCase())||e.repeat)return;
  if(e.key.toLowerCase()==='p')togglePlayback();
  if(e.key.toLowerCase()==='e')setExplode(state.targetExplode>0?0:1);if(e.key.toLowerCase()==='l'){toggleLabels();}if(e.key.toLowerCase()==='r')reset();if(e.key.toLowerCase()==='h')setClean(!state.clean);
 });
-addEventListener('hashchange',()=>{if(BOARDS[location.hash.slice(1)])switchBoard(location.hash.slice(1));});
+addEventListener('hashchange',()=>{if(location.hash==='#grid'){setGridMode(true);return;}if(BOARDS[location.hash.slice(1)])switchBoard(location.hash.slice(1));});
 let previous=performance.now(),frameNo=0,slowFrames=0,lowQuality=false;
 function frame(now){
- requestAnimationFrame(frame);const dt=Math.min(.08,(now-previous)/1000);previous=now;if(!ready||document.hidden||!stage.inView)return;
+ requestAnimationFrame(frame);const dt=Math.min(.08,(now-previous)/1000);previous=now;if(!ready||document.hidden||!stage.inView||grid.active)return;
 
  state.explode=reduced.matches?state.targetExplode:state.explode+(state.targetExplode-state.explode)*(1-Math.exp(-dt*5.4));if(Math.abs(state.explode-state.targetExplode)<.0001)state.explode=state.targetExplode;if(playbackArmed&&state.explode<.002){playbackArmed=false;stage.select(state.selected,true,state.xray,state.explode);}
  stage.render(state,now/1000,dt);deviceControls.refresh();$('operation-note').hidden=!state.playing||state.explode>.002||state.isolate||state.xray;
@@ -163,4 +178,5 @@ function frame(now){
  }
  if(!lowQuality&&frameNo>100){slowFrames=dt>.035?slowFrames+1:Math.max(0,slowFrames-1);if(slowFrames>90){stage.renderer.setPixelRatio(1);stage.renderer.shadowMap.enabled=false;lowQuality=true;}}
 }
-switchBoard(BOARDS[location.hash.slice(1)]?location.hash.slice(1):'esp32');requestAnimationFrame(frame);
+const initialGrid=location.hash==='#grid';
+switchBoard(BOARDS[location.hash.slice(1)]?location.hash.slice(1):'esp32');if(initialGrid)setGridMode(true);requestAnimationFrame(frame);

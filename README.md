@@ -1,92 +1,10 @@
 # breakboard
 
-Explore development boards, displays, optics, sensors, chips, audio, power hardware, radio hardware, storage and mechanisms as interactive 3D assemblies. Separate components, inspect their functions, switch to anatomy linework, and operate working mechanisms with device-specific controls.
+An interactive 3D collection of electronic devices and parts. Explore development boards, chips, sensors, displays, lenses, storage and mechanisms—assembled, exploded or in X-ray view.
 
-[Open breakboard](https://breakboard-teardown.vercel.app) · Built with Three.js, vanilla JavaScript and Vite. Runs entirely in the browser.
+[Open breakboard](https://breakboard-teardown.vercel.app) · [Download the offline version](https://breakboard-teardown.vercel.app/breakboard.html)
 
-## Take it offline
-
-<!-- offline-stats:start -->
-**65 interactive devices in one 23.45 MB HTML file** (22.36 MiB).
-<!-- offline-stats:end -->
-
-[Save the standalone HTML](https://breakboard-teardown.vercel.app/breakboard.html) or generate `dist/breakboard.html` with `npm run build`. That single portable file includes every model, the 3D engine, fonts, styles and controls. Open it in a WebGL 2 browser with no installation, server or internet connection. Teardown, anatomy, component selection, animations and image export all work offline.
-
-The build refreshes the device count and file size above from the board registry and the generated HTML.
-
-## Light-mode gallery
-
-Actual 2400 px PNG captures from **Save image**. Each pair shares its camera and separation. Anatomy is the app's **X-ray** mode, shown with no component selected.
-
-| Device | Teardown · materials | Anatomy · contours and markings |
-| --- | --- | --- |
-| **ESP32** | ![Exploded ESP32 in light mode, showing its shield, radio module, carrier and headers](docs/images/esp32-teardown-light.png) | ![The same ESP32 assembly with anatomy shading, outlines and original markings](docs/images/esp32-anatomy-light.png) |
-| **Raspberry Pi 5** | ![Raspberry Pi 5 with its Active Cooler, fan and packages separated in light mode](docs/images/pi5-teardown-light.png) | ![The same Raspberry Pi 5 in anatomy mode, retaining fins, fan blades and connector details](docs/images/pi5-anatomy-light.png) |
-| **Arduino Uno** | ![Exploded Arduino Uno R3 with its socketed processor, headers and discrete components](docs/images/uno-teardown-light.png) | ![The same Uno in anatomy mode with PCB markings, packages and pin outlines](docs/images/uno-anatomy-light.png) |
-| **Jetson Orin Nano** | ![Exploded Jetson Orin Nano with its cooling assembly, compute module and carrier](docs/images/jetson-teardown-light.png) | ![The same Jetson in anatomy mode with fan, heatsink and connector contours](docs/images/jetson-anatomy-light.png) |
-| **Pico 2 W** | ![Exploded Raspberry Pi Pico 2 W with its processor, wireless circuitry and USB connector](docs/images/pico2w-teardown-light.png) | ![The same Pico 2 W in anatomy mode with component outlines and board artwork](docs/images/pico2w-anatomy-light.png) |
-| **Arduino Nano** | ![Exploded classic Arduino Nano with components and pin headers separated](docs/images/nano-teardown-light.png) | ![The same Nano in anatomy mode with packages, pins and printed markings](docs/images/nano-anatomy-light.png) |
-| **Orange Pi 5** | ![Exploded Orange Pi 5 with its processor, memory, connectors and expansion headers](docs/images/orangepi5-teardown-light.png) | ![The same Orange Pi 5 in anatomy mode with detailed connector and package outlines](docs/images/orangepi5-anatomy-light.png) |
-| **BeagleBone Black** | ![Exploded BeagleBone Black with its processor, memory, expansion headers and ports](docs/images/beaglebone-teardown-light.png) | ![The same BeagleBone Black in anatomy mode with component contours and board markings](docs/images/beaglebone-anatomy-light.png) |
-| **STM32 Nucleo** | ![White and blue NUCLEO-F401RE with processors, headers and controls separated](docs/images/nucleo-teardown-light.png) | ![The same Nucleo board in anatomy mode with pin outlines and printed graphics](docs/images/nucleo-anatomy-light.png) |
-| **Portenta X8** | ![Arduino Portenta X8 with both sides, high-density connectors and processor packages separated](docs/images/portenta-teardown-light.png) | ![The same Portenta X8 assembly with anatomy contours and markings](docs/images/portenta-anatomy-light.png) |
-| **Nixie tube** | ![Dalibor Farny R tube with its glass, ten numeral cathodes, anode grid and insulators separated](docs/images/nixie-teardown-light.png) | ![The same Nixie tube assembly with anatomy contours and markings](docs/images/nixie-anatomy-light.png) |
-| **NeoPixel 8×8** | ![Adafruit 64-pixel matrix with its LED packages and support components lifted from the PCB](docs/images/neopixel-teardown-light.png) | ![The same NeoPixel 8×8 assembly with anatomy contours and markings](docs/images/neopixel-anatomy-light.png) |
-| **DLP micromirrors** | ![TI DLP6500 package beside its separately labelled 600× micromirror mechanism detail](docs/images/dlp-teardown-light.png) | ![The same DLP micromirrors assembly with anatomy contours and markings](docs/images/dlp-anatomy-light.png) |
-| **HQ Camera** | ![Raspberry Pi HQ Camera with its CS mount, adapter, infrared filter, sensor and rear electronics separated](docs/images/hqcamera-teardown-light.png) | ![The same HQ Camera assembly with anatomy contours and markings](docs/images/hqcamera-anatomy-light.png) |
-| **Stepper motor** | ![Representative hybrid stepper with laminated stator, copper windings, toothed rotor and bearings separated](docs/images/stepper-teardown-light.png) | ![The same Stepper motor assembly with anatomy contours and markings](docs/images/stepper-anatomy-light.png) |
-| **HackRF One** | ![HackRF One r10 with its RF front end, controller, SMA ports and fitted headers separated](docs/images/hackrf-teardown-light.png) | ![The same HackRF One assembly with anatomy contours and markings](docs/images/hackrf-anatomy-light.png) |
-| **Photomultiplier** | ![Photomultiplier exploded in light mode with realistic materials](docs/images/pmt-teardown-light.png) | ![The same Photomultiplier assembly in anatomy mode with shared geometry and fine contours](docs/images/pmt-anatomy-light.png) |
-| **Mini spectrometer** | ![Mini spectrometer exploded in light mode with realistic materials](docs/images/spectrometer-teardown-light.png) | ![The same Mini spectrometer assembly in anatomy mode with shared geometry and fine contours](docs/images/spectrometer-anatomy-light.png) |
-| **EPYC 9654** | ![EPYC 9654 exploded in light mode with realistic materials](docs/images/epyc-teardown-light.png) | ![The same EPYC 9654 assembly in anatomy mode with shared geometry and fine contours](docs/images/epyc-anatomy-light.png) |
-| **RPLIDAR A1** | ![RPLIDAR A1 exploded in light mode with realistic materials](docs/images/lidar-teardown-light.png) | ![The same RPLIDAR A1 assembly in anatomy mode with shared geometry and fine contours](docs/images/lidar-anatomy-light.png) |
-| **Vacuum display** | ![Vacuum display exploded in light mode with realistic materials](docs/images/vfd-teardown-light.png) | ![The same Vacuum display assembly in anatomy mode with shared geometry and fine contours](docs/images/vfd-anatomy-light.png) |
-| **Core memory** | ![Core memory exploded in light mode with realistic materials](docs/images/corememory-teardown-light.png) | ![The same Core memory assembly in anatomy mode with shared geometry and fine contours](docs/images/corememory-anatomy-light.png) |
-| **Lepton 3.5** | ![Lepton 3.5 exploded in light mode with realistic materials](docs/images/lepton-teardown-light.png) | ![The same Lepton 3.5 assembly in anatomy mode with shared geometry and fine contours](docs/images/lepton-anatomy-light.png) |
-| **Intel 4004** | ![Intel 4004 exploded in light mode with realistic materials](docs/images/intel4004-teardown-light.png) | ![The same Intel 4004 assembly in anatomy mode with shared geometry and fine contours](docs/images/intel4004-anatomy-light.png) |
-| **Particle sensor** | ![Particle sensor exploded in light mode with realistic materials](docs/images/sps30-teardown-light.png) | ![The same Particle sensor assembly in anatomy mode with shared geometry and fine contours](docs/images/sps30-anatomy-light.png) |
-| **Relay** | ![Omron G2R-1 relay with its cover, coil, armature and changeover contacts separated](docs/images/relay-teardown-light.png) | ![The same relay in anatomy mode showing coil windings and contact linkage](docs/images/relay-anatomy-light.png) |
-| **BLDC motor** | ![T-MOTOR MN2212 with rotor bell, twelve magnets, nine stator teeth and three winding phases separated](docs/images/bldc-teardown-light.png) | ![The same brushless motor in anatomy mode with winding and bearing contours](docs/images/bldc-anatomy-light.png) |
-| **Haptic actuator** | ![C10-100 haptic actuator with its case, representative suspended mass, springs, magnet and coil separated](docs/images/haptic-teardown-light.png) | ![The same haptic actuator in anatomy mode showing its representative suspension](docs/images/haptic-anatomy-light.png) |
-| **AS5600 encoder** | ![AS5600 adapter with its diametric magnet, sensor package, representative chip interior and headers separated](docs/images/as5600-teardown-light.png) | ![The same magnetic encoder assembly in anatomy mode](docs/images/as5600-anatomy-light.png) |
-| **Quartz resonator** | ![Epson FC-135 package with a representative tuning fork, electrodes, supports and lid separated](docs/images/quartz-teardown-light.png) | ![The same quartz resonator in anatomy mode showing its two opposed tines](docs/images/quartz-anatomy-light.png) |
-| **MEMS microphone** | ![Infineon IM73A135 with its bottom port, two representative membranes, fixed stator and bonds separated](docs/images/memsmic-teardown-light.png) | ![The same MEMS microphone in anatomy mode](docs/images/memsmic-anatomy-light.png) |
-| **Balanced armature** | ![Knowles ED-29689 receiver with representative coil, armature linkage and diaphragm separated](docs/images/armature-teardown-light.png) | ![The same balanced-armature receiver in anatomy mode](docs/images/armature-anatomy-light.png) |
-| **Planar magnetic driver** | ![Audeze LCD-2 Classic driver reconstruction with magnet arrays, diaphragm and conductor separated](docs/images/planar-teardown-light.png) | ![The same planar driver in anatomy mode showing its membrane and conductor](docs/images/planar-anatomy-light.png) |
-| **BME688** | ![Bosch BME688 package with representative environmental sensing structures separated](docs/images/bme688-teardown-light.png) | ![The same BME688 in anatomy mode](docs/images/bme688-anatomy-light.png) |
-| **SCD41 CO₂ sensor** | ![Sensirion SCD41 with its protective membrane and representative photoacoustic interior separated](docs/images/scd41-teardown-light.png) | ![The same SCD41 in anatomy mode](docs/images/scd41-anatomy-light.png) |
-| **ICM-42688-P IMU** | ![ICM-42688-P IMU with fourteen contacts, anchored accelerometer masses and gyroscope combs separated](docs/images/imu-teardown-light.png) | ![The same ICM-42688-P IMU assembly in anatomy mode](docs/images/imu-anatomy-light.png) |
-| **VL53L8CX depth sensor** | ![VL53L8CX depth sensor with receiver and emitter apertures, optical layers, dies and seventeen contact pads separated](docs/images/tof-teardown-light.png) | ![The same VL53L8CX depth sensor assembly in anatomy mode](docs/images/tof-anatomy-light.png) |
-| **IWR6843ISK radar** | ![IWR6843ISK radar with seven antenna arrays, fitted packages and two carrier connectors separated](docs/images/radar-teardown-light.png) | ![The same IWR6843ISK radar assembly in anatomy mode](docs/images/radar-anatomy-light.png) |
-| **PaPIRs motion sensor** | ![PaPIRs motion sensor with Fresnel lens, filter, sensing elements and lead assembly separated](docs/images/pir-teardown-light.png) | ![The same PaPIRs motion sensor assembly in anatomy mode](docs/images/pir-anatomy-light.png) |
-| **SRF04 ultrasonic ranger** | ![SRF04 ultrasonic ranger with transducer cans, piezo benders, cones and support electronics separated](docs/images/ultrasonic-teardown-light.png) | ![The same SRF04 ultrasonic ranger assembly in anatomy mode](docs/images/ultrasonic-anatomy-light.png) |
-| **MAX30102 optical sensor** | ![Red and infrared emitters, detector, optical baffle and glass separated](docs/images/max30102-teardown-light.png) | ![The same MAX30102 optical sensor assembly in anatomy mode](docs/images/max30102-anatomy-light.png) |
-| **PW6C load cell** | ![Machined aluminum spring, four gauges, cable and protective films separated](docs/images/loadcell-teardown-light.png) | ![The same PW6C load cell assembly in anatomy mode](docs/images/loadcell-anatomy-light.png) |
-| **ZED-F9P receiver** | ![Receiver shield, dual-band front end, timing components and 102 lands separated](docs/images/gnss-teardown-light.png) | ![The same ZED-F9P receiver assembly in anatomy mode](docs/images/gnss-anatomy-light.png) |
-| **IMX500 vision sensor** | ![Pixel and logic chips, color filters, microlenses and representative processing blocks separated](docs/images/imx500-teardown-light.png) | ![The same IMX500 vision sensor assembly in anatomy mode](docs/images/imx500-anatomy-light.png) |
-| **IMX636 event sensor** | ![Ceramic LGA156 package, glass and stacked monochrome sensor chips separated](docs/images/eventcamera-teardown-light.png) | ![The same IMX636 event sensor assembly in anatomy mode](docs/images/eventcamera-anatomy-light.png) |
-| **Canon 50 mm STM** | ![Six optical elements, seven iris leaves, geared focusing barrel and lens mount separated](docs/images/prime50-teardown-light.png) | ![The same Canon 50 mm STM assembly in anatomy mode](docs/images/prime50-anatomy-light.png) |
-| **Nikon 24–70 mm VR** | ![Twenty optical elements, zoom cams, nine iris leaves and representative VR carriage separated](docs/images/zoomlens-teardown-light.png) | ![The same Nikon 24–70 mm VR assembly in anatomy mode](docs/images/zoomlens-anatomy-light.png) |
-| **Folded telephoto** | ![Prism, two-axis OIS cradle, six lenses and ball-guided autofocus carrier separated](docs/images/periscope-teardown-light.png) | ![The same Folded telephoto assembly in anatomy mode](docs/images/periscope-anatomy-light.png) |
-| **RealSense D455** | ![Capsule housing, stereo imagers, projector, RGB camera and processor board separated](docs/images/d455-teardown-light.png) | ![The same RealSense D455 assembly in anatomy mode](docs/images/d455-anatomy-light.png) |
-| **FM3A shutter** | ![Representative front and rear curtain leaves, guides, electromagnet and governor separated](docs/images/shutter-teardown-light.png) | ![The same FM3A shutter assembly in anatomy mode](docs/images/shutter-anatomy-light.png) |
-| **Barracuda HDD** | ![Two-disk Seagate ST31000528AS with four-head actuator and controller separated in light mode](docs/images/hdd-teardown-light.png) | ![The same Barracuda HDD in anatomy mode](docs/images/hdd-anatomy-light.png) |
-| **Blu-ray pickup** | ![Sony KES-400A with its optical elements, objective suspension and radial mechanism separated in light mode](docs/images/bluray-teardown-light.png) | ![The same Blu-ray pickup in anatomy mode](docs/images/bluray-anatomy-light.png) |
-| **IBM LTO-9 transport** | ![IBM TS2290 enclosure and representative single-reel cartridge transport separated in light mode](docs/images/lto-teardown-light.png) | ![The same IBM LTO-9 transport in anatomy mode](docs/images/lto-anatomy-light.png) |
-| **Samsung 990 PRO** | ![Samsung 990 PRO 2 TB with controller, DRAM and representative NAND die stacks separated in light mode](docs/images/nvme-teardown-light.png) | ![The same Samsung 990 PRO in anatomy mode](docs/images/nvme-anatomy-light.png) |
-| **BiCS8 3D NAND** | ![Magnified 218-word-line BiCS8 cutaway with channels and bonded CMOS separated in light mode](docs/images/nand-teardown-light.png) | ![The same BiCS8 3D NAND in anatomy mode](docs/images/nand-anatomy-light.png) |
-| **NE555 timer** | ![SOIC package, leadframe, bonds and genuine TI die image separated in light mode](docs/images/ne555-teardown-light.png) | ![The same NE555 timer in anatomy mode](docs/images/ne555-anatomy-light.png) |
-| **RP2350B** | ![QFN-80 package with representative core, SRAM and PIO regions separated in light mode](docs/images/rp2350-teardown-light.png) | ![The same RP2350B in anatomy mode](docs/images/rp2350-anatomy-light.png) |
-| **Artix-7 FPGA** | ![Wire-bond package, representative logic die and 324 solder balls separated in light mode](docs/images/fpga-teardown-light.png) | ![The same Artix-7 FPGA in anatomy mode](docs/images/fpga-anatomy-light.png) |
-| **Micron HBM3E** | ![Eight memory dies with vertical interconnects, base die and package bumps separated in light mode](docs/images/hbm-teardown-light.png) | ![The same Micron HBM3E in anatomy mode](docs/images/hbm-anatomy-light.png) |
-| **Windowed EPROM** | ![Ceramic windowed package, 28 leads, die and bond wires separated in light mode](docs/images/eprom-teardown-light.png) | ![The same Windowed EPROM in anatomy mode](docs/images/eprom-anatomy-light.png) |
-| **GaN USB-C charger** | ![Power Integrations DER-942 Rev B board, transformer windings, power components and USB-C port separated](docs/images/gan-teardown-light.png) | ![The same gan usb-c charger in anatomy mode](docs/images/gan-anatomy-light.png) |
-| **Qi2 charging pair** | ![Apple A2580 transmitter and iPhone 15 Pro receiving assembly with their coil layers separated](docs/images/qi2-teardown-light.png) | ![The same qi2 charging pair in anatomy mode](docs/images/qi2-anatomy-light.png) |
-| **PrecisionCore printhead** | ![Epson I3200(4)-A1 printhead with its 3,200-nozzle plate and representative internal layers separated](docs/images/printhead-teardown-light.png) | ![The same precisioncore printhead in anatomy mode](docs/images/printhead-anatomy-light.png) |
-| **Thermal printer** | ![SII LTP02-245-01 frame, platen, gears, motor, heater row and paper separated](docs/images/thermalprinter-teardown-light.png) | ![The same thermal printer in anatomy mode](docs/images/thermalprinter-anatomy-light.png) |
-| **SAW filter** | ![Murata SF2124E ceramic package, six contacts, lid and representative acoustic die separated](docs/images/saw-teardown-light.png) | ![The same saw filter in anatomy mode](docs/images/saw-anatomy-light.png) |
-
-To reproduce: choose **Light**, reset the device (tags start off), and use **3D**. ESP32 uses its default 78% separation; all other devices use **Exploded** at 100%. Save with X-ray off, then on, without moving the camera. [Capture details](docs/images/README.md).
+Built with Three.js, vanilla JavaScript and Vite. Runs in the browser with no account, API key or backend.
 
 ## Run locally
 
@@ -96,159 +14,56 @@ Requires Node.js **22.12+** (or **20.19+ on the 20.x line**) and a browser with 
 git clone https://github.com/hckmstrrahul/breakboard.git
 cd breakboard
 npm ci
-npm run dev -- --port 5174 --strictPort
+npm run dev
 ```
 
-Open [127.0.0.1:5174](http://127.0.0.1:5174). No account, API key or backend is required.
-
-After adding or changing a model, run `npm run render:previews` with Chrome installed to refresh the light/dark picker images. [Preview details](src/previews/README.md).
+Open the local URL printed by Vite.
 
 ## Explore
 
-| Control | Behavior |
-| --- | --- |
-| Device pills + dropdowns | Choose from Boards, Displays, Optics, Sensors, Chips, Motion, Power, Audio and Radio. Each option has a square assembled-model WebP preview that follows Light, Dark or System appearance. Each active pill shows the selected device. Hover opens a menu on a mouse or trackpad; moving between categories switches immediately. Click and keyboard navigation remain available; Escape closes the menu. |
-| Previous / Next arrows | Cycle within the current category, wrapping at its ends. The arrows sit at the two ends of the viewer toolbar; single-device categories disable them. |
-| Assembled / Exploded + Separation | Move between the assembled device and separated component groups. |
-| Device operation inputs | Compact mono instrument controls use short labels, thin tracks and only essential outputs. Full reconstruction notes and sources appear under **Model notes**. Switch a relay coil, change motor speed/direction, vary haptic pulses, rotate an encoder magnet or change an external quartz clock divider. Audio amplitude/frequency drives membranes and a normalized waveform; environmental inputs drive the corresponding sensing channel. Tilt/rate inputs move MEMS mechanisms; target controls drive depth, radar, PIR and ultrasonic readouts. The ToF model includes an accessible 8 × 8 depth map. Optical controls adjust focus, aperture, zoom, stabilization, stereo depth and shutter speed. Readouts explain the response; Reset restores defaults. Inputs share the inline mobile Controls panel. |
-| Selection | Models open unselected and tags start off. In either rendering mode, selecting a part keeps it solid and ghosts the rest. Click a component or list item to show its selection tag; picking on the model anchors it to the clicked surface. Click empty canvas to clear selection and show all tags when labels are enabled. |
-| X-ray | Show the whole device in anatomy style. Glass retains its transparency and contours. Selecting a part ghosts the others; clicking empty canvas restores the complete view. |
-| Labels / Rotate | Text toggles show overview labels or orbit the device automatically. |
-| Isolate | Frame one component group. Also works with X-ray. |
-| Play / Pause | Assemble the device, then animate fans, LEDs, numeral cathodes, stepped shafts at 30 rpm, mirror tilt, VFD multiplexing, electron cascades, spectral paths, chiplet traffic or sensor activity. Some module covers fade during playback when no part is selected, exposing illustrative interiors. Changing separation stops playback. The camera, Nixie tube and stepper adjust framing with separation; orbiting or zooming preserves your manual framing until a camera preset or reset. Reduced motion uses a still powered view. |
-| 3D / Top / Front | Switch cameras. Drag to orbit, right-drag to pan, scroll or use + / − to zoom. |
-| Light / Dark / System | Dark by default. Choose Light, Dark or System; the preference persists. |
-| Save image | Download a 2400 px PNG of the model in its current view and theme. |
+- **Choose a device** from the category tabs, or use the grid button to browse the collection. Adjust grid density; hover a model to rotate and explode it, then click to open its full view. On touch screens, tap to open.
+- **Take it apart** with Assembled, Exploded and the Separation slider. Use the previous and next arrows to move within a category.
+- **Inspect components** by selecting them in the model or component list. Other parts fade; Isolate hides them. Labels and X-ray reveal the assembly's structure.
+- **See it work** with Play and each device's controls. Rotate enables a turntable view; 3D, Top and Front change the camera.
+- **Make it your own** with light, dark or system appearance. Save image exports a PNG of the model.
 
-Labels use sentence case while preserving part references, technical acronyms and product names. Overview tags retain their placement while orbiting. Collision adjustments move smoothly, while leader dots stay attached to the actual components. Most Uno tags include printed references and readable component types; about 30% use reference codes alone to reduce crowding. Other boards label key subsystems while grouping routine passives; selecting a component shows its full explanation.
+## Light-mode gallery
 
-On mobile, the model comes first. **Controls** expands upward inside the viewer, shrinking the 3D area while keeping it interactive. Its controls scroll within the panel; tap **Controls** again or press Escape to collapse it without stopping playback. The device picker and **Components & details** use resizable bottom sheets. Selecting a component closes its sheet and reveals its tag. The theme toggle stays in the header. Device previews retain their compact size and work offline.
+Actual model exports, shown with materials and in X-ray view.
 
-X-ray, playback, overview tags and camera choice persist across device changes. Pi's **Cooler** switch toggles its cooling assembly. Shortcuts: **E** separation, **L** labels, **P** playback, **R** reset, **H** interface. **Esc** closes an open device menu; otherwise it stops playback and exits X-ray, isolation and hidden-interface mode. Arrow keys orbit a focused canvas.
-
-## Devices and evidence
-
-| Device | Route | Geometry basis |
+| Device | Materials | X-ray |
 | --- | --- | --- |
-| ESP32-DevKitC V4 / WROOM-32E | `#esp32` | Published dimensions and photographs |
-| Raspberry Pi 5 + Active Cooler | `#pi5` | Official STEP; reconstructed cooler details |
-| Arduino Uno R3 | `#uno` | Official EAGLE layout |
-| NVIDIA Jetson Orin Nano Super | `#jetson` | Official STEP; reconstructed external receptacles |
-| Raspberry Pi Pico 2 W | `#pico2w` | Official dimensions and component layout |
-| Classic Arduino Nano V3.3 | `#nano` | Official EAGLE layout, both sides |
-| Xunlong Orange Pi 5 | `#orangepi5` | Official manual and photographs |
-| BeagleBone Black Rev C | `#beaglebone` | Official drawing and photographs |
-| STMicroelectronics NUCLEO-F401RE | `#nucleo` | ST UM1724, MB1136 C-03 configuration |
-| Arduino Portenta X8 | `#portenta` | Official STEP; 2,011 supplied solids |
-| Dalibor Farny R Nixie tube | `#nixie` | Official envelope and contact pattern; reconstructed electrode assembly |
-| Adafruit NeoMatrix 8×8 v2 | `#neopixel` | Official EAGLE layout; 64 WS2812B RGB packages |
-| TI DLP6500FYE | `#dlp` | Official 350-pin package; separately labelled 600× mechanism illustration |
-| Raspberry Pi HQ Camera, CS mount | `#hqcamera` | Official mount drawings and schematic; reconstructed package bodies |
-| 42 mm hybrid stepper | `#stepper` | Documented two-phase mechanism; representative mechanical dimensions |
-| Great Scott Gadgets HackRF One r10 | `#hackrf` | Official KiCad board; 437 footprint placements |
-| Hamamatsu R928 / side-on tube | `#pmt` | [Sources and reconstruction limits](reference/pmt/evidence.md) |
-| Hamamatsu C12880MA | `#spectrometer` | [Sources and reconstruction limits](reference/spectrometer/evidence.md) |
-| AMD EPYC 9654 / Genoa | `#epyc` | [Sources and reconstruction limits](reference/epyc/evidence.md) |
-| SLAMTEC RPLIDAR A1 / triangulation scanner | `#lidar` | [Sources and reconstruction limits](reference/lidar/evidence.md) |
-| Eight-digit VFD / Noritake construction principles | `#vfd` | [Sources and reconstruction limits](reference/vfd/evidence.md) |
-| 32 × 32 magnetic core plane / representative construction | `#corememory` | [Sources and reconstruction limits](reference/corememory/evidence.md) |
-| Teledyne FLIR Lepton 3.5 | `#lepton` | [Sources and reconstruction limits](reference/lepton/evidence.md) |
-| Intel C4004 / ceramic gold-top package | `#intel4004` | [Sources and reconstruction limits](reference/intel4004/evidence.md) |
-| Sensirion SPS30 / laser-scattering sensor | `#sps30` | [Sources and reconstruction limits](reference/sps30/evidence.md) |
-| Omron G2R-1 DC12 / PCB SPDT | `#relay` | [Documented envelope, pinout and coil; representative linkage](reference/relay/evidence.md) |
-| T-MOTOR MN2212 V2.0 / KV920 / 9N12P | `#bldc` | [Documented motor dimensions and pole/slot counts; reconstructed interior](reference/bldc/evidence.md) |
-| Precision Microdrives C10-100 / R006-PROD | `#haptic` | [Documented envelope and resonance; representative suspension](reference/haptic/evidence.md) |
-| ams AS5600-SO_EK_AB / AS5600-SO_AB_V2 | `#as5600` | [Documented adapter and magnet; representative chip cutaway](reference/as5600/evidence.md) |
-| Epson FC-135 / 32.768 kHz / 12.5 pF | `#quartz` | [Documented package and frequency; representative tuning fork](reference/quartz/evidence.md) |
-| Infineon IM73A135V01 / PG-LLGA-5-2 | `#memsmic` | [Documented package and dual-membrane principle; representative MEMS geometry](reference/memsmic/evidence.md) |
-| Knowles ED-29689-000 / Rev C | `#armature` | [Documented package and terminals; representative armature linkage](reference/armature/evidence.md) |
-| Audeze LCD-2 Classic / 100-LC-1017-00 | `#planar` | [Documented 106 mm non-Fazor driver; representative internal dimensions](reference/planar/evidence.md) |
-| Bosch BME688 / 0273017016 / datasheet Rev 1.3 | `#bme688` | [Documented package and channels; representative MEMS cutaway](reference/bme688/evidence.md) |
-| Sensirion SCD41-D-R2 / datasheet v1.7 | `#scd41` | [Documented package and photoacoustic principle; representative interior](reference/scd41/evidence.md) |
-| TDK ICM-42688-P | `#imu` | [Documented LGA package; representative six-axis MEMS cutaway](reference/imu/evidence.md) |
-| ST VL53L8CXV9GC/1 | `#tof` | [Documented optical package and contacts; representative SPAD and VCSEL interior](reference/tof/evidence.md) |
-| TI IWR6843ISK / PROC073D / 001_IWR | `#radar` | [Official Rev D fabrication, BOM and placements; reconstructed package detail](reference/radar/evidence.md) |
-| Panasonic EKMB1101111 / Rev 7.1 | `#pir` | [Documented lens envelope and field; representative four-element interior](reference/pir/evidence.md) |
-| Devantech SRF04 / Pro-Wave 400ST160 + 400SR160 | `#ultrasonic` | [Manufacturer circuit and transducer drawings; photo-estimated placement](reference/ultrasonic/evidence.md) |
-| Analog Devices MAX30102EFD+ | `#max30102` | [Documented 14-contact optical package; representative hidden assembly](reference/max30102/evidence.md) |
-| HBK PW6C / 1-PW6CMR/20KG-1 | `#loadcell` | [Manufacturer spring-body CAD; representative gauge bridge](reference/loadcell/evidence.md) |
-| u-blox ZED-F9P-04B-01 / HPG1.32 | `#gnss` | [Documented package and contact pattern; representative hidden circuitry](reference/gnss/evidence.md) |
-| Sony IMX500 / bare-chip configuration | `#imx500` | [Documented active area and stacked architecture; representative die dimensions](reference/imx500/evidence.md) |
-| Sony / Prophesee IMX636-AAMR-C | `#eventcamera` | [Documented envelope, pad count and active area; representative cutaway](reference/eventcamera/evidence.md) |
-| Canon EF 50mm f/1.8 STM / May 2015 | `#prime50` | [Documented 6/5 optics and seven-blade iris; specimen-informed focusing mechanism](reference/prime50/evidence.md) |
-| Nikon AF-S 24–70mm f/2.8E ED VR / F mount | `#zoomlens` | [Documented 20/16 optics; patent-informed representative focusing and VR motion](reference/zoomlens/evidence.md) |
-| Samsung Electro-Mechanics 50M 5× / Prism Lead Type | `#periscope` | [Documented module architecture and dimensions; representative lens prescription and actuators](reference/periscope/evidence.md) |
-| Intel RealSense D455 / K83122-110 / BMI085 | `#d455` | [Documented mechanical envelope and stereo baseline; representative concealed electronics](reference/d455/evidence.md) |
-| Nikon FM3A / shutter unit 1B060-746 | `#shutter` | [Documented hybrid shutter and timing; representative four-leaf straight-guide mechanism](reference/shutter/evidence.md) |
-| Seagate ST31000528AS / JC4A / 100535537 Rev A | `#hdd` | [Documented two disks/four heads; specimen-informed mechanics](reference/hdd/evidence.md) |
-| Sony KES-400A / 2006-marked specimen | `#bluray` | [First-hand optical dissection; measured pickup with representative servo travel](reference/bluray/evidence.md) |
-| IBM TS2290 3580-H9S / 02XW568 cartridge | `#lto` | [Documented enclosure and media; representative conserved-length tape transport](reference/lto/evidence.md) |
-| Samsung 990 PRO 2 TB / MZ-V9P2T0BW / October 2022 | `#nvme` | [Photographed original PCB; inferred sixteen-die NAND stacks](reference/nvme/evidence.md) |
-| Kioxia BiCS FLASH generation 8 / 1 Tb TLC | `#nand` | [Documented 218-level CBA architecture; magnified representative eight-string cutaway](reference/nand/evidence.md) |
-| TI NE555D / D0008A SOIC-8 | `#ne555` | [Documented package and genuine licensed TI die image; ideal external RC circuit](reference/ne555/evidence.md) |
-| Raspberry Pi RP2350B / A4 / QFN-80 | `#rp2350` | [Documented A4 package and architecture; representative functional floorplan](reference/rp2350/evidence.md) |
-| AMD / Xilinx XC7A35T-1CSG324C | `#fpga` | [Artix-specific wire-bond package drawing; representative die and configurable logic](reference/fpga/evidence.md) |
-| Micron MT65B12G16080A00QG-92:A / 24 GB | `#hbm` | [Documented eight-high stack; representative TSV and microbump detail](reference/hbm/evidence.md) |
-| ST M27W256-80F6 / FDIP28W / Rev 3 | `#eprom` | [Documented windowed package and 32K-byte organization; representative die](reference/eprom/evidence.md) |
-| Power Integrations RDK-942 / DER-942 Rev B / RDR-942 Rev 1.0 | `#gan` | [Documented 65 W active-clamp flyback board and windings; representative hidden IC detail](reference/gan/evidence.md) |
-| Apple A2580 / Qi 14294 / iPhone 15 Pro receiving assembly | `#qi2` | [Photographed compatible Qi2 pair; representative receiver winding and qualitative coupling](reference/qi2/evidence.md) |
-| Epson I3200(4)-A1 / March 2022 | `#printhead` | [Documented 3,200-nozzle module; representative enlarged MicroTFP chamber](reference/printhead/evidence.md) |
-| Seiko Instruments LTP02-245-01 / August 2012 | `#thermalprinter` | [Documented 384-element mechanism; reconstructed gears and persistent sample print](reference/thermalprinter/evidence.md) |
-| Murata SF2124E / SM3030-6 / August 2019 | `#saw` | [Documented six-pad RF package; representative SAW transducers and illustrative response](reference/saw/evidence.md) |
+| **Raspberry Pi 5** | ![Raspberry Pi 5 with its Active Cooler, fan and packages separated in light mode](docs/images/pi5-teardown-light.png) | ![The same Raspberry Pi 5 in anatomy mode, retaining fins, fan blades and connector details](docs/images/pi5-anatomy-light.png) |
+| **Nixie tube** | ![Dalibor Farny R tube with its glass, ten numeral cathodes, anode grid and insulators separated](docs/images/nixie-teardown-light.png) | ![The same Nixie tube assembly with anatomy contours and markings](docs/images/nixie-anatomy-light.png) |
+| **Barracuda HDD** | ![Two-disk Seagate ST31000528AS with four-head actuator and controller separated in light mode](docs/images/hdd-teardown-light.png) | ![The same Barracuda HDD in anatomy mode](docs/images/hdd-anatomy-light.png) |
 
-These are educational reconstructions. Separating soldered parts explains their roles; it is not a physical disassembly procedure. Estimated heights, connector interiors and hidden placements are recorded in [reference/](reference/) and the [device registry](src/boards.js). X-ray reuses the same modeled surfaces. The new sealed-module cutaways explicitly identify illustrative interiors; chip surface regions are functional diagrams, not fabricated transistor layouts or buried-copper maps. Signal paths illustrate activity, not an electrical simulation. The stepper is a representative mechanism, not a manufacturer-specific replica. The DLP package stays at its documented scale; a separate **600× detail** explains the micromirror mechanism without claiming a disclosed fabrication stack. Nixie electrode shapes and hidden construction are identified as reconstructed.
+[Browse all device images](docs/images/) · [Device catalogue](src/boards.js)
 
-## How I built it
+## Take it offline
 
-1. **Started with evidence.** I imported manufacturer STEP geometry with OpenCascade and extracted footprints and artwork from official EAGLE and KiCad files. I used drawings and photographs to reconstruct missing packages, recording assumptions.
-2. **Built shared assemblies.** I gave component groups geometry, identity, selection anchors and separation vectors. I batched small meshes while retaining selectable groups; Pi's surface-mount packages share one SMD group.
-3. **Rendered two treatments.** I used Three.js for materials, lighting, shadows and an orthographic camera. Anatomy reuses the same geometry, transforms and artwork with tonal shading and geometric contours. Raycast anchors keep callouts attached through orbit and separation.
-4. **Connected the controls.** I used shared state to drive grouped device menus, cameras, selection, isolation, themes and playback. Identified moving parts, indicators and explicitly illustrative overlays animate.
-5. **Inspected and checked.** I combined geometry and interaction checks with independent maker–checker reviews and browser inspection. The [review record](reference/maker-checker.md) and [nine-module review](reference/modules-review.md) distinguish verified behavior from reconstruction limits and identify which additions received a separate review.
+<!-- offline-stats:start -->
+**65 interactive devices in one 38.28 MB HTML file** (36.50 MiB).
+<!-- offline-stats:end -->
 
-### Skills and tools
+Download [breakboard.html](https://breakboard-teardown.vercel.app/breakboard.html) and open it in a WebGL 2 browser. Models, fonts, controls and image export are included; no server or internet connection is needed.
 
-These informed the implementation; the shipped viewer is custom Three.js code.
-
-| Resource | Contribution |
-| --- | --- |
-| [Teardown skill · Jakub Krehel](https://github.com/jakubkrehel/skills/blob/main/skills/teardown/SKILL.md) | Evidence-led reconstruction, coherent assembly views and precise part-to-annotation correspondence. |
-| [Anatomy skill · wheresryan22](https://github.com/wheresryan22/anatomy) | Detailed solids, tonal hierarchy and fine contours. Its illustration principles were adapted to my WebGL renderer. |
-| [Untitled UI MCP](https://www.untitledui.com/react/integrations/mcp) | Component and icon references for tabs, buttons, inputs and sliders. Adapted to semantic HTML/CSS; [integration notes](reference/untitled-ui/README.md). |
-| [Teardown skill · Elvar](https://github.com/elvarofficial/teardown/blob/main/SKILL.md) | Original simulator reference: shared model/state, studio rendering, cameras, subsystem interaction and portable HTML. I read its skill and examples; breakboard uses its own runtime. |
-
-The two Teardown skills have different goals. **Elvar’s** starts with an interactive machine that runs: its state drives poses, controls and readouts, with optional tours and film export. **Jakub’s** starts with a technical illustration: evidence, geometry, coherent views, hidden-line handling and annotations that point to the correct features. **Anatomy** supplies the detailed tonal drawing treatment. I adapted these ideas to one Three.js model; I do not ship their complete viewers, claim circuit simulation, or use their tour/video features.
-
-### Sharing metadata
-
-The browser title and Open Graph title are **breakboard**. The description is: “Explore electronics in 3D, from development boards to displays and mechanisms. Take them apart, inspect each component, and switch between realistic and anatomy views.” Open Graph and Twitter image tags reference the public light-mode Pi teardown capture. The canonical URL and `og:url` point to [breakboard-teardown.vercel.app](https://breakboard-teardown.vercel.app); the preview image is served from the same site. GitHub manages the repository page’s own sharing preview separately.
-
-### Code map
-
-| Files | Responsibility |
-| --- | --- |
-| [boards.js](src/boards.js), board builders, [board-kit.js](src/board-kit.js) | Inventories, geometry, shared packages and connectors |
-| [assembly.js](src/assembly.js), [batching.js](src/batching.js) | Separation, group visibility and mesh batching |
-| [scene.js](src/scene.js), [selection.js](src/selection.js) | Cameras, rendering, picking, callouts and PNG export |
-| [model-cache.js](src/model-cache.js), [device-controls.js](src/device-controls.js), [control-presentation.js](src/control-presentation.js), [device-controls.css](src/device-controls.css) | Bounded model reuse, resource disposal and per-device inputs/readouts |
-| [anatomy.js](src/anatomy.js), [operation.js](src/operation.js), [module-effects.js](src/module-effects.js) | Anatomy rendering, motion and explanatory optical/electrical overlays |
-| [main.js](src/main.js), [device-menu.js](src/device-menu.js), [style.css](src/style.css), [theme.js](src/theme.js) | Interface, state and appearance |
-
-## Build and verify
+## Build
 
 ```sh
 npm run build
-npm run check
-npm run check:offline
 ```
 
-Deploy `dist/` to a static host, or use the [standalone offline file](#take-it-offline). On the hosted app, Jetson CAD ships in the app bundle and Pi and Portenta CAD load on first selection. The viewer retains up to three built models, releasing unreferenced GPU resources when older models leave the cache.
+Deploy `dist/` to a static host, or share `dist/breakboard.html` as a standalone file.
 
-Checks cover inventories, dimensions, geometry, assembly poses, isolation, anatomy, picking, callout layout, CAD loading, themes and playback. The expansion checks cover contact mating, motor apertures and rotation, haptic pulses, encoder conversion, quartz division, audio linkages, waveform response, environmental sensing channels, MEMS axis signs, depth-zone mapping, radar placement, PIR timing and ultrasonic propagation. Independent reviews record source limits and corrected findings: [batch 1](docs/verification/expansion-batch1.md), [batch 2](docs/verification/expansion-batch2.md), [batch 3](docs/verification/expansion-batch3.md), [batch 4](docs/verification/expansion-batch4.md), [batch 5](docs/verification/expansion-batch5.md), [batch 6](docs/verification/expansion-batch6.md), [batch 7](docs/verification/expansion-batch7.md).
+## Accuracy and sources
 
-The standalone HTML loaded all 65 devices from a local file in Chrome, Firefox and WebKit with networking disabled and no HTTP requests. Operation, selection, anatomy, reset, both sets of thumbnails and 2400 px image export passed. Use `npm run check:offline -- --browser=firefox` or `--browser=webkit` after installing those Playwright browsers; the default uses installed Chrome. Mobile layouts and selection were checked at phone, tablet and landscape viewport sizes; physical-device touch and safe-area behavior still need a phone check.
+Models use documented hardware revisions, manufacturer drawings, CAD and photographs where available. Open **Model notes** in the viewer for each device's sources and reconstruction limits; supporting records are in [reference/](reference/).
 
-Normal development uses the supplied runtime assets. Downloaded reference CAD, PDFs, photographs and intermediate meshes stay local; source URLs and evidence records are included. Regenerating STEP meshes additionally requires `cadquery-ocp==7.9.3.1.1` and the `import-*` / `package-*` scripts in [scripts/](scripts/). Arduino extraction uses `prepare-uno.py` and `prepare-nano.py`.
+Hidden chip layouts, MEMS structures and other unpublished internals are identified as representative cutaways. Exploded views explain construction rather than prescribe disassembly. Animations illustrate operating principles; they are not circuit or engineering simulations.
+
+## Design references
+
+The viewer draws on [Jakub Krehel's Teardown skill](https://github.com/jakubkrehel/skills/blob/main/skills/teardown/SKILL.md), [Anatomy by wheresryan22](https://github.com/wheresryan22/anatomy), [Elvar's Teardown skill](https://github.com/elvarofficial/teardown/blob/main/SKILL.md) and [Untitled UI](https://www.untitledui.com/react/integrations/mcp). These provided design guidance; the application uses a custom Three.js renderer.
 
 ## Attribution
 
@@ -258,5 +73,3 @@ Normal development uses the supplied runtime assets. Downloaded reference CAD, P
 - Adafruit NeoMatrix layout and adapted geometry: [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/); [source](https://github.com/adafruit/Adafruit-NeoPixel-8x8-Matrix). HackRF r10 hardware and adapted geometry: [CERN-OHL-P-2.0](https://ohwr.org/cern_ohl_p_v2.txt); [source](https://github.com/greatscottgadgets/hackrf/tree/main/hardware/hackrf-one). Portenta geometry is derived from Arduino’s published reference STEP; see [evidence](reference/portenta/evidence.md).
 - NE555 genuine die photograph © Mikhail Svarichevsky / ZeptoBars, [CC BY 3.0](public/licenses/ne555-zeptobars.txt); cropped, resampled and rendered in color or monochrome.
 - [Untitled UI icon notice](public/licenses/untitled-ui-icons.txt). Board names and logos identify their respective hardware vendors.
-
-The complete forty-device expansion received a final maker/checker review: [verification report](docs/verification/40-device-expansion.md), [260-image review ledger](docs/verification/40-device-visual-baseline.json) and [desktop performance measurements](docs/verification/40-device-performance.json).

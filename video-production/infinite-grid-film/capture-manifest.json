@@ -1,0 +1,436 @@
+{
+  "duration": 30,
+  "fps": 30,
+  "width": 3840,
+  "height": 2160,
+  "models": [
+    {
+      "id": "esp32",
+      "name": "ESP32"
+    },
+    {
+      "id": "hdd",
+      "name": "Barracuda HDD"
+    },
+    {
+      "id": "nixie",
+      "name": "Nixie tube"
+    },
+    {
+      "id": "prime50",
+      "name": "Canon 50mm STM"
+    },
+    {
+      "id": "stepper",
+      "name": "Stepper motor"
+    },
+    {
+      "id": "epyc",
+      "name": "EPYC 9654"
+    },
+    {
+      "id": "pi5",
+      "name": "Raspberry Pi 5"
+    },
+    {
+      "id": "corememory",
+      "name": "Core memory"
+    },
+    {
+      "id": "pmt",
+      "name": "Photomultiplier"
+    },
+    {
+      "id": "neopixel",
+      "name": "NeoPixel 8×8"
+    },
+    {
+      "id": "hqcamera",
+      "name": "HQ Camera"
+    },
+    {
+      "id": "intel4004",
+      "name": "Intel 4004"
+    },
+    {
+      "id": "uno",
+      "name": "Arduino Uno"
+    },
+    {
+      "id": "lidar",
+      "name": "RPLIDAR A1"
+    },
+    {
+      "id": "zoomlens",
+      "name": "Nikon 24–70mm VR"
+    },
+    {
+      "id": "jetson",
+      "name": "Jetson Orin Nano"
+    },
+    {
+      "id": "dlp",
+      "name": "DLP micromirrors"
+    },
+    {
+      "id": "gan",
+      "name": "GaN charger"
+    },
+    {
+      "id": "hbm",
+      "name": "Micron HBM3E"
+    },
+    {
+      "id": "imu",
+      "name": "ICM-42688-P IMU"
+    },
+    {
+      "id": "lto",
+      "name": "IBM LTO-9 transport"
+    },
+    {
+      "id": "pir",
+      "name": "PaPIRs motion sensor"
+    },
+    {
+      "id": "qi2",
+      "name": "Qi2 charging pair"
+    },
+    {
+      "id": "saw",
+      "name": "SAW RF filter"
+    },
+    {
+      "id": "tof",
+      "name": "VL53L8CX depth sensor"
+    },
+    {
+      "id": "vfd",
+      "name": "Vacuum display"
+    },
+    {
+      "id": "bldc",
+      "name": "BLDC motor"
+    },
+    {
+      "id": "d455",
+      "name": "RealSense D455"
+    },
+    {
+      "id": "fpga",
+      "name": "Artix-7 FPGA"
+    },
+    {
+      "id": "gnss",
+      "name": "GNSS receiver"
+    },
+    {
+      "id": "nand",
+      "name": "BiCS8 3D NAND"
+    },
+    {
+      "id": "nano",
+      "name": "Arduino Nano"
+    },
+    {
+      "id": "nvme",
+      "name": "Samsung 990 PRO"
+    },
+    {
+      "id": "max30102",
+      "name": "MAX30102 optical sensor"
+    },
+    {
+      "id": "eprom",
+      "name": "Windowed EPROM"
+    },
+    {
+      "id": "ne555",
+      "name": "NE555 timer"
+    },
+    {
+      "id": "radar",
+      "name": "IWR6843ISK radar"
+    },
+    {
+      "id": "relay",
+      "name": "Relay"
+    },
+    {
+      "id": "scd41",
+      "name": "SCD41 CO₂ sensor"
+    },
+    {
+      "id": "sps30",
+      "name": "Particle sensor"
+    },
+    {
+      "id": "portenta",
+      "name": "Portenta X8"
+    },
+    {
+      "id": "shutter",
+      "name": "FM3A mechanical shutter"
+    },
+    {
+      "id": "thermalprinter",
+      "name": "SII thermal printer"
+    },
+    {
+      "id": "periscope",
+      "name": "Folded telephoto"
+    },
+    {
+      "id": "spectrometer",
+      "name": "Mini spectrometer"
+    },
+    {
+      "id": "loadcell",
+      "name": "PW6C load cell"
+    },
+    {
+      "id": "beaglebone",
+      "name": "BeagleBone Black"
+    },
+    {
+      "id": "orangepi5",
+      "name": "Orange Pi 5"
+    },
+    {
+      "id": "ultrasonic",
+      "name": "SRF04 ultrasonic ranger"
+    },
+    {
+      "id": "as5600",
+      "name": "AS5600 encoder"
+    },
+    {
+      "id": "bluray",
+      "name": "Blu-ray pickup"
+    },
+    {
+      "id": "bme688",
+      "name": "BME688"
+    },
+    {
+      "id": "hackrf",
+      "name": "HackRF One"
+    },
+    {
+      "id": "haptic",
+      "name": "Haptic actuator"
+    },
+    {
+      "id": "imx500",
+      "name": "IMX500 AI sensor"
+    },
+    {
+      "id": "lepton",
+      "name": "Lepton 3.5"
+    },
+    {
+      "id": "armature",
+      "name": "Balanced armature"
+    },
+    {
+      "id": "nucleo",
+      "name": "STM32 Nucleo"
+    },
+    {
+      "id": "pico2w",
+      "name": "Pico 2 W"
+    },
+    {
+      "id": "planar",
+      "name": "Planar magnetic driver"
+    },
+    {
+      "id": "eventcamera",
+      "name": "IMX636 event sensor"
+    },
+    {
+      "id": "quartz",
+      "name": "Quartz resonator"
+    },
+    {
+      "id": "rp2350",
+      "name": "RP2350B"
+    },
+    {
+      "id": "printhead",
+      "name": "Epson PrecisionCore"
+    },
+    {
+      "id": "memsmic",
+      "name": "MEMS microphone"
+    }
+  ],
+  "seenFully": [
+    "esp32",
+    "hdd",
+    "nixie",
+    "prime50",
+    "stepper",
+    "epyc",
+    "pi5",
+    "corememory",
+    "pmt",
+    "neopixel",
+    "hqcamera",
+    "intel4004",
+    "uno",
+    "lidar",
+    "zoomlens",
+    "jetson",
+    "dlp",
+    "gan",
+    "hbm",
+    "imu",
+    "lto",
+    "pir",
+    "qi2",
+    "saw",
+    "tof",
+    "vfd",
+    "bldc",
+    "d455",
+    "fpga",
+    "gnss",
+    "nand",
+    "nano",
+    "nvme",
+    "max30102",
+    "eprom",
+    "ne555",
+    "radar",
+    "relay",
+    "scd41",
+    "sps30",
+    "portenta",
+    "shutter",
+    "thermalprinter",
+    "periscope",
+    "spectrometer",
+    "loadcell",
+    "beaglebone",
+    "orangepi5",
+    "ultrasonic",
+    "as5600",
+    "bluray",
+    "bme688",
+    "hackrf",
+    "haptic",
+    "imx500",
+    "lepton",
+    "armature",
+    "nucleo",
+    "pico2w",
+    "planar",
+    "eventcamera",
+    "quartz",
+    "rp2350",
+    "printhead",
+    "memsmic"
+  ],
+  "seenExploded": [
+    "epyc",
+    "pi5",
+    "neopixel",
+    "uno",
+    "imu",
+    "hbm",
+    "jetson",
+    "tof",
+    "qi2",
+    "pir",
+    "d455",
+    "fpga",
+    "vfd",
+    "eprom",
+    "nand",
+    "nano",
+    "max30102",
+    "radar",
+    "relay",
+    "sps30",
+    "portenta",
+    "thermalprinter",
+    "periscope",
+    "ultrasonic",
+    "loadcell",
+    "beaglebone",
+    "as5600",
+    "hackrf",
+    "bme688",
+    "imx500",
+    "pico2w",
+    "nucleo",
+    "lepton",
+    "memsmic",
+    "quartz",
+    "prime50",
+    "nixie",
+    "pmt",
+    "intel4004",
+    "zoomlens"
+  ],
+  "renderer": {
+    "frames": 900,
+    "loaded": [
+      "eventcamera",
+      "quartz",
+      "rp2350",
+      "printhead",
+      "memsmic",
+      "esp32",
+      "hdd",
+      "nixie",
+      "prime50",
+      "stepper",
+      "epyc",
+      "pi5",
+      "corememory",
+      "pmt",
+      "neopixel",
+      "hqcamera",
+      "intel4004",
+      "uno",
+      "lidar",
+      "zoomlens",
+      "jetson",
+      "dlp",
+      "gan",
+      "hbm",
+      "imu"
+    ],
+    "pending": 0,
+    "protected": [
+      "esp32",
+      "hdd",
+      "nixie",
+      "prime50",
+      "stepper",
+      "epyc",
+      "pi5",
+      "corememory",
+      "pmt",
+      "neopixel",
+      "hqcamera",
+      "intel4004",
+      "uno",
+      "lidar",
+      "zoomlens",
+      "jetson",
+      "dlp",
+      "gan",
+      "hbm",
+      "imu"
+    ],
+    "drawCalls": 1939,
+    "memory": {
+      "geometries": 2074,
+      "textures": 243
+    },
+    "contextLost": false
+  }
+}
