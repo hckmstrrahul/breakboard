@@ -1,6 +1,6 @@
 # Forty-device expansion plan
 
-Status: **implementation and final local verification complete**. All eight batches are integrated and independently reviewed: all forty additions, **66 devices total**. The final review covers 264 individually inspected baselines, all controls, component framing, three GPU-cache traversals and offline operation in Chrome, Firefox and WebKit. Publication verification is recorded in the [final report](verification/40-device-expansion.md).
+Status: **complete and published**. All eight batches are integrated and independently reviewed: all forty additions, **66 devices total**. The final review covers 264 individually inspected baselines, all controls, component framing, three GPU-cache traversals and offline operation in Chrome, Firefox and WebKit. Production catalogue, interactions, previews and matching offline download passed; details are recorded in the [final report](verification/40-device-expansion.md).
 
 Scope: add all 40 agreed devices to the existing 26-device collection, for 66 total. Each addition includes geometry, component selection, assembled/exploded views, X-ray, useful interaction, documentation, previews and offline support. The entries below preserve the original research targets; the selected reference locks and limits are recorded in the individual evidence files and the [final source closure](verification/expansion-batch8.md#final-40-referencedisclosure-closure). No device is silently dropped or substituted.
 

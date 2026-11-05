@@ -2,7 +2,7 @@
 
 Date: 5 November 2026. Scope: all forty approved additions, alongside the original twenty-six devices. The catalogue contains **66 unique models**; none of the agreed additions was dropped or substituted.
 
-Status: **all implementation and final local verification gates passed**. Independent review of all eight batches is complete. Production publication is recorded below after deployment.
+Status: **complete and published**. All forty additions, independent batch reviews, final local gates and production verification passed. Physical-device limitations are stated below.
 
 ## Construction and evidence
 
@@ -46,7 +46,11 @@ A separate requestAnimationFrame run used 20 warmup and 120 measured frames with
 
 ## Publication
 
-Publication and downloadable artifact verification are recorded after the source release is deployed.
+Source release **`df692ab`** passed the Orca secrets hook, used the existing GitHub noreply identity, and was pushed to `main`. A clean archive of that commit was deployed as `breakboard-jieydp2uk-rahuls-projects-e625a0fb.vercel.app` and verified at [the canonical production site](https://breakboard-teardown.vercel.app).
+
+Fresh production checks found 66 catalogue entries, decoded all 132 theme previews, operated the five final panels and Play/Pause, confirmed Labels/Rotate text toggles and no dotted readout separator, and recorded no page errors. A separate actual-app Qi2 test verified dragging, keyboard Reset during a held grab, and unchanged offsets after subsequent pointer movement. The production screenshot was opened and inspected.
+
+The downloaded production `breakboard.html` is exactly **25,080,749 bytes** and matches the local SHA-256 above. Local production proofs: `/tmp/breakboard-batch8-production.log`, `/tmp/breakboard-proof/batch8/production-power.png` and `/tmp/breakboard-proof/batch8-production.html`. This documentation follow-up records the already-tested source release; no runtime code changed after deployment.
 
 ## Limits
 
