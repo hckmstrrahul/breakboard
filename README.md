@@ -8,7 +8,7 @@ Explore electronics in 3D, from assembled devices to individual components.
 
 [![GitHub stars](https://img.shields.io/github/stars/hckmstrrahul/breakboard?style=for-the-badge)](https://github.com/hckmstrrahul/breakboard/stargazers)
 
-[Open the app](https://breakboard-teardown.vercel.app) · [Download for offline use](https://breakboard-teardown.vercel.app/breakboard.html)
+[Open the app](https://breakboard.art) · [Download for offline use](https://breakboard.art/breakboard.html)
 
 </div>
 
@@ -59,7 +59,7 @@ Open the local URL printed by Vite. No environment variables or additional confi
 **65 interactive devices in one 38.28 MB HTML file** (36.50 MiB).
 <!-- offline-stats:end -->
 
-Download [breakboard.html](https://breakboard-teardown.vercel.app/breakboard.html) and open it in a WebGL 2 browser. Models, fonts, controls and image export are included; no server or internet connection is needed.
+Download [breakboard.html](https://breakboard.art/breakboard.html) and open it in a WebGL 2 browser. Models, fonts, controls and image export are included; no server or internet connection is needed.
 
 ## Build
 
