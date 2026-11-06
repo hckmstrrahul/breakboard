@@ -1,14 +1,40 @@
+<div align="center">
+
+<img src="src/brand.svg" width="44" height="44" alt="" />
+
 # breakboard
 
-An interactive 3D collection of electronic devices and parts. Explore development boards, chips, sensors, displays, lenses, storage and mechanisms—assembled, exploded or in X-ray view.
+Explore electronics in 3D, from assembled devices to individual components.
 
-[Open breakboard](https://breakboard-teardown.vercel.app) · [Download the offline version](https://breakboard-teardown.vercel.app/breakboard.html)
+[![GitHub stars](https://img.shields.io/github/stars/hckmstrrahul/breakboard?style=for-the-badge)](https://github.com/hckmstrrahul/breakboard/stargazers)
 
-Built with Three.js, vanilla JavaScript and Vite. Runs in the browser with no account, API key or backend.
+[Open the app](https://breakboard-teardown.vercel.app) · [Download for offline use](https://breakboard-teardown.vercel.app/breakboard.html)
 
-## Run locally
+</div>
 
-Requires Node.js **22.12+** (or **20.19+ on the 20.x line**) and a browser with WebGL 2 enabled.
+Breakboard is an interactive collection of development boards, chips, sensors, displays, lenses, storage and mechanisms. Take models apart, inspect their components, and explore how they work through animations and device controls.
+
+Built with Three.js, vanilla JavaScript and Vite. No account, API key or backend required.
+
+## Light-mode gallery
+
+Eight devices from the collection, shown with materials or in X-ray view. Open any image for the full-size export.
+
+| Raspberry Pi 5 · Materials | ESP32 · X-ray |
+| --- | --- |
+| ![Exploded Raspberry Pi 5 with its cooler, fan and packages separated](docs/images/pi5-teardown-light.png) | ![Exploded ESP32 development board in X-ray view](docs/images/esp32-anatomy-light.png) |
+| **Hard disk · Materials** | **Zoom lens · Materials** |
+| ![Exploded hard disk showing the platter, actuator and housing](docs/images/hdd-teardown-light.png) | ![Exploded camera zoom lens showing its optical and mechanical assemblies](docs/images/zoomlens-teardown-light.png) |
+| **Nixie tube · X-ray** | **Stepper motor · X-ray** |
+| ![Nixie tube electrodes and supporting structure in X-ray view](docs/images/nixie-anatomy-light.png) | ![Stepper motor rotor and stator in X-ray view](docs/images/stepper-anatomy-light.png) |
+| **AMD EPYC 9654 · Materials** | **Core memory · Materials** |
+| ![Exploded AMD EPYC 9654 processor package](docs/images/epyc-teardown-light.png) | ![Exploded magnetic core memory plane showing its cores, wires and frame](docs/images/corememory-teardown-light.png) |
+
+[Browse images of all 65 devices](docs/images/)
+
+## Quick start
+
+To run locally, use Node.js **22.12+** (or **20.19+ on the 20.x line**) and a browser with WebGL 2 enabled.
 
 ```sh
 git clone https://github.com/hckmstrrahul/breakboard.git
@@ -17,27 +43,15 @@ npm ci
 npm run dev
 ```
 
-Open the local URL printed by Vite.
+Open the local URL printed by Vite. No environment variables or additional configuration are needed.
 
 ## Explore
 
-- **Choose a device** from the category tabs, or use the grid button to browse the collection. Adjust grid density; hover a model to rotate and explode it, then click to open its full view. On touch screens, tap to open.
-- **Take it apart** with Assembled, Exploded and the Separation slider. Use the previous and next arrows to move within a category.
-- **Inspect components** by selecting them in the model or component list. Other parts fade; Isolate hides them. Labels and X-ray reveal the assembly's structure.
-- **See it work** with Play and each device's controls. Rotate enables a turntable view; 3D, Top and Front change the camera.
-- **Make it your own** with light, dark or system appearance. Save image exports a PNG of the model.
-
-## Light-mode gallery
-
-Actual model exports, shown with materials and in X-ray view.
-
-| Device | Materials | X-ray |
-| --- | --- | --- |
-| **Raspberry Pi 5** | ![Raspberry Pi 5 with its Active Cooler, fan and packages separated in light mode](docs/images/pi5-teardown-light.png) | ![The same Raspberry Pi 5 in anatomy mode, retaining fins, fan blades and connector details](docs/images/pi5-anatomy-light.png) |
-| **Nixie tube** | ![Dalibor Farny R tube with its glass, ten numeral cathodes, anode grid and insulators separated](docs/images/nixie-teardown-light.png) | ![The same Nixie tube assembly with anatomy contours and markings](docs/images/nixie-anatomy-light.png) |
-| **Barracuda HDD** | ![Two-disk Seagate ST31000528AS with four-head actuator and controller separated in light mode](docs/images/hdd-teardown-light.png) | ![The same Barracuda HDD in anatomy mode](docs/images/hdd-anatomy-light.png) |
-
-[Browse all device images](docs/images/) · [Device catalogue](src/boards.js)
+- **Browse:** choose a device from the category tabs, or open the grid and adjust its density. Hover to rotate and explode a model; click or tap to open it.
+- **Take apart:** switch between Assembled and Exploded, or adjust Separation. The arrows move between devices in the same category.
+- **Inspect:** select a component to read its details and fade the surrounding parts. Use Isolate, Labels and X-ray to see the structure.
+- **Play:** animate the device and try its controls. Rotate enables a turntable; 3D, Top and Front change the camera.
+- **Save:** export a PNG from the device viewer. Light is the default appearance; Dark and System are available, and your choice is remembered.
 
 ## Take it offline
 
@@ -55,15 +69,46 @@ npm run build
 
 Deploy `dist/` to a static host, or share `dist/breakboard.html` as a standalone file.
 
+## Project structure
+
+```text
+breakboard/
+├── docs/         # Guides and model images
+├── public/       # Runtime CAD assets and source licenses
+├── reference/    # Hardware evidence and reconstruction notes
+├── scripts/      # Build, asset-generation and validation tools
+├── src/          # Models, renderer and interface
+├── index.html    # Application entry page
+└── package.json  # Dependencies and commands
+```
+
+## Documentation
+
+| Resource | Contents |
+| --- | --- |
+| [Device catalogue](src/boards.js) | Registered models and their metadata |
+| [Hardware references](reference/) | Sources, revisions and reconstruction evidence |
+| [Grid guide](docs/infinite-grid.md) | Collection browsing, previews and rendering |
+| [Image gallery](docs/images/) | Material and X-ray exports for every device |
+
 ## Accuracy and sources
 
-Models use documented hardware revisions, manufacturer drawings, CAD and photographs where available. Open **Model notes** in the viewer for each device's sources and reconstruction limits; supporting records are in [reference/](reference/).
+Models use documented hardware revisions, manufacturer drawings, CAD and photographs where available. Open **Model notes** in the viewer for each device's sources and reconstruction limits.
 
 Hidden chip layouts, MEMS structures and other unpublished internals are identified as representative cutaways. Exploded views explain construction rather than prescribe disassembly. Animations illustrate operating principles; they are not circuit or engineering simulations.
 
-## Design references
+## Skills and design references
 
-The viewer draws on [Jakub Krehel's Teardown skill](https://github.com/jakubkrehel/skills/blob/main/skills/teardown/SKILL.md), [Anatomy by wheresryan22](https://github.com/wheresryan22/anatomy), [Elvar's Teardown skill](https://github.com/elvarofficial/teardown/blob/main/SKILL.md) and [Untitled UI](https://www.untitledui.com/react/integrations/mcp). These provided design guidance; the application uses a custom Three.js renderer.
+Agent skills used for illustration guidance and documentation:
+
+| Name | Description | Repository |
+| --- | --- | --- |
+| Teardown · Jakub Krehel | Technical illustrations that explain physical objects and how their parts work together. | [jakubkrehel/skills](https://github.com/jakubkrehel/skills/tree/main/skills/teardown) |
+| Anatomy · wheresryan22 | Detailed, interactive isometric illustrations of machines and complex systems. | [wheresryan22/anatomy](https://github.com/wheresryan22/anatomy) |
+| Teardown · Elvar | Guidance for exploded views and component-level technical illustrations. | [elvarofficial/teardown](https://github.com/elvarofficial/teardown) |
+| README Wizard · Debbie O'Brien | Project-aware README structure, verified setup instructions and visual presentation. | [debs-obrien/learn-agent-skills](https://github.com/debs-obrien/learn-agent-skills/tree/main/.agents/skills/readme-wizard) |
+
+[Untitled UI](https://www.untitledui.com/react/integrations/mcp) also informed the interface. The application uses a custom Three.js renderer.
 
 ## Attribution
 
