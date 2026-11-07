@@ -178,5 +178,5 @@ function frame(now){
  }
  if(!lowQuality&&frameNo>100){slowFrames=dt>.035?slowFrames+1:Math.max(0,slowFrames-1);if(slowFrames>90){stage.renderer.setPixelRatio(1);stage.renderer.shadowMap.enabled=false;lowQuality=true;}}
 }
-const initialGrid=location.hash==='#grid';
+const initialGrid=!location.hash||location.hash==='#grid';
 switchBoard(BOARDS[location.hash.slice(1)]?location.hash.slice(1):'esp32');if(initialGrid)setGridMode(true);requestAnimationFrame(frame);
